@@ -1,0 +1,34 @@
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.star {
+
+}
+
+.starpaths {
+  transform-origin: center;
+  transform: rotate(100deg);
+  transition-duration: 1s;
+  padding: 1rem;
+}
+
+.outline {
+  fill: var(--theme-white);
+  stroke: var(--theme-black);
+  stroke-miterlimit: 10;
+  stroke-width: 4px;
+}
+
+.spinning {
+  animation: rotation 18s infinite;
+}
+
+.loading {
+  animation: rotation 1s ease-in;
+}

@@ -1,9 +1,97 @@
+@font-face {
+  font-family: 'GT-Maru';
+  src: url('../fonts/GT-Maru/GT-Maru-Regular-Trial.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT-Maru Bold';
+  src: url('../fonts/GT-Maru/GT-Maru-Bold-Trial.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT-Maru Mega';
+  src: url('../fonts/GT-Maru/GT-Maru-Mega-Midi-Trial.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DynaPuff";
+  src: url('../fonts/DynaPuff.ttf') format('truetype-variations');
+  font-style: normal;
+  font-weight: 400 700;
+  font-width: 75 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fredoka";
+  src: url('../fonts/Fredoka.ttf') format('truetype-variations');
+  font-style: normal;
+  font-weight: 300 700;
+  font-width: 75 125;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --theme-red: #ef476f;
+  --theme-yellow: #ffd166;
+  --theme-green: #06d6a0;
+  --theme-blue: #118ab2;
+  --theme-purple: #51355a;
+  --theme-black: #170F1A;
+  --theme-white: #FFFFFF;
+  --theme-font-title: 'DynaPuff';
+  --theme-font-body: 'Fredoka';
+  --theme-font-display: 'GT-Maru Mega';
+}
+
+
 html,
 body {
+  background-color: var(--theme-white);
+  color: var(--theme-black);
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: var(--theme-font-body), Helvetica Neue, sans-serif;
+  font-size: 18px;
+  cursor: url('../assets/cursor-blue.svg'), url('../assets/cursor-blue.png'), auto;
+}
+
+navbar {
+  display: flex;
+  flex: 0;
+  padding: 1rem 2rem;
+  justify-content: center;
+  background-color: var(--theme-white);
+}
+
+navbar nav {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+navbar nav .title {
+  font-family: var(--theme-font-body);
+  font-size: 2rem;
+}
+
+navbar nav .title .bold {
+  font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--theme-font-title), Helvetica Neue, sans-serif;
 }
 
 a {
@@ -11,8 +99,29 @@ a {
   text-decoration: none;
 }
 
+a:hover,
+a:focus,
+a:active {
+  text-decoration: underline;
+  color: var(--theme-blue);
+}
+
+a, button {
+  cursor: url('../assets/cursor-pointer.svg'), url('../assets/cursor-pointer.png'), pointer;
+}
+
 * {
   box-sizing: border-box;
+}
+
+.page-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  min-height: 100vh;
+  width: 100%;
 }
 
 @media (prefers-color-scheme: dark) {
