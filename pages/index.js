@@ -16,28 +16,29 @@ export default function Home() {
 
       <navbar>
         <nav>
-          <Image src="/unboring-kw-logo.svg" alt="Unboring KW logo" width={120} height={120} />
-          <div className="title">unboring <span className="bold">kw</span></div>
+          <a href="/" className="flex flex-auto justify-center items-center hover:text-black">
+            <Image src="/unboring-kw-logo.svg" alt="Unboring KW logo" width={120} height={120} />
+            <div className="title">unboring <span className="bold">kw</span></div>
+          </a>
         </nav>
       </navbar>
 
       <main className={styles.main}>
         <Section color="green">
-          <IdeaGenerator />
+          <div className="max-w-md mx-auto p-4 lg:min-h-halfscreen max-h-screen p-5 md:p-0 flex flex-col">
+            <IdeaGenerator />
+          </div>
         </Section>
 
       </main>
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://www.nomadiclabs.ca/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          From the 💻 of Nomadic Labs
         </a>
       </footer>
     </div>

@@ -7,10 +7,41 @@
   }
 }
 
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ideaGenerator {
+
+}
+
 .result {
-  margin-top: -20px;
+/*  margin-top: -20px;*/
 }
 
 .appear {
   animation: appear 250ms ease-in;
 }
+
+.modalCloseBtn {
+  padding: 20px;
+}
+
+.generatorButton {
+  height: 100px;
+  width: 100px;
+  margin-right: 10px;
+}
+
+.loading {
+  animation: rotation 300ms linear;
+}
+

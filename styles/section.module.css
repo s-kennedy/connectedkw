@@ -1,3 +1,23 @@
 .green {
   fill: var(--theme-green);
 }
+
+.blue {
+  fill: var(--theme-blue);
+}
+
+.yellow {
+  fill: var(--theme-yellow);
+}
+
+.red {
+  fill: var(--theme-red);
+}
+
+.purple {
+  fill: var(--theme-purple);
+}
+
+.flipped {
+  transform: rotate(180deg);
+}

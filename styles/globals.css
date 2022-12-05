@@ -74,13 +74,6 @@ navbar {
   background-color: var(--theme-white);
 }
 
-navbar nav {
-  display: flex;
-  align-items: center;
-  flex: 1 1 auto;
-  justify-content: center;
-}
-
 navbar nav .title {
   font-family: var(--theme-font-body);
   font-size: 2rem;

@@ -22,6 +22,9 @@ module.exports = {
     extend: {
       borderWidth: {
         '3': '3px'
+      },
+      minHeight: {
+        'halfscreen': '50vh',
       }
     },
   },

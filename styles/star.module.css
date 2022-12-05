@@ -2,6 +2,9 @@
   0% {
     transform: rotate(0deg);
   }
+  50% {
+    transform: rotate(180deg) scale(1.3);
+  }
   100% {
     transform: rotate(360deg);
   }
@@ -13,16 +16,14 @@
 
 .starpaths {
   transform-origin: center;
-  transform: rotate(100deg);
-  transition-duration: 1s;
-  padding: 1rem;
+  transform: rotate(15deg);
 }
 
 .outline {
-  fill: var(--theme-white);
+  fill: var(--theme-yellow);
   stroke: var(--theme-black);
   stroke-miterlimit: 10;
-  stroke-width: 4px;
+  stroke-width: 7px;
 }
 
 .spinning {
@@ -30,5 +31,5 @@
 }
 
 .loading {
-  animation: rotation 1s ease-in;
+  animation: rotation 500ms ease-in;
 }
