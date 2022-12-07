@@ -7,10 +7,10 @@ const GeneratorButton = ({ selectIdea, selectedIdea, isLoading }) => {
   return (
     <div className="flex justify-center absolute bottom-0 right-0">
       <button onClick={selectIdea} className={`relative font-medium text-black ${styles.generatorButton} ${isLoading ? styles.loading : ''}`}>
-        <div className={`absolute inset-0 `}>
+        <div className={`absolute inset-0 ${styles.spinning}`}>
           <Star />
         </div>
-        <span className="absolute inset-0 flex p-2 items-center justify-center whitespace-nowrap">{buttonText}</span>
+        <span className="absolute inset-0 flex p-2 items-center justify-center whitespace-nowrap text-lg">{buttonText}</span>
       </button>
     </div>
   )

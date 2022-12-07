@@ -1,5 +1,6 @@
-import styles from '../styles/ideaGenerator.module.css'
-import { tagEmojiDict } from '../utils/constants'
+import styles from "../styles/ideaGenerator.module.css"
+import { tagEmojiDict } from "../utils/constants"
+import ReactMarkdown from 'react-markdown'
 
 const Tag = ({ name }) => {
   const tagEmoji = tagEmojiDict[name]
@@ -28,27 +29,31 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
   const linkText = `🔗 ${getField("Link text") || "More info"}`
   const image = getImageObj()
   const tags = getField("Tags") || []
+  const imageDescription = getField("Image description")
 
   return (
     <div className={`overflow-auto w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
       <div className={isLoading ? '' : styles.appear}>
         { !selectedIdea &&
           <div>
-            <p className="font-title text-2xl mb-4">
+            <p className="text-2xl font-medium mb-4">
               Looking for something to do?
             </p>
-            <p className="font-body text-xl mb-4">
-              Try our activity idea generator!
+            <p className="text-xl mb-4">
+              Click "Let's go" to see what you could be doing today...
             </p>
           </div>
         }
         {image &&
-        <div className="bg-yellow mb-4">
-          <img src={image.thumbnails.large.url} alt={getField("Image description")} width={image.thumbnails.large.width} height={image.thumbnails.large.height} />
+        <div className="mb-4">
+          <div className="relative">
+            <img className="object-cover aspect-video" src={image.thumbnails.large.url} alt={getField("Image description")} width={image.thumbnails.large.width} height={image.thumbnails.large.height} />
+            { imageDescription && <small className={`absolute bottom-0 left-0 right-0 p-1 text-xs ${styles.bgCaption}`}><ReactMarkdown>{imageDescription}</ReactMarkdown></small> }
+          </div>
         </div>
         }
-        {title && <h3 className="text-lg mb-2 font-body font-medium">{title}</h3>}
-        {description && <p className="mb-4">{description}</p>}
+        {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
+        {description && <div className="mb-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
         {link && <a className="text-blue" href={getField("External link")} target="_blank" rel="noopener noreferrer">{linkText}</a>}
         <div className="flex flex-wrap mt-4">
           {tags.map(tag => <Tag name={tag} key={tag} />)}

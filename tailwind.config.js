@@ -16,7 +16,7 @@ module.exports = {
     },
     fontFamily: {
       body: ['Fredoka', 'Helvetica Neue', 'sans-serif'],
-      title: ['DynaPuff', 'serif'],
+      title: ['Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
       display: ['GT-Maru Mega', 'serif'],
     },
     extend: {

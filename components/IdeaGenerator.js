@@ -1,6 +1,6 @@
-import styles from '../styles/ideaGenerator.module.css'
-import { useState, useEffect } from 'react'
-import ReactModal from 'react-modal';
+import styles from "../styles/ideaGenerator.module.css"
+import { useState, useEffect } from "react"
+import ReactModal from "react-modal";
 
 import IdeaDisplay from "./IdeaDisplay"
 import TagFilter from "./TagFilter"
@@ -40,7 +40,7 @@ function IdeaGenerator() {
 
   const fetchIdeas = () => {
     // setLoading(true)
-    fetch('/api/ideas')
+    fetch("/api/ideas")
       .then((res) => res.json())
       .then((data) => {
         setAllIdeas(data.ideas)
@@ -92,8 +92,8 @@ function IdeaGenerator() {
   const allOut = availableIdeas.length === 0;
 
   return (
-    <div id="idea-generator" className={`flex flex-col w-full h-full ${styles.ideaGenerator}`}>
-      <div className="flex-auto flex overflow-hidden relative">
+    <div id="idea-generator" className={`min-h-0 flex flex-col w-full h-full ${styles.ideaGenerator}`}>
+      <div className="flex-auto flex relative min-h-0">
         <IdeaDisplay allOut={allOut} selectedIdea={selectedIdea} isLoading={isLoading} />
       </div>
       <div className="flex-none flex relative mb-2">

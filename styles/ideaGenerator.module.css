@@ -7,12 +7,21 @@
   }
 }
 
-@keyframes rotation {
+@keyframes rotateGrow {
   0% {
     transform: rotate(0deg);
   }
   50% {
     transform: rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
@@ -36,12 +45,23 @@
 }
 
 .generatorButton {
-  height: 100px;
-  width: 100px;
+  height: 110px;
+  width: 110px;
   margin-right: 10px;
 }
 
 .loading {
-  animation: rotation 300ms linear;
+  animation: rotateGrow 300ms linear;
 }
 
+.spinning {
+  animation: rotation 18s linear infinite;
+}
+
+.bgCaption {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.img {
+  max-width: unset;
+}
