@@ -4,11 +4,7 @@
 }
 
 .footer {
-  display: flex;
-  flex: 0;
-  padding: 2rem 0;
-  justify-content: center;
-  align-items: center;
+
 }
 
 .footer a {

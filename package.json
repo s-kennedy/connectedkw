@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "airtable": "^0.11.5",
+    "animate.css": "^4.1.1",
+    "aos": "^2.3.4",
     "cors": "^2.8.5",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.4",
