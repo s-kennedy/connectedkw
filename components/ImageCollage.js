@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 import styles from "../styles/collage.module.css"
 
-const Blob = ({ className="", fill="var(--theme-blue)", opacity="0.25", blobStyles={} }) => {
+const Blob = ({ className="", fill="var(--theme-blue)", opacity="1", blobStyles={} }) => {
   const style = {
     fill: fill,
     opacity: opacity,
@@ -39,21 +39,22 @@ export default function ImageCollage({
   return (
     <div className={`${className ? className : ''} relative`}>
       <MouseParallaxContainer
-        globalFactorX={1}
-        globalFactorY={1}
+        globalFactorX={0.3}
+        globalFactorY={0.3}
         containerStyle={{overflow: "visible"}}
+        useWindowMouseEvents={true}
         enabled={true}
       >
 
-        <MouseParallaxChild factorX={0.2} factorY={0.2}>
+        <MouseParallaxChild factorX={0.1} factorY={0.1}>
           <Blob blobStyles={blobStyles} fill={color1} className="inline-block w-full" />
         </MouseParallaxChild>
 
-        <MouseParallaxChild factorX={0.3} factorY={0.4}>
+        <MouseParallaxChild factorX={0.1} factorY={0.2}>
           <Blob blobStyles={blobStyles} fill={color2} className="absolute w-full h-auto bottom-0 rotate-45" />
         </MouseParallaxChild>
 
-        <MouseParallaxChild factorX={0.5} factorY={0.6}>
+        <MouseParallaxChild factorX={0.3} factorY={0.4}>
           <Image
             src={src}
             alt={alt}

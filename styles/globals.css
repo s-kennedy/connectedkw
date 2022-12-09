@@ -52,10 +52,15 @@
 
 :root {
   --theme-red: #ef476f;
+  --theme-light-red: #ef476f40;
   --theme-yellow: #ffd166;
+  --theme-light-yellow: #ffd16640;
   --theme-green: #06d6a0;
+  --theme-light-green: #06d6a040;
   --theme-blue: #118ab2;
+  --theme-light-blue: #118ab240;
   --theme-purple: #51355a;
+  --theme-light-purple: #51355a40;
   --theme-black: #170F1A;
   --theme-white: #FFFFFF;
   --theme-font-title: 'Fredoka Bold';
@@ -66,7 +71,7 @@
 
 html,
 body {
-  background-color: var(--theme-white);
+  background-image: linear-gradient(to bottom, var(--theme-light-blue) 0%, var(--theme-light-purple) 20%, var(--theme-light-red) 40%, var(--theme-light-yellow) 60%, var(--theme-light-green) 80%, var(--theme-light-blue) 100%);
   color: var(--theme-black);
   padding: 0;
   margin: 0;
@@ -79,7 +84,7 @@ navbar {
   display: flex;
   flex: 0;
   padding: 1rem 2rem;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 navbar nav .title {

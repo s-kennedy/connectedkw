@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 
 import IdeaGenerator from '../components/IdeaGenerator'
 import Section from '../components/Section'
@@ -17,26 +18,25 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="w-full bg-white border-bottom border-b-3 border-black">
+      <div className="w-full bg-white border-bottom border-b-3 border-black fixed z-10">
         <navbar>
           <nav>
-            <a href="/" className="flex flex-auto justify-center items-center hover:text-black">
-              <Image src="/unboring-kw-logo.svg" alt="Unboring KW logo" width={80} height={80} />
-              <div className="title ml-1">unboring <span className="font-medium">kw</span></div>
+            <a href="/" className="flex flex-auto justify-start items-center hover:text-black">
+              <Image src="/unboring-kw-logo.svg" alt="Unboring KW logo" width={50} height={50} />
+              <div className="title ml-2">unboring <span className="font-medium">kw</span></div>
             </a>
           </nav>
         </navbar>
       </div>
 
       <main className={styles.main}>
-        <Section className={`${styles.rouletteBg} bg-blue-shape py-16`}>
-          <div className="flex items-start flex-col md:flex-row">
-            <div className="basis-1/2 md:p-5">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-body font-bold mb-6">
-                Activity Roulette
-              </h1>
+
+        <Section className={`${styles.rouletteBg} py-8`}>
+          <div className="flex items-start flex-col md:flex-row md:space-x-8">
+            <div className="basis-1/2">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-10 -rotate-6">Activity Roulette</h1>
             </div>
-            <div className="basis-1/2 max-h-screen md:p-5 flex flex-col">
+            <div className="basis-1/2 max-h-screen flex flex-col">
               <div data-aos="fade-up">
                 <IdeaGenerator />
               </div>
@@ -45,61 +45,41 @@ export default function Home() {
         </Section>
 
         <Section className="">
-          <div className="flex items-start flex-col md:flex-row">
-            <div className="basis-1/2 md:p-5">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-body font-bold mb-6">Coming Soon</h1>
-              <p className="text-xl mb-6">Unboring KW is just getting started! We're here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans for this website:</p>
-
-              <div className="bg-white p-5 border-3 rounded-xl border-black mb-6" data-aos="fade-up">
-                <h3 className="text-2xl mb-4">📆 Events calendar</h3>
-                <ul className="list-disc ml-6">
-                  <li>Instead of finding events across social media, browse them all in once place</li>
-                  <li>Get reminders about the events you're interested in</li>
-                </ul>
+          <div className="bg-white rounded-xl border-black border-3 p-8 lg:p-10">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-16 -rotate-6">Coming Soon</h1>
+              <div className="flex items-start flex-col md:flex-row md:space-x-8">
+                <div className="basis-1/2">
+                  <p className="text-xl mb-6">Unboring KW is just getting started! We're here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans for this website:</p>
+                  <ul className="text-xl">
+                      <li className="mb-4" data-aos="fade-up" data-aos-offset="50">📆&nbsp;&nbsp;Events calendar</li>
+                      <li className="mb-4" data-aos="fade-up" data-aos-offset="100">🗺&nbsp;&nbsp;Community maps</li>
+                      <li className="mb-4" data-aos="fade-up" data-aos-offset="150">️⭐&nbsp;&nbsp;Recommendations</li>
+                      <li className="mb-4" data-aos="fade-up" data-aos-offset="200">🏆&nbsp;&nbsp;Contests and games</li>
+                      <li className="mb-4" data-aos="fade-up" data-aos-offset="250">✌&nbsp;&nbsp;Community action</li>
+                    </ul>
+                </div>
+                <div className="basis-1/2 w-full">
+                  <ImageCollage
+                    src={"/ion-illustrated.png"}
+                    color1="var(--theme-red)"
+                    color2="var(--theme-yellow)"
+                  />
+                </div>
               </div>
-
-              <div className="bg-white p-5 border-3 rounded-xl border-black mb-6" data-aos="fade-up">
-                <h3 className="text-2xl mb-4">🗺 Community maps</h3>
-                <p className="mb-4">All the interactive maps you never knew you needed, such as:</p>
-                <ul className="list-disc ml-6">
-                  <li>Coffee shops for studying/working</li>
-                  <li>Public street art</li>
-                  <li>Where to buy local/craft beer</li>
-                  <li>Outdoor ice rinks</li>
-                  <li>Tobogganing hills</li>
-                  <li>Art galleries and studios</li>
-                  <li>Dog-friendly indoor spaces</li>
-                </ul>
-              </div>
-
-              <div className="bg-white p-5 border-3 rounded-xl border-black mb-6" data-aos="fade-up">
-                <h3 className="text-2xl mb-4">🗺 Recommendations</h3>
-                <p className="mb-4">Get ready for our curated (read: highly subjective) recommendations along the lines of:</p>
-                <ul className="list-disc ml-6">
-                  <li>Where to go for New Years Eve</li>
-                  <li>Who has the best croissants in the city</li>
-                  <li>Local farms worth visiting</li>
-                  <li>Best places to go for date night</li>
-                </ul>
-              </div>
-            </div>
-            <div className="basis-1/2 w-full flex justify-center">
-              <ImageCollage
-                src={"/ion-illustrated.png"}
-                color1="var(--theme-yellow)"
-                color2="var(--theme-blue)"
-              />
-            </div>
           </div>
         </Section>
 
-        <Section className="bg-red-shape ">
-
-          <div className="flex items-start flex-col md:flex-row">
-            <div className="basis-1/2 md:p-5">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-body font-bold mb-6">Get Connected</h1>
+        <Section className="">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-16 -rotate-6">Get Connected</h1>
+          <div className="flex items-start flex-col md:flex-row md:space-x-8">
+            <div className="basis-1/2">
+              <ImageCollage
+                src={"/goose.png"}
+                color1="var(--theme-blue)"
+                color2="var(--theme-green)"
+              />
             </div>
-            <div className="basis-1/2 w-full max-h-screen md:p-5 flex flex-col mb-6" data-aos="fade-up">
+            <div className="basis-1/2 w-full max-h-screen flex flex-col mb-6" data-aos="fade-up">
               <MailchimpSubscriptionForm />
             </div>
           </div>
@@ -109,9 +89,9 @@ export default function Home() {
 
       <div className="w-full">
 
-      <footer className={`w-full relative`}>
+      <footer className={`w-full relative bg-purple`}>
         <div className="container px-4 py-8 lg:p-8 max-w-screen-lg mx-auto">
-          <div className="w-full">
+          <div className="w-full" data-aos="fade-up" data-aos-duration="1000">
             <Image className="w-full" src="/unboring-outline.svg" alt="unboring kw logo" width="600" height="200" />
           </div>
           <div className="w-full flex text-white space-x-8">
@@ -154,7 +134,6 @@ export default function Home() {
             </a>
           </div>
         </div>
-        <Image className="absolute inset-0" src="/via-tracks.png" width="1500" height="844" />
       </footer>
       </div>
     </div>

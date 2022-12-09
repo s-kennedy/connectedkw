@@ -1,6 +1,7 @@
 
 .main {
   flex: 1 1 auto;
+  padding-top: 140px;
 }
 
 .footer {
@@ -91,12 +92,19 @@
 }
 
 .rouletteBg {
+  background-image: url('../assets/blob.svg');
+  background-repeat: no-repeat;
+  background-size: auto 85%;
+  background-position: center top;
+}
+
+.bgLanding {
   background-image: url('/via-tracks.png');
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
   background-position: bottom center;
 }
+
 
 
 @media (max-width: 600px) {

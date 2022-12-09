@@ -40,7 +40,7 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
               Looking for something to do?
             </p>
             <p className="text-xl mb-4">
-              Click "Let's go" to see what you could be doing today...
+              Click "Let's go" to get an activity suggestion...
             </p>
           </div>
         }
