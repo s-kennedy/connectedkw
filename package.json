@@ -19,7 +19,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.4",
-    "react-modal": "^3.16.1"
+    "react-modal": "^3.16.1",
+    "react-parallax-mouse": "^2.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

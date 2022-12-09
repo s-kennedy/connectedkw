@@ -90,6 +90,15 @@
   margin-left: 0.5rem;
 }
 
+.rouletteBg {
+  background-image: url('/via-tracks.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom center;
+}
+
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

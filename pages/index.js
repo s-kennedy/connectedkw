@@ -17,7 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="w-full bg-white border-bottom border-b-3 border-black mb-6">
+      <div className="w-full bg-white border-bottom border-b-3 border-black">
         <navbar>
           <nav>
             <a href="/" className="flex flex-auto justify-center items-center hover:text-black">
@@ -29,9 +29,8 @@ export default function Home() {
       </div>
 
       <main className={styles.main}>
-        <Section>
-          <div className="flex items-start flex-col md:flex-row relative">
-            <ImageCollage src="/ion-illustrated.png" color="var(--theme-blue)" rotation="20deg" />
+        <Section className={`${styles.rouletteBg} bg-blue-shape py-16`}>
+          <div className="flex items-start flex-col md:flex-row">
             <div className="basis-1/2 md:p-5">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-body font-bold mb-6">
                 Activity Roulette
@@ -84,7 +83,12 @@ export default function Home() {
                 </ul>
               </div>
             </div>
-            <div className="basis-1/2">
+            <div className="basis-1/2 w-full flex justify-center">
+              <ImageCollage
+                src={"/ion-illustrated.png"}
+                color1="var(--theme-yellow)"
+                color2="var(--theme-blue)"
+              />
             </div>
           </div>
         </Section>
