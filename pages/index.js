@@ -18,7 +18,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="w-full bg-white border-bottom border-b-3 border-black fixed z-10">
+      <div className="w-full fixed z-10 hidden">
         <navbar>
           <nav>
             <a href="/" className="flex flex-auto justify-start items-center hover:text-black">
@@ -31,10 +31,52 @@ export default function Home() {
 
       <main className={styles.main}>
 
+        <section id="landing" className="w-screen h-screen">
+
+          <div className={styles.banner}>
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-10 -rotate-6 mt-16">
+              Let's have some fun
+            </h1>
+          </div>
+
+
+        <MouseParallaxContainer
+          globalFactorX={0.3}
+          globalFactorY={0.3}
+          containerStyle={{overflow: "visible"}}
+          useWindowMouseEvents={true}
+          enabled={true}
+        >
+        <div className="max-w-screen-md relative -mt-16">
+          <MouseParallaxChild factorX={0.1} factorY={0.1}>
+            <div className={`p-8 object-cover`}>
+              <Image
+                src="/via-tracks.png"
+                alt="Via rail train tracks"
+                width="1500"
+                height="500"
+                className="object-cover rounded-xl border-3 border-black"
+              />
+            </div>
+          </MouseParallaxChild>
+
+          <MouseParallaxChild factorX={0.1} factorY={0.2}>
+            <Image src="/blob-green.svg" width="300" height="300" className="absolute bottom-0 left-1/3" />
+          </MouseParallaxChild>
+
+          <MouseParallaxChild factorX={0.3} factorY={0.4}>
+            <Image src={"/biking-girl.png"} width="320" height="320" className="absolute bottom-8 left-1/3" />
+          </MouseParallaxChild>
+        </div>
+        </MouseParallaxContainer>
+
+        </section>
+
+
         <Section className={`${styles.rouletteBg} py-8`}>
           <div className="flex items-start flex-col md:flex-row md:space-x-8">
             <div className="basis-1/2">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-10 -rotate-6">Activity Roulette</h1>
+              <h2 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-10 -rotate-6">Activity Roulette</h2>
             </div>
             <div className="basis-1/2 max-h-screen flex flex-col">
               <div data-aos="fade-up">
@@ -46,7 +88,7 @@ export default function Home() {
 
         <Section className="">
           <div className="bg-white rounded-xl border-black border-3 p-8 lg:p-10">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-16 -rotate-6">Coming Soon</h1>
+              <h2 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-16 -rotate-6">Coming Soon</h2>
               <div className="flex items-start flex-col md:flex-row md:space-x-8">
                 <div className="basis-1/2">
                   <p className="text-xl mb-6">Unboring KW is just getting started! We're here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans for this website:</p>
@@ -70,7 +112,7 @@ export default function Home() {
         </Section>
 
         <Section className="">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-16 -rotate-6">Get Connected</h1>
+          <h2 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-16 -rotate-6">Get Connected</h2>
           <div className="flex items-start flex-col md:flex-row md:space-x-8">
             <div className="basis-1/2">
               <ImageCollage

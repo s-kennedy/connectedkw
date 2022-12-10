@@ -1,7 +1,6 @@
 
 .main {
   flex: 1 1 auto;
-  padding-top: 140px;
 }
 
 .footer {
@@ -105,6 +104,16 @@
   background-position: bottom center;
 }
 
+.banner {
+
+}
+
+.backgroundScene {
+  background-image: url('/via-tracks.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+}
 
 
 @media (max-width: 600px) {
