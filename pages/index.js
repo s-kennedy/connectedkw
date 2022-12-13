@@ -79,58 +79,70 @@ export default function Home() {
           globalFactorY={0.2}
         >
 
-          <section className={`${styles.landingSection} w-screen sm:h-screen relative flex flex-col sm:flex-row justify-center items-start sm:items-center`} id="activity-roulette">
+          <section className={`${styles.landingSection} w-screen sm:h-screen relative`} id="landing">
 
-            <div className="container mx-auto">
+            <div className="container sm:px-4 sm:py-8 lg:p-8 max-w-screen-lg mx-auto flex h-full">
+              <div className="basis-1/2">
+                <MouseParallaxChild factorX={0.3} factorY={0.2}>
+                  <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
+                    Hi KW 👋
+                  </h1>
+                </MouseParallaxChild>
 
-              <div className="flex items-start justify-center sm:items-center flex-col sm:flex-row my-6 sm:my-12 min-h-0 relative px-4">
-                <div className="absolute w-full h-full flex justify-center items-center">
-                  <div className="max-w-md w-full">
-                    <MouseParallaxChild factorX={0.8} factorY={0.6} className="h-auto w-full">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 886.35 774.85"
-                        preserveAspectRatio="none"
-                        className="rotate-180"
-                      >
-                        <path
-                          d="M568.25,741.2C691.41,691.92,901.4,553.86,893.94,366.09,885.61,156.2,609-30,380.15,18.78c-275.69,58.77-444.76,450.6-342,636.34C124,810.25,393.55,811.1,568.25,741.2Z"
-                          transform="translate(-7.78 -10.93)"
-                          fill="var(--theme-yellow)"
-                        />
-                      </svg>
-                    </MouseParallaxChild>
-                  </div>
-                </div>
-
-                <div className={`max-w-xs max-h-screen flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`} data-aos="zoom-in-left" data-aos-delay="500">
-                  <IdeaGenerator />
-                </div>
+                <p className="text-2xl mb-4">We're here to make it easier to find things to do in Kitchener-Waterloo.</p>
+                <p className="text-2xl mb-12">Let's have some fun!</p>
+                <a href="#activity-roulette" className="p-5 border-black border-3 rounded-xl bg-green text-lg font-medium">
+                  👉 Give me something to do 👈
+                </a>
               </div>
 
-              <div className="enable-animation relative sm:absolute max-sm:my-8 bottom-px left-0 right-0">
-                <div className="marquee marquee--hover-pause sm:bg-white sm:border-y-3 sm:border-black">
-                  <ul className="marquee__content">
-                    <li>new website 🐣 </li>
-                    <li>coming in hot 🔥</li>
-                    <li>events 💃</li>
-                    <li>maps 👀</li>
-                    <li>recommendations ⭐</li>
-                    <li>community engagement ✌</li>
-                  </ul>
+           <div className="basis-1/2 relative flex-auto min-h-0 place-self-end mb-8">
 
-                  <ul aria-hidden="true" className="marquee__content">
-                    <li>new website 🐣 </li>
-                    <li>coming in hot 🔥</li>
-                    <li>events 💃</li>
-                    <li>maps 👀</li>
-                    <li>recommendations ⭐</li>
-                    <li>community engagement ✌</li>
-                  </ul>
+              <MouseParallaxChild factorX={0.1} factorY={0.1}>
+                <div className={`object-cover`}>
+                  <Image
+                    src="/via-tracks-shape.png"
+                    alt="Via rail train tracks"
+                    width="800"
+                    height="500"
+                  />
                 </div>
-              </div>
+              </MouseParallaxChild>
+
+              <MouseParallaxChild factorX={0.1} factorY={0.2}>
+                <Image src="/blob-green.svg" width="280" height="280" className="absolute bottom-0 right-0" />
+              </MouseParallaxChild>
+
+              <MouseParallaxChild factorX={0.3} factorY={0.4}>
+                <Image src={"/biking-girl.png"} width="320" height="320" className="absolute bottom-8 right-0" />
+              </MouseParallaxChild>
+            </div>
 
             </div>
+
+
+            <div className="enable-animation relative sm:absolute max-sm:my-8 bottom-px left-0 right-0">
+              <div className="marquee marquee--hover-pause sm:bg-white sm:border-y-3 sm:border-black">
+                <ul className="marquee__content">
+                  <li>new website 🐣 </li>
+                  <li>coming in hot 🔥</li>
+                  <li>events 💃</li>
+                  <li>maps 👀</li>
+                  <li>recommendations ⭐</li>
+                  <li>community engagement ✌</li>
+                </ul>
+
+                <ul aria-hidden="true" className="marquee__content">
+                  <li>new website 🐣 </li>
+                  <li>coming in hot 🔥</li>
+                  <li>events 💃</li>
+                  <li>maps 👀</li>
+                  <li>recommendations ⭐</li>
+                  <li>community engagement ✌</li>
+                </ul>
+              </div>
+            </div>
+
 
           </section>
 
@@ -141,13 +153,19 @@ export default function Home() {
           globalFactorY={0.2}
         >
           <section id="activity-roulette" className={`w-screen sm:h-screen relative flex flex-col sm:flex-row justify-center items-start sm:items-center`} id="activity-roulette">
-
-            <div className="container mx-auto">
+            <div className="container mx-auto relative">
+            <div className="absolute inset-0 w-full h-full">
+              <div className="flex justify-center items-center w-full h-full">
+                <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6 w-full flex justify-between">
+                  <span>Activity</span><span>Roulette</span>
+                </h2>
+              </div>
+            </div>
 
               <div className="flex items-start justify-center sm:items-center flex-col sm:flex-row my-6 sm:my-12 min-h-0 relative px-4">
                 <div className="absolute w-full h-full flex justify-center items-center">
                   <div className="max-w-md w-full">
-                    <MouseParallaxChild factorX={0.8} factorY={0.6} className="h-auto w-full">
+                    <MouseParallaxChild factorX={0.0} factorY={0.0} className="h-auto w-full">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 886.35 774.85"
@@ -164,7 +182,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className={`max-w-xs max-h-screen flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`} data-aos="zoom-in-left" data-aos-delay="500">
+                <div className={`max-w-xs max-h-screen flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`} data-aos="fade-up">
                   <IdeaGenerator />
                 </div>
               </div>

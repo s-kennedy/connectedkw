@@ -12,6 +12,10 @@
 
 }
 
+.landingSection {
+    padding-top: 61px;
+  }
+
 .footer a {
   display: flex;
   justify-content: center;
@@ -121,7 +125,7 @@
 }
 
 .ideaGeneratorContainer {
-  max-height: calc(100vh - 150px);
+  max-height: calc(100vh - 100px);
 }
 
 
@@ -129,10 +133,6 @@
   .grid {
     width: 100%;
     flex-direction: column;
-  }
-
-  .landingSection {
-    padding-top: 61px;
   }
 }
 
