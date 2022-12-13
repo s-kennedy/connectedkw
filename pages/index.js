@@ -10,6 +10,7 @@ import Section from '../components/Section'
 import Sparkle from '../components/Sparkle'
 import MailchimpSubscriptionForm from '../components/MailchimpSubscriptionForm'
 import ImageCollage from '../components/ImageCollage'
+import Blob from '../components/Blob'
 
 export default function Home() {
   return (
@@ -85,13 +86,15 @@ export default function Home() {
 
                 <div className="flex absolute inset-8 max-sm:top-0 sm:inset-16 md:inset-24 lg:inset-32 justify-center sm:items-center">
                   <MouseParallaxChild factorX={0.8} factorY={0.6} className="h-auto w-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 982.47 751.6">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 996.76 747.71">
                     <path
-                      d="M15.05,425c-32.57,181.73,30.05,273.4,93,324.88,85.15,69.62,224.47,38.7,343.26,52.93,162.52,19.46,243.51,83.33,366.07,49.83C937.18,819.86,1012.07,675.9,982,533.28,937.64,323.44,737.64,149,574.76,120,319.21,74.56,56.17,195.51,15.05,425Z"
-                      transform="translate(-6.14 -110.57)"
+                      d="M1004.78,455.07C987.78,271.24,903,199.55,828.61,166.7,728,122.28,602,189.19,483.66,207.11c-161.84,24.52-256.92-15.47-366.12,49.46C10.79,320.05-23,478.75,44,608.2c98.6,190.45,337.83,305.31,502.55,289.87C804.94,873.84,1026.26,687.2,1004.78,455.07Z"
+                      transform="translate(-9.46 -151.74)"
                       fill="var(--theme-yellow)"
                     />
                   </svg>
+
                   </MouseParallaxChild>
                 </div>
 
@@ -107,7 +110,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="p-4 sm:absolute bottom-16 left-0 max-sm:my-8" data-aos="zoom-in-right" data-aos-delay="1000">
+              <div className="p-5 sm:absolute bottom-12 left-0 max-sm:my-8" data-aos="zoom-in-right" data-aos-delay="1000">
                 <WeatherWidget />
               </div>
 
@@ -227,7 +230,12 @@ export default function Home() {
 
 
         <Section className="" id="coming-soon">
-          <div className="bg-white rounded-xl border-black border-3 p-8 lg:p-10">
+          <MouseParallaxContainer
+            globalFactorX={0.3}
+            globalFactorY={0.3}
+            containerStyle={{overflow: "visible"}}
+          >
+            <div className="bg-white rounded-xl border-black border-3 p-5 lg:p-10">
               <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
                 Coming Soon
               </h2>
@@ -242,30 +250,74 @@ export default function Home() {
                     </ul>
                 </div>
                 <div className="basis-1/2 w-full">
-                  <ImageCollage
-                    src={"/ion-illustrated.png"}
-                    color1="var(--theme-red)"
-                    color2="var(--theme-yellow)"
-                  />
+                  <div className={`relative`}>
+
+                      <MouseParallaxChild factorX={0.1} factorY={0.1}>
+                        <Blob fill="var(--theme-red)" className="inline-block w-10/12 ml-6" />
+                      </MouseParallaxChild>
+
+                      <MouseParallaxChild factorX={0.1} factorY={0.2}>
+                        <Blob fill="var(--theme-yellow)" className="absolute w-3/4 h-auto bottom-0 left-8 rotate-45" />
+                      </MouseParallaxChild>
+
+                      <MouseParallaxChild factorX={0.3} factorY={0.4}>
+                        <Image
+                          src="/ion-illustrated.png"
+                          alt=""
+                          width="400"
+                          height="300"
+                          className="absolute w-full h-auto bottom-6"
+                        />
+                      </MouseParallaxChild>
+
+                    </div>
+                  </div>
                 </div>
-              </div>
-          </div>
+            </div>
+          </MouseParallaxContainer>
         </Section>
 
         <Section className="" id="get-connected">
-          <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">Get Connected</h2>
-          <div className="flex items-start flex-col md:flex-row md:space-x-8">
-            <div className="basis-1/2 flex-auto w-full max-md:flex justify-center">
-              <ImageCollage
-                src={"/goose.png"}
-                color1="var(--theme-blue)"
-                color2="var(--theme-green)"
-              />
+          <MouseParallaxContainer
+            globalFactorX={0.3}
+            globalFactorY={0.3}
+            containerStyle={{overflow: "visible"}}
+          >
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">Get Connected</h2>
+            <div className="flex items-start flex-col md:flex-row md:space-x-8">
+              <div className="basis-1/2 w-full p-5">
+                <div className={`relative`}>
+                  <MouseParallaxChild factorX={0.1} factorY={0.1}>
+                    <Blob fill="var(--theme-green)" className="ml-6 rotate-[60deg]" />
+                  </MouseParallaxChild>
+
+                  <MouseParallaxChild factorX={0.1} factorY={0.2}>
+                    <Image
+                      src="/via-tracks-shape.png"
+                      alt=""
+                      width="500"
+                      height="382"
+                      className="absolute w-full h-auto bottom-6"
+                    />
+                  </MouseParallaxChild>
+
+                  <MouseParallaxChild factorX={0.3} factorY={0.4}>
+                    <Image
+                      src="/goose.png"
+                      alt=""
+                      width="400"
+                      height="400"
+                      className="absolute w-10/12 h-auto bottom-0 left-6"
+                    />
+                  </MouseParallaxChild>
+                </div>
+              </div>
+
+              <div className="basis-1/2 flex-auto w-full flex flex-col mb-6" data-aos="fade-up">
+                <MailchimpSubscriptionForm />
+              </div>
             </div>
-            <div className="basis-1/2 flex-auto w-full flex flex-col mb-6" data-aos="fade-up">
-              <MailchimpSubscriptionForm />
-            </div>
-          </div>
+          </MouseParallaxContainer>
         </Section>
 
       </main>
