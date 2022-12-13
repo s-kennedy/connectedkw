@@ -79,6 +79,50 @@ export default function Home() {
           containerStyle={{overflow: "visible"}}
           enabled={true}
         >
+
+          <section className={`${styles.rouletteBg} w-screen h-screen relative flex justify-center items-center`} id="activity-roulette">
+            <div className="container my-24 max-w-screen-lg mx-auto">
+              <div className="flex items-start flex-col md:flex-row md:space-x-8">
+                <div className="basis-1/2">
+                  <h2 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-10 -rotate-6">
+                    Let's have some fun
+                  </h2>
+                </div>
+                <div className="basis-1/2 max-h-screen flex flex-col">
+                  <div data-aos="fade-up">
+                    <IdeaGenerator />
+                  </div>
+                </div>
+              </div>
+
+              <div className="enable-animation absolute bottom-px left-0 right-0">
+                <div className="marquee marquee--hover-pause bg-white border-y-3 border-black">
+                  <ul className="marquee__content">
+                    <li>new website 🐣 </li>
+                    <li>coming in hot 🔥</li>
+                    <li>events 💃</li>
+                    <li>maps 👀</li>
+                    <li>recommendations ⭐</li>
+                    <li>community engagement ✌</li>
+                  </ul>
+
+                  <ul aria-hidden="true" className="marquee__content">
+                    <li>new website 🐣 </li>
+                    <li>coming in hot 🔥</li>
+                    <li>events 💃</li>
+                    <li>maps 👀</li>
+                    <li>recommendations ⭐</li>
+                    <li>community engagement ✌</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </MouseParallaxContainer>
+
+{/*
           <section id="landing" className="w-screen h-screen relative flex justify-center items-center">
             <div className="container w-full lg:w-11/12 xl:w-9/12 mx-auto py-16 h-full">
               <div className="relative w-full h-full flex justify-center items-center">
@@ -136,40 +180,6 @@ export default function Home() {
               </div>
             </div>
 
-
-
-            {/*
-                    <MouseParallaxContainer
-          globalFactorX={0.3}
-          globalFactorY={0.3}
-          containerStyle={{overflow: "visible"}}
-          enabled={true}
-        >
-        <div className="basis-1/2 relative flex-auto min-h-0">
-              <div className={styles.banner}>
-              </div>
-              <MouseParallaxChild factorX={0.1} factorY={0.1}>
-                <div className={`object-cover`}>
-                  <Image
-                    src="/via-tracks.png"
-                    alt="Via rail train tracks"
-                    width="1500"
-                    height="500"
-                    className="object-cover rounded-xl border-3 border-black"
-                  />
-                </div>
-              </MouseParallaxChild>
-
-              <MouseParallaxChild factorX={0.1} factorY={0.2}>
-                <Image src="/blob-green.svg" width="300" height="300" className="absolute bottom-0 left-1/3" />
-              </MouseParallaxChild>
-
-              <MouseParallaxChild factorX={0.3} factorY={0.4}>
-                <Image src={"/biking-girl.png"} width="320" height="320" className="absolute bottom-8 left-1/3" />
-              </MouseParallaxChild>
-            </div>
-            </MouseParallaxContainer>*/}
-
             <div className="enable-animation absolute bottom-px left-0 right-0">
               <div className="marquee marquee--hover-pause bg-white border-y-3 border-black">
                 <ul className="marquee__content">
@@ -196,20 +206,8 @@ export default function Home() {
               </div>
             </div>
           </section>
-        </MouseParallaxContainer>
+        </MouseParallaxContainer>*/}
 
-        <Section className={`${styles.rouletteBg} my-24 mt-28 snap-center scroll-mt-28`} id="activity-roulette">
-          <div className="flex items-start flex-col md:flex-row md:space-x-8">
-            <div className="basis-1/2">
-              <h2 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-10 -rotate-6">Activity Roulette</h2>
-            </div>
-            <div className="basis-1/2 max-h-screen flex flex-col">
-              <div data-aos="fade-up">
-                <IdeaGenerator />
-              </div>
-            </div>
-          </div>
-        </Section>
 
         <Section className="" id="coming-soon">
           <div className="bg-white rounded-xl border-black border-3 p-8 lg:p-10">

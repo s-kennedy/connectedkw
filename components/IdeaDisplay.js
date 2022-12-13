@@ -37,6 +37,9 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
         { !selectedIdea &&
           <div>
             <p className="text-2xl font-medium mb-4">
+              Activity Roulette
+            </p>
+            <p className="text-xl mb-4">
               Looking for something to do?
             </p>
             <p className="text-xl mb-4">
