@@ -120,11 +120,19 @@
   background-position: center bottom;
 }
 
+.ideaGeneratorContainer {
+  max-height: calc(100vh - 150px);
+}
 
-@media (max-width: 600px) {
+
+@media (max-width: 640px) {
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+
+  .landingSection {
+    padding-top: 61px;
   }
 }
 

@@ -36,13 +36,13 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
       <div className={isLoading ? '' : styles.appear}>
         { !selectedIdea &&
           <div>
-            <p className="text-2xl font-medium mb-4">
+            <p className="text-xl md:text-2xl font-medium mb-1 md:mb-4">
               Activity Roulette
             </p>
-            <p className="text-xl mb-4">
+            <p className="sm:text-lg md:text-xl md:mb-4">
               Looking for something to do?
             </p>
-            <p className="text-xl mb-4">
+            <p className="sm:text-lg md:text-xl md:mb-4">
               Click "Let's go" to get an activity suggestion...
             </p>
           </div>

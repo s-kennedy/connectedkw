@@ -20,7 +20,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={`w-full fixed z-50 border-b-3 border-black ${styles.navbar}`}>
+      <div className={`w-full fixed z-40 border-b-3 border-black ${styles.navbar}`}>
         <navbar className="flex justify-between">
           <nav className="flex-auto">
             <a href="/" className="flex justify-start items-center hover:text-black space-x-4">
@@ -74,29 +74,45 @@ export default function Home() {
       <main className={`${styles.main} snap-y`}>
 
         <MouseParallaxContainer
-          globalFactorX={0.3}
-          globalFactorY={0.3}
-          containerStyle={{overflow: "visible"}}
-          enabled={true}
+          globalFactorX={0.2}
+          globalFactorY={0.2}
         >
 
-          <section className={`${styles.rouletteBg} w-screen h-screen relative flex justify-center items-center`} id="activity-roulette">
-            <div className="container my-24 max-w-screen-lg mx-auto">
-              <div className="flex items-start flex-col md:flex-row md:space-x-8">
-                <div className="basis-1/2">
-                  <h2 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-10 -rotate-6">
-                    Let's have some fun
-                  </h2>
+          <section className={`${styles.landingSection} w-screen sm:h-screen relative flex flex-col sm:flex-row justify-center items-start sm:items-center`} id="activity-roulette">
+
+            <div className="container md:max-w-screen-md lg:max-w-screen-lg mx-auto">
+              <div className="flex items-start sm:items-center flex-col sm:flex-row sm:space-x-4 my-6 sm:my-12 min-h-0 relative px-4">
+
+                <div className="flex absolute inset-8 max-sm:top-0 sm:inset-16 md:inset-24 lg:inset-32 justify-center sm:items-center">
+                  <MouseParallaxChild factorX={0.8} factorY={0.6} className="h-auto w-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 982.47 751.6">
+                    <path
+                      d="M15.05,425c-32.57,181.73,30.05,273.4,93,324.88,85.15,69.62,224.47,38.7,343.26,52.93,162.52,19.46,243.51,83.33,366.07,49.83C937.18,819.86,1012.07,675.9,982,533.28,937.64,323.44,737.64,149,574.76,120,319.21,74.56,56.17,195.51,15.05,425Z"
+                      transform="translate(-6.14 -110.57)"
+                      fill="var(--theme-yellow)"
+                    />
+                  </svg>
+                  </MouseParallaxChild>
                 </div>
-                <div className="basis-1/2 max-h-screen flex flex-col">
-                  <div data-aos="fade-up">
-                    <IdeaGenerator />
-                  </div>
+
+                <div className="basis-1/2 flex-auto">
+                  <MouseParallaxChild factorX={0.2} factorY={0.4}>
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-body font-bold max-sm:ml-4 mt-8 mb-12 sm:mb-16 -rotate-6">
+                      Let's have some fun
+                    </h1>
+                  </MouseParallaxChild>
+                </div>
+                <div className={`basis-1/2 flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`} data-aos="zoom-in-left" data-aos-delay="500">
+                  <IdeaGenerator />
                 </div>
               </div>
 
-              <div className="enable-animation absolute bottom-px left-0 right-0">
-                <div className="marquee marquee--hover-pause bg-white border-y-3 border-black">
+              <div className="p-4 sm:absolute bottom-16 left-0 max-sm:my-8" data-aos="zoom-in-right" data-aos-delay="1000">
+                <WeatherWidget />
+              </div>
+
+              <div className="enable-animation relative sm:absolute max-sm:my-8 bottom-px left-0 right-0">
+                <div className="marquee marquee--hover-pause sm:bg-white sm:border-y-3 sm:border-black">
                   <ul className="marquee__content">
                     <li>new website 🐣 </li>
                     <li>coming in hot 🔥</li>
@@ -118,6 +134,7 @@ export default function Home() {
               </div>
 
             </div>
+
           </section>
 
         </MouseParallaxContainer>
@@ -211,15 +228,17 @@ export default function Home() {
 
         <Section className="" id="coming-soon">
           <div className="bg-white rounded-xl border-black border-3 p-8 lg:p-10">
-              <h2 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-16 -rotate-6">Coming Soon</h2>
+              <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
+                Coming Soon
+              </h2>
               <div className="flex items-start flex-col md:flex-row md:space-x-8">
                 <div className="basis-1/2">
-                  <p className="text-xl mb-6">Unboring KW is just getting started! We're here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans:</p>
-                  <ul className="text-xl">
-                      <li className="mb-4" data-aos="fade-up" data-aos-offset="50">📆&nbsp;&nbsp;Events calendar</li>
-                      <li className="mb-4" data-aos="fade-up" data-aos-offset="100">🗺&nbsp;&nbsp;Community maps</li>
-                      <li className="mb-4" data-aos="fade-up" data-aos-offset="150">️⭐&nbsp;&nbsp;Recommendations</li>
-                      <li className="mb-4" data-aos="fade-up" data-aos-offset="250">✌&nbsp;&nbsp;Community engagement</li>
+                  <p className="text-lg md:text-xl mb-4 sm:mb-6">Unboring KW is just getting started! We're here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans:</p>
+                  <ul className="text-lg md:text-xl">
+                      <li className="mb-2 sm:mb-4" data-aos="fade-up">📆&nbsp;&nbsp;Events calendar</li>
+                      <li className="mb-2 sm:mb-4" data-aos="fade-up">🗺&nbsp;&nbsp;Community maps</li>
+                      <li className="mb-2 sm:mb-4" data-aos="fade-up">️⭐&nbsp;&nbsp;Recommendations</li>
+                      <li className="mb-2 sm:mb-4" data-aos="fade-up">✌&nbsp;&nbsp;Community engagement</li>
                     </ul>
                 </div>
                 <div className="basis-1/2 w-full">
@@ -234,16 +253,16 @@ export default function Home() {
         </Section>
 
         <Section className="" id="get-connected">
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-16 -rotate-6">Get Connected</h2>
+          <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">Get Connected</h2>
           <div className="flex items-start flex-col md:flex-row md:space-x-8">
-            <div className="basis-1/2">
+            <div className="basis-1/2 flex-auto w-full max-md:flex justify-center">
               <ImageCollage
                 src={"/goose.png"}
                 color1="var(--theme-blue)"
                 color2="var(--theme-green)"
               />
             </div>
-            <div className="basis-1/2 w-full max-h-screen flex flex-col mb-6" data-aos="fade-up">
+            <div className="basis-1/2 flex-auto w-full flex flex-col mb-6" data-aos="fade-up">
               <MailchimpSubscriptionForm />
             </div>
           </div>

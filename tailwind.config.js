@@ -17,7 +17,7 @@ module.exports = {
     fontFamily: {
       body: ['Fredoka', 'Helvetica Neue', 'sans-serif'],
       title: ['Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
-      display: ['GT-Maru Mega', 'serif'],
+      display: ['GT-Maru Mega', 'serif']
     },
     extend: {
       borderWidth: {
@@ -25,6 +25,10 @@ module.exports = {
       },
       minHeight: {
         'halfscreen': '50vh',
+      },
+      fontSize: {
+        '8xl': '5.5rem',
+        '7xl': '4rem'
       }
     },
   },

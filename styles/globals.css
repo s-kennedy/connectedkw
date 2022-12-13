@@ -212,7 +212,7 @@ a, button {
 /* Other page demo styles */
 .marquee__content > * {
   flex: 0 0 auto;
-  padding: 1rem 2rem;
+  padding: 0.7rem 2rem;
   text-align: center;
 }
 

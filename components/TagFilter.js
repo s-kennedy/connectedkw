@@ -48,7 +48,7 @@ function TagFilter({ toggleFilter, selectedTags, reset }) {
         shouldCloseOnEsc={true}
         className="max-w-md mx-auto bg-white p-5 border-3 rounded-xl border-black relative"
         style={{
-          overlay: { padding: "6vw" }
+          overlay: { padding: "6vw", zIndex: 60 }
         }}
       >
         <>

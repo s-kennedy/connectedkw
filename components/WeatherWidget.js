@@ -37,15 +37,13 @@ function WeatherWidget() {
   const feelsLike = Math.round(current.feels_like)
 
   return (
-    <div id="weather-widget">
-      <div className="flex items-end relative">
-        <Image src="/clock-tower.png" height="280" width="140" alt="" className="translate-x-16 translate-y-10 -rotate-6" />
-        <Image src={imageSrc} height="180" width="180" alt={description.description} className="absolute top-0 left-20 -translate-y-10 rotate-3" />
-        <div className="border-black border-3 rounded-xl bg-white p-6 pl-12 text-left max-w-xs">
-          <p className="text-xl font-medium">Going out?</p>
-          <p>{`Current weather: ${description.description}`}</p>
-          <p>{`It's ${temp}°С, feels like ${feelsLike}°С`}</p>
-        </div>
+    <div id="weather-widget" className="relative w-full">
+      <Image src="/clock-tower.png" height="160" width="100" alt="" className="absolute bottom-0 left-0 -rotate-6" />
+      <Image src={imageSrc} height="120" width="120" alt={description.description} className="absolute -top-16 left-8 rotate-3" />
+      <div className="border-black border-3 rounded-xl bg-white p-4 pl-24 text-left w-100 max-w-sm sm:max-w-xs ">
+        <p className="text-lg font-medium">Going out?</p>
+        <p className="text-sm">{`Current weather: ${description.description}`}</p>
+        <p className="text-sm">{`It's ${temp}°С, feels like ${feelsLike}°С`}</p>
       </div>
     </div>
   )
