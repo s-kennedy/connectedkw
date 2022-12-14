@@ -20,6 +20,13 @@ export default function Home() {
         <title>Unboring KW</title>
         <meta name="description" content="Things to see and do in Kitchener Waterloo" />
         <link rel="icon" href="/favicon.ico" />
+        <meta name="image" content="https://www.unboringkw.com/share-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Unboring KW" />
+        <meta name="twitter:url" content="https://www.unboringkw.com" />
+        <meta name="twitter:description" content="Things to see and do in Kitchener Waterloo" />
+        <meta name="twitter:image" content="https://www.unboringkw.com/share-image.jpg" />
+        <meta name="twitter:creator" content="@unboringkw" />
       </Head>
 
       <div className={`w-full fixed z-40 border-b-3 border-black py-2 px-4 ${styles.navbar}`}>
