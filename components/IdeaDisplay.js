@@ -1,4 +1,3 @@
-import Image from "next/image"
 import styles from "../styles/ideaGenerator.module.css"
 import { tagEmojiDict } from "../utils/constants"
 import ReactMarkdown from 'react-markdown'
@@ -51,7 +50,7 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
         {image &&
         <div className="mb-4">
           <div className="relative">
-            <Image className="object-cover aspect-video" src={image.thumbnails.large.url} alt={getField("Image description")} width={image.thumbnails.large.width} height={image.thumbnails.large.height} />
+            <img className="object-cover aspect-video" src={image.thumbnails.large.url} alt={getField("Image description")} width={image.thumbnails.large.width} height={image.thumbnails.large.height} />
             { imageDescription && <small className={`absolute bottom-0 left-0 right-0 p-1 text-xs ${styles.bgCaption}`}><ReactMarkdown>{imageDescription}</ReactMarkdown></small> }
           </div>
         </div>
