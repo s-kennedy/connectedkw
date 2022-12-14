@@ -12,7 +12,7 @@ const TagButton = ({ name, isSelected, toggleFilter }) => {
   }
 
   return (
-    <button onClick={handleClick} className={`transition-all text-sm px-2 py-1 m-1 ml-0 border-2 border-black rounded-md flex flex-nowrap ${isSelected ? 'bg-purple text-white' : 'bg-white text-black'}`}>
+    <button onClick={handleClick} className={`btn-white text-sm px-2 py-1 m-1 ml-0 ${isSelected ? 'bg-purple text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{name}</span>
       {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </button>
@@ -37,7 +37,7 @@ function TagFilter({ toggleFilter, selectedTags, reset }) {
 
   return (
     <div className={`transition-all py-2`}>
-      <button onClick={openFilters} className="w-full items-baseline font-body bg-purple text-white p-2 border-3 rounded-xl border-black">
+      <button onClick={openFilters} className="btn-purple items-baseline">
         {selectedTagsCount ? `Filters (${selectedTagsCount})` : 'Filters 🎯'}
       </button>
 
@@ -52,11 +52,11 @@ function TagFilter({ toggleFilter, selectedTags, reset }) {
         }}
       >
         <>
-          <div className="flex items-start">
+          <div className="flex items-baseline">
             <h2 className="text-lg font-body font-medium flex-1">
               What kind of activity are you looking for?
             </h2>
-            <button onClick={closeFilters} className={`flex-0 text-2xl font-medium`}>✕</button>
+            <button onClick={closeFilters} className={`flex-0 text-2xl font-medium btn-clear`}>✕</button>
           </div>
           <div className={`flex flex-wrap py-4 ${styles.appear}`}>
             {tagNames.map(tag => {
@@ -67,7 +67,7 @@ function TagFilter({ toggleFilter, selectedTags, reset }) {
             })}
           </div>
           { (selectedTags.length > 0) &&
-            <button onClick={reset} className="text-blue">Clear filters</button>
+            <button onClick={reset} className="btn-clear text-red">Clear filters</button>
           }
         </>
       </ReactModal>

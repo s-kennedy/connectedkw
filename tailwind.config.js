@@ -7,17 +7,21 @@ module.exports = {
   theme: {
     colors: {
       red: "#ef476f",
+      lightRed: "#ef476f40",
       yellow: "#ffd166",
+      lightYellow: "#ffd16640",
       green: "#06d6a0",
+      lightGreen: "#06d6a040",
       blue: "#118ab2",
+      lightBlue: "#118ab240",
       purple: "#51355a",
+      lightPurple: "#51355a40",
       black: "#170F1A",
       white: "#FFFFFF"
     },
     fontFamily: {
       body: ['Fredoka', 'Helvetica Neue', 'sans-serif'],
       title: ['Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
-      display: ['GT-Maru Mega', 'serif']
     },
     extend: {
       borderWidth: {

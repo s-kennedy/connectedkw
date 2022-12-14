@@ -1,34 +1,4 @@
 @font-face {
-  font-family: 'GT-Maru';
-  src: url('../fonts/GT-Maru/GT-Maru-Regular-Trial.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'GT-Maru Bold';
-  src: url('../fonts/GT-Maru/GT-Maru-Bold-Trial.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'GT-Maru Mega';
-  src: url('../fonts/GT-Maru/GT-Maru-Mega-Midi-Trial.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "DynaPuff";
-  src: url('../fonts/DynaPuff.ttf') format('truetype-variations');
-  font-style: normal;
-  font-weight: 400 700;
-  font-width: 75 100;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Fredoka";
   src: url('../fonts/Fredoka.ttf') format('truetype-variations');
   font-style: normal;
@@ -41,14 +11,10 @@
   font-family: "Fredoka Bold";
   src: url('../fonts/Fredoka.ttf') format('truetype-variations');
   font-style: bold;
-  font-weight: 500;
+  font-weight: 700;
   font-width: 75 125;
   font-display: swap;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root {
   --theme-red: #ef476f;
@@ -65,9 +31,17 @@
   --theme-white: #FFFFFF;
   --theme-font-title: 'Fredoka Bold';
   --theme-font-body: 'Fredoka';
-  --theme-font-display: 'GT-Maru Mega';
 }
 
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -79,13 +53,6 @@ body {
   font-size: 18px;
 /*  cursor: url('../assets/cursor.svg'), url('../assets/cursor.png'), auto;*/
   scroll-behavior: smooth;
-}
-
-navbar {
-  display: flex;
-  flex: 0;
-  padding: 0.5rem 1rem;
-  justify-content: flex-start;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -108,132 +75,66 @@ a, button {
 /*  cursor: url('../assets/cursor-pointer.svg'), url('../assets/cursor-pointer.png'), pointer;*/
 }
 
-* {
-  box-sizing: border-box;
+footer a svg {
+  transition: all ease-in 200ms;
+  fill: var(--theme-white);
 }
 
-.page-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-  align-items: stretch;
-  min-height: 100vh;
-  width: 100%;
+footer a:hover svg path, footer a:focus svg path {
+  fill: var(--theme-red);
 }
 
-.bg-blue-shape .container {
-  background-image: url('../assets/section-bg-blue.svg');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+navbar a:hover svg path, navbar a:focus svg path {
+  fill: var(--theme-red);
 }
 
-.bg-red-shape .container {
-  background-image: url('../assets/section-bg-red.svg');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
-
-/* Marquee styles */
-.marquee {
-  --gap: 1rem;
-  position: relative;
-  display: flex;
-  overflow: hidden;
-  user-select: none;
-  gap: var(--gap);
-}
-
-.marquee__content {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-around;
-  gap: var(--gap);
-  min-width: 100%;
-}
-
-@keyframes scroll {
-  from {
-    transform: translateX(0);
+@keyframes pulse {
+  0% {
+    transform: scale(1) rotate(0deg);
   }
-  to {
-    transform: translateX(calc(-100% - var(--gap)));
+  50% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
   }
 }
 
-/* Pause animation when reduced-motion is set */
-@media (prefers-reduced-motion: reduce) {
-  .marquee__content {
-    animation-play-state: paused !important;
+navbar .logo:hover img {
+  animation: pulse 250ms ease-in-out;
+}
+
+@layer components {
+  button, .btn {
+    @apply px-2 py-1 border-2 border-black rounded-md inline-flex flex-nowrap items-center hover:no-underline focus:no-underline transition-all duration-200;
   }
-}
 
-/* Enable animation */
-.enable-animation .marquee__content {
-  animation: scroll 30s linear infinite;
-}
-
-/* Reverse animation */
-.marquee--reverse .marquee__content {
-  animation-direction: reverse;
-}
-
-/* Pause on hover */
-.marquee--hover-pause:hover .marquee__content {
-  animation-play-state: paused;
-}
-
-/* Attempt to size parent based on content. Keep in mind that the parent width is equal to both content containers that stretch to fill the parent. */
-.marquee--fit-content {
-  max-width: fit-content;
-}
-
-/* A fit-content sizing fix: Absolute position the duplicate container. This will set the size of the parent wrapper to a single child container. Shout out to Olavi's article that had this solution 👏 @link: https://olavihaapala.fi/2021/02/23/modern-marquee.html  */
-.marquee--pos-absolute .marquee__content:last-child {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* Enable position absolute animation on the duplicate content (last-child) */
-.enable-animation .marquee--pos-absolute .marquee__content:last-child {
-  animation-name: scroll-abs;
-}
-
-@keyframes scroll-abs {
-  from {
-    transform: translateX(calc(100% + var(--gap)));
+  .btn-red {
+    @apply bg-red hover:bg-yellow focus:bg-green hover:text-black focus:text-black;
   }
-  to {
-    transform: translateX(0);
+
+  .btn-yellow {
+    @apply bg-yellow hover:bg-green focus:bg-blue hover:text-black focus:text-black;
   }
-}
 
-/* Other page demo styles */
-.marquee__content > * {
-  flex: 0 0 auto;
-  padding: 0.7rem 2rem;
-  text-align: center;
-}
-
-
-/*section {
-  margin-block: 3rem;
-}
-
-section > * + * {
-  margin-block-start: 0.5rem;
-}
-*/
-
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  .btn-green {
+    @apply bg-green hover:bg-blue focus:bg-purple hover:text-black focus:text-black;
   }
-  body {
-    color: white;
-    background: black;
+
+  .btn-blue {
+    @apply bg-blue hover:purple focus:bg-red hover:text-black focus:text-black;
+  }
+
+  .btn-purple {
+    @apply bg-purple text-white hover:bg-black focus:bg-red hover:text-white focus:text-white;
+  }
+
+  .btn-white {
+    @apply bg-white hover:bg-lightPurple focus:bg-purple hover:text-black focus:text-white;
+  }
+
+  .btn-clear {
+    @apply border-none hover:text-blue focus:text-purple px-2 py-1;
   }
 }
 

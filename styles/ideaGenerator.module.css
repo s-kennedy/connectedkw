@@ -28,12 +28,18 @@
   }
 }
 
-.ideaGenerator {
 
+.starpaths {
+  transform-origin: center;
+  transform: rotate(15deg);
 }
 
-.result {
-/*  margin-top: -20px;*/
+.star {
+  fill: var(--theme-green);
+  stroke: var(--theme-black);
+  stroke-miterlimit: 10;
+  stroke-width: 6px;
+  transition: all ease-in 200ms;
 }
 
 .appear {
@@ -48,6 +54,10 @@
   height: 110px;
   width: 110px;
   margin-right: 10px;
+}
+
+.generatorButton:hover .star {
+  fill: var(--theme-blue);
 }
 
 .loading {

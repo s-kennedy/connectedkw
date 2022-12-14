@@ -21,7 +21,7 @@ const CustomForm = ({ status, message, onValidated }) => {
   return (
     <div className="w-full bg-white p-5 border-3 rounded-xl border-black ">
       <div className="">
-        <h4 className="text-xl mb-2">Do you want to be notified when we launch new stuff?</h4>
+        <p className="text-xl mb-2 font-medium">Do you want to be notified when we launch new stuff?</p>
         <p className="mb-2">We'll email you to announce new features on the website. Don't worry, we will not be spamming you because frankly we don't have time for that.</p>
       </div>
 
@@ -51,11 +51,11 @@ const CustomForm = ({ status, message, onValidated }) => {
           </div>
 
           <div style={{position: 'absolute', left: '-5000px'}} aria-hidden="true">
-            <input ref={node => (honeypot = node)} type="text" name="b_0dec77fbe34db1b0cd94df181_5922adb2bc" tabindex="-1" />
+            <input ref={node => (honeypot = node)} type="text" name="b_0dec77fbe34db1b0cd94df181_5922adb2bc" tabIndex="-1" />
           </div>
           <div className="optionalParent">
             <div className="clear foot">
-              <button onClick={submit} id="mc-embedded-subscribe" className="button px-2 py-1 mt-4 border-2 border-black rounded-md flex flex-nowrap bg-purple text-white flex items-center space-x-1">
+              <button onClick={submit} id="mc-embedded-subscribe" className="btn-purple mt-4 space-x-1">
                 <span>Subscribe</span>
                 {(status === "sending") && <Image src="/loading.svg" width={20} height={20} alt="" />}
               </button>
