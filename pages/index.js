@@ -81,42 +81,46 @@ export default function Home() {
 
           <section className={`${styles.landingSection} w-screen sm:h-screen relative`} id="landing">
 
-            <div className="container sm:px-4 sm:py-8 lg:p-8 max-w-screen-lg mx-auto flex h-full">
+            <div className="container px-4 py-8 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col sm:flex-row h-full">
               <div className="basis-1/2">
-                <MouseParallaxChild factorX={0.3} factorY={0.2}>
-                  <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
+                <MouseParallaxChild factorX={0.3} factorY={0.2} inverted>
+                  <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
                     Hi KW 👋
                   </h1>
                 </MouseParallaxChild>
 
                 <p className="text-2xl mb-4">We're here to make it easier to find things to do in Kitchener-Waterloo.</p>
-                <p className="text-2xl mb-12">Let's have some fun!</p>
-                <a href="#activity-roulette" className="p-5 border-black border-3 rounded-xl bg-green text-lg font-medium">
-                  👉 Give me something to do 👈
-                </a>
+                <p className="text-2xl mb-6">Let's have some fun!</p>
+                <div data-aos="zoom-in-right" data-aos-delay="500">
+                  <a
+                    href="#activity-roulette"
+                    className="px-2 py-1 inline-flex flex-nowrap border-black border-3 rounded-md bg-green text-lg font-medium hover:bg-blue hover:no-underline hover:text-black focus:bg-red">
+                    👉 Give me something to do 👈
+                  </a>
+                </div>
               </div>
 
-           <div className="basis-1/2 relative flex-auto min-h-0 place-self-end mb-8">
+              <div className="basis-1/2 relative max-w-md md:mx-auto flex-auto min-h-0 place-self-start md:place-self-end md:mb-12 mt-20">
 
-              <MouseParallaxChild factorX={0.1} factorY={0.1}>
-                <div className={`object-cover`}>
-                  <Image
-                    src="/via-tracks-shape.png"
-                    alt="Via rail train tracks"
-                    width="800"
-                    height="500"
-                  />
-                </div>
-              </MouseParallaxChild>
+                <MouseParallaxChild factorX={0.1} factorY={0.1}>
+                  <div className={`object-cover`}>
+                    <Image
+                      src="/via-tracks-shape.png"
+                      alt="Via rail train tracks"
+                      width="800"
+                      height="500"
+                    />
+                  </div>
+                </MouseParallaxChild>
 
-              <MouseParallaxChild factorX={0.1} factorY={0.2}>
-                <Image src="/blob-green.svg" width="280" height="280" className="absolute bottom-0 right-0" />
-              </MouseParallaxChild>
+                <MouseParallaxChild factorX={0.1} factorY={0.2}>
+                  <Image src="/blob-green.svg" width="280" height="280" className="absolute bottom-0 right-0" />
+                </MouseParallaxChild>
 
-              <MouseParallaxChild factorX={0.3} factorY={0.4}>
-                <Image src={"/biking-girl.png"} width="320" height="320" className="absolute bottom-8 right-0" />
-              </MouseParallaxChild>
-            </div>
+                <MouseParallaxChild factorX={0.3} factorY={0.4}>
+                  <Image src={"/biking-girl.png"} width="320" height="320" className="absolute bottom-8 right-0" />
+                </MouseParallaxChild>
+              </div>
 
             </div>
 
@@ -152,20 +156,14 @@ export default function Home() {
           globalFactorX={0.2}
           globalFactorY={0.2}
         >
-          <section id="activity-roulette" className={`w-screen sm:h-screen relative flex flex-col sm:flex-row justify-center items-start sm:items-center`} id="activity-roulette">
+          <section id="activity-roulette" className={`w-screen lg:h-screen relative flex flex-col lg:flex-row justify-center items-start sm:items-center snap-center p-5`} id="activity-roulette">
             <div className="container mx-auto relative">
-            <div className="absolute inset-0 w-full h-full">
-              <div className="flex justify-center items-center w-full h-full">
-                <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6 w-full flex justify-between">
-                  <span>Activity</span><span>Roulette</span>
-                </h2>
-              </div>
-            </div>
 
-              <div className="flex items-start justify-center sm:items-center flex-col sm:flex-row my-6 sm:my-12 min-h-0 relative px-4">
+
+              <div className="flex items-start justify-center sm:items-center flex-col sm:flex-row my-6 sm:my-12 min-h-0 relative">
                 <div className="absolute w-full h-full flex justify-center items-center">
-                  <div className="max-w-md w-full">
-                    <MouseParallaxChild factorX={0.0} factorY={0.0} className="h-auto w-full">
+                  <div className="max-w-xs mx-auto sm:max-w-md w-full max-sm:scale-x-125">
+                    <MouseParallaxChild factorX={0.3} factorY={0.3} className="h-auto w-full">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 886.35 774.85"
@@ -182,17 +180,21 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className={`max-w-xs max-h-screen flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`} data-aos="fade-up">
+                <div className={`max-w-xs mx-auto max-h-screen flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`} data-aos="fade-up">
                   <IdeaGenerator />
                 </div>
               </div>
             </div>
 
+          <div className="p-4 lg:absolute bottom-8 right-0 max-sm:my-8 mx-auto" data-aos="zoom-in-left" data-aos-delay="1000">
+            <WeatherWidget />
+          </div>
+
           </section>
         </MouseParallaxContainer>
 
 
-        <Section className="" id="coming-soon">
+        <Section className="snap-center" id="coming-soon">
           <MouseParallaxContainer
             globalFactorX={0.3}
             globalFactorY={0.3}
@@ -240,28 +242,22 @@ export default function Home() {
           </MouseParallaxContainer>
         </Section>
 
-        <Section className="" id="get-connected">
+        <Section className="snap-center" id="get-connected">
           <MouseParallaxContainer
             globalFactorX={0.3}
             globalFactorY={0.3}
             containerStyle={{overflow: "visible"}}
           >
             <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">Get Connected</h2>
-            <div className="flex items-start flex-col md:flex-row md:space-x-8">
+            <div className="flex items-center flex-col md:flex-row md:space-x-8">
               <div className="basis-1/2 w-full p-5">
                 <div className={`relative`}>
                   <MouseParallaxChild factorX={0.1} factorY={0.1}>
-                    <Blob fill="var(--theme-green)" className="ml-6 rotate-[60deg]" />
+                    <Blob fill="var(--theme-green)" className="inline-block w-10/12 ml-6 rotate-45" />
                   </MouseParallaxChild>
 
                   <MouseParallaxChild factorX={0.1} factorY={0.2}>
-                    <Image
-                      src="/via-tracks-shape.png"
-                      alt=""
-                      width="500"
-                      height="382"
-                      className="absolute w-full h-auto bottom-6"
-                    />
+                    <Blob fill="var(--theme-blue)" className="absolute w-3/4 h-auto bottom-0 left-4 rotate-180" />
                   </MouseParallaxChild>
 
                   <MouseParallaxChild factorX={0.3} factorY={0.4}>
@@ -270,7 +266,7 @@ export default function Home() {
                       alt=""
                       width="400"
                       height="400"
-                      className="absolute w-10/12 h-auto bottom-0 left-6"
+                      className="absolute w-11/12 h-auto bottom-0 left-6"
                     />
                   </MouseParallaxChild>
                 </div>

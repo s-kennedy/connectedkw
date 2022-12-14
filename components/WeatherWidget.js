@@ -40,7 +40,7 @@ function WeatherWidget() {
     <div id="weather-widget" className="relative w-full">
       <Image src="/clock-tower.png" height="160" width="100" alt="" className="absolute bottom-0 left-0 -rotate-6" />
       <Image src={imageSrc} height="120" width="120" alt={description.description} className="absolute -top-16 left-8 rotate-3" />
-      <div className="border-black border-3 rounded-xl bg-white p-4 pl-24 text-left w-100 max-w-sm sm:max-w-xs ">
+      <div className="border-black border-3 rounded-xl bg-white p-4 pl-24 text-left w-100 max-w-md sm:max-w-xs ">
         <p className="text-lg font-medium">Going out?</p>
         <p className="text-sm">{`Current weather: ${description.description}`}</p>
         <p className="text-sm">{`It's ${temp}°С, feels like ${feelsLike}°С`}</p>
