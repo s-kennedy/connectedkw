@@ -22,7 +22,7 @@ const CustomForm = ({ status, message, onValidated }) => {
     <div className="w-full bg-white p-5 border-3 rounded-xl border-black ">
       <div className="">
         <p className="text-xl mb-2 font-medium">Do you want to be notified when we launch new stuff?</p>
-        <p className="mb-2">We'll email you to announce new features on the website. Don't worry, we will not be spamming you because frankly we don't have time for that.</p>
+        <p className="mb-2">We&apos;ll email you to announce new features on the website. Don&apos;t worry, we will not be spamming you because frankly we don&apos;t have time for that.</p>
       </div>
 
       {status === "error" && (

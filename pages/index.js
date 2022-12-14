@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Script from 'next/script'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 
@@ -32,10 +33,10 @@ export default function Home() {
       <div className={`w-full fixed z-40 border-b-3 border-black py-2 px-4 ${styles.navbar}`}>
         <navbar className="flex justify-between">
           <nav className="flex-auto">
-            <a href="/" className="logo flex justify-start items-center hover:text-black space-x-4 transition-all hover:text-red hover:no-underline">
+            <Link href="/" className="logo flex justify-start items-center hover:text-black space-x-4 transition-all hover:text-red hover:no-underline">
               <Image src="/unboring-kw-logo.svg" alt="Unboring KW logo" width={30} height={30} />
               <div className="text-2xl">unboring <span className="font-medium">kw</span></div>
-            </a>
+            </Link>
           </nav>
 
           <div className="flex text-white space-x-4 items-center">
@@ -94,8 +95,8 @@ export default function Home() {
                   </h1>
                 </MouseParallaxChild>
 
-                <p className="text-2xl mb-4">We're here to make it easier to find things to do in Kitchener-Waterloo.</p>
-                <p className="text-2xl mb-6">Let's have some fun!</p>
+                <p className="text-2xl mb-4">We&apos;re here to make it easier to find things to do in Kitchener-Waterloo.</p>
+                <p className="text-2xl mb-6">Let&apos;s have some fun!</p>
                 <div data-aos="zoom-in-right" data-aos-delay="500">
                   <a
                     href="#activity-roulette"
@@ -119,11 +120,11 @@ export default function Home() {
                 </MouseParallaxChild>
 
                 <MouseParallaxChild factorX={0.1} factorY={0.2}>
-                  <Image src="/blob-green.svg" width="280" height="280" className="absolute bottom-0 right-0" />
+                  <Image src="/blob-green.svg" width="280" height="280" className="absolute bottom-0 right-0" alt="" />
                 </MouseParallaxChild>
 
                 <MouseParallaxChild factorX={0.3} factorY={0.4}>
-                  <Image src={"/biking-girl.png"} width="320" height="320" className="absolute bottom-8 right-0" />
+                  <Image src={"/biking-girl.png"} width="320" height="320" className="absolute bottom-8 right-0" alt="" />
                 </MouseParallaxChild>
               </div>
 
@@ -141,7 +142,7 @@ export default function Home() {
           globalFactorX={0.2}
           globalFactorY={0.2}
         >
-          <section id="activity-roulette" className={`w-screen lg:h-screen relative flex flex-col lg:flex-row justify-center items-start sm:items-center snap-center p-5`} id="activity-roulette">
+          <section id="activity-roulette" className={`w-screen lg:h-screen relative flex flex-col lg:flex-row justify-center items-start sm:items-center snap-center p-5`}>
             <div className="container mx-auto relative">
 
 
@@ -191,7 +192,7 @@ export default function Home() {
               </h2>
               <div className="flex items-start flex-col md:flex-row md:space-x-8">
                 <div className="basis-1/2">
-                  <p className="text-lg md:text-xl mb-4 sm:mb-6">Unboring KW is just getting started! We're here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans:</p>
+                  <p className="text-lg md:text-xl mb-4 sm:mb-6">Unboring KW is just getting started! We&apos;re here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans:</p>
                   <ul className="text-lg md:text-xl">
                       <li className="mb-2 sm:mb-4" data-aos="fade-up">📆&nbsp;&nbsp;Events calendar</li>
                       <li className="mb-2 sm:mb-4" data-aos="fade-up">🗺&nbsp;&nbsp;Community maps</li>
