@@ -1,6 +1,8 @@
 import styles from "../styles/ideaGenerator.module.css"
+
 import { useState, useEffect } from "react"
 import ReactModal from "react-modal";
+import * as Fathom from 'fathom-client';
 
 import IdeaDisplay from "./IdeaDisplay"
 import TagFilter from "./TagFilter"
@@ -55,6 +57,8 @@ function IdeaGenerator() {
 
   const selectIdea = () => {
     setLoading(true)
+    Fathom.trackGoal('E6BCE6ZP', 0)
+
     const timer = setTimeout(() => {
       const idea = availableIdeas[Math.floor(Math.random()*availableIdeas.length)];
       const remainingIdeas = availableIdeas.filter((item) => {
