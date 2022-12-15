@@ -3,6 +3,8 @@ import styles from "../styles/ideaGenerator.module.css"
 import { useState, useEffect } from "react"
 import ReactModal from "react-modal";
 import * as Fathom from 'fathom-client';
+import Link from 'next/link'
+import OutsideClickHandler from 'react-outside-click-handler';
 
 import IdeaDisplay from "./IdeaDisplay"
 import TagFilter from "./TagFilter"
@@ -14,6 +16,7 @@ function IdeaGenerator() {
   const [selectedIdea, setSelectedIdea] = useState(null)
   const [isLoading, setLoading] = useState(false)
   const [selectedTags, setSelectedTags] = useState([])
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     fetchIdeas()
@@ -90,17 +93,49 @@ function IdeaGenerator() {
     }
   }
 
+  const openMenu = () => setMenuOpen(true)
+  const closeMenu = () => setMenuOpen(false)
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
+  }
+
   console.log(selectedTags)
   console.log({availableIdeas})
 
   const allOut = availableIdeas.length === 0;
 
   return (
-    <div id="idea-generator" className={`min-h-0 flex flex-col w-full h-full ${styles.ideaGenerator}`}>
-      <div className="flex-auto flex relative min-h-0">
+    <div id="idea-generator" className={`relative min-h-0 flex flex-col w-full h-full ${styles.ideaGenerator}`}>
+      <div className="flex-none flex justify-end mb-2 z-30">
+        <button className="btn-white" onClick={toggleMenu} aria-label="Toggle menu">
+          {
+            menuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="20" width="20">
+                <path fill="var(--theme-black)" d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="20">
+                <path fill="var(--theme-black)" d="M120 256c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm160 0c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm104 56c-30.9 0-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56s-25.1 56-56 56z"/>
+              </svg>
+            )
+          }
+        </button>
+      {
+        menuOpen &&
+        <div className="absolute right-0 top-0 pr-11">
+          <OutsideClickHandler onOutsideClick={closeMenu} useCapture={true}>
+            <div className={`${styles.appear} flex flex-col border-3 bg-white p-5 rounded-xl`}>
+              <Link href="/activities" className="mb-1">See all activities</Link>
+              <Link href="/submit-activity">Submit an activity idea</Link>
+            </div>
+          </OutsideClickHandler>
+        </div>
+      }
+      </div>
+      <div className="flex-auto flex relative min-h-0 z-10">
         <IdeaDisplay allOut={allOut} selectedIdea={selectedIdea} isLoading={isLoading} />
       </div>
-      <div className="flex-none flex relative mb-2">
+      <div className="flex-none flex relative mb-2 z-20">
         <TagFilter
           toggleFilter={toggleFilter}
           selectedTags={selectedTags}

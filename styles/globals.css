@@ -26,7 +26,7 @@
   --theme-blue: #118ab2;
   --theme-light-blue: #118ab240;
   --theme-purple: #51355a;
-  --theme-light-purple: #51355a40;
+  --theme-light-purple: #d7d1d8;
   --theme-black: #170F1A;
   --theme-white: #FFFFFF;
   --theme-font-title: 'Fredoka Bold';
@@ -45,14 +45,38 @@
 
 html,
 body {
-  background-image: linear-gradient(to bottom, var(--theme-light-blue) 0%, var(--theme-light-purple) 20%, var(--theme-light-red) 40%, var(--theme-light-yellow) 60%, var(--theme-light-green) 80%, var(--theme-light-blue) 100%);
+  background-color: var(--theme-white);
   color: var(--theme-black);
   padding: 0;
   margin: 0;
   font-family: var(--theme-font-body), Helvetica Neue, sans-serif;
   font-size: 18px;
-/*  cursor: url('../assets/cursor.svg'), url('../assets/cursor.png'), auto;*/
+  cursor: url('../assets/cursor.svg'), url('../assets/cursor.png'), auto;
   scroll-behavior: smooth;
+}
+
+.page-bg-rainbow {
+  background-image: linear-gradient(to bottom, var(--theme-light-blue) 0%, var(--theme-light-purple) 20%, var(--theme-light-red) 40%, var(--theme-light-yellow) 60%, var(--theme-light-green) 80%, var(--theme-light-blue) 100%);
+}
+
+.page-bg-blue {
+  background-image: linear-gradient(to bottom, var(--theme-light-blue) 0%, var(--theme-light-purple) 100%);
+}
+
+.page-bg-purple {
+  background-image: linear-gradient(to bottom, var(--theme-light-purple) 0%, var(--theme-light-red) 100%);
+}
+
+.page-bg-red {
+  background-image: linear-gradient(to bottom, var(--theme-light-red) 0%, var(--theme-light-yellow) 100%);
+}
+
+.page-bg-yellow {
+  background-image: linear-gradient(to bottom, var(--theme-light-yellow) 0%, var(--theme-light-green) 100%);
+}
+
+.page-bg-green {
+  background-image: linear-gradient(to bottom, var(--theme-light-green) 0%, var(--theme-light-blue) 100%);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -60,19 +84,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: var(--theme-blue);
+  text-decoration: underline;
 }
 
 a:hover,
 a:focus,
 a:active {
-  text-decoration: underline;
-  color: var(--theme-blue);
+  color: var(--theme-red);
 }
 
 a, button {
-/*  cursor: url('../assets/cursor-pointer.svg'), url('../assets/cursor-pointer.png'), pointer;*/
+  cursor: url('../assets/cursor-pointer.svg'), url('../assets/cursor-pointer.png'), pointer;
 }
 
 footer a svg {
@@ -82,6 +105,11 @@ footer a svg {
 
 footer a:hover svg path, footer a:focus svg path {
   fill: var(--theme-red);
+}
+
+navbar {
+  background-color: rgba(255,255,255,.25);
+  backdrop-filter: blur(10px);
 }
 
 navbar a:hover svg path, navbar a:focus svg path {
@@ -104,9 +132,15 @@ navbar .logo:hover img {
   animation: pulse 250ms ease-in-out;
 }
 
+@layer base {
+  p {
+    @apply mb-2;
+  }
+}
+
 @layer components {
   button, .btn {
-    @apply px-2 py-1 border-2 border-black rounded-md inline-flex flex-nowrap items-center hover:no-underline focus:no-underline transition-all duration-200;
+    @apply text-black no-underline px-2 py-1 border-3 border-black rounded-md inline-flex flex-nowrap items-center hover:no-underline focus:no-underline transition-all duration-200;
   }
 
   .btn-red {

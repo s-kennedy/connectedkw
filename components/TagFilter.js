@@ -1,9 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from '../styles/ideaGenerator.module.css'
 import { tagEmojiDict } from '../utils/constants'
 import ReactModal from 'react-modal';
-
-ReactModal.setAppElement("#idea-generator")
 
 const TagButton = ({ name, isSelected, toggleFilter }) => {
   const tagEmoji = tagEmojiDict[name]
@@ -12,7 +10,7 @@ const TagButton = ({ name, isSelected, toggleFilter }) => {
   }
 
   return (
-    <button onClick={handleClick} className={`btn-white text-sm px-2 py-1 m-1 ml-0 ${isSelected ? 'bg-purple text-white' : 'bg-white text-black'}`}>
+    <button onClick={handleClick} className={`btn-white text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? 'bg-purple text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{name}</span>
       {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </button>
@@ -20,8 +18,13 @@ const TagButton = ({ name, isSelected, toggleFilter }) => {
 }
 
 function TagFilter({ toggleFilter, selectedTags, reset }) {
+  useEffect(() => {
+    ReactModal.setAppElement("#idea-generator")
+  })
+
   const [isOpen, setOpen] = useState(false)
   const tagNames = Object.keys(tagEmojiDict)
+
   const openFilters = () => {
     setOpen(true)
   }
