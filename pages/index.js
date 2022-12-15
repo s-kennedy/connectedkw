@@ -113,6 +113,7 @@ export default function Home() {
                     <li className="mb-2 sm:mb-4" data-aos="fade-up">️⭐&nbsp;&nbsp;Recommendations</li>
                     <li className="mb-2 sm:mb-4" data-aos="fade-up">✌&nbsp;&nbsp;Community engagement</li>
                   </ul>
+                <p className="text-lg md:text-xl mb-4 sm:mb-6">We&apos;re very open to ideas, suggestions, and feedback. Feel free to contact us at <a href="mailto:hi@unboringkw.com">hi@unboringkw.com</a>.</p>
               </div>
               <div className="basis-1/2 w-full">
                 <div className={`relative`}>
