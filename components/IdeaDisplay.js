@@ -29,6 +29,7 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
   const linkText = `🔗 ${getField("Link text") || "More info"}`
   const image = getImageObj()
   const tags = getField("Tags") || []
+  const imageCredit = getField("Image credit")
   const imageDescription = getField("Image description")
 
   return (
@@ -50,8 +51,8 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
         {image &&
         <div className="mb-4">
           <div className="relative">
-            <img className="object-cover aspect-video" src={image.thumbnails.large.url} alt={getField("Image description")} width={image.thumbnails.large.width} height={image.thumbnails.large.height} />
-            { imageDescription && <small className={`absolute bottom-0 left-0 right-0 p-1 text-xs ${styles.bgCaption}`}><ReactMarkdown>{imageDescription}</ReactMarkdown></small> }
+            <img className="object-cover aspect-video" src={image.thumbnails.large.url} alt={imageDescription} width={image.thumbnails.large.width} height={image.thumbnails.large.height} />
+            { imageCredit && <small className={`absolute bottom-0 left-0 right-0 p-1 text-xs ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
           </div>
         </div>
         }
