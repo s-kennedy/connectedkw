@@ -136,6 +136,10 @@ navbar .logo:hover img {
   p {
     @apply mb-2;
   }
+
+  small p {
+    @apply mb-0;
+  }
 }
 
 @layer components {

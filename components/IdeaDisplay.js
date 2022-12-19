@@ -32,6 +32,8 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
   const imageCredit = getField("Image credit")
   const imageDescription = getField("Image description")
 
+  console.log({imageCredit})
+
   return (
     <div className={`overflow-auto w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
       <div className={isLoading ? '' : styles.appear}>
@@ -52,7 +54,7 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
         <div className="mb-4">
           <div className="relative">
             <img className="object-cover aspect-video" src={image.thumbnails.large.url} alt={imageDescription} width={image.thumbnails.large.width} height={image.thumbnails.large.height} />
-            { imageCredit && <small className={`absolute bottom-0 left-0 right-0 p-1 text-xs ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
+            { (imageCredit.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
           </div>
         </div>
         }
