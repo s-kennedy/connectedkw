@@ -1,55 +1,52 @@
-import styles from "styles/ideaGenerator.module.css"
-
+import styles from "styles/events.module.css"
 import { useState, useEffect } from "react"
 import ReactModal from "react-modal";
-import * as Fathom from 'fathom-client';
 import Link from 'next/link'
+import TagFilter from "components/TagFilter"
+import EventDisplay from "components/EventDisplay"
 import OutsideClickHandler from 'react-outside-click-handler';
 
-import IdeaDisplay from "components/IdeaDisplay"
-import TagFilter from "components/TagFilter"
-import GeneratorButton from "components/GeneratorButton"
-
-function IdeaGenerator() {
-  const [allIdeas, setAllIdeas] = useState([])
-  const [availableIdeas, setAvailableIdeas] = useState([])
-  const [selectedIdea, setSelectedIdea] = useState(null)
+function EventsFeed() {
+  const [allEvents, setAllEvents] = useState([])
+  const [filteredEvents, setFilteredEvents] = useState([])
+  const [selectedEvent, setSelectedEvent] = useState(null)
   const [isLoading, setLoading] = useState(false)
   const [selectedTags, setSelectedTags] = useState([])
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    fetchIdeas()
+    fetchEvents()
   }, [])
 
   useEffect(() => {
-    filterIdeas()
+    filterEvents()
   }, [selectedTags])
 
-  const filterIdeas = () => {
+  const filterEvents = () => {
     if (selectedTags.length < 1) {
-      return setAvailableIdeas(allIdeas)
+      return setFilteredEvents(allEvents)
     }
 
-    const filteredIdeas = allIdeas.filter(idea => {
-      const ideaTags = idea.fields.Tags
-      const matches = selectedTags.map(tag => ideaTags.includes(tag))
+    const filteredEvents = allEvents.filter(event => {
+      const eventTags = event.fields.Tags || []
+      const matches = selectedTags.map(tag => eventTags.includes(tag))
 
-      // only allow ideas that match ALL the selected filters.
-      // use .some() to keep the ideas that match ANY of the selected filters.
+      // only allow events that match ALL the selected filters.
+      // use .some() to keep the events that match ANY of the selected filters.
       return matches.every(m => m)
     })
 
-    setAvailableIdeas(filteredIdeas)
+    setFilteredEvents(filteredEvents)
   }
 
-  const fetchIdeas = () => {
+  const fetchEvents = () => {
     // setLoading(true)
-    fetch("/api/ideas")
+    fetch("/api/events")
       .then((res) => res.json())
       .then((data) => {
-        setAllIdeas(data.ideas)
-        setAvailableIdeas(data.ideas)
+        console.log({data})
+        setAllEvents(data.events)
+        setFilteredEvents(data.events)
         // setLoading(false)
       })
   }
@@ -58,27 +55,8 @@ function IdeaGenerator() {
     setSelectedTags([])
   }
 
-  const selectIdea = () => {
-    setLoading(true)
-    Fathom.trackGoal('E6BCE6ZP', 0)
+  const selectEvent = () => {
 
-    const timer = setTimeout(() => {
-      const idea = availableIdeas[Math.floor(Math.random()*availableIdeas.length)];
-      const remainingIdeas = availableIdeas.filter((item) => {
-        return item.id !== idea.id
-      })
-
-      setSelectedIdea(idea)
-      setLoading(false)
-
-      if (remainingIdeas.length > 0) {
-        setAvailableIdeas(remainingIdeas)
-      } else {
-        console.log("reload ideas!")
-        setAvailableIdeas(allIdeas)
-        filterIdeas()
-      }
-    }, 300)
   }
 
   const toggleFilter = (tagName) => {
@@ -100,12 +78,12 @@ function IdeaGenerator() {
   }
 
   console.log(selectedTags)
-  console.log({availableIdeas})
+  console.log({filteredEvents})
 
-  const allOut = availableIdeas.length === 0;
+  const allOut = filteredEvents.length === 0;
 
   return (
-    <div id="idea-generator" className={`relative min-h-0 flex flex-col w-full h-full ${styles.ideaGenerator}`}>
+    <div id="idea-generator" className={`relative min-h-0 flex flex-col w-full h-full`}>
       <div className="flex-none flex justify-end mb-2 z-30">
         <button className="btn-white" onClick={toggleMenu} aria-label="Toggle menu">
           {
@@ -125,15 +103,19 @@ function IdeaGenerator() {
         <div className="absolute right-0 top-0 pr-11">
           <OutsideClickHandler onOutsideClick={closeMenu} useCapture={true}>
             <div className={`${styles.appear} flex flex-col border-3 bg-white p-5 rounded-xl`}>
-              <Link href="/activities" className="mb-1">See all activities</Link>
-              <Link href="/activities/new">Submit an activity idea</Link>
+              <Link href="/events" className="mb-1">See all events</Link>
+              <Link href="/events/new">Submit an event</Link>
             </div>
           </OutsideClickHandler>
         </div>
       }
       </div>
       <div className="flex-auto flex relative min-h-0 z-10">
-        <IdeaDisplay allOut={allOut} selectedIdea={selectedIdea} isLoading={isLoading} />
+        {filteredEvents.map(event => {
+          return (
+            <EventDisplay event={event} key={event.id} />
+          )
+        })}
       </div>
       <div className="flex-none flex relative mb-2 z-20">
         <TagFilter
@@ -141,14 +123,9 @@ function IdeaGenerator() {
           selectedTags={selectedTags}
           reset={reset}
         />
-        <GeneratorButton
-          selectIdea={selectIdea}
-          selectedIdea={selectedIdea}
-          isLoading={isLoading}
-        />
       </div>
     </div>
   )
 }
 
-export default IdeaGenerator
+export default EventsFeed

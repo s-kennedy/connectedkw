@@ -1,14 +1,15 @@
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from 'styles/Home.module.css'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 
-import Layout from '../components/Layout'
-import IdeaGenerator from '../components/IdeaGenerator'
-import WeatherWidget from '../components/WeatherWidget'
-import Section from '../components/Section'
-import MailchimpSubscriptionForm from '../components/MailchimpSubscriptionForm'
-import Blob from '../components/Blob'
-import Marquee from '../components/Marquee'
+import Layout from 'components/Layout'
+import IdeaGenerator from 'components/IdeaGenerator'
+import EventsFeed from 'components/EventsFeed'
+import WeatherWidget from 'components/WeatherWidget'
+import Section from 'components/Section'
+import MailchimpSubscriptionForm from 'components/MailchimpSubscriptionForm'
+import Blob from 'components/Blob'
+import Marquee from 'components/Marquee'
 
 export default function Home() {
   return (
@@ -93,6 +94,13 @@ export default function Home() {
         </div>
         </section>
       </MouseParallaxContainer>
+
+      <Section className="snap-center" id="events">
+        <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">Upcoming events</h2>
+        <div>
+          <EventsFeed />
+        </div>
+      </Section>
 
       <Section className="snap-center" id="coming-soon">
         <MouseParallaxContainer

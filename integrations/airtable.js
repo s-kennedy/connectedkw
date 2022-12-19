@@ -5,6 +5,7 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
 );
 
 const ideasTable = base('Activity Ideas');
+const eventsTable = base('Events');
 
 const getIdeas = async (selectedTags) => {
   const records = await ideasTable
@@ -16,6 +17,16 @@ const getIdeas = async (selectedTags) => {
   return ideas
 }
 
+const getEvents = async (selectedTags) => {
+  const records = await eventsTable
+    .select({ filterByFormula: "{Status} = 'Published'" })
+    .firstPage();
+
+  const events = records.map(r => ({ id: r.id, fields: r.fields }))
+
+  return events
+}
 
 
-export { ideasTable, getIdeas };
+
+export { getIdeas, getEvents };

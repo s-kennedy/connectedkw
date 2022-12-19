@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import styles from '../styles/ideaGenerator.module.css'
-import { tagEmojiDict } from '../utils/constants'
+import styles from 'styles/ideaGenerator.module.css'
+import { tagEmojiDict } from 'utils/constants'
 import ReactModal from 'react-modal';
 
 const TagButton = ({ name, isSelected, toggleFilter }) => {

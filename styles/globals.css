@@ -51,7 +51,7 @@ body {
   margin: 0;
   font-family: var(--theme-font-body), Helvetica Neue, sans-serif;
   font-size: 18px;
-  cursor: url('../assets/cursor.svg'), url('../assets/cursor.png'), auto;
+/*  cursor: url('../assets/cursor.svg'), url('../assets/cursor.png'), auto;*/
   scroll-behavior: smooth;
 }
 
@@ -95,7 +95,7 @@ a:active {
 }
 
 a, button {
-  cursor: url('../assets/cursor-pointer.svg'), url('../assets/cursor-pointer.png'), pointer;
+/*  cursor: url('../assets/cursor-pointer.svg'), url('../assets/cursor-pointer.png'), pointer;*/
 }
 
 footer a svg {

@@ -1,4 +1,4 @@
-import styles from "../styles/buttonShape.module.css"
+import styles from "styles/buttonShape.module.css"
 
 export default function ButtonShape({ spinning, loading }) {
   return (

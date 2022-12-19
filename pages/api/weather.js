@@ -1,4 +1,4 @@
-import { getCurrentWeather } from '../../integrations/openweather';
+import { getCurrentWeather } from 'integrations/openweather';
 import Cors from 'cors'
 
 // Initializing the cors middleware

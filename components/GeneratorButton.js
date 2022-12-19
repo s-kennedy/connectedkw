@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import styles from '../styles/ideaGenerator.module.css'
+import styles from 'styles/ideaGenerator.module.css'
 
 const GeneratorButton = ({ selectIdea, selectedIdea, isLoading }) => {
   const buttonText = selectedIdea ? `Go again` : `Let's go!`

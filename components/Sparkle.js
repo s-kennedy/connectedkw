@@ -1,4 +1,4 @@
-import styles from "../styles/sparkle.module.css"
+import styles from "styles/sparkle.module.css"
 
 export default function Sparkle({ rotation="0" }) {
   return (

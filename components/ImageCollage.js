@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
-import styles from "../styles/collage.module.css"
+import styles from "styles/collage.module.css"
 
 const Blob = ({ className="", fill="var(--theme-blue)", opacity="1", blobStyles={} }) => {
   const style = {

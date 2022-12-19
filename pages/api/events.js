@@ -1,4 +1,4 @@
-import { getIdeas } from 'integrations/airtable';
+import { getEvents } from 'integrations/airtable';
 import Cors from 'cors'
 
 // Initializing the cors middleware
@@ -25,9 +25,9 @@ export default async (req, res) => {
   await runMiddleware(req, res, cors)
 
   try {
-    const ideas = await getIdeas()
+    const events = await getEvents()
     res.statusCode = 200;
-    return res.json({ ideas })
+    return res.json({ events })
 
   } catch (err) {
     console.log(err)

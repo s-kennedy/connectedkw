@@ -1,4 +1,4 @@
-import styles from "../styles/section.module.css"
+import styles from "styles/section.module.css"
 
 export default function Section({ className, children, id }) {
   return (

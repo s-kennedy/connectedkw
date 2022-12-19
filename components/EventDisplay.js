@@ -13,14 +13,14 @@ const Tag = ({ name }) => {
   )
 }
 
-function IdeaDisplay({ selectedIdea, isLoading }) {
+function EventDisplay({ event, isLoading }) {
 
   const getField = (fieldName) => {
-    return selectedIdea?.fields?.[fieldName]
+    return event?.fields?.[fieldName]
   }
 
   const getImageObj = () => {
-    return selectedIdea?.fields?.Image?.[0]
+    return event?.fields?.Image?.[0]
   }
 
   const title = getField("Title")
@@ -32,24 +32,9 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
   const imageCredit = getField("Image credit")
   const imageDescription = getField("Image description")
 
-  console.log({imageCredit})
-
   return (
     <div className={`overflow-auto w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
       <div className={isLoading ? '' : styles.appear}>
-        { !selectedIdea &&
-          <div>
-            <h3 className="text-2xl md:text-3xl mb-1 md:mb-4">
-              Activity Roulette
-            </h3>
-            <p className="sm:text-lg md:text-xl md:mb-4">
-              Looking for something to do?
-            </p>
-            <p className="sm:text-lg md:text-xl md:mb-4">
-              Click &quot;Let&apos;s go&quot; to get an activity suggestion...
-            </p>
-          </div>
-        }
         {image &&
         <div className="mb-4">
           <div className="relative">
@@ -69,4 +54,4 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
   )
 }
 
-export default IdeaDisplay
+export default EventDisplay

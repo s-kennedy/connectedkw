@@ -1,4 +1,4 @@
-import styles from "../styles/arrow.module.css"
+import styles from "styles/arrow.module.css"
 
 export default function Arrow({ spinning, loading, arrowDown }) {
   return (
