@@ -35,7 +35,7 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
   console.log({imageCredit})
 
   return (
-    <div className={`overflow-auto w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
+    <div className={`overflow-auto styled-scrollbar w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
       <div className={isLoading ? '' : styles.appear}>
         { !selectedIdea &&
           <div>

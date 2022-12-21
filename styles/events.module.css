@@ -1,0 +1,17 @@
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.eventCard .btn {
+  transition: all 150ms ease-in;
+  opacity: 0;
+}
+
+.eventCard:hover .btn {
+  opacity: 1;
+}

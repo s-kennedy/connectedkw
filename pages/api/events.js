@@ -23,9 +23,10 @@ function runMiddleware(req, res, fn) {
 
 export default async (req, res) => {
   await runMiddleware(req, res, cors)
+  const { featured } = req.query
 
   try {
-    const events = await getEvents()
+    const events = await getEvents(featured)
     res.statusCode = 200;
     return res.json({ events })
 

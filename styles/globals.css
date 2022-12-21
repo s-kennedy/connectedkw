@@ -79,6 +79,23 @@ body {
   background-image: linear-gradient(to bottom, var(--theme-light-green) 0%, var(--theme-light-blue) 100%);
 }
 
+.styled-scrollbar {
+  /* Foreground, Background */
+  scrollbar-color: var(--theme-light-blue) transparent;
+}
+
+.styled-scrollbar::-webkit-scrollbar { /* Background */
+  background: transparent;
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+.styled-scrollbar::-webkit-scrollbar-thumb { /* Foreground */
+  background: var(--theme-light-blue);
+  -webkit-border-radius: 1ex;
+}
+
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--theme-font-title), Helvetica Neue, sans-serif;
 }

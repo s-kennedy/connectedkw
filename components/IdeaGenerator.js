@@ -102,10 +102,10 @@ function IdeaGenerator() {
   console.log(selectedTags)
   console.log({availableIdeas})
 
-  const allOut = availableIdeas.length === 0;
+  const allOut = availableIdeas?.length === 0;
 
   return (
-    <div id="idea-generator" className={`relative min-h-0 flex flex-col w-full h-full ${styles.ideaGenerator}`}>
+    <div id="idea-generator" className={`relative min-h-0 flex flex-col w-full h-full`}>
       <div className="flex-none flex justify-end mb-2 z-30">
         <button className="btn-white" onClick={toggleMenu} aria-label="Toggle menu">
           {
@@ -135,11 +135,12 @@ function IdeaGenerator() {
       <div className="flex-auto flex relative min-h-0 z-10">
         <IdeaDisplay allOut={allOut} selectedIdea={selectedIdea} isLoading={isLoading} />
       </div>
-      <div className="flex-none flex relative mb-2 z-20">
+      <div className="flex-none flex relative mb-2 z-20 py-2">
         <TagFilter
           toggleFilter={toggleFilter}
           selectedTags={selectedTags}
           reset={reset}
+          appElementId="#idea-generator"
         />
         <GeneratorButton
           selectIdea={selectIdea}

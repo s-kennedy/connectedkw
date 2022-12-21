@@ -17,9 +17,9 @@ const TagButton = ({ name, isSelected, toggleFilter }) => {
   )
 }
 
-function TagFilter({ toggleFilter, selectedTags, reset }) {
+function TagFilter({ toggleFilter, selectedTags, reset, appElementId }) {
   useEffect(() => {
-    ReactModal.setAppElement("#idea-generator")
+    ReactModal.setAppElement(appElementId)
   })
 
   const [isOpen, setOpen] = useState(false)
@@ -39,7 +39,7 @@ function TagFilter({ toggleFilter, selectedTags, reset }) {
   const selectedTagsCount = selectedTags.length
 
   return (
-    <div className={`transition-all py-2`}>
+    <div className={`transition-all`}>
       <button onClick={openFilters} className="btn-purple items-baseline">
         {selectedTagsCount ? `Filters (${selectedTagsCount})` : 'Filters 🎯'}
       </button>
@@ -70,7 +70,10 @@ function TagFilter({ toggleFilter, selectedTags, reset }) {
             })}
           </div>
           { (selectedTags.length > 0) &&
-            <button onClick={reset} className="btn-clear text-red">Clear filters</button>
+            <div className="flex justify-between">
+              <button onClick={reset} className="btn-clear text-red">Clear filters</button>
+              <button onClick={closeFilters} className="btn-clear text-green">Done</button>
+            </div>
           }
         </>
       </ReactModal>

@@ -96,8 +96,10 @@ export default function Home() {
       </MouseParallaxContainer>
 
       <Section className="snap-center" id="events">
-        <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">Upcoming events</h2>
-        <div>
+        <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 -rotate-6">
+          Events
+        </h2>
+        <div className={`max-h-screen flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`}>
           <EventsFeed />
         </div>
       </Section>
