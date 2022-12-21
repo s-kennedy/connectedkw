@@ -4,6 +4,21 @@ module.exports = {
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
   ],
+  safelist: [
+    "bg-black",
+    "bg-white",
+    "bg-grey",
+    "bg-red",
+    "bg-lightRed",
+    "bg-blue",
+    "bg-lightBlue",
+    "bg-green",
+    "bg-lightGreen",
+    "bg-yellow",
+    "bg-lightYellow",
+    "bg-purple",
+    "bg-lightPurple"
+  ],
   theme: {
     colors: {
       red: "#ef476f",
@@ -17,7 +32,8 @@ module.exports = {
       purple: "#51355a",
       lightPurple: "#d7d1d8",
       black: "#170F1A",
-      white: "#FFFFFF"
+      white: "#FFFFFF",
+      grey: "#F7A1B5"
     },
     fontFamily: {
       body: ['Fredoka', 'Helvetica Neue', 'sans-serif'],
@@ -33,8 +49,11 @@ module.exports = {
       fontSize: {
         '8xl': '5.5rem',
         '7xl': '4rem'
+      },
+      maxHeight: {
+        visibleScreen: 'calc(100vh - 100px)'
       }
     },
   },
-  plugins: [],
+  plugins: []
 }

@@ -18,7 +18,7 @@ export default function Home() {
         globalFactorX={0.2}
         globalFactorY={0.2}
       >
-        <section className={`${styles.landingSection} w-screen sm:h-screen relative`} id="landing">
+        <section className={`pt-[61px] w-screen sm:h-screen relative`} id="landing">
           <div className="container px-4 py-8 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col sm:flex-row h-full">
             <div className="basis-1/2">
               <MouseParallaxChild factorX={0.3} factorY={0.2} inverted>
@@ -84,7 +84,7 @@ export default function Home() {
                   </MouseParallaxChild>
                 </div>
               </div>
-              <div className={`max-w-xs mx-auto max-h-screen flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`} data-aos="fade-up">
+              <div className={`max-w-xs mx-auto max-h-screen flex-auto w-full flex flex-col max-h-visibleScreen`} data-aos="fade-up">
                 <IdeaGenerator />
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function Home() {
         <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 -rotate-6">
           Events
         </h2>
-        <div className={`max-h-screen flex-auto w-full flex flex-col ${styles.ideaGeneratorContainer}`}>
+        <div className={`flex-auto w-full flex flex-col md:max-h-visibleScreen`}>
           <EventsFeed />
         </div>
       </Section>
