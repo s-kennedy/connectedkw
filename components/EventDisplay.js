@@ -33,7 +33,7 @@ function EventDisplay({ event, isLoading }) {
   const imageDescription = getField("Image description")
 
   return (
-    <div className={`overflow-auto min-h-0 h-full w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
+    <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
       <div className={isLoading ? '' : styles.appear}>
         {image &&
         <div className="mb-4">

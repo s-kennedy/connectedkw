@@ -9,7 +9,9 @@ import Blob from 'components/Blob'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 import { eventCategories } from 'utils/constants'
 
-const FeaturedEventCard = ({ event, setSelectedEvent }) => {
+const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
+  if (!event) return null
+
   const getField = (fieldName) => {
     return event?.fields?.[fieldName]
   }
@@ -42,7 +44,8 @@ const FeaturedEventCard = ({ event, setSelectedEvent }) => {
       globalFactorY={0.2}
       className={`w-full md:h-full`}
     >
-      <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} relative flex flex-col w-full md:h-full p-0 border-3 rounded-xl border-black bg-white min-h-0`}>
+      <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} p-0 border-3 rounded-xl border-black bg-white w-full h-full`}>
+        <div className={`${isLoading ? styles.loading : styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>
         <div className={`${categoryStyles.bgColor} ${categoryStyles.textColor} flex-none rounded-t-lg w-full text-sm px-3 flex justify-end text-medium`}>
           {`${category} ${categoryStyles.emoji}`}
         </div>
@@ -71,6 +74,7 @@ const FeaturedEventCard = ({ event, setSelectedEvent }) => {
           </div>
         </div>
         <div className={`${styles.btn} cursor-pointer btn btn-red absolute right-4 bottom-4`}>More info</div>
+      </div>
       </button>
     </MouseParallaxContainer>
   )
@@ -126,6 +130,8 @@ const EventsFeed = () => {
   const [isLoading, setLoading] = useState(false)
   const [selectedTags, setSelectedTags] = useState([])
   const [menuOpen, setMenuOpen] = useState(false)
+  const [featuredEventIndex, setFeaturedEventIndex] = useState(0)
+
 
   useEffect(() => {
     fetchEvents()
@@ -159,24 +165,24 @@ const EventsFeed = () => {
   }
 
   const fetchEvents = () => {
-    // setLoading(true)
+    setLoading(true)
     fetch("/api/events")
       .then((res) => res.json())
       .then((data) => {
         setAllEvents(data.events)
         setFilteredEvents(data.events)
-        // setLoading(false)
+        setLoading(false)
       })
   }
 
   const fetchFeaturedEvents = () => {
-    // setLoading(true)
+    setLoading(true)
     fetch("/api/events?featured=true")
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
         setFeaturedEvents(data.events)
-        // setLoading(false)
+        setLoading(false)
       })
   }
 
@@ -202,10 +208,39 @@ const EventsFeed = () => {
     setMenuOpen(!menuOpen)
   }
 
+  const nextFeaturedEvent = () => {
+    setLoading(true)
+    const timer = setTimeout(() => {
+      const maxIndex = featuredEvents.length - 1
+      if (featuredEventIndex < maxIndex) {
+        setFeaturedEventIndex(featuredEventIndex + 1)
+      } else {
+        setFeaturedEventIndex(0)
+      }
+      setLoading(false)
+    }, 250)
+
+
+  }
+
+  const prevFeaturedEvent = () => {
+    setLoading(true)
+    const timer = setTimeout(() => {
+      const maxIndex = featuredEvents.length - 1
+      if (featuredEventIndex === 0) {
+        setFeaturedEventIndex(maxIndex)
+      } else {
+        setFeaturedEventIndex(featuredEventIndex - 1)
+      }
+      setLoading(false)
+    }, 250)
+  }
+
   console.log(selectedTags)
   console.log({filteredEvents})
 
   const allOut = filteredEvents?.length === 0;
+  const featuredEvent = featuredEvents[featuredEventIndex]
 
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
@@ -245,12 +280,28 @@ const EventsFeed = () => {
         <div className="flex flex-col md:flex-row w-full max-md:space-y-2 md:space-x-2">
           <div className="basis-1/2 flex-auto h-full flex flex-col">
             <div className="text-sm font-medium mb-2">FEATURED</div>
-            <div className={`flex flex-auto h-full min-h-0`}>
-              {
-                featuredEvents.map(event => {
-                  return <FeaturedEventCard setSelectedEvent={setSelectedEvent} event={event} key={event.id} />
-                })
-              }
+            <div className={`flex flex-col flex-auto h-full min-h-0 relative mb-4 md:mb-0`}>
+              <FeaturedEventCard setSelectedEvent={setSelectedEvent} event={featuredEvent} isLoading={isLoading} />
+              <div className="absolute left-0 -bottom-5 right-0 flex-none flex justify-center pt-2">
+                <button title="previous" onClick={prevFeaturedEvent} className={`btn-clear ${styles.btnLeft}`} aria-label="previous">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 181.03 181.5" height="40" width="40">
+                    <path
+                      d="M165.72,13.45C133.79,3.41-2.86,75.67,12.11,95.61c21.46,28.58,116.35,90.13,145,86.21C184.17,178.14,187.46,20.29,165.72,13.45Z"
+                      transform="translate(-4.97 -6.5)"
+                      className={styles.arrow}
+                    />
+                  </svg>
+                </button>
+                <button title="next" onClick={nextFeaturedEvent} className={`btn-clear ${styles.btnRight}`} aria-label="next">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 181.03 181.5" height="40" width="40">
+                    <path
+                      d="M33.8,181.82c28.7,3.92,123.59-57.63,145.05-86.21,15-19.94-121.68-92.2-153.61-82.16C3.49,20.29,6.79,178.14,33.8,181.82Z"
+                      transform="translate(-4.97 -6.5)"
+                      className={styles.arrow}
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
           <div className="basis-1/2 flex flex-col flex-auto h-full max-h-visibleScreen md:max-h-full">
