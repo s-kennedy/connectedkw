@@ -39,7 +39,7 @@ const Layout = ({
           </Link>
         </nav>
 
-        <div className="flex space-x-8 items-center">
+        <div className="space-x-8 items-center hidden md:flex">
           <nav>
             <Link href="/#activity-roulette" className="text-black no-underline uppercase text-sm font-medium">Activities</Link>
           </nav>

@@ -95,7 +95,7 @@ export default function Home() {
         </section>
       </MouseParallaxContainer>
 
-      <Section className="snap-center" id="events">
+      <Section className="snap-start" id="events">
         <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 -rotate-6">
           Events
         </h2>
@@ -104,7 +104,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section className="snap-center" id="coming-soon">
+      <Section className="snap-start" id="coming-soon">
         <MouseParallaxContainer
           globalFactorX={0.3}
           globalFactorY={0.3}
@@ -148,7 +148,7 @@ export default function Home() {
         </MouseParallaxContainer>
       </Section>
 
-      <Section className="snap-center" id="get-connected">
+      <Section className="snap-start" id="get-connected">
         <MouseParallaxContainer
           globalFactorX={0.3}
           globalFactorY={0.3}
