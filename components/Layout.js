@@ -39,6 +39,18 @@ const Layout = ({
           </Link>
         </nav>
 
+        <div className="flex space-x-8 items-center">
+          <nav>
+            <Link href="/#activity-roulette" className="text-black no-underline uppercase text-sm font-medium">Activities</Link>
+          </nav>
+          <nav>
+            <Link href="/#events" className="text-black no-underline uppercase text-sm font-medium">Events</Link>
+          </nav>
+          <nav>
+            <Link href="/#get-connected" className="text-black no-underline uppercase text-sm font-medium">Get connected</Link>
+          </nav>
+        </div>
+
         <div className="flex text-white space-x-4 items-center">
           <a
             href="mailto:hi@unboringkw.com"

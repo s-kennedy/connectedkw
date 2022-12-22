@@ -8,6 +8,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import Blob from 'components/Blob'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 import { eventCategories } from 'utils/constants'
+import { useRouter } from 'next/router'
 
 const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   if (!event) return null
@@ -29,6 +30,7 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   const image = getImageObj()
   const imageDescription = getField("Image description")
   const categoryStyles = eventCategories[category] || {}
+  const imageUrl = getField("Image url")
 
   const startDateObj = new Date(startDate)
   const endDateObj = new Date(endDate)
@@ -38,27 +40,31 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
   const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
 
+  const imgSrc = image ? image.thumbnails.large.url : imageUrl
+
   return (
       <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} p-0 border-3 rounded-xl border-black bg-white w-full h-full overflow-hidden`}>
         <div className={`${isLoading ? styles.loading : styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>
-        <div className={`${categoryStyles.bgColor} ${categoryStyles.textColor} flex-none rounded-t-lg w-full text-sm px-3 flex justify-end text-medium`}>
+        <div className={`${categoryStyles.bgColor} ${categoryStyles.textColor} flex-none rounded-t-lg w-full text-sm px-3 py-1 flex justify-end text-medium`}>
           {`${category} ${categoryStyles.emoji}`}
         </div>
         <div className="w-full flex-auto min-h-0 flex min-[500px]:max-md:flex-row flex-col justify-stretch items-stretch">
+        { imgSrc &&
           <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
             <img
-              className="object-cover min-[500px]:max-md:aspect-square"
-              src={image.thumbnails.large.url}
+              className={`object-cover min-[500px]:max-md:aspect-square ${styles.appear}`}
+              src={imgSrc}
               alt={imageDescription}
-              width={image.thumbnails.large.width}
-              height={image.thumbnails.large.height}
+              width={image ? image.thumbnails.large.width : undefined}
+              height={image ? image.thumbnails.large.height : undefined}
             />
           </div>
+        }
           <div className={`basis-1/2 flex-auto text-left overflow-auto h-full styled-scrollbar p-5`}>
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
             <p className="mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{startDateString}</time></p>
             <p className="mb-1 space-x-3 flex flex-nowrap"><span>⏰</span><span><time>{startTime}</time>{` - `}<time>{endTime}</time></span></p>
-            <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>
+            { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
           </div>
         </div>
         <div className={`${styles.btn} cursor-pointer btn btn-red absolute right-4 bottom-4`}>More info</div>
@@ -93,15 +99,15 @@ const EventCard = ({ event, setSelectedEvent }) => {
   const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
 
   return (
-    <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black ${styles.result}`}>
-      <div className={`${categoryStyles.bgColor} ${categoryStyles.textColor} w-full text-sm px-3 flex justify-end text-medium`}>
+    <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
+      <div className={`${categoryStyles.bgColor} ${categoryStyles.textColor} w-full text-sm px-3 py-1 flex justify-end text-medium`}>
         {category}
       </div>
       <div className="info p-3 text-left">
         <h3 className="mb-2 font-body font-medium">{title}</h3>
         <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{startDateString}</time></p>
         <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>⏰</span><span><time>{startTime}</time>{` - `}<time>{endTime}</time></span></p>
-        <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>
+        {locationName && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
       </div>
       <div className={`${styles.btn} cursor-pointer btn btn-red absolute right-4 bottom-4`}>More info</div>
     </button>
@@ -210,13 +216,14 @@ const EventsFeed = () => {
 
   const nextFeaturedEvent = () => {
     setLoading(true)
+    const maxIndex = featuredEvents.length - 1
+    if (featuredEventIndex < maxIndex) {
+      setFeaturedEventIndex(featuredEventIndex + 1)
+    } else {
+      setFeaturedEventIndex(0)
+    }
+
     const timer = setTimeout(() => {
-      const maxIndex = featuredEvents.length - 1
-      if (featuredEventIndex < maxIndex) {
-        setFeaturedEventIndex(featuredEventIndex + 1)
-      } else {
-        setFeaturedEventIndex(0)
-      }
       setLoading(false)
     }, 250)
 
@@ -225,19 +232,17 @@ const EventsFeed = () => {
 
   const prevFeaturedEvent = () => {
     setLoading(true)
+    const maxIndex = featuredEvents.length - 1
+    if (featuredEventIndex === 0) {
+      setFeaturedEventIndex(maxIndex)
+    } else {
+      setFeaturedEventIndex(featuredEventIndex - 1)
+    }
+
     const timer = setTimeout(() => {
-      const maxIndex = featuredEvents.length - 1
-      if (featuredEventIndex === 0) {
-        setFeaturedEventIndex(maxIndex)
-      } else {
-        setFeaturedEventIndex(featuredEventIndex - 1)
-      }
       setLoading(false)
     }, 250)
   }
-
-  console.log(selectedTags)
-  console.log({filteredEvents})
 
   const allOut = filteredEvents?.length === 0;
   const featuredEvent = featuredEvents[featuredEventIndex]
@@ -246,8 +251,8 @@ const EventsFeed = () => {
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="flex-none flex justify-end mb-2 z-30 space-x-2">
         <TagFilter
-          // toggleFilter={toggleFilter}
-          // selectedTags={selectedTags}
+          toggleFilter={toggleFilter}
+          selectedTags={selectedTags}
           toggleCategory={toggleCategory}
           selectedCategories={selectedCategories}
           reset={reset}
@@ -310,7 +315,7 @@ const EventsFeed = () => {
           </div>
           <div className="basis-1/2 flex flex-col flex-auto h-full max-h-visibleScreen md:max-h-full">
             <div className="text-sm font-medium mb-2">UPCOMING</div>
-            <div className={`flex-auto flex-col space-y-2 overflow-auto pr-2 styled-scrollbar`}>
+            <div className={`flex-auto flex-col space-y-2 overflow-auto pr-2 styled-scrollbar snap-y`}>
               {
                 filteredEvents.map(event => {
                   return <EventCard setSelectedEvent={setSelectedEvent} event={event} key={event.id} />

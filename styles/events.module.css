@@ -41,7 +41,7 @@
 }
 
 .appear {
-  animation: appear 250ms ease-in;
+  animation: appear 350ms ease-in;
 }
 
 .loading {
