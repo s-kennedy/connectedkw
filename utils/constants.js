@@ -14,7 +14,6 @@ export const tagEmojiDict = {
 }
 
 export const eventCategories = {
-  "default": { bgColor: "bg-grey", textColor: "text-black", emoji: "" },
   "Arts & culture": { bgColor: "bg-lightBlue", textColor: "text-blue", emoji: "🎤" },
   "Education": { bgColor: "bg-lightPurple", textColor: "text-purple", emoji: "🤓" },
   "Festival or market": { bgColor: "bg-lightYellow", textColor: "text-yellow", emoji: "🎪" },
