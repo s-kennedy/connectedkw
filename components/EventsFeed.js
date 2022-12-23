@@ -332,10 +332,10 @@ const EventsFeed = () => {
         shouldCloseOnEsc={true}
         className="max-w-md mx-auto h-full"
         style={{
-          overlay: { padding: "6vw", zIndex: 60 }
+          overlay: { padding: "6vw", zIndex: 100 }
         }}
       >
-        <EventDisplay event={selectedEvent} />
+        <EventDisplay event={selectedEvent} closeModal={() => setSelectedEvent(null)} />
       </ReactModal>
     </div>
   )

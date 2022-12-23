@@ -13,7 +13,7 @@ const Tag = ({ name }) => {
   )
 }
 
-function EventDisplay({ event, isLoading }) {
+function EventDisplay({ event, isLoading, closeModal }) {
 
   const getField = (fieldName) => {
     return event?.fields?.[fieldName]
@@ -48,33 +48,38 @@ function EventDisplay({ event, isLoading }) {
   const imgSrc = image ? image.thumbnails.large.url : imageUrl
 
   return (
-    <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
-      <div className={isLoading ? '' : styles.appear}>
-        {imgSrc &&
-        <div className="mb-4">
-          <div className="relative">
-            <img className={`object-cover aspect-video ${styles.appear}`} src={imgSrc} alt={imageDescription || title} width={image ? image.thumbnails.large.width : undefined } height={image ? image.thumbnails.large.height : undefined} />
-            { (imageCredit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
-          </div>
-        </div>
-        }
-        {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
-        <p className="mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{startDateString}</time></p>
-        <p className="mb-1 space-x-3 flex flex-nowrap"><span>⏰</span><span><time>{startTime}</time>{` - `}<time>{endTime}</time></span></p>
-        { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
-        {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
-
-        {link && <a className="btn btn-purple mb-4" href={link} target="_blank" rel="noopener noreferrer">{`🔗 ${linkText}`}</a>}
-
-
-        {tags.length > 0 &&
-          <div className="my-4">
-            <h4 className="text-lg font-body font-medium">Tags</h4>
-            <div className="flex flex-wrap">
-              {tags.map(tag => <Tag name={tag} key={tag} />)}
+    <div className="h-full w-full bg-white pt-8 border-3 rounded-xl border-black relative">
+      <div className="w-full flex justify-end absolute top-0 left-0">
+        <button onClick={closeModal} className={`text-lg font-medium btn-clear`}>✕</button>
+      </div>
+      <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 pt-0`}>
+        <div className={isLoading ? '' : styles.appear}>
+          {imgSrc &&
+          <div className="mb-4">
+            <div className="relative">
+              <img className={`object-cover aspect-video ${styles.appear}`} src={imgSrc} alt={imageDescription || title} width={image ? image.thumbnails.large.width : undefined } height={image ? image.thumbnails.large.height : undefined} />
+              { (imageCredit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
             </div>
           </div>
-        }
+          }
+          {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
+          <p className="mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{startDateString}</time></p>
+          <p className="mb-1 space-x-3 flex flex-nowrap"><span>⏰</span><span><time>{startTime}</time>{` - `}<time>{endTime}</time></span></p>
+          { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
+          {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
+
+          {link && <a className="btn btn-purple mb-4" href={link} target="_blank" rel="noopener noreferrer">{`🔗 ${linkText}`}</a>}
+
+
+          {tags.length > 0 &&
+            <div className="my-4">
+              <h4 className="text-lg font-body font-medium">Tags</h4>
+              <div className="flex flex-wrap">
+                {tags.map(tag => <Tag name={tag} key={tag} />)}
+              </div>
+            </div>
+          }
+        </div>
       </div>
     </div>
   )

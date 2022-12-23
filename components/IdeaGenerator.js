@@ -1,7 +1,6 @@
 import styles from "styles/ideaGenerator.module.css"
 
 import { useState, useEffect } from "react"
-import ReactModal from "react-modal";
 import * as Fathom from 'fathom-client';
 import Link from 'next/link'
 import OutsideClickHandler from 'react-outside-click-handler';

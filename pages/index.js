@@ -63,7 +63,7 @@ export default function Home() {
         globalFactorX={0.2}
         globalFactorY={0.2}
       >
-        <section id="activity-roulette" className={`w-screen lg:h-screen relative flex flex-col lg:flex-row justify-center items-start sm:items-center snap-center p-5`}>
+        <section id="activity-roulette" className={`w-screen lg:h-screen relative flex flex-col lg:flex-row justify-center items-start sm:items-center snap-center scroll-mt-10 p-5`}>
           <div className="container mx-auto relative">
             <div className="flex items-start justify-center sm:items-center flex-col sm:flex-row my-6 sm:my-12 min-h-0 relative">
               <div className="absolute w-full h-full flex justify-center items-center">
@@ -95,7 +95,7 @@ export default function Home() {
         </section>
       </MouseParallaxContainer>
 
-      <Section className="snap-start" id="events">
+      <Section className="snap-start scroll-mt-10" id="events">
         <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 -rotate-6">
           Events
         </h2>
@@ -104,7 +104,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section className="snap-start" id="coming-soon">
+      <Section className="snap-start scroll-mt-10" id="coming-soon">
         <MouseParallaxContainer
           globalFactorX={0.3}
           globalFactorY={0.3}
@@ -148,7 +148,7 @@ export default function Home() {
         </MouseParallaxContainer>
       </Section>
 
-      <Section className="snap-start" id="get-connected">
+      <Section className="snap-start scroll-mt-10" id="get-connected">
         <MouseParallaxContainer
           globalFactorX={0.3}
           globalFactorY={0.3}
