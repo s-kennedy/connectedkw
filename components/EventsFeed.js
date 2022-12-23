@@ -2,6 +2,7 @@ import styles from "styles/events.module.css"
 import { useState, useEffect } from "react"
 import ReactModal from "react-modal";
 import Link from 'next/link'
+import Image from 'next/image'
 import TagFilter from "components/TagFilter"
 import EventDisplay from "components/EventDisplay"
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -41,6 +42,14 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
 
   const imgSrc = image ? image.thumbnails.large.url : imageUrl
+
+  if (isLoading) {
+    return (
+      <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">
+        <Image src="/loading.svg" width={40} height={40} alt="loading" />
+      </div>
+    )
+  }
 
   return (
       <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} p-0 border-3 rounded-xl border-black bg-white w-full h-full overflow-hidden`}>
@@ -276,7 +285,7 @@ const EventsFeed = () => {
         <div className="absolute right-0 top-0 pr-11">
           <OutsideClickHandler onOutsideClick={closeMenu} useCapture={true}>
             <div className={`${styles.appear} flex flex-col border-3 bg-white p-5 rounded-xl`}>
-              <Link href="/events" className="mb-1">See all events</Link>
+              <Link href="/events" className="mb-1">Calendar view</Link>
               <Link href="/events/new">Submit an event</Link>
             </div>
           </OutsideClickHandler>
@@ -315,13 +324,20 @@ const EventsFeed = () => {
           </div>
           <div className="basis-1/2 flex flex-col flex-auto h-full max-h-visibleScreen md:max-h-full">
             <div className="text-sm font-medium mb-2">UPCOMING</div>
-            <div className={`flex-auto flex-col space-y-2 overflow-auto pr-2 styled-scrollbar snap-y`}>
-              {
-                filteredEvents.map(event => {
-                  return <EventCard setSelectedEvent={setSelectedEvent} event={event} key={event.id} />
-                })
-              }
-            </div>
+
+            { isLoading ? (
+              <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">
+                <Image src="/loading.svg" width={40} height={40} alt="loading" />
+              </div>
+              ) : (
+              <div className={`flex-auto flex-col space-y-2 overflow-auto pr-2 styled-scrollbar snap-y`}>
+                {
+                  filteredEvents.map(event => {
+                    return <EventCard setSelectedEvent={setSelectedEvent} event={event} key={event.id} />
+                  })
+                }
+              </div>
+            )}
           </div>
         </div>
       </div>
