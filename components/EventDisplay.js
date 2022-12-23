@@ -28,6 +28,7 @@ function EventDisplay({ event, isLoading, closeModal }) {
   const startDate = getField("Start date")
   const endDate = getField("End date")
   const locationName = getField("Location name")
+  const locationAddress = getField("Location address")
   const category = getField("Category")
   const image = getImageObj()
   const imageDescription = getField("Image description")
@@ -65,10 +66,10 @@ function EventDisplay({ event, isLoading, closeModal }) {
           {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
           <p className="mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{startDateString}</time></p>
           <p className="mb-1 space-x-3 flex flex-nowrap"><span>⏰</span><span><time>{startTime}</time>{` - `}<time>{endTime}</time></span></p>
-          { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
+          { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}<br />{locationAddress}</span></p>}
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
-          {link && <a className="btn btn-purple mb-4" href={link} target="_blank" rel="noopener noreferrer">{`🔗 ${linkText}`}</a>}
+          {link && <a className="btn btn-purple my-4" href={link} target="_blank" rel="noopener noreferrer">{`🔗 ${linkText}`}</a>}
 
 
           {tags.length > 0 &&

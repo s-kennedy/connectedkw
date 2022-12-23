@@ -61,7 +61,7 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
         { imgSrc &&
           <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
             <img
-              className={`object-cover min-[500px]:max-md:aspect-square ${styles.appear}`}
+              className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
               src={imgSrc}
               alt={imageDescription}
               width={image ? image.thumbnails.large.width : undefined}
@@ -224,18 +224,12 @@ const EventsFeed = () => {
   }
 
   const nextFeaturedEvent = () => {
-    setLoading(true)
     const maxIndex = featuredEvents.length - 1
     if (featuredEventIndex < maxIndex) {
       setFeaturedEventIndex(featuredEventIndex + 1)
     } else {
       setFeaturedEventIndex(0)
     }
-
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 250)
-
 
   }
 

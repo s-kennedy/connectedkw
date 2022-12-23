@@ -96,8 +96,13 @@ body {
 }
 
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
   font-family: var(--theme-font-title), Helvetica Neue, sans-serif;
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--theme-font-body), Helvetica Neue, sans-serif;
+  font-weight: 500;
 }
 
 a {
@@ -168,7 +173,30 @@ navbar .logo:hover img {
   animation: appear 350ms ease-in;
 }
 
+article ul {
+  list-style: list;
+  list-style-type: disc;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+article h2 {
+  margin-top: 2rem;
+}
+
 @layer base {
+  h1 {
+    @apply text-5xl sm:text-6xl md:text-7xl mb-4 lg:mb-6;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl mb-2;
+  }
+
+  h3 {
+    @apply text-lg mb-1 md:mb-2 font-medium;
+  }
+
   p {
     @apply mb-2;
   }
