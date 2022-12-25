@@ -32,8 +32,6 @@ function IdeaDisplay({ selectedIdea, isLoading }) {
   const imageCredit = getField("Image credit")
   const imageDescription = getField("Image description")
 
-  console.log({imageCredit})
-
   return (
     <div className={`overflow-auto styled-scrollbar w-full bg-white p-5 border-3 rounded-xl border-black ${styles.result}`}>
       <div className={isLoading ? '' : styles.appear}>

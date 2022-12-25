@@ -21,8 +21,12 @@ const CustomForm = ({ status, message, onValidated }) => {
   return (
     <div className="w-full bg-white p-5 border-3 rounded-xl border-black ">
       <div className="">
-        <p className="text-xl mb-2 font-medium">Do you want to be notified when we launch new stuff?</p>
-        <p className="mb-2">We&apos;ll email you to announce new features on the website. Don&apos;t worry, we will not be spamming you because frankly we don&apos;t have time for that.</p>
+        <p className="text-xl mb-2 font-medium">
+          {`Do you want to stay on top of what's going on in KW?`}
+        </p>
+        <p className="mb-2">
+          {`Subscribe to find out about events and activities in our community. Not in an annoying spammy way, just thoughtful and timely information to keep you in the loop 😜`}
+        </p>
       </div>
 
       {status === "error" && (

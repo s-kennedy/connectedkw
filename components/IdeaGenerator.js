@@ -73,7 +73,6 @@ function IdeaGenerator() {
       if (remainingIdeas.length > 0) {
         setAvailableIdeas(remainingIdeas)
       } else {
-        console.log("reload ideas!")
         setAvailableIdeas(allIdeas)
         filterIdeas()
       }
@@ -97,9 +96,6 @@ function IdeaGenerator() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
-
-  console.log(selectedTags)
-  console.log({availableIdeas})
 
   const allOut = availableIdeas?.length === 0;
 

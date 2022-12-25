@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 
@@ -12,6 +13,7 @@ import Blob from 'components/Blob'
 import Marquee from 'components/Marquee'
 
 export default function Home() {
+
   return (
     <Layout>
       <MouseParallaxContainer
@@ -104,6 +106,38 @@ export default function Home() {
         </div>
       </Section>
 
+      <Section className="snap-start scroll-mt-10" id="articles">
+          <div className="bg-white rounded-xl border-black border-3 p-5 lg:p-10">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
+              Articles
+            </h2>
+            <div className="flex flex-col">
+              <div className="w-full">
+                <Link href="/articles/new-years-eve-2022"><h3>What's happening for New Years in KW?</h3></Link>
+                <p className="uppercase text-sm mb-2 text-grey"><time>Dec 26, 2022</time></p>
+                <p className="">2022 was a hard year for a lot of us, so let's send it off in a big way! There are a lot of NYE events going on in KW this year, so we've compiled some options to help you decide what you might like to do.</p>
+                <div className="divider flex justify-center items-center space-x-4 my-6">
+                  <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />
+                  <Blob fill="var(--theme-yellow)" className="inline-block w-2" />
+                  <Blob fill="var(--theme-green)" className="inline-block w-2 -rotate-45" />
+                </div>
+              </div>
+
+              <div className="w-full">
+                <Link href="/articles/14-days-of-christmas-break"><h3>The 14 days of Christmas break</h3></Link>
+                <p className="uppercase text-sm mb-2 text-grey"><time>Dec 26, 2022</time></p>
+                <p className="">Christmas is over, now what are you supposed to do with the kids for the next two weeks?</p>
+                <div className="hidden divider flex justify-center items-center space-x-4 my-6">
+                  <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />
+                  <Blob fill="var(--theme-yellow)" className="inline-block w-2" />
+                  <Blob fill="var(--theme-green)" className="inline-block w-2 -rotate-45" />
+                </div>
+              </div>
+            </div>
+            <Link href="/articles" className="btn btn-purple mt-8">All articles</Link>
+          </div>
+      </Section>
+
       <Section className="snap-start scroll-mt-10" id="coming-soon">
         <MouseParallaxContainer
           globalFactorX={0.3}
@@ -184,3 +218,5 @@ export default function Home() {
     </Layout>
   )
 }
+
+

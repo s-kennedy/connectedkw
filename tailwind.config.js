@@ -8,6 +8,7 @@ module.exports = {
     "bg-black",
     "bg-white",
     "bg-grey",
+    "bg-lightGrey",
     "bg-red",
     "bg-lightRed",
     "bg-blue",
@@ -33,7 +34,8 @@ module.exports = {
       lightPurple: "#d7d1d8",
       black: "#170F1A",
       white: "#FFFFFF",
-      grey: "#F7A1B5"
+      grey: "#5C706C",
+      lightGrey: "#DDE3E2"
     },
     fontFamily: {
       body: ['Fredoka', 'Helvetica Neue', 'sans-serif'],

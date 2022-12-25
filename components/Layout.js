@@ -15,7 +15,10 @@ const MenuLinks = () => {
         <Link href="/#events" className="text-black no-underline uppercase text-sm font-medium">Events</Link>
       </nav>
       <nav>
-        <Link href="/#get-connected" className="text-black no-underline uppercase text-sm font-medium">Get connected</Link>
+        <Link href="/#articles" className="text-black no-underline uppercase text-sm font-medium">Articles</Link>
+      </nav>
+      <nav>
+        <Link href="/#get-connected" className="text-black no-underline uppercase text-sm font-medium">Subscribe</Link>
       </nav>
     </>
   )
@@ -84,7 +87,7 @@ const Layout = ({
         setMenuHidden(true)
       }, 500)
     }
-  }, menuOpen)
+  }, [menuOpen])
 
   const closeMenu = () => {
     setMenuOpen(false)
