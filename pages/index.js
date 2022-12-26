@@ -113,9 +113,13 @@ export default function Home() {
             </h2>
             <div className="flex flex-col">
               <div className="w-full">
-                <Link href="/articles/new-years-eve-2022"><h3>What's happening for New Years in KW?</h3></Link>
+                <Link href="/articles/new-years-eve-2022">
+                  <h3>{`What's happening for New Years in KW?`}</h3>
+                </Link>
                 <p className="uppercase text-sm mb-2 text-grey"><time>Dec 26, 2022</time></p>
-                <p className="">2022 was a hard year for a lot of us, so let's send it off in a big way! There are a lot of NYE events going on in KW this year, so we've compiled some options to help you decide what you might like to do.</p>
+                <p className="">
+                  {`2022 was a hard year for a lot of us, so let's send it off in a big way! There are a lot of NYE events going on in KW this year, so we've compiled some options to help you decide what you might like to do.`}
+                </p>
                 <div className="divider flex justify-center items-center space-x-4 my-6">
                   <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />
                   <Blob fill="var(--theme-yellow)" className="inline-block w-2" />
@@ -124,9 +128,13 @@ export default function Home() {
               </div>
 
               <div className="w-full">
-                <Link href="/articles/14-days-of-christmas-break"><h3>The 14 days of Christmas break</h3></Link>
+                <Link href="/articles/14-days-of-christmas-break">
+                  <h3>{`The 14 days of Christmas break`}</h3>
+                </Link>
                 <p className="uppercase text-sm mb-2 text-grey"><time>Dec 26, 2022</time></p>
-                <p className="">Christmas is over, now what are you supposed to do with the kids for the next two weeks?</p>
+                <p className="">
+                  {`Christmas is over, now what are we supposed to do with the kids for the next two weeks?`}
+                </p>
                 <div className="hidden divider flex justify-center items-center space-x-4 my-6">
                   <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />
                   <Blob fill="var(--theme-yellow)" className="inline-block w-2" />
