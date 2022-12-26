@@ -52,7 +52,7 @@ body {
   font-family: var(--theme-font-body), Helvetica Neue, sans-serif;
   font-size: 18px;
 /*  cursor: url('../assets/cursor.svg'), url('../assets/cursor.png'), auto;*/
-  scroll-behavior: smooth;
+/*  scroll-behavior: smooth;*/
 }
 
 .page-bg-rainbow {
@@ -182,6 +182,10 @@ article ul {
 
 article h2 {
   margin-top: 2rem;
+}
+
+.article:last-of-type .divider {
+  display: none;
 }
 
 @layer base {

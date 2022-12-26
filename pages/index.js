@@ -11,8 +11,17 @@ import Section from 'components/Section'
 import MailchimpSubscriptionForm from 'components/MailchimpSubscriptionForm'
 import Blob from 'components/Blob'
 import Marquee from 'components/Marquee'
+import { getArticles } from 'utils/articles';
 
-export default function Home() {
+export async function getStaticProps() {
+  const articles = await getArticles()
+  return {
+    props: { articles },
+  }
+}
+
+
+export default function Home({ articles }) {
 
   return (
     <Layout>
@@ -112,35 +121,27 @@ export default function Home() {
               Articles
             </h2>
             <div className="flex flex-col">
-              <div className="w-full">
-                <Link href="/articles/new-years-eve-2022">
-                  <h3>{`What's happening for New Years in KW?`}</h3>
-                </Link>
-                <p className="uppercase text-sm mb-2 text-grey"><time>Dec 26, 2022</time></p>
-                <p className="">
-                  {`2022 was a hard year for a lot of us, so let's send it off in a big way! There are a lot of NYE events going on in KW this year, so we've compiled some options to help you decide what you might like to do.`}
-                </p>
-                <div className="divider flex justify-center items-center space-x-4 my-6">
-                  <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />
-                  <Blob fill="var(--theme-yellow)" className="inline-block w-2" />
-                  <Blob fill="var(--theme-green)" className="inline-block w-2 -rotate-45" />
-                </div>
-              </div>
-
-              <div className="w-full">
-                <Link href="/articles/14-days-of-christmas-break">
-                  <h3>{`The 14 days of Christmas break`}</h3>
-                </Link>
-                <p className="uppercase text-sm mb-2 text-grey"><time>Dec 26, 2022</time></p>
-                <p className="">
-                  {`Christmas is over, now what are we supposed to do with the kids for the next two weeks?`}
-                </p>
-                <div className="hidden divider flex justify-center items-center space-x-4 my-6">
-                  <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />
-                  <Blob fill="var(--theme-yellow)" className="inline-block w-2" />
-                  <Blob fill="var(--theme-green)" className="inline-block w-2 -rotate-45" />
-                </div>
-              </div>
+            {
+              articles.map(article => {
+                const { meta } = article
+                return (
+                  <div className="w-full article" key={article.id}>
+                    <Link href={article.link}>
+                      <h3>{meta.title}</h3>
+                    </Link>
+                    <p className="uppercase text-sm mb-2 text-grey"><time>{meta.date}</time></p>
+                    <p className="">
+                      {meta.description}
+                    </p>
+                    <div className="divider flex justify-center items-center space-x-4 my-6">
+                      <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />
+                      <Blob fill="var(--theme-yellow)" className="inline-block w-2" />
+                      <Blob fill="var(--theme-green)" className="inline-block w-2 -rotate-45" />
+                    </div>
+                  </div>
+                )
+              })
+            }
             </div>
             <Link href="/articles" className="btn btn-purple mt-8">All articles</Link>
           </div>
@@ -161,7 +162,7 @@ export default function Home() {
                 <p className="text-lg md:text-xl mb-4 sm:mb-6">Unboring KW is just getting started! We&apos;re here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans:</p>
                 <ul className="text-lg md:text-xl">
                     <li className="mb-2 sm:mb-4" data-aos="fade-up">🗺&nbsp;&nbsp;Community maps</li>
-                    <li className="mb-2 sm:mb-4" data-aos="fade-up">️⭐&nbsp;&nbsp;Reviews and ecommendations</li>
+                    <li className="mb-2 sm:mb-4" data-aos="fade-up">️⭐&nbsp;&nbsp;Reviews and recommendations</li>
                     <li className="mb-2 sm:mb-4" data-aos="fade-up">✌&nbsp;&nbsp;Community engagement</li>
                   </ul>
                 <p className="text-lg md:text-xl mb-4 sm:mb-6">We&apos;re very open to ideas, suggestions, and feedback. Feel free to contact us at <a href="mailto:hi@unboringkw.com">hi@unboringkw.com</a>.</p>
