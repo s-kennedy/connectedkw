@@ -230,21 +230,15 @@ const EventsFeed = () => {
     } else {
       setFeaturedEventIndex(0)
     }
-
   }
 
   const prevFeaturedEvent = () => {
-    setLoading(true)
     const maxIndex = featuredEvents.length - 1
     if (featuredEventIndex === 0) {
       setFeaturedEventIndex(maxIndex)
     } else {
       setFeaturedEventIndex(featuredEventIndex - 1)
     }
-
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 250)
   }
 
   const allOut = filteredEvents?.length === 0;

@@ -67,7 +67,7 @@ const SocialLinks = () => {
 
 const Layout = ({
   title="Unboring KW",
-  description="Things to see and do in Kitchener Waterloo",
+  description="The best place to find things to do in Kitchener Waterloo",
   image="https://www.unboringkw.com/share-image.jpg",
   color="rainbow",
   children }) => {

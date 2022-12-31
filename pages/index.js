@@ -37,8 +37,8 @@ export default function Home({ articles }) {
                   Hi KW 👋
                 </h1>
               </MouseParallaxChild>
-              <p className="text-2xl mb-4">We&apos;re here to make it easier to find things to do in Kitchener-Waterloo.</p>
-              <p className="text-2xl mb-6">Let&apos;s have some fun!</p>
+              <p className="text-2xl mb-4">{`We're here to make it easier to find things to do in Kitchener-Waterloo.`}</p>
+              <p className="text-2xl mb-6">{`Let's have some fun!`}</p>
               <div data-aos="zoom-in-right" data-aos-delay="500">
                 <a
                   href="#activity-roulette"
