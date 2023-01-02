@@ -55,6 +55,18 @@
   stroke-width: 12px;
 }
 
+.btnLeft {
+  left: -22px;
+  position: absolute;
+  top: 48%;
+}
+
+.btnRight {
+  right: -22px;
+  position: absolute;
+  top: 48%;
+}
+
 .btnLeft:hover svg, .btnLeft:focus svg {
   animation: pulse-left 250ms ease-in-out;
 }

@@ -36,10 +36,16 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   const startDateObj = new Date(startDate)
   const endDateObj = new Date(endDate)
 
-  const startDateString = startDateObj.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' })
-  const endDateString = endDateObj.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+  const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
+  const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
   const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
   const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+
+  let dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
+
+  if (startDateString !== endDateString) {
+    dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+  }
 
   const imgSrc = image ? image.thumbnails.large.url : imageUrl
 
@@ -52,12 +58,12 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   }
 
   return (
-      <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} p-0 border-3 rounded-xl border-black bg-white w-full h-full overflow-hidden`}>
+      <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
         <div className={`${isLoading ? styles.loading : styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>
-        <div className={`${categoryStyles.bgColor} ${categoryStyles.textColor} flex-none rounded-t-lg w-full text-sm px-3 py-1 flex justify-end text-medium`}>
-          {`${category} ${categoryStyles.emoji}`}
+        <div className={`bg-red flex-none rounded-t-lg w-full text-sm px-3 py-1 flex font-medium`}>
+          {`️⭐ FEATURED ️⭐`}
         </div>
-        <div className="w-full flex-auto min-h-0 flex min-[500px]:max-md:flex-row flex-col justify-stretch items-stretch">
+        <div className="w-full flex-auto min-h-0 flex flex-col sm:flex-row justify-stretch items-stretch">
         { imgSrc &&
           <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
             <img
@@ -71,9 +77,9 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
         }
           <div className={`basis-1/2 flex-auto text-left overflow-auto h-full styled-scrollbar p-5`}>
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
-            <p className="mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{startDateString}</time></p>
-            <p className="mb-1 space-x-3 flex flex-nowrap"><span>⏰</span><span><time>{startTime}</time>{` - `}<time>{endTime}</time></span></p>
+            <p className="mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
             { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
+            {category && <p className="mb-1 space-x-3 flex flex-nowrap"><span>{categoryStyles.emoji}</span><span>{category}</span></p>}
           </div>
         </div>
         <div className={`${styles.btn} cursor-pointer btn btn-red absolute right-4 bottom-4`}>More info</div>
@@ -102,21 +108,24 @@ const EventCard = ({ event, setSelectedEvent }) => {
   const startDateObj = new Date(startDate)
   const endDateObj = new Date(endDate)
 
-  const startDateString = startDateObj.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' })
-  const endDateString = endDateObj.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+  const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
+  const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
   const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
   const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
 
+  let dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
+
+  if (startDateString !== endDateString) {
+    dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+  }
+
   return (
-    <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
-      <div className={`${categoryStyles.bgColor} ${categoryStyles.textColor} w-full text-sm px-3 py-1 flex justify-end text-medium`}>
-        {category}
-      </div>
+    <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} relative snap-start transition-all p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black ${styles.result}`}>
       <div className="info p-3 text-left">
         <h3 className="mb-2 font-body font-medium">{title}</h3>
-        <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{startDateString}</time></p>
-        <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>⏰</span><span><time>{startTime}</time>{` - `}<time>{endTime}</time></span></p>
+        <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
         {locationName && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
+        {category && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>{categoryStyles.emoji}</span><span>{category}</span></p>}
       </div>
       <div className={`${styles.btn} cursor-pointer btn btn-red absolute right-4 bottom-4`}>More info</div>
     </button>
@@ -144,10 +153,6 @@ const EventsFeed = () => {
   useEffect(() => {
     filterEvents()
   }, [selectedTags, selectedCategories])
-
-  useEffect(() => {
-    setFeaturedEvents(filteredEvents.filter(e => e.fields.Featured))
-  }, [filteredEvents])
 
   useEffect(() => {
     ReactModal.setAppElement("#event-feed")
@@ -242,7 +247,6 @@ const EventsFeed = () => {
   }
 
   const allOut = filteredEvents?.length === 0;
-  const featuredEvent = featuredEvents[featuredEventIndex]
 
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
@@ -280,47 +284,20 @@ const EventsFeed = () => {
         </div>
       }
       </div>
-      <div className="flex-auto flex relative min-h-0 z-10 h-full">
-        <div className="flex flex-col md:flex-row w-full max-md:space-y-2 md:space-x-2">
-          <div className="basis-1/2 flex-auto h-full flex flex-col">
-            <div className="text-sm font-medium mb-2">FEATURED</div>
-            <div className={`flex flex-col flex-auto h-full min-h-0 relative mb-4 md:mb-0`}>
-              <FeaturedEventCard setSelectedEvent={setSelectedEvent} event={featuredEvent} isLoading={isLoading} />
-              {(featuredEvents.length > 1) &&
-                <div className="absolute left-0 -bottom-5 right-0 flex-none flex justify-center pt-2">
-                  <button title="previous" onClick={prevFeaturedEvent} className={`btn-clear ${styles.btnLeft}`} aria-label="previous">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 181.03 181.5" height="40" width="40">
-                      <path
-                        d="M165.72,13.45C133.79,3.41-2.86,75.67,12.11,95.61c21.46,28.58,116.35,90.13,145,86.21C184.17,178.14,187.46,20.29,165.72,13.45Z"
-                        transform="translate(-4.97 -6.5)"
-                        className={styles.arrow}
-                      />
-                    </svg>
-                  </button>
-                  <button title="next" onClick={nextFeaturedEvent} className={`btn-clear ${styles.btnRight}`} aria-label="next">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 181.03 181.5" height="40" width="40">
-                      <path
-                        d="M33.8,181.82c28.7,3.92,123.59-57.63,145.05-86.21,15-19.94-121.68-92.2-153.61-82.16C3.49,20.29,6.79,178.14,33.8,181.82Z"
-                        transform="translate(-4.97 -6.5)"
-                        className={styles.arrow}
-                      />
-                    </svg>
-                  </button>
-                </div>
-              }
-            </div>
-          </div>
+      <div className="flex-auto flex min-h-0 z-10 h-full">
+        <div className="flex flex-col md:flex-row w-full max-md:space-y-2 md:space-x-4">
           <div className="basis-1/2 flex flex-col flex-auto h-full max-h-visibleScreen md:max-h-full">
-            <div className="text-sm font-medium mb-2">UPCOMING</div>
-
             { isLoading ? (
               <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">
                 <Image src="/loading.svg" width={40} height={40} alt="loading" />
               </div>
               ) : (
-              <div className={`flex-auto flex-col space-y-2 overflow-auto pr-2 styled-scrollbar snap-y`}>
+              <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
                 {
                   filteredEvents.map(event => {
+                    if (event.fields.Featured) {
+                      return <FeaturedEventCard setSelectedEvent={setSelectedEvent} event={event} isLoading={isLoading} key={event.id} />
+                    }
                     return <EventCard setSelectedEvent={setSelectedEvent} event={event} key={event.id} />
                   })
                 }

@@ -12,8 +12,7 @@ export const tagEmojiDict = {
   "Dog-friendly": "🐶",
   "Self-care": "💖",
   "Group": "👥",
-  "Holidays": "🎅",
-  "New Years": "🎉",
+  "Holidays": "🎅"
 }
 
 export const eventCategories = {
