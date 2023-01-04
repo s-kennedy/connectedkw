@@ -43,5 +43,19 @@ const getEvents = async (featured=false) => {
   return events
 }
 
+const getMapFeatures = async (tableName) => {
+  const table = base(tableName)
+  const records = await table
+    .select({ filterByFormula: "{Status} = 'Published'" })
+    .firstPage();
 
-export { getIdeas, getEvents };
+  const features = records.map(r => ({ 
+    id: r.id, 
+    ...r.fields 
+  }))
+
+  return features
+}
+
+
+export { getIdeas, getEvents, getMapFeatures };

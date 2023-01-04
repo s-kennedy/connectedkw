@@ -105,6 +105,10 @@ h3, h4, h5, h6 {
   font-weight: 500;
 }
 
+p {
+  font-family: var(--theme-font-body), Helvetica Neue, sans-serif;
+}
+
 a {
   color: var(--theme-blue);
   text-decoration: underline;
@@ -243,4 +247,35 @@ article h2 {
     @apply border-none hover:text-blue focus:text-purple px-2 py-1;
   }
 }
+
+.map-infowindow .image {
+  aspect-ratio: 1/1;
+  width: 80px;
+  max-width: 100%;
+  background: var(--theme-light-purple);
+}
+
+.map-infowindow img {
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.map-infowindow {
+  font-family: var(--theme-font-body);
+  font-size: 0.8rem;
+}
+
+.map-infowindow .title {
+  font-family: var(--theme-font-title);
+  font-size: 1rem;
+}
+
+.map-infowindow .location {
+  font-family: var(--theme-font-body);
+  font-size: 0.7rem;
+}
+
 

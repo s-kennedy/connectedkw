@@ -54,6 +54,9 @@ module.exports = {
       },
       maxHeight: {
         visibleScreen: 'calc(100vh - 100px)'
+      },
+      height: {
+        visibleScreen: 'calc(100vh - 100px)'
       }
     },
   },
