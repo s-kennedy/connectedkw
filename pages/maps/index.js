@@ -25,7 +25,10 @@ export default function TestMap({ features }) {
           </h1>
         </div>
         <div className="bg-white rounded-xl border-black border-3 overflow-hidden h-visibleScreen w-full">
-          <InteractiveMap features={features} categories={categories} />
+          <InteractiveMap 
+            features={features} 
+            categories={categories} 
+          />
         </div>
       </Section>
     </Layout>

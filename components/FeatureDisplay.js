@@ -18,6 +18,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
   const city = feature.City
   const description = feature.Description
   const link = feature["External link"]
+  const linkText = feature["Link text"] || "More information"
   const imageCredit = feature["Image credit"]
 
   const fullAddress = [address, city].join(", ")
@@ -43,7 +44,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
           <p className="mb-1 space-x-3 flex flex-nowrap text-sm"><span>📍</span><span>{locationName}<br />{fullAddress}</span></p>
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
-          {link && <a className="btn btn-purple my-4" href={link} target="_blank" rel="noopener noreferrer">{`🔗 More information`}</a>}
+          {link && <a className="btn btn-purple my-4" href={link} target="_blank" rel="noopener noreferrer">{`🔗 ${linkText}`}</a>}
 
       </div>
     </div>

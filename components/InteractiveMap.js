@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef, isValidElement, cloneElement, Children } from 'react';
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Loading from 'components/Loading'
 import FeatureDisplay from 'components/FeatureDisplay'
 import ReactModal from "react-modal";
 
-import { DEFAULT_MAP_CENTER, MAP_ZOOM_LEVEL, MAP_STYLE, MARKER_SVG, DEFAULT_MARKER_COLOR } from "utils/constants";
+import { DEFAULT_MAP_CENTER, MAP_ZOOM_LEVEL, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_MARKER_COLOR } from "utils/constants";
 
 const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedMarker }) => {
   const [marker, setMarker] = useState();
@@ -103,7 +104,7 @@ const InfoWindow = ({ map, marker }) => {
 };
 
 
-const MapComponent = ({ children }) => {
+const MapComponent = ({ features, categories, setPreviewMarker, setSelectedMarker, children }) => {
   const ref = useRef(null);
   const [map, setMap] = useState();
   const [zoom, setZoom] = useState(MAP_ZOOM_LEVEL);
@@ -124,6 +125,70 @@ const MapComponent = ({ children }) => {
       });
     }
   }, [map]);
+
+  useEffect(() => {
+    if (map && features) {
+      const markers = features.map(feature => {
+        const position = new google.maps.LatLng(feature.Latitude, feature.Longitude)
+        const category = categories[feature.Category] || {}
+        const color = category.color || DEFAULT_MARKER_COLOR
+        const icon = {
+          path: MARKER_SVG,
+          fillColor: color,
+          fillOpacity: 1,
+          size: new google.maps.Size(30,30),
+          origin: new google.maps.Point(0,0),
+          anchor: new google.maps.Point(15,30),
+          strokeWeight: 2,
+          scale: 1,
+        }
+        const title = feature.Title
+        const options = {
+          icon,
+          position,
+          title,
+          properties: feature
+        }
+
+        const marker = new google.maps.Marker(options)
+
+        // marker.setOptions({map, ...options});
+        marker.addListener("mouseover", () => setPreviewMarker(marker))
+        marker.addListener("mouseout", () => setPreviewMarker(null))
+        marker.addListener("click", () => setSelectedMarker(marker))
+
+        return marker
+      })
+
+      const options = {
+        renderer: { render: ({ count, position }) => new google.maps.Marker({
+          label: { 
+            text: String(count), 
+            color: "#ffffff", 
+            fontSize: "11px",
+            fontFamily: "'Fredoka', sans-serif",
+          },
+          position,
+          // adjust zIndex to be above other markers
+          zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
+          icon: {
+            path: MARKER_CLUSTER_SVG,
+            fillColor: "#51355a",
+            fillOpacity: 1,
+            size: new google.maps.Size(30,30),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(15,30),
+            labelOrigin: new google.maps.Point(15,15),
+            strokeWeight: 3,
+            strokeColor: "#d7d1d8",
+            scale: 1,
+          }
+        })}
+      }
+
+      new MarkerClusterer({ markers, map, ...options });
+    }
+  }, [map, features, categories])
 
   return (
     <>
@@ -149,30 +214,18 @@ const InteractiveMap = ({ features, categories }) => {
   const [selectedMarker, setSelectedMarker] = useState(null)
 
   useEffect(() => {
-
-  }, [selectedMarker])
-
-  useEffect(() => {
     ReactModal.setAppElement("#interactive-map")
   })
 
   return(
     <div id="interactive-map" className="w-full h-full">
       <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY} render={render}>
-        <MapComponent>
-          { features.map(f => {
-              const category = categories[f.Category]
-              return (
-                <Marker 
-                  key={f.id} 
-                  feature={f} 
-                  category={category} 
-                  setPreviewMarker={setPreviewMarker} 
-                  setSelectedMarker={setSelectedMarker}
-                />
-              ) 
-            })
-          }
+        <MapComponent 
+          features={features} 
+          categories={categories}
+          setPreviewMarker={setPreviewMarker} 
+          setSelectedMarker={setSelectedMarker}
+        >
           <InfoWindow marker={previewMarker} />
         </MapComponent>
       </Wrapper>
