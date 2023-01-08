@@ -22,12 +22,21 @@ export default function PublicArtMap({ features }) {
   }
 
   return (
-    <Layout title="Public Art in Waterloo Region" color="blue">
+    <Layout title="Public Art in Waterloo Region" color="yellow">
       <Section className="snap-center mt-12">
         <div className="mb-6">
           <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
             Public Art in Waterloo Region
           </h1>
+          <p>This map shows art from the following sources:</p>
+          <ul>
+            <li><a href="https://issuu.com/dtkownit/docs/field_guide_for_web">{`A Field Guide to DTK's Art Walk`}</a></li>
+            <li><a href="https://uptownwaterloobia.com/art-walks/">{`Uptown Waterloo Art Walks`}</a></li>
+            <li><a href="https://www.regionofwaterloo.ca/en/exploring-the-region/resources/Documents/public_art-where_in_the_region_current-access.pdf">{`Where to See Regional Public Art`}</a></li>
+            <li><a href="https://www.kitchener.ca/en/arts-culture-and-events/public-art-collection.aspx">{`City of Kitchener Public Art Collection`}</a></li>
+            <li><a href="https://www.cambridge.ca/en/parks-recreation-culture/resources/public-art-brochure---River-Walk.pdf">{`City of Cambridge River Walk`}</a></li>
+            <li><a href="https://cambridgesculpturegarden.com/">{`Cambridge Sculpture Garden`}</a></li>
+          </ul>
         </div>
         <div className="bg-white rounded-xl border-black border-3 overflow-hidden h-visibleScreen w-full">
           <InteractiveMap 

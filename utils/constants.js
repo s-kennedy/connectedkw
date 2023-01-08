@@ -27,47 +27,26 @@ export const eventCategories = {
   "Tech": { bgColor: "bg-green", textColor: "text-white", emoji: "🤖" }
 }
 
-export const MAP_ZOOM_LEVEL = 11
+export const MAP_ZOOM_LEVEL = 12
 
 export const DEFAULT_MAP_CENTER = {
-  lat: 43.454086146097296,
-  lng: -80.50884238682171,
+  lat: 43.421678,
+  lng: -80.432968,
 }
 
 export const MAP_STYLE = [
     {
-        "featureType": "all",
-        "elementType": "labels.text.fill",
+        "featureType": "administrative",
+        "elementType": "all",
         "stylers": [
             {
-                "saturation": 36
-            },
-            {
-                "color": "#333333"
-            },
-            {
-                "lightness": 40
+                "saturation": "-100"
             }
         ]
     },
     {
-        "featureType": "all",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 16
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "labels.icon",
+        "featureType": "administrative.province",
+        "elementType": "all",
         "stylers": [
             {
                 "visibility": "off"
@@ -75,254 +54,80 @@ export const MAP_STYLE = [
         ]
     },
     {
-        "featureType": "administrative",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#fefefe"
-            },
-            {
-                "lightness": 20
-            }
-        ]
-    },
-    {
-        "featureType": "administrative",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#fefefe"
-            },
-            {
-                "lightness": 17
-            },
-            {
-                "weight": 1.2
-            }
-        ]
-    },
-    {
         "featureType": "landscape",
-        "elementType": "geometry",
+        "elementType": "all",
         "stylers": [
             {
-                "color": "#f5f5f5"
+                "saturation": -100
             },
             {
-                "lightness": 20
+                "lightness": 65
+            },
+            {
+                "visibility": "on"
             }
         ]
     },
     {
         "featureType": "poi",
-        "elementType": "geometry",
+        "elementType": "all",
         "stylers": [
             {
-                "color": "#f5f5f5"
+                "saturation": -100
             },
             {
-                "lightness": 21
+                "lightness": "20"
+            },
+            {
+                "visibility": "simplified"
             }
         ]
     },
     {
-        "featureType": "poi",
-        "elementType": "labels.icon",
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": "-100"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "all",
         "stylers": [
             {
                 "visibility": "simplified"
-            },
-            {
-                "saturation": "-100"
-            },
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "all",
+        "stylers": [
             {
                 "lightness": "30"
             }
         ]
     },
     {
-        "featureType": "poi.attraction",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.attraction",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.attraction",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.attraction",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.attraction",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.business",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.government",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.medical",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.park",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#dedede"
-            },
-            {
-                "lightness": 21
-            }
-        ]
-    },
-    {
-        "featureType": "poi.place_of_worship",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.school",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.sports_complex",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 17
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 29
-            },
-            {
-                "weight": 0.2
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 18
-            }
-        ]
-    },
-    {
         "featureType": "road.local",
-        "elementType": "geometry",
+        "elementType": "all",
         "stylers": [
             {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 16
+                "lightness": "40"
             }
         ]
     },
     {
         "featureType": "transit",
-        "elementType": "geometry",
+        "elementType": "all",
         "stylers": [
             {
-                "color": "#f2f2f2"
+                "saturation": -100
             },
-            {
-                "lightness": 19
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "labels.icon",
-        "stylers": [
             {
                 "visibility": "simplified"
-            },
-            {
-                "saturation": "-100"
             }
         ]
     },
@@ -331,10 +136,19 @@ export const MAP_STYLE = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#e9e9e9"
+                "hue": "#ffff00"
             },
             {
-                "lightness": 17
+                "saturation": -97
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "saturation": -100
             }
         ]
     }

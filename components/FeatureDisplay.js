@@ -21,8 +21,8 @@ function FeatureDisplay({ feature={}, closeModal }) {
   const linkText = feature["Link text"] || "More information"
   const imageCredit = feature["Image credit"]
 
-  const fullAddress = [address, city].join(", ")
-  const artistInfo = [artist, date].join(", ")
+  const fullAddress = [address, city].filter(i=>i).join(", ")
+  const artistInfo = [artist, date].filter(i=>i).join(", ")
 
   return (
     <div className="h-full w-full bg-white pt-8 border-3 rounded-xl border-black relative">
