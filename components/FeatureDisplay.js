@@ -41,6 +41,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
           }
           {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
           <p className="mb-1 space-x-3 flex flex-nowrap text-sm"><span>🖌</span><span>{artistInfo}</span></p>
+          { locationName ? (<p className="mb-1 space-x-3 flex flex-nowrap text-sm"><span>📍</span><span>{locationName}<br />{fullAddress}</span></p>) : (<p className="mb-1 space-x-3 flex flex-nowrap text-sm"><span>📍</span><span>{fullAddress}</span></p>)}
           <p className="mb-1 space-x-3 flex flex-nowrap text-sm"><span>📍</span><span>{locationName}<br />{fullAddress}</span></p>
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
