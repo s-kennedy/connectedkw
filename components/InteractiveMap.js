@@ -24,7 +24,7 @@ const Legend = ({ map, categories }) => {
     if (legend && map) {
       map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
     }
-  })
+  }, [legend])
 
   const categoryNames = Object.keys(categories)
 
