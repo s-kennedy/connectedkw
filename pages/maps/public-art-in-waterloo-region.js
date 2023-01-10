@@ -12,13 +12,12 @@ export async function getServerSideProps(context) {
 
 export default function PublicArtMap({ features }) {
   const categories = {
-    "Memorial": { color: "#ffd166" }, //yellow
     "Mural": { color: "#ef476f" }, //red 
-    "New media": { color: "#d7d1d8" }, //light purple
-    "Other": { color: "#FFFFFF" }, // white
-    "Photography": { color: "#06d6a0" }, //green
     "Sculpture": { color: "#ffd166" }, // yellow
-    "Street art": { color: "#118ab2" }, // blue
+    "Photography": { color: "#06d6a0" }, //green
+    "New media": { color: "#d7d1d8" }, //light purple
+    "Memorial": { color: "#118ab2" }, //blue
+    "Other": { color: "#FFFFFF" }, // white
   }
 
   return (
