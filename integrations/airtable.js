@@ -46,7 +46,10 @@ const getEvents = async (featured=false) => {
 const getMapFeatures = async (tableName) => {
   const table = base(tableName)
   const records = await table
-    .select({ filterByFormula: "{Status} = 'Published'" })
+    .select({ 
+      filterByFormula: "{Status} = 'Published'",
+      sort: [{ field: "Title", direction: "asc" }]
+    })
     .all();
 
   const features = records.map(r => ({ 

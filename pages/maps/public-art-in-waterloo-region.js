@@ -38,9 +38,7 @@ export default function PublicArtMap({ features }) {
             <li><a href="https://cambridgesculpturegarden.com/">{`Cambridge Sculpture Garden`}</a></li>
           </ul>
         </div>
-        <div>
-        </div>
-        <div className="h-visibleScreen w-full">
+        <div className="w-full">
           <InteractiveMap 
             features={features} 
             categories={categories} 

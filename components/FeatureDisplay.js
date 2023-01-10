@@ -14,7 +14,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
 
   const title = feature.Title || "Untitled"
   const artist = feature.Artist || "Artist unknown"
-  const date = feature.Year || "ND"
+  const date = feature.Year
   const locationName = feature["Location description"]
   const address = feature["Street address"]
   const city = feature.City
@@ -24,8 +24,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
   const imageCredit = feature["Image credit"]
 
   const fullAddress = [address, city].filter(i=>i).join(", ")
-  const artistInfo = [artist, date].filter(i=>i).join(", ")
-
+  
   const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&size=120x120&markers=color:red|${feature.Latitude},${feature.Longitude}&style=feature:all|saturation:-100`
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${feature.Latitude},${feature.Longitude}`
 
@@ -46,7 +45,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
           }
           {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
           <p className="mb-1 text-sm">{artist}</p>
-          <p className="mb-1 text-sm">{date}</p>
+          {date && <p className="mb-1 text-sm">{date}</p>}
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
           <a href={mapUrl} className="flex no-underline text-black" title="Click to open in Google Maps" target="_blank" rel="noreferrer noopener">

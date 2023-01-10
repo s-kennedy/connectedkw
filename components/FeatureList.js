@@ -8,7 +8,7 @@ const FeatureCard = ({ feature, setSelectedFeature }) => {
   const imageDescription = feature["Image description"]
   const title = feature.Title || "Untitled"
   const artist = feature.Artist || "Artist unknown"
-  const date = feature.Year || "ND"
+  const date = feature.Year
   const locationName = feature["Location description"]
   const address = feature["Street address"]
   const city = feature.City
@@ -47,10 +47,9 @@ const FeatureCard = ({ feature, setSelectedFeature }) => {
 }
 
 const FeatureList = ({ features, categories, setSelectedFeature }) => {
-  console.log(features)
   return(
     <div>
-      { features.map(feature => <FeatureCard feature={feature} setSelectedFeature={setSelectedFeature} />) }
+      { features.map(feature => <FeatureCard key={feature.id} feature={feature} setSelectedFeature={setSelectedFeature} />) }
     </div>
   )
 }

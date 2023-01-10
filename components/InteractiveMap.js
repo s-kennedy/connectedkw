@@ -2,11 +2,48 @@ import { useEffect, useState, useRef, isValidElement, cloneElement, Children } f
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Loading from 'components/Loading'
+import Section from 'components/Section'
 import FeatureDisplay from 'components/FeatureDisplay'
 import FeatureList from 'components/FeatureList'
+import FeatureGrid from 'components/FeatureGrid'
 import ReactModal from "react-modal";
 
 import { DEFAULT_MAP_CENTER, MAP_ZOOM_LEVEL, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_MARKER_COLOR } from "utils/constants";
+
+const Legend = ({ map, categories }) => {
+  const ref = useRef(null);
+  const [legend, setLegend] = useState()
+
+  useEffect(() => {
+    if (ref.current && !legend) {
+      setLegend(ref.current)
+    }
+  }, [ref]);
+
+  useEffect(() => {
+    if (legend && map) {
+      map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+    }
+  })
+
+  const categoryNames = Object.keys(categories)
+
+  return (
+    <div ref={ref} className="ml-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
+      {categoryNames.map(category => {
+        return (
+          <div className="mb-1 space-x-1 flex flex-nowrap items-center" key={category}>
+            <div className="h-3 w-3 rounded-full border" style={{ backgroundColor: `${categories[category]["color"]}`}}>
+            </div>
+            <div>
+              {category}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
 
 const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedFeature }) => {
   const [marker, setMarker] = useState();
@@ -191,11 +228,6 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
     }
   }, [map, features])
 
-  useEffect(() => {
-
-
-  }, [previewMarker])
-
   return (
     <>
       <div className="h-full w-full bg-white rounded-xl border-black border-3 overflow-hidden" ref={ref} />
@@ -221,11 +253,11 @@ const InteractiveMap = ({ features, categories }) => {
   const [view, setView] = useState("map")
 
   const setMapView = () => {
-    setView("maps")
+    setView("map")
   }
 
-  const setListView = () => {
-    setView("list")
+  const setGridView = () => {
+    setView("grid")
   }
 
   useEffect(() => {
@@ -233,9 +265,15 @@ const InteractiveMap = ({ features, categories }) => {
   })
 
   return(
-    <div id="interactive-map" className="w-full h-full flex space-x-1">
+    <div id="interactive-map" className="w-full h-full">
+    <div className="w-full flex justify-end">
+      <div className="border-black border-2 rounded-lg mb-2">
+        <button onClick={setMapView} className={`text-sm border-0 rounded-r-none ${view === "map" ? 'bg-green' : 'bg-white'}`}>Map</button>
+        <button onClick={setGridView} className={`text-sm border-0 rounded-l-none ${view === "grid" ? 'bg-green' : 'bg-white'}`}>Grid</button>
+      </div>
+    </div>
     { view === "map" &&
-      <div className="basis-2/3">
+      <div className="h-visibleScreen">
         <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY} render={render}>
           <MapComponent 
             features={features} 
@@ -245,29 +283,31 @@ const InteractiveMap = ({ features, categories }) => {
             previewMarker={previewMarker}
           >
             <InfoWindow marker={previewMarker} />
+            <Legend categories={categories} />
           </MapComponent>
         </Wrapper>
       </div>
     }
-      <div className="basis-1/3 h-full overflow-auto styled-scrollbar">
-        <FeatureList 
-          features={features} 
-          categories={categories}
-          setSelectedFeature={setSelectedFeature}
-        />
-      </div>
-      <ReactModal
-        isOpen={!!selectedFeature}
-        onRequestClose={() => setSelectedFeature(null)}
-        shouldCloseOnOverlayClick={true}
-        shouldCloseOnEsc={true}
-        className="max-w-md mx-auto h-full"
-        style={{
-          overlay: { padding: "3vw", zIndex: 100 }
-        }}
-      >
-        <FeatureDisplay feature={selectedFeature} closeModal={() => setSelectedFeature(null)} />
-      </ReactModal>
+    {
+      view === "grid" && 
+      <FeatureGrid 
+        features={features} 
+        categories={categories}
+        setSelectedFeature={setSelectedFeature}
+      />
+    }
+    <ReactModal
+      isOpen={!!selectedFeature}
+      onRequestClose={() => setSelectedFeature(null)}
+      shouldCloseOnOverlayClick={true}
+      shouldCloseOnEsc={true}
+      className="max-w-md mx-auto h-full"
+      style={{
+        overlay: { padding: "3vw", zIndex: 100 }
+      }}
+    >
+      <FeatureDisplay feature={selectedFeature} closeModal={() => setSelectedFeature(null)} />
+    </ReactModal>
     </div>
   )
 }

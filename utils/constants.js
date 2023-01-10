@@ -40,7 +40,7 @@ export const artCategories = {
   "Tech": { bgColor: "bg-green", textColor: "text-white", emoji: "🤖" }
 }
 
-export const MAP_ZOOM_LEVEL = 11
+export const MAP_ZOOM_LEVEL = 12
 
 export const DEFAULT_MAP_CENTER = {
   lat: 43.421678,
