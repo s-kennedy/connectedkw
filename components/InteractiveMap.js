@@ -3,11 +3,12 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Loading from 'components/Loading'
 import FeatureDisplay from 'components/FeatureDisplay'
+import FeatureList from 'components/FeatureList'
 import ReactModal from "react-modal";
 
 import { DEFAULT_MAP_CENTER, MAP_ZOOM_LEVEL, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_MARKER_COLOR } from "utils/constants";
 
-const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedMarker }) => {
+const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedFeature }) => {
   const [marker, setMarker] = useState();
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedMarker
       marker.setOptions({map, ...options});
       marker.addListener("mouseover", () => setPreviewMarker(marker))
       marker.addListener("mouseout", () => setPreviewMarker(null))
-      marker.addListener("click", () => setSelectedMarker(marker))
+      marker.addListener("click", () => setSelectedFeature(marker.properties))
     }
   }, [marker, feature]);
 
@@ -104,7 +105,7 @@ const InfoWindow = ({ map, marker }) => {
 };
 
 
-const MapComponent = ({ features, categories, setPreviewMarker, setSelectedMarker, children }) => {
+const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeature, previewMarker, children }) => {
   const ref = useRef(null);
   const [map, setMap] = useState();
   const [zoom, setZoom] = useState(MAP_ZOOM_LEVEL);
@@ -155,7 +156,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedMarke
         // marker.setOptions({map, ...options});
         marker.addListener("mouseover", () => setPreviewMarker(marker))
         marker.addListener("mouseout", () => setPreviewMarker(null))
-        marker.addListener("click", () => setSelectedMarker(marker))
+        marker.addListener("click", () => setSelectedFeature(marker.properties))
 
         return marker
       })
@@ -188,11 +189,16 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedMarke
 
       new MarkerClusterer({ markers, map, ...options });
     }
-  }, [map, features, categories])
+  }, [map, features])
+
+  useEffect(() => {
+
+
+  }, [previewMarker])
 
   return (
     <>
-      <div className="h-full w-full" ref={ref} />
+      <div className="h-full w-full bg-white rounded-xl border-black border-3 overflow-hidden" ref={ref} />
       { 
         Children.map(children, (child) => {
           if (isValidElement(child)) {
@@ -211,27 +217,48 @@ const render = ({ status }) => {
 
 const InteractiveMap = ({ features, categories }) => {
   const [previewMarker, setPreviewMarker] = useState(null)
-  const [selectedMarker, setSelectedMarker] = useState(null)
+  const [selectedFeature, setSelectedFeature] = useState(null)
+  const [view, setView] = useState("map")
+
+  const setMapView = () => {
+    setView("maps")
+  }
+
+  const setListView = () => {
+    setView("list")
+  }
 
   useEffect(() => {
     ReactModal.setAppElement("#interactive-map")
   })
 
   return(
-    <div id="interactive-map" className="w-full h-full">
-      <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY} render={render}>
-        <MapComponent 
+    <div id="interactive-map" className="w-full h-full flex space-x-1">
+    { view === "map" &&
+      <div className="basis-2/3">
+        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY} render={render}>
+          <MapComponent 
+            features={features} 
+            categories={categories}
+            setPreviewMarker={setPreviewMarker} 
+            setSelectedFeature={setSelectedFeature}
+            previewMarker={previewMarker}
+          >
+            <InfoWindow marker={previewMarker} />
+          </MapComponent>
+        </Wrapper>
+      </div>
+    }
+      <div className="basis-1/3 h-full overflow-auto styled-scrollbar">
+        <FeatureList 
           features={features} 
           categories={categories}
-          setPreviewMarker={setPreviewMarker} 
-          setSelectedMarker={setSelectedMarker}
-        >
-          <InfoWindow marker={previewMarker} />
-        </MapComponent>
-      </Wrapper>
+          setSelectedFeature={setSelectedFeature}
+        />
+      </div>
       <ReactModal
-        isOpen={!!selectedMarker}
-        onRequestClose={() => setSelectedMarker(null)}
+        isOpen={!!selectedFeature}
+        onRequestClose={() => setSelectedFeature(null)}
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
         className="max-w-md mx-auto h-full"
@@ -239,7 +266,7 @@ const InteractiveMap = ({ features, categories }) => {
           overlay: { padding: "3vw", zIndex: 100 }
         }}
       >
-        <FeatureDisplay feature={selectedMarker?.properties} closeModal={() => setSelectedMarker(null)} />
+        <FeatureDisplay feature={selectedFeature} closeModal={() => setSelectedFeature(null)} />
       </ReactModal>
     </div>
   )

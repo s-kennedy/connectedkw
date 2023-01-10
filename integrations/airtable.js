@@ -10,7 +10,7 @@ const eventsTable = base('Events');
 const getIdeas = async (selectedTags) => {
   const records = await ideasTable
     .select({ filterByFormula: "{Status} = 'Published'" })
-    .firstPage();
+    .all();
 
   const ideas = records.map(r => ({ id: r.id, fields: r.fields }))
 
@@ -36,7 +36,7 @@ const getEvents = async (featured=false) => {
     .select({
       filterByFormula: formulaString,
       sort: [{ field: "Start date", direction: "asc" }] })
-    .firstPage();
+    .all();
 
   const events = records.map(r => ({ id: r.id, fields: r.fields }))
 
@@ -47,7 +47,7 @@ const getMapFeatures = async (tableName) => {
   const table = base(tableName)
   const records = await table
     .select({ filterByFormula: "{Status} = 'Published'" })
-    .firstPage();
+    .all();
 
   const features = records.map(r => ({ 
     id: r.id, 

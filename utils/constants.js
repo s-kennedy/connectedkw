@@ -2,17 +2,18 @@ export const tagEmojiDict = {
   "Family": "👯",
   "Date idea": "🌹",
   "Free": "🙌",
-  "Going out": "😎",
   "Staying in": "😇",
   "Solo": "🚶",
   "Food": "🍩",
+  "Drinks": "🍻",
   "Shopping": "💸",
   "Culture": "🎤",
   "Sports": "👟",
   "Dog-friendly": "🐶",
   "Self-care": "💖",
   "Group": "👥",
-  "Holidays": "🎅"
+  "Holidays": "🎅",
+  "Craft": "✂️"
 }
 
 export const eventCategories = {
@@ -27,7 +28,19 @@ export const eventCategories = {
   "Tech": { bgColor: "bg-green", textColor: "text-white", emoji: "🤖" }
 }
 
-export const MAP_ZOOM_LEVEL = 12
+export const artCategories = {
+  "Arts & culture": { bgColor: "bg-lightBlue", textColor: "text-blue", emoji: "🎤" },
+  "Learning & personal growth": { bgColor: "bg-lightPurple", textColor: "text-purple", emoji: "🌱" },
+  "Festival or market": { bgColor: "bg-lightYellow", textColor: "text-yellow", emoji: "🎪" },
+  "Food & drink": { bgColor: "bg-lightRed", textColor: "text-red", emoji: "🍩" },
+  "Community action": { bgColor: "bg-blue", textColor: "text-white", emoji: "✌" },
+  "Kids & family": { bgColor: "bg-purple", textColor: "text-white", emoji: "👯" },
+  "Nightlife": { bgColor: "bg-red", textColor: "text-white", emoji: "💃" },
+  "Sports & recreation": { bgColor: "bg-lightGreen", textColor: "text-green", emoji: "👟" },
+  "Tech": { bgColor: "bg-green", textColor: "text-white", emoji: "🤖" }
+}
+
+export const MAP_ZOOM_LEVEL = 11
 
 export const DEFAULT_MAP_CENTER = {
   lat: 43.421678,
