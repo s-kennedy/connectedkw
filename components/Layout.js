@@ -18,6 +18,9 @@ const MenuLinks = () => {
         <Link href="/#articles" className="text-black no-underline uppercase text-sm font-medium">Articles</Link>
       </nav>
       <nav>
+        <Link href="/#maps" className="text-black no-underline uppercase text-sm font-medium">Maps</Link>
+      </nav>
+      <nav>
         <Link href="/#get-connected" className="text-black no-underline uppercase text-sm font-medium">Subscribe</Link>
       </nav>
     </>
@@ -75,7 +78,7 @@ const Layout = ({
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
   const [menuHidden, setMenuHidden] = useState(true)
-  const url = `https://www.unboringkw.com/${router.pathname}`
+  const url = `https://www.unboringkw.com${router.pathname}`
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
@@ -138,7 +141,7 @@ const Layout = ({
               <div className="text-2xl">unboring <span className="font-medium">kw</span></div>
             </Link>
 
-            <div className="hidden md:flex items-center space-x-6">
+            <div className="hidden md:flex items-center space-x-4">
               <MenuLinks />
             </div>
 

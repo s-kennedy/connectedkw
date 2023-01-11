@@ -38,6 +38,7 @@ function EventDisplay({ event, isLoading, closeModal }) {
   const link = getField("External link")
   const linkText = getField("Link text") || "Event page"
   const tags = getField("Tags") || []
+  const price = getField("Price")
 
   const startDateObj = new Date(startDate)
   const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
@@ -79,6 +80,7 @@ function EventDisplay({ event, isLoading, closeModal }) {
             <span>🗓</span>
             <span>{dateTimeString}</span>
           </p>
+          { price && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🎟</span><span>{price}</span></p>}
           { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}<br />{locationAddress}</span></p>}
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 

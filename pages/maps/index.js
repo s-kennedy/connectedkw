@@ -12,24 +12,34 @@ export async function getServerSideProps(context) {
 
 export default function PublicArtMap({ features }) {
   const categories = {
-    "Memorial": { color: "#ffd166" }, //yellow
     "Mural": { color: "#ef476f" }, //red 
-    "New media": { color: "#d7d1d8" }, //light purple
-    "Other": { color: "#FFFFFF" }, // white
-    "Photography": { color: "#06d6a0" }, //green
     "Sculpture": { color: "#ffd166" }, // yellow
-    "Street art": { color: "#118ab2" }, // blue
+    "Photography": { color: "#06d6a0" }, //green
+    "New media": { color: "#d7d1d8" }, //light purple
+    "Memorial": { color: "#118ab2" }, //blue
+    "Other": { color: "#FFFFFF" }, // white
   }
 
   return (
-    <Layout title="Public Art in Waterloo Region" color="blue">
+    <Layout title="Public Art in Waterloo Region" color="yellow">
       <Section className="snap-center mt-12">
-        <div className="mb-6">
+        <div className="mb-2">
           <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
             Public Art in Waterloo Region
           </h1>
+          <p>{`Who knew our region has/is a massive outdoor art gallery with over 150 pieces??`}</p>
+          <p>{`We've pulled together public art information from the following sources:`}</p>
+          <ul className="mb-2">
+            <li><a href="https://issuu.com/dtkownit/docs/field_guide_for_web">{`A Field Guide to DTK's Art Walk`}</a></li>
+            <li><a href="https://uptownwaterloobia.com/art-walks/">{`Uptown Waterloo Art Walks`}</a></li>
+            <li><a href="https://www.regionofwaterloo.ca/en/exploring-the-region/resources/Documents/public_art-where_in_the_region_current-access.pdf">{`Where to See Regional Public Art`}</a></li>
+            <li><a href="https://www.kitchener.ca/en/arts-culture-and-events/public-art-collection.aspx">{`City of Kitchener Public Art Collection`}</a></li>
+            <li><a href="https://www.cambridge.ca/en/parks-recreation-culture/resources/public-art-brochure---River-Walk.pdf">{`City of Cambridge River Walk`}</a></li>
+            <li><a href="https://cambridgesculpturegarden.com/">{`Cambridge Sculpture Garden`}</a></li>
+          </ul>
+          <p>{`Happy exploring!`}</p>
         </div>
-        <div className="bg-white rounded-xl border-black border-3 overflow-hidden h-visibleScreen w-full">
+        <div className="w-full">
           <InteractiveMap 
             features={features} 
             categories={categories} 

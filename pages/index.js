@@ -115,6 +115,33 @@ export default function Home({ articles }) {
         </div>
       </Section>
 
+      <Section className="snap-start scroll-mt-10" id="maps">
+        <div className="bg-white rounded-xl border-black border-3 p-5 lg:p-10">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
+            Maps
+          </h2>
+          <div className="flex flex-col">
+            <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
+              <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
+                <Link href="/maps/public-art-in-waterloo-region">
+                  <Image src="/map-thumbnail.jpg" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
+                </Link>
+              </div>
+              <div className="info basis-2/3">
+                <Link href="/maps/public-art-in-waterloo-region">
+                  <h3>Public Art in Waterloo Region</h3>
+                </Link>
+                <p className="uppercase text-sm mb-2 text-grey">January 11, 2023</p>
+                <p className="">
+                  {`Who knew our region has/is a massive outdoor art gallery with over 150 pieces?? This map includes public art from Kitchener, Waterloo, Cambridge, and the Region of Waterloo, all in one interactive map. Happy exploring!`}
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </Section>
+
       <Section className="snap-start scroll-mt-10" id="articles">
           <div className="bg-white rounded-xl border-black border-3 p-5 lg:p-10">
             <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
