@@ -40,12 +40,23 @@ function EventDisplay({ event, isLoading, closeModal }) {
   const tags = getField("Tags") || []
 
   const startDateObj = new Date(startDate)
-  const endDateObj = new Date(endDate)
-
-  const startDateString = startDateObj.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' })
-  const endDateString = endDateObj.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+  const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
   const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
-  const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+  
+  let dateTimeString = `${startDateString}, ${startTime}`
+
+  if (endDate) {
+    const endDateObj = new Date(endDate)
+    const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
+    const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+    
+    if (startDateString !== endDateString) {
+      dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+    } else {
+      dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
+    }
+  }
+
   const imgSrc = image ? image.thumbnails.large.url : imageUrl
 
   return (
@@ -64,13 +75,14 @@ function EventDisplay({ event, isLoading, closeModal }) {
           </div>
           }
           {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
-          <p className="mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{startDateString}</time></p>
-          <p className="mb-1 space-x-3 flex flex-nowrap"><span>⏰</span><span><time>{startTime}</time>{` - `}<time>{endTime}</time></span></p>
+          <p className="mb-1 space-x-3 flex flex-nowrap">
+            <span>🗓</span>
+            <span>{dateTimeString}</span>
+          </p>
           { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}<br />{locationAddress}</span></p>}
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
           {link && <a className="btn btn-purple my-4" href={link} target="_blank" rel="noopener noreferrer">{`🔗 ${linkText}`}</a>}
-
 
           {tags.length > 0 &&
             <div className="my-4">

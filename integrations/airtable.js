@@ -20,7 +20,7 @@ const getIdeas = async (selectedTags) => {
 const getEvents = async (featured=false) => {
 
   const published = "{Status} = 'Published'"
-  const upcoming = "IS_AFTER({End date}, NOW())"
+  const upcoming = "OR(IS_AFTER({End date}, NOW()), IS_AFTER({Start date}, NOW()))"
   const featuredTrue = "{Featured} = TRUE()"
 
   let formulae = [published, upcoming]

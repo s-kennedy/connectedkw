@@ -34,17 +34,21 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   const imageUrl = getField("Image url")
 
   const startDateObj = new Date(startDate)
-  const endDateObj = new Date(endDate)
-
   const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
-  const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
   const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
-  const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+  
+  let dateTimeString = `${startDateString}, ${startTime}`
 
-  let dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
-
-  if (startDateString !== endDateString) {
-    dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+  if (endDate) {
+    const endDateObj = new Date(endDate)
+    const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
+    const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+    
+    if (startDateString !== endDateString) {
+      dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+    } else {
+      dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
+    }
   }
 
   const imgSrc = image ? image.thumbnails.large.url : imageUrl
@@ -106,17 +110,21 @@ const EventCard = ({ event, setSelectedEvent }) => {
   const categoryStyles = eventCategories[category] || {}
 
   const startDateObj = new Date(startDate)
-  const endDateObj = new Date(endDate)
-
   const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
-  const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
   const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
-  const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+  
+  let dateTimeString = `${startDateString}, ${startTime}`
 
-  let dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
-
-  if (startDateString !== endDateString) {
-    dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+  if (endDate) {
+    const endDateObj = new Date(endDate)
+    const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
+    const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+    
+    if (startDateString !== endDateString) {
+      dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+    } else {
+      dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
+    }
   }
 
   return (
