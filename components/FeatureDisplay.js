@@ -13,7 +13,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
   }
 
   const title = feature.Title || "Untitled"
-  const artist = feature.Artist || "Artist unknown"
+  const artist = feature.Artist
   const date = feature.Year
   const locationName = feature["Location description"]
   const address = feature["Street address"]
@@ -44,7 +44,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
           </div>
           }
           {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
-          <p className="mb-1 text-sm">{artist}</p>
+          {artist && <p className="mb-1 text-sm">{artist}</p>}
           {date && <p className="mb-1 text-sm">{date}</p>}
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 

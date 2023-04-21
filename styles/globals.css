@@ -251,7 +251,7 @@ article h2 {
 
 .map-infowindow .image {
   aspect-ratio: 1/1;
-  width: 80px;
+  width: 100px;
   max-width: 100%;
   background: var(--theme-light-purple);
 }
@@ -266,12 +266,13 @@ article h2 {
 
 .map-infowindow {
   font-family: var(--theme-font-body);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .map-infowindow .title {
-  font-family: var(--theme-font-title);
-  font-size: 1rem;
+  font-family: var(--theme-font-body);
+  font-weight: 500;
+  margin-top: 0.25rem;
 }
 
 .map-infowindow .location {
