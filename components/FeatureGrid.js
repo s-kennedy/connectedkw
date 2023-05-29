@@ -1,27 +1,13 @@
 import { eventCategories, tagEmojiDict } from "../utils/constants"
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
-const FeatureCard = ({ feature, setSelectedFeature }) => {
+const FeatureCard = ({ feature, setSelectedFeature, displayFields }) => {
   if (!feature) return null
 
   const image = feature.Images ? feature.Images[0] : null
   const imgSrc = image?.thumbnails?.large?.url
   const imageDescription = feature["Image description"]
   const title = feature.Title || "Untitled"
-  const artist = feature.Artist || "Artist unknown"
-  const date = feature.Year
-  const locationName = feature["Location description"]
-  const address = feature["Street address"]
-  const city = feature.City
-  const description = feature.Description
-  const link = feature["External link"]
-  const linkText = feature["Link text"] || "More information"
-  const imageCredit = feature["Image credit"]
-  const category = feature.Category
-  const categoryStyles = eventCategories[category]
-
-  const fullAddress = [address, city].filter(i=>i).join(", ")
-  const artistInfo = [artist, date].filter(i=>i).join(", ")
 
   return (
     <button onClick={() => setSelectedFeature(feature)} className={`snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden mb-1`}>
@@ -39,21 +25,25 @@ const FeatureCard = ({ feature, setSelectedFeature }) => {
       }
         <div className={`basis-2/3 flex-auto text-left overflow-auto h-full styled-scrollbar p-3`}>
           <h3 className="mb-1 font-body font-medium">{title}</h3>
-          <p className="text-sm mb-1">{artistInfo}</p>
-          <p className="text-sm mb-1">{locationName ? locationName : fullAddress}</p>
+          { displayFields.map(field => {
+            const text = feature[field]
+            if (text) {
+              return <p className="text-sm mb-1" key={field}>{feature[field]}</p>
+            } 
+          })}
         </div>
       </div>
     </button>
   )
 }
 
-const FeatureGrid = ({ features, categories, setSelectedFeature }) => {
+const FeatureGrid = ({ features, categories, setSelectedFeature, displayFields=[] }) => {
   return(
       <ResponsiveMasonry
         columnsCountBreakPoints={{640: 1, 641: 2, 768: 3}}
       >
         <Masonry gutter="0.5rem" columnsCount={1}>
-          { features.map(feature => <FeatureCard key={feature.id} feature={feature} setSelectedFeature={setSelectedFeature} />) }
+          { features.map(feature => <FeatureCard key={feature.id} feature={feature} setSelectedFeature={setSelectedFeature} displayFields={displayFields} />) }
         </Masonry>
       </ResponsiveMasonry>
   )

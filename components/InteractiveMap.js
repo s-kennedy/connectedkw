@@ -6,6 +6,7 @@ import Section from 'components/Section'
 import FeatureDisplay from 'components/FeatureDisplay'
 import FeatureList from 'components/FeatureList'
 import FeatureGrid from 'components/FeatureGrid'
+import MapFilter from 'components/MapFilter'
 import ReactModal from "react-modal";
 
 import { DEFAULT_MAP_CENTER, MAP_ZOOM_LEVEL, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_MARKER_COLOR } from "utils/constants";
@@ -145,6 +146,8 @@ const InfoWindow = ({ map, marker }) => {
 const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeature, previewMarker, children }) => {
   const ref = useRef(null);
   const [map, setMap] = useState();
+  const [markers, setMarkers] = useState([])
+  const [clusterer, setClusterer] = useState(null)
   const [zoom, setZoom] = useState(MAP_ZOOM_LEVEL);
   const [center, setCenter] = useState(DEFAULT_MAP_CENTER);
 
@@ -166,7 +169,18 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
 
   useEffect(() => {
     if (map && features) {
-      const markers = features.map(feature => {
+      markers.forEach(m => {
+        m.setMap(null)
+        m = null
+      })
+
+      if (clusterer) {
+        clusterer.clearMarkers()
+      }
+
+      setMarkers([])
+
+      const gmapMarkers = features.map(feature => {
         const position = new google.maps.LatLng(feature.Latitude, feature.Longitude)
         const category = categories[feature.Category] || {}
         const color = category.color || DEFAULT_MARKER_COLOR
@@ -198,6 +212,8 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
         return marker
       })
 
+      setMarkers(gmapMarkers)
+
       const options = {
         renderer: { render: ({ count, position }) => new google.maps.Marker({
           label: { 
@@ -224,9 +240,41 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
         })}
       }
 
-      new MarkerClusterer({ markers, map, ...options });
+      if (clusterer) {
+        clusterer.addMarkers(gmapMarkers)
+      } else {
+        const gClusterer = new MarkerClusterer({ markers: gmapMarkers, map, ...options });
+        setClusterer(gClusterer)
+      }
+
+      resizeMapBounds()
     }
   }, [map, features])
+
+  const resizeMapBounds = () => {
+    if (!map) return null;
+
+    if (!features || features.length === 0) {
+      return resetMap()
+    }
+
+    const bounds = new google.maps.LatLngBounds();
+    features.forEach(feat => {
+      if (feat.Latitude && feat.Longitude) {
+        const pos = { lat: feat.Latitude, lng: feat.Longitude }
+        bounds.extend(pos);
+      }
+    })
+
+    map.fitBounds(bounds)
+  }
+
+  const resetMap = () => {
+    if (map) {
+      map.panTo(DEFAULT_MAP_CENTER);
+      map.setZoom(MAP_ZOOM_LEVEL);
+    }
+  }
 
   return (
     <>
@@ -250,6 +298,8 @@ const render = ({ status }) => {
 const InteractiveMap = ({ features, categories }) => {
   const [previewMarker, setPreviewMarker] = useState(null)
   const [selectedFeature, setSelectedFeature] = useState(null)
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const [filteredFeatures, setFilteredFeatures] = useState(features)
   const [view, setView] = useState("map")
 
   const setMapView = () => {
@@ -260,13 +310,52 @@ const InteractiveMap = ({ features, categories }) => {
     setView("grid")
   }
 
+  const reset = () => {
+    setSelectedCategories([])
+  }
+
+  const filterFeatures = () => {
+    let newSetOfFeatures = features
+
+    if (selectedCategories.length > 0) {
+      newSetOfFeatures = newSetOfFeatures.filter(feature => {
+        return selectedCategories.includes(feature.Category)
+      })
+    }
+
+    setFilteredFeatures(newSetOfFeatures)
+  }
+
+  const toggleCategory = (categoryName) => {
+    const alreadySelected = selectedCategories.includes(categoryName)
+
+    if (alreadySelected) {
+      const filteredCategories = selectedCategories.filter(item => item != categoryName)
+      setSelectedCategories(filteredCategories)
+    } else {
+      const newCategories = [...selectedCategories, categoryName]
+      setSelectedCategories(newCategories)
+    }
+  }
+
   useEffect(() => {
     ReactModal.setAppElement("#interactive-map")
   })
 
+  useEffect(() => {
+    filterFeatures()
+  }, [selectedCategories])
+
   return(
     <div id="interactive-map" className="w-full h-full">
-    <div className="w-full flex justify-end">
+    <div className="w-full flex justify-end space-x-1">
+      <MapFilter 
+        categories={categories}
+        categoriesName="category"
+        toggleCategory={toggleCategory}
+        selectedCategories={selectedCategories}
+        reset={reset}
+      />
       <div className="border-black border-2 rounded-lg mb-2">
         <button onClick={setMapView} className={`text-sm border-0 rounded-r-none ${view === "map" ? 'bg-green' : 'bg-white'}`}>Map</button>
         <button onClick={setGridView} className={`text-sm border-0 rounded-l-none ${view === "grid" ? 'bg-green' : 'bg-white'}`}>Grid</button>
@@ -276,7 +365,7 @@ const InteractiveMap = ({ features, categories }) => {
       <div className="h-visibleScreen">
         <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY} render={render}>
           <MapComponent 
-            features={features} 
+            features={filteredFeatures} 
             categories={categories}
             setPreviewMarker={setPreviewMarker} 
             setSelectedFeature={setSelectedFeature}
@@ -291,9 +380,10 @@ const InteractiveMap = ({ features, categories }) => {
     {
       view === "grid" && 
       <FeatureGrid 
-        features={features} 
+        features={filteredFeatures} 
         categories={categories}
         setSelectedFeature={setSelectedFeature}
+        displayFields={['Artist', 'Location description', 'Street address']}
       />
     }
     <ReactModal

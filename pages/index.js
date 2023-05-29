@@ -20,7 +20,6 @@ export async function getStaticProps() {
   }
 }
 
-
 export default function Home({ articles }) {
 
   return (
@@ -120,7 +119,25 @@ export default function Home({ articles }) {
           <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
             Maps
           </h2>
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-6">
+            <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
+              <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
+                <Link href="/maps/public-art-in-waterloo-region">
+                  <Image src="/playgrounds-map-thumbnail.webp" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
+                </Link>
+              </div>
+              <div className="info basis-2/3">
+                <Link href="/maps/playgrounds-in-kitchener-waterloo">
+                  <h3>Playgrounds of Kitchener Waterloo</h3>
+                </Link>
+                <p className="uppercase text-sm mb-2 text-grey">May 29, 2023</p>
+                <p className="">
+                  {`Discover new places to play in KW with our playground map! You can filter by amenities (ie. splash pad, pickleball court, skate park, etc.) or by my completely subjective rankings.`}
+                </p>
+              </div>
+
+            </div>
+
             <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
               <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
                 <Link href="/maps/public-art-in-waterloo-region">
