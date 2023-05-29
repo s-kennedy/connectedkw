@@ -36,7 +36,7 @@ export default function Home({ articles }) {
                   Hi KW 👋
                 </h1>
               </MouseParallaxChild>
-              <p className="text-2xl mb-4">{`We're here to make it easier to find things to do in Kitchener-Waterloo.`}</p>
+              <p className="text-2xl mb-4">{`Here you'll find things to do for families, children, and your inner child.`}</p>
               <p className="text-2xl mb-6">{`Let's have some fun!`}</p>
               <div data-aos="zoom-in-right" data-aos-delay="500">
                 <a
@@ -203,7 +203,7 @@ export default function Home({ articles }) {
             </h2>
             <div className="flex items-start flex-col md:flex-row md:space-x-8">
               <div className="basis-1/2">
-                <p className="text-lg md:text-xl mb-4 sm:mb-6">Unboring KW is just getting started! We&apos;re here to make it easier to find fun things to do in Kitchener Waterloo. We have some big plans:</p>
+                <p className="text-lg md:text-xl mb-4 sm:mb-6">Unboring KW is just getting started! We&apos;re here to make it easier to find fun things to do for families and kids. We have some big plans:</p>
                 <ul className="text-lg md:text-xl">
                     <li className="mb-2 sm:mb-4" data-aos="fade-up">🗺&nbsp;&nbsp;Community maps</li>
                     <li className="mb-2 sm:mb-4" data-aos="fade-up">️⭐&nbsp;&nbsp;Reviews and recommendations</li>
