@@ -40,7 +40,7 @@ export default function Home({ articles }) {
               <p className="text-2xl mb-6">{`Let's have some fun!`}</p>
               <div data-aos="zoom-in-right" data-aos-delay="500">
                 <a
-                  href="#activity-roulette"
+                  href="#events"
                   className="transition-all btn btn-green">
                   Give me something to do 🙏
                 </a>
@@ -123,12 +123,30 @@ export default function Home({ articles }) {
             <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
               <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
                 <Link href="/maps/public-art-in-waterloo-region">
+                  <Image src="/splashpads.gif" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
+                </Link>
+              </div>
+              <div className="info basis-2/3">
+                <Link href="/maps/playgrounds-in-kitchener-waterloo">
+                  <h3>Splashpads in Waterloo Region</h3>
+                </Link>
+                <p className="uppercase text-sm mb-2 text-grey">May 30, 2023</p>
+                <p className="">
+                  {`Get out the sunscreen and crocs - it's splashpad season!`}
+                </p>
+              </div>
+
+            </div>
+
+            <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
+              <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
+                <Link href="/maps/public-art-in-waterloo-region">
                   <Image src="/playgrounds-map-thumbnail.webp" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
                 </Link>
               </div>
               <div className="info basis-2/3">
                 <Link href="/maps/playgrounds-in-kitchener-waterloo">
-                  <h3>Playgrounds of Kitchener Waterloo</h3>
+                  <h3>Playgrounds in Kitchener-Waterloo</h3>
                 </Link>
                 <p className="uppercase text-sm mb-2 text-grey">May 29, 2023</p>
                 <p className="">

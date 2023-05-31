@@ -43,25 +43,34 @@ export default function ParkMap({ features }) {
     "Concession stand",
     "Pool",
     "Tobogganing hill",
-    "Community centre"
+    "Community centre",
+    "Playground"
   ]
 
-  const previewConfig = {
-    title: 'Title', 
-    details: []
+  const mapConfig = {
+    mapId: "playgrounds-map",
+    categories: categories,
+    categoriesName: "rating",
+    tags: tags,
+    tagsName: "amenities",
+    preview: {
+      title: 'Title', 
+      details: []
+    },
+    featureDisplayFields: ['Category', 'Description']
   }
 
   return (
     <Layout 
-      title="Parks, playgrounds, and community centres in Waterloo Region" 
+      title="Playgrounds in Kitchener-Waterloo" 
       description="Explore the parks and playgrounds in Kitchener and Waterloo"
       color="yellow" 
-      image="https://www.unboringkw.com/map-thumbnail.jpg"
+      image="https://www.unboringkw.com/playgrounds-map-thumbnail.webp"
     >
       <Section className="snap-center mt-12">
         <div className="mb-2">
           <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
-            Playgrounds in Kitchener Waterloo
+            Playgrounds in Kitchener-Waterloo
           </h1>
           <p>{`Get outside and enjoy some of the public park spaces we have in our region!`}</p>
           <p>{`We pulled this information from the following sources:`}</p>
@@ -74,9 +83,7 @@ export default function ParkMap({ features }) {
         <div className="w-full">
           <InteractiveMapParks 
             features={features} 
-            categories={categories}
-            tags={tags}
-            previewConfig={previewConfig}
+            mapConfig={mapConfig}
           />
         </div>
       </Section>

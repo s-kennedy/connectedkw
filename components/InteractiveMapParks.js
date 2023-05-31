@@ -296,7 +296,8 @@ const render = ({ status }) => {
   return <Loading />;
 };
 
-const InteractiveMapParks = ({ features, categories, tags, previewConfig }) => {
+const InteractiveMapParks = ({ features, mapConfig }) => {
+  const { categories, categoriesName, tags, tagsName, mapId, featureDisplayFields } = mapConfig
   const [previewMarker, setPreviewMarker] = useState(null)
   const [selectedFeature, setSelectedFeature] = useState(null)
   const [selectedTags, setSelectedTags] = useState([])
@@ -365,7 +366,7 @@ const InteractiveMapParks = ({ features, categories, tags, previewConfig }) => {
   }
 
   useEffect(() => {
-    ReactModal.setAppElement("#interactive-map")
+    ReactModal.setAppElement(`#${mapId}`)
   })
 
   useEffect(() => {
@@ -373,13 +374,13 @@ const InteractiveMapParks = ({ features, categories, tags, previewConfig }) => {
   }, [selectedTags, selectedCategories])
 
   return(
-    <div id="interactive-map" className="w-full h-full">
+    <div id={mapId} className="w-full h-full">
     <div className="w-full flex justify-end space-x-1">
       <MapFilter 
         categories={categories}
-        categoriesName="rating"
+        categoriesName={categoriesName}
         tags={tags}
-        tagsName="amenities"
+        tagsName={tagsName}
         toggleFilter={toggleFilter}
         toggleCategory={toggleCategory}
         selectedTags={selectedTags}
@@ -401,7 +402,7 @@ const InteractiveMapParks = ({ features, categories, tags, previewConfig }) => {
             setSelectedFeature={setSelectedFeature}
             previewMarker={previewMarker}
           >
-            <InfoWindow marker={previewMarker} previewConfig={previewConfig} />
+            <InfoWindow marker={previewMarker} previewConfig={mapConfig.preview} />
             <Legend categories={categories} />
           </MapComponent>
         </Wrapper>
@@ -413,7 +414,7 @@ const InteractiveMapParks = ({ features, categories, tags, previewConfig }) => {
         features={filteredFeatures} 
         categories={categories}
         setSelectedFeature={setSelectedFeature}
-        displayFields={['Category', 'Description']}
+        displayFields={featureDisplayFields}
       />
     }
     <ReactModal
