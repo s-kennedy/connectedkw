@@ -122,12 +122,12 @@ export default function Home({ articles }) {
           <div className="flex flex-col space-y-6">
             <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
               <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
-                <Link href="/maps/public-art-in-waterloo-region">
+                <Link href="/maps/splashpads-in-waterloo-region">
                   <Image src="/splashpads.gif" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
                 </Link>
               </div>
               <div className="info basis-2/3">
-                <Link href="/maps/playgrounds-in-kitchener-waterloo">
+                <Link href="/maps/splashpads-in-waterloo-region">
                   <h3>Splashpads in Waterloo Region</h3>
                 </Link>
                 <p className="uppercase text-sm mb-2 text-grey">May 30, 2023</p>
@@ -140,7 +140,7 @@ export default function Home({ articles }) {
 
             <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
               <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
-                <Link href="/maps/public-art-in-waterloo-region">
+                <Link href="/maps/playgrounds-in-kitchener-waterloo">
                   <Image src="/playgrounds-map-thumbnail.webp" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
                 </Link>
               </div>
