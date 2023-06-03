@@ -21,6 +21,12 @@ export async function getArticles() {
     })
   );
 
+  articles.sort((a, b) => {
+    const aDate = new Date(a.meta.date)
+    const bDate = new Date(b.meta.date)
+    return aDate.getTime() - bDate.getTime()
+  })
+
   return articles
 }
 
