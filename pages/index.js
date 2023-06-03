@@ -122,12 +122,12 @@ export default function Home({ articles }) {
           <div className="flex flex-col space-y-6">
             <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
               <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
-                <Link href="/maps/splashpads-in-waterloo-region">
+                <Link href="/maps/splashpads">
                   <Image src="/splashpads.gif" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
                 </Link>
               </div>
               <div className="info basis-2/3">
-                <Link href="/maps/splashpads-in-waterloo-region">
+                <Link href="/maps/splashpads">
                   <h3>Splashpads in Waterloo Region</h3>
                 </Link>
                 <p className="uppercase text-sm mb-2 text-grey">May 30, 2023</p>
@@ -140,12 +140,12 @@ export default function Home({ articles }) {
 
             <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
               <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
-                <Link href="/maps/playgrounds-in-kitchener-waterloo">
+                <Link href="/maps/playgrounds">
                   <Image src="/playgrounds-map-thumbnail.webp" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
                 </Link>
               </div>
               <div className="info basis-2/3">
-                <Link href="/maps/playgrounds-in-kitchener-waterloo">
+                <Link href="/maps/playgrounds">
                   <h3>Playgrounds in Kitchener-Waterloo</h3>
                 </Link>
                 <p className="uppercase text-sm mb-2 text-grey">May 29, 2023</p>
@@ -158,12 +158,12 @@ export default function Home({ articles }) {
 
             <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
               <div className="image basis-1/3 overflow-hidden rounded-lg border-2 border-black">
-                <Link href="/maps/public-art-in-waterloo-region">
+                <Link href="/maps/public-art">
                   <Image src="/map-thumbnail.jpg" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
                 </Link>
               </div>
               <div className="info basis-2/3">
-                <Link href="/maps/public-art-in-waterloo-region">
+                <Link href="/maps/public-art">
                   <h3>Public Art in Waterloo Region</h3>
                 </Link>
                 <p className="uppercase text-sm mb-2 text-grey">January 11, 2023</p>
