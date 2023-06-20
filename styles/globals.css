@@ -102,7 +102,7 @@ h1, h2 {
 
 h3, h4, h5, h6 {
   font-family: var(--theme-font-body), Helvetica Neue, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 p {
@@ -189,6 +189,10 @@ article h2 {
   margin-top: 2rem;
 }
 
+article h3 {
+  margin-top: 1rem;
+}
+
 .article:last-of-type .divider {
   display: none;
 }
@@ -203,7 +207,7 @@ article h2 {
   }
 
   h3 {
-    @apply text-lg mb-1 md:mb-2 font-medium;
+    @apply text-xl mb-1 md:mb-2;
   }
 
   p {
