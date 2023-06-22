@@ -69,6 +69,15 @@ export default function Home({ articles }) {
         </section>
       </MouseParallaxContainer>
 
+      <Section className="snap-start scroll-mt-10" id="events">
+        <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 -rotate-6">
+          Events
+        </h2>
+        <div className={`flex-auto w-full flex flex-col md:max-h-visibleScreen`}>
+          <EventsFeed />
+        </div>
+      </Section>
+
       <MouseParallaxContainer
         globalFactorX={0.2}
         globalFactorY={0.2}
@@ -104,15 +113,6 @@ export default function Home({ articles }) {
         </div>
         </section>
       </MouseParallaxContainer>
-
-      <Section className="snap-start scroll-mt-10" id="events">
-        <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 -rotate-6">
-          Events
-        </h2>
-        <div className={`flex-auto w-full flex flex-col md:max-h-visibleScreen`}>
-          <EventsFeed />
-        </div>
-      </Section>
 
       <Section className="snap-start scroll-mt-10" id="maps">
         <div className="bg-white rounded-xl border-black border-3 p-5 lg:p-10">
