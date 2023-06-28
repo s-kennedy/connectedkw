@@ -133,7 +133,7 @@ footer a:hover svg path, footer a:focus svg path {
   fill: var(--theme-red);
 }
 
-header {
+header, .action-bar {
   background-color: rgba(255,255,255,.25);
   backdrop-filter: blur(10px);
   z-index: 99;
@@ -241,7 +241,7 @@ article h3 {
   }
 
   .btn-purple {
-    @apply bg-purple text-white hover:bg-black focus:bg-red hover:text-white focus:text-white;
+    @apply bg-purple text-white hover:bg-black hover:text-white focus:text-white;
   }
 
   .btn-white {

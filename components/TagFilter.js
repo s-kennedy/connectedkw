@@ -63,8 +63,8 @@ const TagFilter = ({
 
   return (
     <div className={`transition-all`}>
-      <button onClick={openFilters} className="btn-purple items-baseline">
-        {filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}
+      <button onClick={openFilters} className="btn-purple px-3 rounded-full items-center flex-col justify-center">
+        <div>{filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}</div>
       </button>
 
       <ReactModal

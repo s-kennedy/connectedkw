@@ -83,60 +83,59 @@ function EventDisplay({ event, isLoading, closeModal }) {
   const imgSrc = image ? image.thumbnails.large.url : imageUrl
 
   return (
-    <div className="h-full w-full bg-white pt-8 border-3 rounded-xl border-black relative">
-      <div className="w-full flex justify-end absolute top-0 left-0">
-        <button onClick={closeModal} className={`text-lg font-medium btn-clear`}>✕</button>
-      </div>
-      <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 pt-0`}>
-        <div className={isLoading ? '' : styles.appear}>
-          {imgSrc &&
-          <div className="mb-4">
-            <div className="relative">
-              <img className={`object-cover aspect-video ${styles.appear}`} src={imgSrc} alt={imageDescription || title} width={image ? image.thumbnails.large.width : undefined } height={image ? image.thumbnails.large.height : undefined} />
-              { (imageCredit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
-            </div>
-          </div>
-          }
-          {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
-          <p className="mb-1 space-x-3 flex flex-nowrap">
-            <span>🗓</span>
-            <span>{dateTimeString}</span>
-          </p>
-          { price && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🎟</span><span>{price}</span></p>}
-          { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}<br />{locationAddress}</span></p>}
-          { link && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🔗</span><a href={link} target="_blank" rel="noopener noreferrer">{`${linkText}`}</a></p>}
-          {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
-
-          <div className="flex items-center">
-          {
-            event &&
-            <AddToCalendarButton
-              name={calendarTitle}
-              startDate={calendarStartDate}
-              startTime={calendarStartTime}
-              endDate={calendarEndDate}
-              endTime={calendarEndTime}
-              timeZone="America/Toronto"
-              location={calendarLocation}
-              description={description}
-              options="'Apple','Google','iCal','Outlook.com','Microsoft 365','Microsoft Teams','Yahoo'"
-              buttonStyle="default"
-              styleLight="--font: Fredoka; --btn-shadow: 0; --btn-background: #ffd166; --btn-border: #170F1A; --btn-background-hover: #ffd166;"
-              hideBranding={true}
-              debug={true}
-            ></AddToCalendarButton>
-          }
-          </div>
-
-          {tags.length > 0 &&
-            <div className="my-4">
-              <h4 className="text-lg font-body font-medium">Tags</h4>
-              <div className="flex flex-wrap">
-                {tags.map(tag => <Tag name={tag} key={tag} />)}
+    <div className="container sm:py-8 md:p-8 sm:max-w-screen-lg mx-auto">
+      <div className="h-full w-full bg-white pt-10 md:mt-10 relative md:border-black md:border-3 md:rounded-xl">
+        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 pt-0`}>
+          <div className={isLoading ? '' : styles.appear}>
+            {imgSrc &&
+            <div className="mb-4">
+              <div className="relative">
+                <img className={`object-cover aspect-square md:aspect-video ${styles.appear}`} src={imgSrc} alt={imageDescription || title} width={image ? image.thumbnails.large.width : undefined } height={image ? image.thumbnails.large.height : undefined} />
+                { (imageCredit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
               </div>
             </div>
-          }
+            }
+            {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
+            <p className="mb-1 space-x-3 flex flex-nowrap">
+              <span>🗓</span>
+              <span>{dateTimeString}</span>
+            </p>
+            { price && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🎟</span><span>{price}</span></p>}
+            { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}<br />{locationAddress}</span></p>}
+            { link && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🔗</span><a href={link} target="_blank" rel="noopener noreferrer">{`${linkText}`}</a></p>}
+            {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
+            <div className="flex items-center">
+            {
+              event &&
+              <AddToCalendarButton
+                name={calendarTitle}
+                startDate={calendarStartDate}
+                startTime={calendarStartTime}
+                endDate={calendarEndDate}
+                endTime={calendarEndTime}
+                timeZone="America/Toronto"
+                location={calendarLocation}
+                description={description}
+                options="'Apple','Google','iCal','Outlook.com','Microsoft 365','Microsoft Teams','Yahoo'"
+                buttonStyle="default"
+                styleLight="--font: Fredoka; --btn-shadow: 0; --btn-background: #ffd166; --btn-border: #170F1A; --btn-background-hover: #ffd166;"
+                hideBranding={true}
+                debug={true}
+              ></AddToCalendarButton>
+            }
+            </div>
+
+            {tags.length > 0 &&
+              <div className="my-4">
+                <h4 className="text-lg font-body font-medium">Tags</h4>
+                <div className="flex flex-wrap">
+                  {tags.map(tag => <Tag name={tag} key={tag} />)}
+                </div>
+              </div>
+            }
+
+          </div>
         </div>
       </div>
     </div>

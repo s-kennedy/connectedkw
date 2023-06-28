@@ -10,6 +10,7 @@ import Blob from 'components/Blob'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 import { eventCategories } from 'utils/constants'
 import { useRouter } from 'next/router'
+import slugify from 'slugify'
 
 const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   if (!event) return null
@@ -53,6 +54,8 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
 
   const imgSrc = image ? image.thumbnails.large.url : imageUrl
 
+  const slug = `${slugify(title, { lower: true })}__${event.id}`
+
   if (isLoading) {
     return (
       <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">
@@ -62,7 +65,7 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   }
 
   return (
-      <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
+      <Link href={`/events/${slug}`} className={`${styles.eventCard} btn snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
         <div className={`${isLoading ? styles.loading : styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>
         <div className={`bg-red flex-none rounded-t-lg w-full text-sm px-3 py-1 flex font-medium`}>
           {`️⭐ FEATURED ️⭐`}
@@ -79,16 +82,15 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
             />
           </div>
         }
-          <div className={`basis-1/2 flex-auto text-left overflow-auto h-full styled-scrollbar p-5`}>
+          <div className={`basis-1/2 flex-auto text-left overflow-auto h-full styled-scrollbar p-3`}>
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
-            <p className="mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
-            { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
-            {category && <p className="mb-1 space-x-3 flex flex-nowrap"><span>{categoryStyles.emoji}</span><span>{category}</span></p>}
+            <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
+            { locationName && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
+            {category && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>{categoryStyles.emoji}</span><span>{category}</span></p>}
           </div>
         </div>
-        <div className={`${styles.btn} cursor-pointer btn btn-red absolute right-4 bottom-4`}>More info</div>
       </div>
-      </button>
+    </Link>
   )
 }
 
@@ -127,24 +129,25 @@ const EventCard = ({ event, setSelectedEvent }) => {
     }
   }
 
+  const slug = `${slugify(title, { lower: true })}__${event.id}`
+
   return (
-    <button onClick={() => setSelectedEvent(event)} className={`${styles.eventCard} relative snap-start transition-all p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black ${styles.result}`}>
+    <Link href={`/events/${slug}`} className={`${styles.eventCard} btn relative snap-start transition-all p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black ${styles.result}`}>
       <div className="info p-3 text-left">
         <h3 className="mb-2 font-body font-medium">{title}</h3>
         <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
         {locationName && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
         {category && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>{categoryStyles.emoji}</span><span>{category}</span></p>}
       </div>
-      <div className={`${styles.btn} cursor-pointer btn btn-red absolute right-4 bottom-4`}>More info</div>
-    </button>
+    </Link>
   )
 }
 
 
-const EventsFeed = () => {
-  const [allEvents, setAllEvents] = useState([])
+const EventsFeed = ({ events }) => {
+  const [allEvents, setAllEvents] = useState(events)
+  const [filteredEvents, setFilteredEvents] = useState(events)
   const [featuredEvents, setFeaturedEvents] = useState([])
-  const [filteredEvents, setFilteredEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [isLoading, setLoading] = useState(false)
   const [selectedTags, setSelectedTags] = useState([])
@@ -153,9 +156,11 @@ const EventsFeed = () => {
   const [featuredEventIndex, setFeaturedEventIndex] = useState(0)
 
 
-  useEffect(() => {
-    fetchEvents()
-  }, [])
+  // useEffect(() => {
+  //   if (!allEvents.length) {
+  //     fetchEvents()
+  //   }
+  // })
 
 
   useEffect(() => {
@@ -255,64 +260,27 @@ const EventsFeed = () => {
   }
 
   const allOut = filteredEvents?.length === 0;
+  console.log({filteredEvents})
 
   return (
-    <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
-      <div className="flex-none flex justify-end mb-2 z-30 space-x-2">
-        <TagFilter
-          toggleFilter={toggleFilter}
-          selectedTags={selectedTags}
-          toggleCategory={toggleCategory}
-          selectedCategories={selectedCategories}
-          reset={reset}
-          appElementId="#event-feed"
-        />
-        <button className="btn-white" onClick={toggleMenu} aria-label="Toggle menu">
-          {
-            menuOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="20" width="20">
-                <path fill="var(--theme-black)" d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="20">
-                <path fill="var(--theme-black)" d="M120 256c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm160 0c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm104 56c-30.9 0-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56s-25.1 56-56 56z"/>
-              </svg>
-            )
-          }
-        </button>
-      {
-        menuOpen &&
-        <div className="absolute right-0 top-0 pr-11">
-          <OutsideClickHandler onOutsideClick={closeMenu} useCapture={true}>
-            <div className={`${styles.appear} flex flex-col border-3 bg-white p-5 rounded-xl`}>
-              <Link href="/events" className="mb-1">Calendar view</Link>
-              <Link href="/events/new">Submit an event</Link>
-            </div>
-          </OutsideClickHandler>
-        </div>
-      }
-      </div>
-      <div className="flex-auto flex min-h-0 z-10 h-full">
-        <div className="flex flex-col md:flex-row w-full max-md:space-y-2 md:space-x-4">
-          <div className="basis-1/2 flex flex-col flex-auto h-full max-h-visibleScreen md:max-h-full">
-            { isLoading ? (
-              <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">
-                <Image src="/loading.svg" width={40} height={40} alt="loading" />
-              </div>
-              ) : (
-              <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
-                {
-                  filteredEvents.map(event => {
-                    if (event.fields.Featured) {
-                      return <FeaturedEventCard setSelectedEvent={setSelectedEvent} event={event} isLoading={isLoading} key={event.id} />
-                    }
-                    return <EventCard setSelectedEvent={setSelectedEvent} event={event} key={event.id} />
-                  })
-                }
-              </div>
-            )}
+    <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar py-14`}>
+      <div className="p-3">
+        { isLoading ? (
+          <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">
+            <Image src="/loading.svg" width={40} height={40} alt="loading" />
           </div>
-        </div>
+          ) : (
+          <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
+            {
+              filteredEvents.map(event => {
+                if (event.fields.Featured) {
+                  return <FeaturedEventCard setSelectedEvent={setSelectedEvent} event={event} isLoading={isLoading} key={event.id} />
+                }
+                return <EventCard setSelectedEvent={setSelectedEvent} event={event} key={event.id} />
+              })
+            }
+          </div>
+        )}
       </div>
       <ReactModal
         isOpen={!!selectedEvent}
@@ -321,11 +289,23 @@ const EventsFeed = () => {
         shouldCloseOnEsc={true}
         className="max-w-md mx-auto h-full"
         style={{
-          overlay: { padding: "6vw", zIndex: 100 }
+          overlay: { zIndex: 100 }
         }}
       >
         <EventDisplay event={selectedEvent} closeModal={() => setSelectedEvent(null)} />
       </ReactModal>
+      <div className="flex justify-end action-bar border-t-3 border-black fixed bottom-0 right-0 left-0 w-full bg-white p-2">
+        <div className="">
+        <TagFilter
+          toggleFilter={toggleFilter}
+          selectedTags={selectedTags}
+          toggleCategory={toggleCategory}
+          selectedCategories={selectedCategories}
+          reset={reset}
+          appElementId="#event-feed"
+        />
+        </div>
+      </div>
     </div>
   )
 }

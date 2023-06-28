@@ -32,6 +32,8 @@
     "react-outside-click-handler": "^1.3.0",
     "react-parallax-mouse": "^2.0.1",
     "react-responsive-masonry": "^2.1.7",
+    "react-tabs": "^6.0.1",
+    "slugify": "^1.6.6",
     "swiper": "^8.4.5"
   },
   "devDependencies": {
