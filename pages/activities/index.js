@@ -13,7 +13,7 @@ export async function getServerSideProps() {
 export default function Activities({ activities }) {
   return (
     <Layout>
-      <div className="container sm:py-8 lg:p-8 max-w-xs sm:max-w-screen-lg mx-auto">
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto">
         <ActivitiesFeed activities={activities} />
       </div>
     </Layout>

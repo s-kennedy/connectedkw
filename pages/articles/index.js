@@ -14,21 +14,14 @@ export async function getStaticProps() {
 export default function AllArticles({ articles }) {
   return (
     <Layout title="All articles" color="green">
-      <Section className="snap-center mt-12">
-        <div className="bg-white rounded-xl border-black border-3 p-5 lg:p-10">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4 lg:mb-8">
-            All articles
-          </h1>
-
-          <div className="flex flex-col">
-            {
-              articles.map(article => {
-                const { meta } = article
-                return (
-                  <div className="w-full article" key={article.id}>
-                    <Link href={article.link}>
-                      <h3>{meta.title}</h3>
-                    </Link>
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto p-3 space-y-2">
+        {
+          articles.map(article => {
+            const { meta } = article
+            return (
+              <Link href={article.link} className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
+                <div className="w-full article" key={article.id}>
+                    <h3>{meta.title}</h3>
                     <p className="uppercase text-sm mb-2 text-grey"><time>{meta.date}</time></p>
                     <p className="">
                       {meta.description}
@@ -39,16 +32,11 @@ export default function AllArticles({ articles }) {
                       <Blob fill="var(--theme-green)" className="inline-block w-2 -rotate-45" />
                     </div>
                   </div>
-                )
-              })
-            }
-          </div>
-            
-          <div className="my-6">
-            <p>👈 <Link href="/">Back home</Link></p>
-          </div>
-        </div>
-      </Section>
+              </Link>
+            )
+          })
+        }
+      </div>
     </Layout>
   )
 }

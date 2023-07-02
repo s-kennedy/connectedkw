@@ -4,7 +4,6 @@ import styles from 'styles/Home.module.css'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 
 import Layout from 'components/Layout'
-import IdeaGenerator from 'components/IdeaGenerator'
 import EventsFeed from 'components/EventsFeed'
 import WeatherWidget from 'components/WeatherWidget'
 import Section from 'components/Section'
@@ -104,7 +103,6 @@ export default function Home({ articles }) {
                 </div>
               </div>
               <div className={`max-w-xs mx-auto max-h-screen flex-auto w-full flex flex-col max-h-visibleScreen`} data-aos="fade-up">
-                <IdeaGenerator />
               </div>
             </div>
           </div>

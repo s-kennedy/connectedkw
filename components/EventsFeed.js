@@ -263,7 +263,7 @@ const EventsFeed = ({ events }) => {
   console.log({filteredEvents})
 
   return (
-    <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar py-14`}>
+    <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="p-3">
         { isLoading ? (
           <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">

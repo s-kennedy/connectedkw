@@ -1,51 +1,66 @@
-import InteractiveMap from 'components/InteractiveMap'
-import Section from 'components/Section'
 import Layout from 'components/Layout'
-import { getMapFeatures } from 'integrations/airtable';
+import Section from 'components/Section'
+import Link from 'next/link'
+import Image from 'next/image'
 
-export async function getServerSideProps(context) {
-  const features = await getMapFeatures('Public Art')
-  return {
-    props: { features },
-  }
-}
-
-export default function PublicArtMap({ features }) {
-  const categories = {
-    "Mural": { color: "#ef476f" }, //red 
-    "Sculpture": { color: "#ffd166" }, // yellow
-    "Photography": { color: "#06d6a0" }, //green
-    "New media": { color: "#d7d1d8" }, //light purple
-    "Memorial": { color: "#118ab2" }, //blue
-    "Other": { color: "#FFFFFF" }, // white
-  }
-
+export default function Maps() {
   return (
-    <Layout title="Public Art in Waterloo Region" color="yellow">
-      <Section className="snap-center mt-12">
-        <div className="mb-2">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
-            Public Art in Waterloo Region
-          </h1>
-          <p>{`Who knew our region has/is a massive outdoor art gallery with over 150 pieces??`}</p>
-          <p>{`We've pulled together public art information from the following sources:`}</p>
-          <ul className="mb-2">
-            <li><a href="https://issuu.com/dtkownit/docs/field_guide_for_web">{`A Field Guide to DTK's Art Walk`}</a></li>
-            <li><a href="https://uptownwaterloobia.com/art-walks/">{`Uptown Waterloo Art Walks`}</a></li>
-            <li><a href="https://www.regionofwaterloo.ca/en/exploring-the-region/resources/Documents/public_art-where_in_the_region_current-access.pdf">{`Where to See Regional Public Art`}</a></li>
-            <li><a href="https://www.kitchener.ca/en/arts-culture-and-events/public-art-collection.aspx">{`City of Kitchener Public Art Collection`}</a></li>
-            <li><a href="https://www.cambridge.ca/en/parks-recreation-culture/resources/public-art-brochure---River-Walk.pdf">{`City of Cambridge River Walk`}</a></li>
-            <li><a href="https://cambridgesculpturegarden.com/">{`Cambridge Sculpture Garden`}</a></li>
-          </ul>
-          <p>{`Happy exploring!`}</p>
-        </div>
-        <div className="w-full">
-          <InteractiveMap 
-            features={features} 
-            categories={categories} 
-          />
-        </div>
-      </Section>
+    <Layout title="All maps">
+      <div className="container sm:py-8 lg:p-8 sm:max-w-screen-md md:max-w-screen-lg mx-auto p-3 space-y-2">
+        <Link href="/maps/splashpads" className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
+          <div className="flex flex-col space-y-6">
+            <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
+              <div className="image basis-1/3 overflow-hidden rounded-lg">
+                <Image src="/splashpads.gif" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
+              </div>
+              <div className="info basis-2/3">
+                <h3>Splashpads in Waterloo Region</h3>
+                <p className="uppercase text-sm mb-2 text-grey">May 30, 2023</p>
+                <p className="">
+                  {`Get out the sunscreen and crocs - it's splashpad season!`}
+                </p>
+              </div>
+            </div>
+          </div>
+        </Link>
+
+        <Link href="/maps/playgrounds" className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
+          <div className="flex flex-col space-y-6">
+            <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
+              <div className="image basis-1/3 overflow-hidden rounded-lg">
+                <Image src="/playgrounds-map-thumbnail.webp" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
+              </div>
+              <div className="info basis-2/3">
+                <h3>Playgrounds in Kitchener-Waterloo</h3>
+                <p className="uppercase text-sm mb-2 text-grey">May 29, 2023</p>
+                <p className="">
+                  {`Discover new places to play in KW with our playground map! You can filter by amenities (ie. splash pad, pickleball court, skate park, etc.) or by my completely subjective rankings.`}
+                </p>
+              </div>
+            </div>
+          </div>
+        </Link>
+
+        <Link href="/maps/public-art" className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
+          <div className="flex flex-col space-y-6">
+            <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
+              <div className="image basis-1/3 overflow-hidden rounded-lg">
+                <Image src="/map-thumbnail.jpg" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
+              </div>
+              <div className="info basis-2/3">
+                <h3>Public Art in Waterloo Region</h3>
+                <p className="uppercase text-sm mb-2 text-grey">January 11, 2023</p>
+                <p className="">
+                  {`Who knew our region has/is a massive outdoor art gallery with over 150 pieces?? This map includes public art from Kitchener, Waterloo, Cambridge, and the Region of Waterloo, all in one interactive map. Happy exploring!`}
+                </p>
+              </div>
+            </div>
+          </div>
+        </Link>
+
+      </div>
     </Layout>
   )
 }
+
+

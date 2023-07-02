@@ -83,14 +83,14 @@ function EventDisplay({ event, isLoading, closeModal }) {
   const imgSrc = image ? image.thumbnails.large.url : imageUrl
 
   return (
-    <div className="container sm:py-8 md:p-8 sm:max-w-screen-lg mx-auto">
-      <div className="h-full w-full bg-white pt-10 md:mt-10 relative md:border-black md:border-3 md:rounded-xl">
-        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 pt-0`}>
+    <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
+      <div className="h-full w-full bg-white sm:mt-10 relative sm:border-black sm:border-3 sm:rounded-xl">
+        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 pt-14 sm:pt-5`}>
           <div className={isLoading ? '' : styles.appear}>
             {imgSrc &&
             <div className="mb-4">
               <div className="relative">
-                <img className={`object-cover aspect-square md:aspect-video ${styles.appear}`} src={imgSrc} alt={imageDescription || title} width={image ? image.thumbnails.large.width : undefined } height={image ? image.thumbnails.large.height : undefined} />
+                <img className={`object-cover w-full aspect-square sm:aspect-video ${styles.appear}`} src={imgSrc} alt={imageDescription || title} width={image ? image.thumbnails.large.width : undefined } height={image ? image.thumbnails.large.height : undefined} />
                 { (imageCredit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
               </div>
             </div>

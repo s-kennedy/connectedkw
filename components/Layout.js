@@ -5,68 +5,6 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler';
 
-const MenuLinks = () => {
-  return (
-    <>
-      <nav>
-        <Link href="/#activity-roulette" className="text-black no-underline uppercase text-sm font-medium">Activities</Link>
-      </nav>
-      <nav>
-        <Link href="/#events" className="text-black no-underline uppercase text-sm font-medium">Events</Link>
-      </nav>
-      <nav>
-        <Link href="/#articles" className="text-black no-underline uppercase text-sm font-medium">Articles</Link>
-      </nav>
-      <nav>
-        <Link href="/#maps" className="text-black no-underline uppercase text-sm font-medium">Maps</Link>
-      </nav>
-      <nav>
-        <Link href="/#get-connected" className="text-black no-underline uppercase text-sm font-medium">Subscribe</Link>
-      </nav>
-    </>
-  )
-}
-
-const SocialLinks = () => {
-  return (
-    <>
-      <a
-        href="mailto:hi@unboringkw.com"
-        rel="noopener noreferrer"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="20" width="20">
-          <path
-            d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
-            fill="var(--theme-black)"
-          />
-        </svg>
-      </a>
-      <a
-        href="https://twitter.com/unboringkw"
-        rel="noopener noreferrer"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="20" width="20">
-          <path
-            d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
-            fill="var(--theme-black)"
-          />
-        </svg>
-      </a>
-
-      <a
-        href="https://instagram.com/unboringkw"
-        rel="noopener noreferrer"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="20">
-          <path
-            d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-            fill="var(--theme-black)"
-          />
-        </svg>
-      </a>
-    </>
-  )
-}
 
 const Layout = ({
   title="Unboring KW",
@@ -133,68 +71,66 @@ const Layout = ({
         <meta property="og:description" content={description} />
       </Head>
 
-      <OutsideClickHandler onOutsideClick={closeMenu} disabled={!menuOpen}>
-        <header className="w-full fixed border-b-3 border-black py-2 px-4">
-          <nav className="flex justify-between items-baseline space-x-2">
+        <header className="w-full fixed border-b-3 border-black py-2 px-4 overflow-auto whitespace-nowrap space-x-4">
+            <nav className="inline-block">
+              <Link href="/events" className="text-black no-underline uppercase text-sm font-medium">Events</Link>
+            </nav>
+            <nav className="inline-block">
+              <Link href="/activities" className="text-black no-underline uppercase text-sm font-medium">Activities</Link>
+            </nav>
+            <nav className="inline-block">
+              <Link href="/articles" className="text-black no-underline uppercase text-sm font-medium">Articles</Link>
+            </nav>
+            <nav className="inline-block">
+              <Link href="/maps" className="text-black no-underline uppercase text-sm font-medium">Maps</Link>
+            </nav>
+            <nav className="inline-block">
+              <Link href="/get-connected" className="text-black no-underline uppercase text-sm font-medium">Subscribe</Link>
+            </nav>
+            <nav className="inline-block">
+              <a
+                href="mailto:hi@unboringkw.com"
+                rel="noopener noreferrer"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="20" width="20">
+                  <path
+                    d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                    fill="var(--theme-black)"
+                  />
+                </svg>
+              </a>
+            </nav>
+            <nav className="inline-block">
+            <a
+              href="https://twitter.com/unboringkw"
+              rel="noopener noreferrer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="20" width="20">
+                <path
+                  d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                  fill="var(--theme-black)"
+                />
+              </svg>
+            </a>
+            </nav>
 
-            <Link href="/events" className="uppercase text-xs font-medium text-black">
-              Events
-            </Link>
-
-            <Link href="/activities" className="uppercase text-xs font-medium text-black">
-              Activities
-            </Link>
-
-            <Link href="/maps" className="uppercase text-xs font-medium text-black">
-              Maps
-            </Link>
-
-            <Link href="/articles" className="uppercase text-xs font-medium text-black">
-              Blog
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-4">
-              <MenuLinks />
-            </div>
-
-            <div className="hidden md:flex text-white space-x-4 items-center">
-              <SocialLinks />
-            </div>
-
-
-            <button className="md:hidden border-0 p-0" onClick={toggleMenu} aria-label="Toggle menu" aria-controls="#main-menu" aria-expanded={menuOpen}>
-              {
-                menuOpen ? (
-                  <div className="inline-flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="20" width="20">
-                      <path fill="var(--theme-black)" d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
-                    </svg>
-                    <span className="uppercase text-xs font-medium">Close</span>
-                  </div>
-                ) : (
-                  <div className="inline-flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="20">
-                      <path fill="var(--theme-black)" d="M120 256c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm160 0c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm104 56c-30.9 0-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56s-25.1 56-56 56z"/>
-                    </svg>
-                    <span className="uppercase text-xs font-medium">More</span>
-                  </div>
-                )
-              }
-            </button>
-          </nav>
+            <nav className="inline-block">
+            <a
+              href="https://instagram.com/unboringkw"
+              rel="noopener noreferrer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="20">
+                <path
+                  d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                  fill="var(--theme-black)"
+                />
+              </svg>
+            </a>
+            </nav>
         </header>
 
-        <nav id="main-menu" aria-hidden={!menuOpen} className={`md:hidden ${menuOpen ? '!top-[61px]' : 'top-[-100vh]'} transition-all duration-450 w-screen fixed left-0 right-0 bg-white p-4 border-b-3 border-black`}>
-          <div className="flex-col space-y-4">
-            <MenuLinks />
-            <div className="inline-flex text-white space-x-4 items-center py-2">
-              <SocialLinks />
-            </div>
-          </div>
-        </nav>
-      </OutsideClickHandler>
 
-      <main className={`flex-auto snap-y`}>
+      <main className={`flex-auto snap-y py-10`}>
 
         {children}
 

@@ -18,7 +18,7 @@ const Tag = ({ name }) => {
   const tagEmoji = tagEmojiDict[name]
 
   return (
-    <div className="text-sm px-2 py-1 m-1 ml-0 border-2 border-black rounded-md flex flex-nowrap">
+    <div className="text-sm text-black px-2 py-1 m-1 ml-0 border-2 border-black rounded-md flex flex-nowrap">
       <span className="whitespace-nowrap">{name}</span>
       {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </div>
@@ -89,13 +89,6 @@ const ActivitiesFeed = ({ activities }) => {
   const filterActivities = () => {
     let filteredActivities = allActivities;
 
-    if (selectedCategories.length > 0) {
-      filteredActivities = filteredActivities.filter(activity => {
-        const activityCategory = activity.fields.Category
-        return selectedCategories.includes(activityCategory)
-      })
-    }
-
     if (selectedTags.length > 0) {
       filteredActivities = filteredActivities.filter(activity => {
         const activityTags = activity.fields.Tags || []
@@ -123,7 +116,6 @@ const ActivitiesFeed = ({ activities }) => {
 
   const reset = () => {
     setSelectedTags([])
-    setSelectedCategories([])
   }
 
   const toggleFilter = (tagName) => {
@@ -177,7 +169,7 @@ const ActivitiesFeed = ({ activities }) => {
   const allOut = filteredActivities?.length === 0;
 
   return (
-    <div id="activity-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar py-14`}>
+    <div id="activity-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="p-3">
         { isLoading ? (
           <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">
@@ -210,8 +202,6 @@ const ActivitiesFeed = ({ activities }) => {
         <TagFilter
           toggleFilter={toggleFilter}
           selectedTags={selectedTags}
-          toggleCategory={toggleCategory}
-          selectedCategories={selectedCategories}
           reset={reset}
           appElementId="#activity-feed"
         />
