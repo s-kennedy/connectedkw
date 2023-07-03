@@ -13,7 +13,7 @@ export async function getServerSideProps({ params }) {
 
 export default function ActivityPage ({ activity }) {
   return (
-    <Layout title={activity.fields?.Title} title={activity.fields?.Description} color="white">
+    <Layout title={activity.fields?.Title} description={activity.fields?.Description} color="white">
     	<ActivityDisplay activity={activity} />
     </Layout>
   )

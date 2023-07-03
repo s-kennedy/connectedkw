@@ -8,7 +8,6 @@ export default function SubmitEvent() {
       <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
         <div className="min-h-screen sm:min-h-0 h-full w-full bg-white sm:mt-10 relative sm:border-black sm:border-3 sm:rounded-xl p-5">
           <div className="mb-6">
-          <div className="mb-6">
             <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
               Submit an event
             </h1>
