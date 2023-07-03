@@ -357,8 +357,8 @@ const InteractiveMap = ({ features, categories }) => {
         reset={reset}
       />
       <div className="border-black border-2 rounded-lg mb-2">
-        <button onClick={setMapView} className={`text-sm border-0 rounded-r-none ${view === "map" ? 'bg-green' : 'bg-white'}`}>Map</button>
-        <button onClick={setGridView} className={`text-sm border-0 rounded-l-none ${view === "grid" ? 'bg-green' : 'bg-white'}`}>Grid</button>
+        <button onClick={setMapView} className={`btn text-sm border-0 rounded-r-none ${view === "map" ? 'bg-green' : 'bg-white'}`}>Map</button>
+        <button onClick={setGridView} className={`btn text-sm border-0 rounded-l-none ${view === "grid" ? 'bg-green' : 'bg-white'}`}>Grid</button>
       </div>
     </div>
     { view === "map" &&

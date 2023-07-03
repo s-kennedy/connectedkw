@@ -27,9 +27,9 @@ export default function PublicArtMap({ features }) {
       color="yellow" 
       image="https://www.unboringkw.com/map-thumbnail.jpg"
     >
-      <Section className="snap-center mt-12 p-3">
+      <Section className="snap-center p-3">
         <div className="mb-2">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl mb-4">
             Public Art in Waterloo Region
           </h1>
           <p>{`Who knew our region has/is a massive outdoor art gallery with over 150 pieces??`}</p>

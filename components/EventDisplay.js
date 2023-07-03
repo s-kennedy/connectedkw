@@ -2,6 +2,7 @@ import styles from "../styles/ideaGenerator.module.css"
 import { eventCategories, tagEmojiDict } from "../utils/constants"
 import ReactMarkdown from 'react-markdown'
 import { AddToCalendarButton } from 'add-to-calendar-button-react';
+import Link from 'next/link'
 
 const Tag = ({ name }) => {
   const tagEmoji = tagEmojiDict[name]
@@ -85,7 +86,7 @@ function EventDisplay({ event, isLoading, closeModal }) {
   return (
     <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
       <div className="h-full w-full bg-white sm:mt-10 relative sm:border-black sm:border-3 sm:rounded-xl">
-        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 pt-14 sm:pt-5`}>
+        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 sm:pt-5`}>
           <div className={isLoading ? '' : styles.appear}>
             {imgSrc &&
             <div className="mb-4">
@@ -135,6 +136,9 @@ function EventDisplay({ event, isLoading, closeModal }) {
               </div>
             }
 
+          </div>
+          <div className="my-6">
+            <p>👈 <Link href="/events">Back to events</Link></p>
           </div>
         </div>
       </div>

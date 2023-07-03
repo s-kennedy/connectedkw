@@ -13,7 +13,7 @@ export async function getServerSideProps({ params }) {
 
 export default function EventPage({ event }) {
   return (
-    <Layout>
+    <Layout color="white" title={event.fields.Title} description={event.fields.Description}>
     	<EventDisplay event={event} />
     </Layout>
   )

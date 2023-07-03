@@ -189,7 +189,8 @@ const ActivitiesFeed = ({ activities }) => {
       >
         <ActivityDisplay activity={selectedActivity} closeModal={() => setSelectedActivity(null)} />
       </ReactModal>
-      <div className="flex justify-end action-bar border-t-3 border-black fixed bottom-0 right-0 left-0 w-full bg-white p-2">
+      <div className="flex justify-end action-bar border-t-3 border-black fixed bottom-0 right-0 left-0 w-full bg-white p-2 space-x-1">
+        <Link href="/activities/new" className="btn btn-white rounded-full text-sm">Add an activity</Link>
         <div className="">
         <TagFilter
           toggleFilter={toggleFilter}

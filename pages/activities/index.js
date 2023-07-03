@@ -12,7 +12,7 @@ export async function getServerSideProps() {
 
 export default function Activities({ activities }) {
   return (
-    <Layout title="All activity ideas" color="yellow">
+    <Layout title="Activity ideas for all ages" description="A curated, seasonal list of family-friendly activity ideas that you can filter for your interests." color="yellow">
       <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto pb-12">
         <ActivitiesFeed activities={activities} />
       </div>

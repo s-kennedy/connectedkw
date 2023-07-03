@@ -67,9 +67,9 @@ export default function ParkMap({ features }) {
       color="yellow" 
       image="https://www.unboringkw.com/playgrounds-map-thumbnail.webp"
     >
-      <Section className="snap-center mt-12 p-3">
+      <Section className="snap-center p-3">
         <div className="mb-2">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl mb-4">
             Playgrounds in Kitchener-Waterloo
           </h1>
           <p>{`Get outside and enjoy some of the public park spaces we have in our region!`}</p>

@@ -2,6 +2,7 @@ import styles from "../styles/ideaGenerator.module.css"
 import { tagEmojiDict } from "../utils/constants"
 import ReactMarkdown from 'react-markdown'
 import slugify from 'slugify'
+import Link from 'next/link'
 
 const Tag = ({ name }) => {
   const tagEmoji = tagEmojiDict[name]
@@ -36,7 +37,7 @@ function ActivityDisplay({ activity }) {
   return (
     <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
       <div className="min-h-screen sm:min-h-0 h-full w-full bg-white sm:mt-10 relative sm:border-black sm:border-3 sm:rounded-xl">
-        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 pt-14 sm:pt-5`}>
+        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 sm:pt-5`}>
           <div className=''>
             {image &&
             <div className="mb-4">
@@ -49,9 +50,12 @@ function ActivityDisplay({ activity }) {
             {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
             {description && <div className="mb-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
             {link && <a className="text-blue" href={getField("External link")} target="_blank" rel="noopener noreferrer">{linkText}</a>}
-            <div className="flex flex-wrap mt-4">
+            <div className="flex flex-wrap my-4">
               {tags.map(tag => <Tag name={tag} key={tag} />)}
             </div>
+          </div>
+          <div className="my-6">
+            <p>👈 <Link href="/activities">Back to activities</Link></p>
           </div>
         </div>
       </div>

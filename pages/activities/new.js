@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 export default function SubmitActivity() {
   return (
-    <Layout title="Submit an activity idea" color="yellow">
-      <Section className="snap-center mt-12">
-        <div className="bg-white rounded-xl border-black border-3 p-5 lg:p-10">
+    <Layout title="Submit an activity idea" color="white">
+      <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
+        <div className="min-h-screen sm:min-h-0 h-full w-full bg-white sm:mt-10 relative sm:border-black sm:border-3 sm:rounded-xl p-5">
           <div className="mb-6">
             <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
               Submit an activity idea
@@ -29,10 +29,10 @@ export default function SubmitActivity() {
             />
           </div>
           <div className="my-6">
-            <p>👈 <Link href="/">Back home</Link></p>
+            <p>👈 <Link href="/activities">Back to activities</Link></p>
           </div>
         </div>
-      </Section>
+      </div>
     </Layout>
   )
 }

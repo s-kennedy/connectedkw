@@ -79,6 +79,10 @@ body {
   background-image: linear-gradient(to bottom, var(--theme-light-green) 0%, var(--theme-light-blue) 100%);
 }
 
+.page-bg-white {
+  background-color: var(--theme-white);
+}
+
 .styled-scrollbar {
   /* Foreground, Background */
   scrollbar-color: var(--theme-light-blue) transparent;
