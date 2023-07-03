@@ -65,7 +65,7 @@ export default function AllEvents() {
             </div>
           }
           <div className="my-6">
-            <p>👈 <Link href="/">Back home</Link></p>
+            <p>👈 <Link href="/events">Back to events</Link></p>
           </div>
         </div>
       </div>
