@@ -9,6 +9,7 @@ import Footer from 'components/Footer'
 import styles from 'styles/navbar.module.css'
 
 const stops = [
+  { name: `Home`, slug: `home` },
   { name: `Events`, slug: `events` },
   { name: `Activities`, slug: `activities` },
   { name: `Places`, slug: `maps` },
@@ -61,7 +62,7 @@ const Layout = ({
     }
   }, [router.events]);
 
-  const currentStop = stops.find(stop => router.pathname.startsWith(`/${stop.slug}`)) || 'events'
+  const currentStop = stops.find(stop => router.pathname.startsWith(`/${stop.slug}`)) || stops[0]
 
   return (
     <div className={`page-bg-${color} flex flex-auto flex-col justify-stretch items-stretch min-h-screen w-full`}>
@@ -84,7 +85,7 @@ const Layout = ({
       </Head>
 
 
-      <Train stops={stops} current={currentStop} imagePath={'/ion-illustrated.png'} />
+      <Train stops={stops} current={currentStop} imagePath={'/ion-icon.png'} />
 
 
       <main className={`flex-auto snap-y pt-16`}>

@@ -12,16 +12,7 @@ const nextConfig = {
         pathname: '/img/wn/**',
       },
     ],
-  },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/events',
-        permanent: false,
-      },
-    ]
-  },
+  }
 }
 
 module.exports = withMDX(nextConfig)

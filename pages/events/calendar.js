@@ -37,7 +37,7 @@ export default function AllEvents() {
                 className="airtable-embed appear"
                 src="https://airtable.com/embed/shrxS10aCQxlJYcvQ?backgroundColor=teal&viewControls=on"
                 frameBorder="0"
-                onmousewheel=""
+                onMouseWheel=""
                 width="100%"
                 height="533"
                 style={{
@@ -54,7 +54,7 @@ export default function AllEvents() {
                 className="airtable-embed appear"
                 src="https://airtable.com/embed/shrbZZ1RBY1cQO0Np?backgroundColor=teal&viewControls=on"
                 frameBorder="0"
-                onmousewheel=""
+                onMouseWheel=""
                 width="100%"
                 height="533"
                 style={{

@@ -25,16 +25,15 @@ export default function Home({ articles }) {
         globalFactorX={0.2}
         globalFactorY={0.2}
       >
-        <section className={`pt-[61px] w-screen sm:h-screen relative`} id="landing">
+        <section className={`w-full relative`} id="landing">
           <div className="container px-4 py-8 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col sm:flex-row h-full">
             <div className="basis-1/2">
               <MouseParallaxChild factorX={0.3} factorY={0.2} inverted>
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
+                <h1 className="text-5xl md:text-6xl lg:text-7xxl font-body font-bold mb-8 sm:mb-16 -rotate-6">
                   Hi KW 👋
                 </h1>
               </MouseParallaxChild>
-              <p className="text-2xl mb-4">{`Here you'll find things to do for families, children, and your inner child.`}</p>
-              <p className="text-2xl mb-6">{`Let's have some fun!`}</p>
+              <p className="text-lg mb-4">{`Here you'll find things to do for families, children, and your inner child. Let's have some fun!`}</p>
               <div data-aos="zoom-in-right" data-aos-delay="500">
                 <a
                   href="#events"
@@ -43,7 +42,7 @@ export default function Home({ articles }) {
                 </a>
               </div>
             </div>
-            <div className="basis-1/2 relative max-w-md md:mx-auto flex-auto min-h-0 place-self-start md:place-self-end md:mb-12 mt-20">
+            <div className="basis-1/2 relative max-w-md md:mx-auto flex-auto min-h-0 place-self-start md:place-self-end md:mb-12 mt-20 p-5">
               <MouseParallaxChild factorX={0.1} factorY={0.1}>
                 <div className={`object-cover`}>
                   <Image
@@ -62,7 +61,6 @@ export default function Home({ articles }) {
               </MouseParallaxChild>
             </div>
           </div>
-          <Marquee />
         </section>
       </MouseParallaxContainer>
 
