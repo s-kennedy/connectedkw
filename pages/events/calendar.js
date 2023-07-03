@@ -15,9 +15,9 @@ export default function AllEvents() {
   }
 
   return (
-    <Layout title="All events" color="green">
-      <Section className="snap-center mt-12">
-        <div className="bg-white md:rounded-xl md:border-black md:border-3 p-5 lg:p-10">
+    <Layout title="Events calendar" description="See all of KW's family-friendly events in a calendar view" color="white">
+      <div className="container sm:max-w-screen-lg mx-auto sm:p-3">
+        <div className="min-h-screen sm:min-h-0 h-full w-full bg-white relative sm:border-black sm:border-3 sm:rounded-xl p-5">
           <div className="mb-6">
             <h1 className="text-5xl sm:text-6xl md:text-7xl mb-4">
               Events calendar
@@ -27,8 +27,8 @@ export default function AllEvents() {
           </div>
           <div className="w-full flex justify-end">
             <div className="border-black border-2 rounded-lg mb-2">
-              <button onClick={setCalendarView} className={`text-sm border-0 rounded-r-none ${view === "calendar" ? 'bg-green' : 'bg-white'}`}>Calendar</button>
-              <button onClick={setTableView} className={`text-sm border-0 rounded-l-none ${view === "table" ? 'bg-green' : 'bg-white'}`}>List</button>
+              <button onClick={setCalendarView} className={`btn text-sm border-0 rounded-r-none ${view === "calendar" ? 'bg-green' : 'bg-white'}`}>Calendar</button>
+              <button onClick={setTableView} className={`btn text-sm border-0 rounded-l-none ${view === "table" ? 'bg-green' : 'bg-white'}`}>List</button>
             </div>
           </div>
           { view == "calendar" &&
@@ -68,7 +68,7 @@ export default function AllEvents() {
             <p>👈 <Link href="/">Back home</Link></p>
           </div>
         </div>
-      </Section>
+      </div>
     </Layout>
   )
 }
