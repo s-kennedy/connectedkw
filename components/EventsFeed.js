@@ -260,7 +260,6 @@ const EventsFeed = ({ events }) => {
   }
 
   const allOut = filteredEvents?.length === 0;
-  console.log({filteredEvents})
 
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>

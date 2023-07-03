@@ -12,8 +12,8 @@ export async function getServerSideProps() {
 
 export default function Activities({ activities }) {
   return (
-    <Layout>
-      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto">
+    <Layout title="All activity ideas" color="yellow">
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto py-10">
         <ActivitiesFeed activities={activities} />
       </div>
     </Layout>

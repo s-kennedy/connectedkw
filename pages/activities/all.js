@@ -4,7 +4,7 @@ import Layout from 'components/Layout'
 
 export default function Activities() {
   return (
-    <Layout title="All activity ideas" color="blue">
+    <Layout title="All activity ideas" color="yellow">
       <Section className="snap-center mt-12">
         <div className="bg-white rounded-xl border-black border-3 p-5 lg:p-10">
           <div className="mb-6">

@@ -59,7 +59,6 @@ const ActivityCard = ({ activity, setSelectedActivity }) => {
 
 
 const ActivitiesFeed = ({ activities }) => {
-  console.log({activities})
   const [allActivities, setAllActivities] = useState(activities)
   const [filteredActivities, setFilteredActivities] = useState(activities)
   const [featuredActivities, setFeaturedActivities] = useState([])

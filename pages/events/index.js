@@ -13,7 +13,7 @@ export async function getServerSideProps() {
 export default function Events({ events }) {
   return (
     <Layout>
-      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto">
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto py-10">
         <EventsFeed events={events} />
       </div>
     </Layout>

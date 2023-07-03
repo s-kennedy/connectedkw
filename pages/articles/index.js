@@ -13,8 +13,9 @@ export async function getStaticProps() {
 
 export default function AllArticles({ articles }) {
   return (
-    <Layout title="All articles" color="green">
-      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto p-3 space-y-2">
+    <Layout title="All articles" color="purple">
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto py-10">
+        <div className="p-3 space-y-2">
         {
           articles.map(article => {
             const { meta } = article
@@ -36,6 +37,7 @@ export default function AllArticles({ articles }) {
             )
           })
         }
+        </div>
       </div>
     </Layout>
   )

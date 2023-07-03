@@ -1,0 +1,23 @@
+.nav.active a {
+	color: var(--theme-red);
+}
+
+.nav.active:after {
+	content: '';
+  background-image:    url(/ion-illustrated.png);
+  background-size:     contain;
+  background-repeat:   no-repeat;
+  background-position: center center; 
+  position: absolute;
+  bottom: -34px;
+  left:0;
+  width: 100%;
+  height: 40px;
+}
+
+.stopDot {
+	height: 8px;
+	width: 8px;
+	border-radius: 8px;
+	background-color: var(--theme-black);
+}
