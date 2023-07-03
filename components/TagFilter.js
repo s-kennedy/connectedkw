@@ -10,7 +10,7 @@ const TagButton = ({ name, isSelected, toggleFilter }) => {
   }
 
   return (
-    <button onClick={handleClick} className={`hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
+    <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{name}</span>
       {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </button>
@@ -24,7 +24,7 @@ const CategoryButton = ({ name, isSelected, toggleFilter }) => {
   }
 
   return (
-    <button onClick={handleClick} className={`hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
+    <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{name}</span>
       {catEmoji && <span className="ml-1">{catEmoji}</span>}
     </button>
@@ -63,7 +63,7 @@ const TagFilter = ({
 
   return (
     <div className={`transition-all`}>
-      <button onClick={openFilters} className="btn-purple px-3 rounded-full items-center flex-col justify-center">
+      <button onClick={openFilters} className="btn btn-purple px-3 rounded-full items-center flex-col justify-center">
         <div>{filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}</div>
       </button>
 
@@ -79,7 +79,7 @@ const TagFilter = ({
       >
         <div className="h-full w-full bg-white pt-8 border-3 rounded-xl border-black relative">
           <div className="w-full flex justify-end absolute top-0 left-0">
-            <button onClick={closeFilters} className={`text-lg font-medium btn-clear`}>✕</button>
+            <button onClick={closeFilters} className={`btn text-lg font-medium btn-clear`}>✕</button>
           </div>
           <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 pt-0`}>
           {
@@ -121,8 +121,8 @@ const TagFilter = ({
           }
           { (selectedTags?.length > 0 || selectedCategories?.length > 0) &&
             <div className="flex justify-between">
-              <button onClick={reset} className="btn-clear text-red">Clear filters</button>
-              <button onClick={closeFilters} className="btn-clear text-green">Done</button>
+              <button onClick={reset} className="btn btn-clear text-red">Clear filters</button>
+              <button onClick={closeFilters} className="btn btn-clear text-green">Done</button>
             </div>
           }
           </div>

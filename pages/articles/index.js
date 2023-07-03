@@ -14,14 +14,14 @@ export async function getStaticProps() {
 export default function AllArticles({ articles }) {
   return (
     <Layout title="All articles" color="purple">
-      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto py-10">
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto">
         <div className="p-3 space-y-2">
         {
           articles.map(article => {
             const { meta } = article
             return (
-              <Link href={article.link} className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
-                <div className="w-full article" key={article.id}>
+              <Link key={article.id} href={article.link} className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
+                <div className="w-full article">
                     <h3>{meta.title}</h3>
                     <p className="uppercase text-sm mb-2 text-grey"><time>{meta.date}</time></p>
                     <p className="">

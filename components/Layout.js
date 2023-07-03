@@ -5,14 +5,14 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler';
 import Train from 'components/Train'
+import Footer from 'components/Footer'
 import styles from 'styles/navbar.module.css'
 
 const stops = [
   { name: `Events`, slug: `events` },
   { name: `Activities`, slug: `activities` },
   { name: `Places`, slug: `maps` },
-  { name: `Articles`, slug: `articles` },
-  { name: `Subscribe`, slug: `subscribe` }
+  { name: `Blog`, slug: `articles` },
 ]
 
 
@@ -84,14 +84,16 @@ const Layout = ({
       </Head>
 
 
-        <Train stops={stops} current={currentStop} imagePath={'/ion-illustraged.png'} />
+      <Train stops={stops} current={currentStop} imagePath={'/ion-illustrated.png'} />
 
 
-      <main className={`flex-auto snap-y`}>
+      <main className={`flex-auto snap-y pt-16`}>
 
         {children}
 
       </main>
+
+      {/*<Footer />*/}
     </div>
   )
 }

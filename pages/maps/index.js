@@ -6,7 +6,7 @@ import Image from 'next/image'
 export default function Maps() {
   return (
     <Layout title="Maps" color="green">
-      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto py-10">
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto">
         <div className="p-3 space-y-2">
           <Link href="/maps/splashpads" className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
             <div className="flex flex-col space-y-6">

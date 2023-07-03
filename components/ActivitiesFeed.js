@@ -70,13 +70,6 @@ const ActivitiesFeed = ({ activities }) => {
   const [featuredActivityIndex, setFeaturedActivityIndex] = useState(0)
 
 
-  // useEffect(() => {
-  //   if (!allActivities.length) {
-  //     fetchActivities()
-  //   }
-  // })
-
-
   useEffect(() => {
     filterActivities()
   }, [selectedTags, selectedCategories])

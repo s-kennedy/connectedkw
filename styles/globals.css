@@ -220,7 +220,7 @@ article h3 {
 }
 
 @layer components {
-  button, .btn {
+  .btn {
     @apply text-black no-underline px-2 py-1 border-3 border-black rounded-md inline-flex flex-nowrap items-center hover:no-underline focus:no-underline transition-all duration-200;
   }
 
