@@ -117,20 +117,20 @@ export default function Train({stops, current, imagePath}) {
   })
 
   return(
-    <div className="fixed w-full z-50">
-    <DndContext modifiers={[restrictToHorizontalAxis, restrictToWindowEdges]} onDragEnd={handleDragEnd}>
-      <header className="w-full border-b-3 border-black inline-flex py-2 px-5 justify-around relative">
-        { stops.map(stop => {
-          const active = current === stop
-          if (active) {
-            return <ActiveNav key={stop.slug} stop={stop} ref={dotRef} />
-          } else {
-            return <DroppableNav stop={stop} key={stop.slug} />
-          }
-        })}
-        <DraggableTrain imagePath={imagePath} coordinates={currentStopPosition} />
-      </header>
-    </DndContext>
+    <div className="fixed w-full z-50 top-0 left-0 right-0">
+      <DndContext modifiers={[restrictToHorizontalAxis, restrictToWindowEdges]} onDragEnd={handleDragEnd}>
+        <header className="w-full border-b-3 border-black inline-flex p-2 md:px-5 justify-around relative">
+          { stops.map(stop => {
+            const active = current === stop
+            if (active) {
+              return <ActiveNav key={stop.slug} stop={stop} ref={dotRef} />
+            } else {
+              return <DroppableNav stop={stop} key={stop.slug} />
+            }
+          })}
+          <DraggableTrain imagePath={imagePath} coordinates={currentStopPosition} />
+        </header>
+      </DndContext>
     </div>
   )
 }

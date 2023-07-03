@@ -20,26 +20,26 @@ export async function getStaticProps() {
 export default function Home({ articles }) {
 
   return (
-    <Layout>
+    <Layout color="blue">
       <MouseParallaxContainer
         globalFactorX={0.2}
         globalFactorY={0.2}
       >
         <section className={`w-full relative`} id="landing">
-          <div className="container px-4 py-8 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col sm:flex-row h-full">
+          <div className="container p-3 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col sm:flex-row h-full">
             <div className="basis-1/2">
               <MouseParallaxChild factorX={0.3} factorY={0.2} inverted>
-                <h1 className="text-5xl md:text-6xl lg:text-7xxl font-body font-bold mb-8 sm:mb-16 -rotate-6">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
                   Hi KW 👋
                 </h1>
               </MouseParallaxChild>
-              <p className="text-lg mb-4">{`Here you'll find things to do for families, children, and your inner child. Let's have some fun!`}</p>
+              <p className="text-lg sm:text-xl mb-4">{`Here you'll find things to do for families, children, and your inner child. Let's have some fun!`}</p>
               <div data-aos="zoom-in-right" data-aos-delay="500">
-                <a
-                  href="#events"
+                <Link
+                  href="/events"
                   className="transition-all btn btn-green">
                   Give me something to do 🙏
-                </a>
+                </Link>
               </div>
             </div>
             <div className="basis-1/2 relative max-w-md md:mx-auto flex-auto min-h-0 place-self-start md:place-self-end md:mb-12 mt-20 p-5">
@@ -63,41 +63,14 @@ export default function Home({ articles }) {
           </div>
         </section>
       </MouseParallaxContainer>
-
       
-      <Section className="snap-start scroll-mt-10" id="get-connected">
-        <MouseParallaxContainer
-          globalFactorX={0.3}
-          globalFactorY={0.3}
-          containerStyle={{overflow: "visible"}}
-        >
-          <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">Get Connected</h2>
+      {/*<section className={`w-full relative`} id="subscribe">
+        <div className="container p-3 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col">
           <div className="flex items-center flex-col md:flex-row md:space-x-8">
-            <div className="basis-1/2 w-full p-5">
-              <div className={`relative`}>
-                <MouseParallaxChild factorX={0.1} factorY={0.1}>
-                  <Blob fill="var(--theme-green)" className="inline-block w-10/12 ml-6 rotate-45" />
-                </MouseParallaxChild>
-                <MouseParallaxChild factorX={0.1} factorY={0.2}>
-                  <Blob fill="var(--theme-blue)" className="absolute w-3/4 h-auto bottom-0 left-4 rotate-180" />
-                </MouseParallaxChild>
-                <MouseParallaxChild factorX={0.3} factorY={0.4}>
-                  <Image
-                    src="/goose.png"
-                    alt=""
-                    width="400"
-                    height="400"
-                    className="absolute w-11/12 h-auto bottom-0 left-6"
-                  />
-                </MouseParallaxChild>
-              </div>
-            </div>
-            <div className="basis-1/2 flex-auto w-full flex flex-col mb-6" data-aos="fade-up">
-              <MailchimpSubscriptionForm />
-            </div>
+            <MailchimpSubscriptionForm />
           </div>
-        </MouseParallaxContainer>
-      </Section>
+        </div>
+      </section>*/}
     </Layout>
   )
 }

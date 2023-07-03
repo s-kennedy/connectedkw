@@ -10,6 +10,9 @@ const CustomForm = ({ status, message, onValidated }) => {
       return null
     }
 
+    console.log({email: email.value})
+    console.log({name: name.value })
+
     if (email && name && email.value.indexOf("@") > -1) {
       onValidated({
         EMAIL: email.value,
@@ -20,12 +23,11 @@ const CustomForm = ({ status, message, onValidated }) => {
 
   return (
     <div className="w-full bg-white p-5 border-3 rounded-xl border-black ">
-      <div className="">
-        <p className="text-xl mb-2 font-medium">
-          {`Do you want to stay on top of what's going on in KW?`}
-        </p>
-        <p className="mb-2">
-          {`Subscribe to find out about events and activities in our community. Not in an annoying spammy way, just thoughtful and timely information to keep you in the loop 😜`}
+      <div className="pb-2">
+      <h2 className="text-4xl md:text-5xl lg:text-6xl font-body font-bold mb-8 sm:mb-16 -rotate-6">Subscribe</h2>
+
+      <p className="mb-2 text-lg sm:text-xl ">
+          {`Find out about family-friendly events and activities in our community. Not in an annoying spammy way, just thoughtful and timely information to keep you in the loop 😜`}
         </p>
       </div>
 
@@ -59,7 +61,7 @@ const CustomForm = ({ status, message, onValidated }) => {
           </div>
           <div className="optionalParent">
             <div className="clear foot">
-              <button onClick={submit} id="mc-embedded-subscribe" className="btn-purple mt-4 space-x-1">
+              <button onClick={submit} id="mc-embedded-subscribe" className="btn btn-purple mt-4 space-x-1">
                 <span>Subscribe</span>
                 {(status === "sending") && <Image src="/loading.svg" width={20} height={20} alt="" />}
               </button>
