@@ -18,7 +18,7 @@ const DroppableNav = ({ stop, setCurrentStopPosition }) => {
   )
 }
 
-const ActiveNav = forwardRef((props, ref) => {
+const ActiveNav = forwardRef(function ActiveNav(props, ref) {
   const { stop} = props;
 
   return (
