@@ -1,7 +1,7 @@
 import styles from 'styles/navbar.module.css'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import {DndContext, useDroppable, useDraggable} from 'n';
+import {DndContext, useDroppable, useDraggable} from '@dnd-kit/core';
 import { restrictToHorizontalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { useState, useEffect, useRef, forwardRef } from 'react'
 
