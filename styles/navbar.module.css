@@ -34,16 +34,20 @@
 	cursor: grab;
 }
 
-.trainBtn {
-
+@keyframes appear {
+  0%   {opacity: 0;}
+  100% {opacity: 1;}
 }
+
 
 .trainBtn .trainTooltip {
 	background-color: var(--theme-blue);
 	color: var(--theme-white);
 	border-radius: 50px;
 	padding: 2px 8px;
-	opacity: 1;
+	opacity: 0;
 	left: 18px;
 	font-size: 15px;
+	animation: appear 250ms linear 2s 1;
+	animation-fill-mode: forwards;  
 }
