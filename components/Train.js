@@ -59,12 +59,10 @@ const DraggableTrain = ({ imagePath, coordinates }) => {
   };
 
   useEffect(() => {
-    window.setTimeout(() => {
-      const hasBeenDragged = cookies[COOKIE_NAME] === 'true'
-      if (!hasBeenDragged) {
-        setShow(true)
-      }
-    }, 3000)
+    const hasBeenDragged = cookies[COOKIE_NAME] === 'true'
+    if (!hasBeenDragged) {
+      setShow(true)
+    }
   })
 
   return (
