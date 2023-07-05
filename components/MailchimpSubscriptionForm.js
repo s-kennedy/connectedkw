@@ -1,8 +1,5 @@
-import MailchimpSubscribe from "react-mailchimp-subscribe"
 import Image from 'next/image'
 import { useState } from 'react'
-
-const url = `https://getunboring.us18.list-manage.com/subscribe/post?u=0dec77fbe34db1b0cd94df181&amp;id=5922adb2bc&amp;f_id=002627e7f0`
 
 export const STATUS = {
   idle: "IDLE",
@@ -48,9 +45,7 @@ const MailchimpSubscriptionForm = () => {
     if (form.firstName === "" || form.email === "") return;
 
     const res = await subscribe({ firstName: form.firstName, email: form.email })
-    console.log({res})
     const json = await res.json()
-    console.log({json})
     switch (res.status) {
       case 200:
         setSubscribeState({
@@ -81,8 +76,6 @@ const MailchimpSubscriptionForm = () => {
         });
     }
   };
-
-  console.log({subscribeState})
 
   return (
     <div className="w-full bg-white p-5 border-3 rounded-xl border-black ">
@@ -116,7 +109,7 @@ const MailchimpSubscriptionForm = () => {
 
           <div className="mc-field-group flex flex-col mb-2">
             <label htmlFor="firstName" className="text-sm">Name  <span className="asterisk">*</span></label>
-            <input id="firstName" value={form.firstName} onChange={handleInputChange} type="text" name="firstName" className="required border-2 p-2 rounded-md" id="mce-FNAME" required />
+            <input id="firstName" value={form.firstName} onChange={handleInputChange} type="text" name="firstName" className="required border-2 p-2 rounded-md" required />
           </div>
 
           <div style={{position: 'absolute', left: '-5000px'}} aria-hidden="true">
