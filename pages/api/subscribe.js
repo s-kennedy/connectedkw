@@ -1,8 +1,8 @@
 import ow from "ow";
 import md5 from "blueimp-md5";
 
-const MAILCHIMP_SERVER = 'getunboring'
-const MAILCHIMP_LIST_ID = '0dec77fbe34db1b0cd94df181&amp;id=5922adb2bc&amp;f_id=002627e7f0'
+const MAILCHIMP_SERVER = 'us18'
+const MAILCHIMP_LIST_ID = '5922adb2bc'
 
 function owWithMessage(val, message, validator) {
   try {
@@ -72,24 +72,12 @@ function checkContactStatus(email) {
   );
 }
 export default async (req, res) => {
-  const { firstName, email } = req.body;
-
-  try {
-    console.log("> Validating input", " name: ", firstName, " email:", email);
-    owWithMessage(firstName, "the name is too long", ow.string.maxLength(120));
-    owWithMessage(
-      email,
-      "The email is invalid. Please enter a valid email address.",
-      isEmail
-    );
-  } catch (e) {
-    console.log("> Validation failed", e.message);
-    res.status(403).json({ message: e.message });
-  }
+  const { firstName, email } = JSON.parse(req.body);
 
   if (req.method === "POST") {
     try {
       const { status } = await (await checkContactStatus(email)).json();
+      console.log({status})
 
       if (status === 404) {
         const message = await (await addNewMember(email, firstName)).json();
@@ -100,7 +88,7 @@ export default async (req, res) => {
         }
 
         if (message) {
-          return res.status(200).json({ message });
+          return res.status(200).json({ message: `Thanks for subscribing!` });
         }
       } else if (status === "subscribed") {
         res.status(400).json({ message: "User already subscribed" });

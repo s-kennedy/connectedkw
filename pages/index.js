@@ -27,7 +27,7 @@ export default function Home({ articles }) {
       >
         <section className={`w-full relative`} id="landing">
           <div className="container p-3 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col sm:flex-row h-full">
-            <div className="basis-1/2">
+            <div className="basis-1/2 flex flex-col justify-center">
               <MouseParallaxChild factorX={0.3} factorY={0.2} inverted>
                 <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
                   Hi KW 👋
@@ -64,13 +64,13 @@ export default function Home({ articles }) {
         </section>
       </MouseParallaxContainer>
       
-      {/*<section className={`w-full relative`} id="subscribe">
+      <section className={`w-full relative`} id="subscribe">
         <div className="container p-3 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col">
           <div className="flex items-center flex-col md:flex-row md:space-x-8">
             <MailchimpSubscriptionForm />
           </div>
         </div>
-      </section>*/}
+      </section>
     </Layout>
   )
 }
