@@ -68,11 +68,12 @@ const ActivitiesFeed = ({ activities }) => {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [menuOpen, setMenuOpen] = useState(false)
   const [featuredActivityIndex, setFeaturedActivityIndex] = useState(0)
+  const router = useRouter()
 
 
   useEffect(() => {
     filterActivities()
-  }, [selectedTags, selectedCategories])
+  }, [selectedTags])
 
   useEffect(() => {
     ReactModal.setAppElement("#activity-feed")
@@ -93,17 +94,6 @@ const ActivitiesFeed = ({ activities }) => {
     }
 
     setFilteredActivities(filteredActivities)
-  }
-
-  const fetchActivities = () => {
-    setLoading(true)
-    fetch("/api/activities")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllActivities(data.activities)
-        setFilteredActivities(data.activities)
-        setLoading(false)
-      })
   }
 
   const reset = () => {
@@ -134,38 +124,29 @@ const ActivitiesFeed = ({ activities }) => {
     }
   }
 
-  const openMenu = () => setMenuOpen(true)
-  const closeMenu = () => setMenuOpen(false)
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen)
+  const selectRandom = () => {
+    setLoading(true)
+    const activity = filteredActivities[Math.floor(Math.random()*filteredActivities.length)];
+    const slug = `${slugify(activity.fields.Title, { lower: true })}__${activity.id}`
+    router.prefetch(`/activities/${slug}`)
+
+    const timer = setTimeout(() => {
+      router.push(`/activities/${slug}`)
+    }, 750)
   }
 
-  const nextFeaturedActivity = () => {
-    const maxIndex = featuredActivities.length - 1
-    if (featuredActivityIndex < maxIndex) {
-      setFeaturedActivityIndex(featuredActivityIndex + 1)
-    } else {
-      setFeaturedActivityIndex(0)
-    }
-  }
+  useEffect(() => {
+    setLoading(false)
+  }, [router.query.slug])
 
-  const prevFeaturedActivity = () => {
-    const maxIndex = featuredActivities.length - 1
-    if (featuredActivityIndex === 0) {
-      setFeaturedActivityIndex(maxIndex)
-    } else {
-      setFeaturedActivityIndex(featuredActivityIndex - 1)
-    }
-  }
-
-  const allOut = filteredActivities?.length === 0;
 
   return (
     <div id="activity-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="p-3">
         { isLoading ? (
-          <div className="border-3 rounded-xl border-black bg-white w-full h-full flex justify-center items-center min-h-halfscreen">
-            <Image src="/loading.svg" width={40} height={40} alt="loading" />
+          <div className="fixed inset-0 bg-white w-full h-full flex justify-center items-center">
+            <div className="spinning w-[40px] h-[40px] text-4xl">🎲</div>
+            {/*<Image src="/loading.svg" width={40} height={40} alt="loading" />*/}
           </div>
           ) : (
           <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
@@ -177,28 +158,17 @@ const ActivitiesFeed = ({ activities }) => {
           </div>
         )}
       </div>
-      <ReactModal
-        isOpen={!!selectedActivity}
-        onRequestClose={() => setSelectedActivity(null)}
-        shouldCloseOnOverlayClick={true}
-        shouldCloseOnEsc={true}
-        className="max-w-md mx-auto h-full"
-        style={{
-          overlay: { zIndex: 100 }
-        }}
-      >
-        <ActivityDisplay activity={selectedActivity} closeModal={() => setSelectedActivity(null)} />
-      </ReactModal>
-      <div className="flex justify-end action-bar border-t-3 border-black fixed bottom-0 right-0 left-0 w-full bg-white p-2 space-x-1">
-        <Link href="/activities/new" className="btn btn-white rounded-full text-sm">Add an activity</Link>
+      <div className="flex justify-end action-bar border-t-3 border-black fixed bottom-0 right-0 left-0 w-full bg-white p-2 space-x-1 flex-wrap">
+        <Link href="/activities/new" className="btn btn-white rounded-full text-sm whitespace-nowrap ">Submit +</Link>
         <div className="">
-        <TagFilter
-          toggleFilter={toggleFilter}
-          selectedTags={selectedTags}
-          reset={reset}
-          appElementId="#activity-feed"
-        />
+          <TagFilter
+            toggleFilter={toggleFilter}
+            selectedTags={selectedTags}
+            reset={reset}
+            appElementId="#activity-feed"
+          />
         </div>
+        <button onClick={selectRandom} className="btn btn-green rounded-full text-sm whitespace-nowrap ">Pick for me! 🎲</button>
       </div>
     </div>
   )

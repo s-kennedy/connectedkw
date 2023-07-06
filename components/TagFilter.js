@@ -63,7 +63,7 @@ const TagFilter = ({
 
   return (
     <div className={`transition-all`}>
-      <button onClick={openFilters} className="btn btn-purple px-3 rounded-full items-center flex-col justify-center text-sm">
+      <button onClick={openFilters} className="btn btn-purple px-3 rounded-full items-center flex-col justify-center text-sm whitespace-nowrap ">
         <div>{filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}</div>
       </button>
 

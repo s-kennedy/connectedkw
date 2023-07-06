@@ -88,7 +88,7 @@ const Layout = ({
       <Train stops={stops} current={currentStop} imagePath={'/ion-icon.png'} />
 
 
-      <main className={`flex-auto snap-y pt-16`}>
+      <main className={`flex-auto snap-y pt-16 appear`}>
 
         {children}
 

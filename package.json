@@ -24,7 +24,6 @@
     "cors": "^2.8.5",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.4",
-    "fathom-client": "^3.5.0",
     "gray-matter": "^4.0.3",
     "next": "13.3.0",
     "ow": "^1.1.1",

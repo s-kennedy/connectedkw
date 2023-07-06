@@ -281,21 +281,9 @@ const EventsFeed = ({ events }) => {
           </div>
         )}
       </div>
-      <ReactModal
-        isOpen={!!selectedEvent}
-        onRequestClose={() => setSelectedEvent(null)}
-        shouldCloseOnOverlayClick={true}
-        shouldCloseOnEsc={true}
-        className="max-w-md mx-auto h-full"
-        style={{
-          overlay: { zIndex: 100 }
-        }}
-      >
-        <EventDisplay event={selectedEvent} closeModal={() => setSelectedEvent(null)} />
-      </ReactModal>
-      <div className="flex justify-end action-bar border-t-3 border-black fixed bottom-0 right-0 left-0 w-full bg-white p-2 space-x-1">
-        <Link href="/events/new" className="btn btn-white rounded-full text-sm">Add an event</Link>
-        <Link href="/events/calendar" className="btn btn-white rounded-full text-sm">Calendar</Link>
+      <div className="flex flex-wrap justify-end action-bar border-t-3 border-black fixed bottom-0 right-0 left-0 w-full bg-white p-2 space-x-1">
+        <Link href="/events/new" className="btn btn-white rounded-full text-sm whitespace-nowrap ">Submit +</Link>
+        <Link href="/events/calendar" className="btn btn-white rounded-full text-sm whitespace-nowrap ">Calendar</Link>
         <div className="">
           <TagFilter
             toggleFilter={toggleFilter}

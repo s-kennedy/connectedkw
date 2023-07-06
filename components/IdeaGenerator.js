@@ -1,7 +1,6 @@
 import styles from "styles/ideaGenerator.module.css"
 
 import { useState, useEffect } from "react"
-import * as Fathom from 'fathom-client';
 import Link from 'next/link'
 import OutsideClickHandler from 'react-outside-click-handler';
 
@@ -59,7 +58,6 @@ function IdeaGenerator() {
 
   const selectIdea = () => {
     setLoading(true)
-    Fathom.trackGoal('E6BCE6ZP', 0)
 
     const timer = setTimeout(() => {
       const idea = availableIdeas[Math.floor(Math.random()*availableIdeas.length)];

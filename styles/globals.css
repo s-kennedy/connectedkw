@@ -287,3 +287,31 @@ article h3 {
   font-family: var(--theme-font-body);
   font-size: 0.7rem;
 }
+
+@keyframes spin {
+  0% { transform: rotate(-15deg); }
+  10% { transform: rotate(15deg); }
+  20% { transform: rotate(-20deg); }
+  30% { transform: rotate(20deg); }
+  40% { transform: rotate(-20deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinning {
+  animation-name: spin;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-direction: forward; 
+  animation-iteration-count: infinite;
+}
+
+@keyframes appear {
+  0%   {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.appear {
+  animation: appear 250ms linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;  
+}
