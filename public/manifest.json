@@ -1,0 +1,67 @@
+{
+    "id": "unboring-kw",
+    "theme_color": "#51355a",
+    "background_color": "#cbe0ea",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/events",
+    "name": "Unboring KW",
+    "short_name": "Unboring KW",
+    "description": "The best way to find out about family-friendly events and activities in our community",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "shortcuts": [
+        {
+          "name": "Events",
+          "description": "Upcoming family-friendly events in KW",
+          "url": "/events"
+        },
+        {
+          "name": "Activities",
+          "description": "A curated, seasonal list of family-friendly activity ideas",
+          "url": "/activities"
+        },
+        {
+          "name": "Places",
+          "description": "Interactive themed maps of local points of interest",
+          "url": "/maps"
+        }
+    ],
+    "screenshots": [
+        {
+          "src": "/screenshot-events.png",
+          "type": "image/png",
+          "sizes": "646x1400",
+        },
+        {
+          "src": "/screenshot-activities.png",
+          "type": "image/png",
+          "sizes": "644x1396",
+        },
+        {
+          "src": "/screenshot-maps.png",
+          "type": "image/png",
+          "sizes": "644x1396",
+        },
+    ]
+}

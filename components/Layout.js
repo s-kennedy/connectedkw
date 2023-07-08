@@ -69,7 +69,6 @@ const Layout = ({
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
-        <link rel="icon" href="/favicon.ico" />
         <meta name="image" content={image} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
