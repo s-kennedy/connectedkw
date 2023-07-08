@@ -12,7 +12,7 @@ export async function getServerSideProps() {
 
 export default function Events({ events }) {
   return (
-    <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="red">
+    <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
       <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto pb-12">
         <EventsFeed events={events} />
       </div>

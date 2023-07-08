@@ -20,7 +20,7 @@ export async function getStaticProps() {
 export default function Home({ articles }) {
 
   return (
-    <Layout color="blue">
+    <Layout color="purple">
       <MouseParallaxContainer
         globalFactorX={0.2}
         globalFactorY={0.2}

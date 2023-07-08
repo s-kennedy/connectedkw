@@ -13,7 +13,7 @@ export async function getStaticProps() {
 
 export default function AllArticles({ articles }) {
   return (
-    <Layout title="All articles" color="purple">
+    <Layout title="All articles" color="red">
       <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto">
         <div className="p-3 space-y-2">
         {
