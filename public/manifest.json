@@ -51,17 +51,17 @@
         {
           "src": "/screenshot-events.png",
           "type": "image/png",
-          "sizes": "646x1400",
+          "sizes": "646x1400"
         },
         {
           "src": "/screenshot-activities.png",
           "type": "image/png",
-          "sizes": "644x1396",
+          "sizes": "644x1396"
         },
         {
           "src": "/screenshot-maps.png",
           "type": "image/png",
-          "sizes": "644x1396",
-        },
+          "sizes": "644x1396"
+        }g
     ]
 }
