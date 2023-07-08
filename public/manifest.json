@@ -55,17 +55,23 @@
         {
           "src": "/screenshot-events.png",
           "type": "image/png",
-          "sizes": "646x1400"
+          "sizes": "646x1400",
+          "platform": "narrow",
+          "label": "Events feed for upcoming local events"
         },
         {
           "src": "/screenshot-activities.png",
           "type": "image/png",
-          "sizes": "644x1396"
+          "sizes": "644x1396",
+          "platform": "narrow",
+          "label": "Curated searchable list of activity ideas"
         },
         {
           "src": "/screenshot-maps.png",
           "type": "image/png",
-          "sizes": "644x1396"
+          "sizes": "644x1396",
+          "platform": "narrow",
+          "label": "Themed interactive maps of local points of interest"
         }
     ]
 }
