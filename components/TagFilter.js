@@ -4,7 +4,6 @@ import { tagEmojiDict, eventCategories } from 'utils/constants'
 import ReactModal from 'react-modal';
 
 const TagButton = ({ name, isSelected, toggleFilter }) => {
-  const tagEmoji = tagEmojiDict[name]
   const handleClick = () => {
     toggleFilter(name)
   }
@@ -12,13 +11,11 @@ const TagButton = ({ name, isSelected, toggleFilter }) => {
   return (
     <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{name}</span>
-      {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </button>
   )
 }
 
 const CategoryButton = ({ name, isSelected, toggleFilter }) => {
-  const catEmoji = eventCategories[name]["emoji"]
   const handleClick = () => {
     toggleFilter(name)
   }
@@ -26,7 +23,6 @@ const CategoryButton = ({ name, isSelected, toggleFilter }) => {
   return (
     <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{name}</span>
-      {catEmoji && <span className="ml-1">{catEmoji}</span>}
     </button>
   )
 }
@@ -37,7 +33,9 @@ const TagFilter = ({
   toggleCategory,
   selectedCategories=[],
   reset,
-  appElementId
+  appElementId,
+  categories,
+  tags
 }) => {
 
   useEffect(() => {
@@ -91,7 +89,7 @@ const TagFilter = ({
                 </h2>
               </div>
               <div className={`flex flex-wrap py-4 ${styles.appear}`}>
-                {categoryNames.map(cat => {
+                {categories.map(cat => {
                   const isSelected = selectedCategories.includes(cat)
                   return (
                     <CategoryButton name={cat} key={cat} isSelected={isSelected} toggleFilter={toggleCategory} />
@@ -110,7 +108,7 @@ const TagFilter = ({
                 </h2>
               </div>
               <div className={`flex flex-wrap py-4 ${styles.appear}`}>
-                {tagNames.map(tag => {
+                {tags.map(tag => {
                   const isSelected = selectedTags.includes(tag)
                   return (
                     <TagButton name={tag} key={tag} isSelected={isSelected} toggleFilter={toggleFilter} />
@@ -120,9 +118,9 @@ const TagFilter = ({
             </div>
           }
           { (selectedTags?.length > 0 || selectedCategories?.length > 0) &&
-            <div className="flex justify-between">
+            <div className="flex justify-between absolute w-full bottom-0 left-0 p-3">
               <button onClick={reset} className="btn btn-clear text-red">Clear filters</button>
-              <button onClick={closeFilters} className="btn btn-clear text-green">Done</button>
+              <button onClick={closeFilters} className="btn btn-clear text-green">Search</button>
             </div>
           }
           </div>

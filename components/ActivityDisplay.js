@@ -1,16 +1,13 @@
 import styles from "../styles/ideaGenerator.module.css"
-import { tagEmojiDict } from "../utils/constants"
 import ReactMarkdown from 'react-markdown'
 import slugify from 'slugify'
 import Link from 'next/link'
 
 const Tag = ({ name }) => {
-  const tagEmoji = tagEmojiDict[name]
 
   return (
     <div className="text-sm text-black px-2 py-1 m-1 ml-0 border-2 border-black rounded-md flex flex-nowrap">
-      <span className="whitespace-nowrap">{name}</span>
-      {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
+      <span className="whitespace-nowrap">{name}</span>                        
     </div>
   )
 }

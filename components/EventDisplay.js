@@ -5,12 +5,9 @@ import { AddToCalendarButton } from 'add-to-calendar-button-react';
 import Link from 'next/link'
 
 const Tag = ({ name }) => {
-  const tagEmoji = tagEmojiDict[name]
-
   return (
     <div className="text-sm px-2 py-1 m-1 ml-0 border-2 border-black rounded-md flex flex-nowrap">
       <span className="whitespace-nowrap">{name}</span>
-      {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </div>
   )
 }
@@ -31,11 +28,10 @@ function EventDisplay({ event, isLoading, closeModal }) {
   const endDate = getField("End date")
   const locationName = getField("Location name")
   const locationAddress = getField("Location address")
-  const category = getField("Category")
+  const category = getField("Category") || []
   const image = getImageObj()
   const imageDescription = getField("Image description")
   const imageCredit = getField("Image credit")
-  const categoryStyles = eventCategories[category] || {}
   const imageUrl = getField("Image url")
   const link = getField("External link")
   const linkText = getField("Link text") || "Event page"

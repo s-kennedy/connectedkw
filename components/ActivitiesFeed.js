@@ -9,18 +9,15 @@ import ReactMarkdown from 'react-markdown'
 import OutsideClickHandler from 'react-outside-click-handler';
 import Blob from 'components/Blob'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
-import { activityCategories } from 'utils/constants'
 import { useRouter } from 'next/router'
 import slugify from 'slugify'
 import { tagEmojiDict } from "../utils/constants"
 
 const Tag = ({ name }) => {
-  const tagEmoji = tagEmojiDict[name]
 
   return (
     <div className="text-sm text-black px-2 py-1 m-1 ml-0 border-2 border-black rounded-md flex flex-nowrap">
       <span className="whitespace-nowrap">{name}</span>
-      {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </div>
   )
 }
@@ -42,15 +39,19 @@ const ActivityCard = ({ activity, setSelectedActivity }) => {
   const tags = getField("Tags") || []
   const imageCredit = getField("Image credit")
   const imageDescription = getField("Image description")
+  const categories = getField("Category") || []
 
   const slug = `${slugify(title, { lower: true })}__${activity.id}`
+  const tagsString = tags.join(', ')
+  const categoriesString = categories.join(', ')
 
   return (
     <Link href={`/activities/${slug}`} className={`${styles.eventCard} btn relative snap-start transition-all p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black ${styles.result}`}>
       <div className="info p-3 text-left">
         {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
-        <div className="flex flex-wrap mt-4">
-          {tags.map(tag => <Tag name={tag} key={tag} />)}
+        <div className="my-4">
+          <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><time>{categoriesString}</time></p>
+          <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>#</span><time>{tagsString}</time></p>
         </div>
       </div>
     </Link>
@@ -58,7 +59,7 @@ const ActivityCard = ({ activity, setSelectedActivity }) => {
 }
 
 
-const ActivitiesFeed = ({ activities }) => {
+const ActivitiesFeed = ({ activities, categories, tags }) => {
   const [allActivities, setAllActivities] = useState(activities)
   const [filteredActivities, setFilteredActivities] = useState(activities)
   const [featuredActivities, setFeaturedActivities] = useState([])
@@ -73,7 +74,7 @@ const ActivitiesFeed = ({ activities }) => {
 
   useEffect(() => {
     filterActivities()
-  }, [selectedTags])
+  }, [selectedTags, selectedCategories])
 
   useEffect(() => {
     ReactModal.setAppElement("#activity-feed")
@@ -82,6 +83,16 @@ const ActivitiesFeed = ({ activities }) => {
   const filterActivities = () => {
     let filteredActivities = allActivities;
 
+    if (selectedCategories.length > 0) {
+      filteredActivities = filteredActivities.filter(activity => {
+        const activityCategories = activity.fields.Category || []
+        const matches = selectedCategories.map(cat => activityCategories.includes(cat) || activityCategories.includes("All ages"))
+        // only allow events that match ALL the selected filters.
+        // use .some() to keep the events that match ANY of the selected filters.
+        return matches.some(m => m)
+      })
+    }
+
     if (selectedTags.length > 0) {
       filteredActivities = filteredActivities.filter(activity => {
         const activityTags = activity.fields.Tags || []
@@ -89,7 +100,7 @@ const ActivitiesFeed = ({ activities }) => {
 
         // only allow activities that match ALL the selected filters.
         // use .some() to keep the activities that match ANY of the selected filters.
-        return matches.every(m => m)
+        return matches.some(m => m)
       })
     }
 
@@ -98,6 +109,7 @@ const ActivitiesFeed = ({ activities }) => {
 
   const reset = () => {
     setSelectedTags([])
+    setSelectedCategories([])
   }
 
   const toggleFilter = (tagName) => {
@@ -139,6 +151,7 @@ const ActivitiesFeed = ({ activities }) => {
     setLoading(false)
   }, [router.query.slug])
 
+  const filters = selectedCategories.concat(selectedTags).join(', ')
 
   return (
     <div id="activity-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
@@ -150,6 +163,9 @@ const ActivitiesFeed = ({ activities }) => {
           </div>
           ) : (
           <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
+            <h1 className="text-4xl md:text-5xl font-body font-bold">{`Activity Ideas (${filteredActivities.length})`}</h1>
+            {filters.length > 0 && <p>{`Filtered by: ${filters}`}</p>}
+            {filters.length > 0 && <button className="btn btn-transparent" onClick={reset}>{`Clear filters`}</button>}
             {
               filteredActivities.map(activity => {
                 return <ActivityCard setSelectedActivity={setSelectedActivity} activity={activity} key={activity.id} />
@@ -164,8 +180,12 @@ const ActivitiesFeed = ({ activities }) => {
           <TagFilter
             toggleFilter={toggleFilter}
             selectedTags={selectedTags}
+            toggleCategory={toggleCategory}
+            selectedCategories={selectedCategories}
             reset={reset}
             appElementId="#activity-feed"
+            categories={categories}
+            tags={tags}
           />
         </div>
         <button onClick={selectRandom} className="btn btn-green rounded-full text-sm whitespace-nowrap ">Pick for me! 🎲</button>

@@ -9,7 +9,10 @@ const eventsTable = base('Events');
 
 const getActivities = async (selectedTags) => {
   const records = await activitiesTable
-    .select({ filterByFormula: "{Status} = 'Published'" })
+    .select({ 
+      filterByFormula: "{Status} = 'Published'",
+      sort: [{ field: "Title", direction: "asc" }]
+    })
     .all();
 
   const activities = records.map(r => ({ id: r.id, fields: r.fields }))

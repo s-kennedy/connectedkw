@@ -28,10 +28,9 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   const startDate = getField("Start date")
   const endDate = getField("End date")
   const locationName = getField("Location name")
-  const category = getField("Category")
+  const categories = getField("Category") || []
   const image = getImageObj()
   const imageDescription = getField("Image description")
-  const categoryStyles = eventCategories[category] || {}
   const imageUrl = getField("Image url")
 
   const startDateObj = new Date(startDate)
@@ -67,7 +66,7 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   return (
       <Link href={`/events/${slug}`} className={`${styles.eventCard} btn snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
         <div className={`${isLoading ? styles.loading : styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>
-        <div className={`bg-red flex-none rounded-t-lg w-full text-sm px-3 py-1 flex font-medium`}>
+        <div className={`bg-red text-black flex-none rounded-t-lg w-full text-sm px-3 py-1 flex font-medium`}>
           {`️⭐ FEATURED ️⭐`}
         </div>
         <div className="w-full flex-auto min-h-0 flex flex-col sm:flex-row justify-stretch items-stretch">
@@ -86,7 +85,7 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
             <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
             { locationName && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
-            {category && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>{categoryStyles.emoji}</span><span>{category}</span></p>}
+            {categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.join(', ')}</span></p>}
           </div>
         </div>
       </div>
@@ -107,9 +106,8 @@ const EventCard = ({ event, setSelectedEvent }) => {
   const startDate = getField("Start date")
   const endDate = getField("End date")
   const locationName = getField("Location name")
-  const category = getField("Category")
+  const categories = getField("Category") || []
   const image = getImageObj()
-  const categoryStyles = eventCategories[category] || {}
 
   const startDateObj = new Date(startDate)
   const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
@@ -137,14 +135,14 @@ const EventCard = ({ event, setSelectedEvent }) => {
         <h3 className="mb-2 font-body font-medium">{title}</h3>
         <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
         {locationName && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
-        {category && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>{categoryStyles.emoji}</span><span>{category}</span></p>}
+        {categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.join(', ')}</span></p>}
       </div>
     </Link>
   )
 }
 
 
-const EventsFeed = ({ events }) => {
+const EventsFeed = ({ events, categories, tags }) => {
   const [allEvents, setAllEvents] = useState(events)
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [featuredEvents, setFeaturedEvents] = useState([])
@@ -176,8 +174,11 @@ const EventsFeed = ({ events }) => {
 
     if (selectedCategories.length > 0) {
       filteredEvents = filteredEvents.filter(event => {
-        const eventCategory = event.fields.Category
-        return selectedCategories.includes(eventCategory)
+        const eventCategories = event.fields.Category || []
+        const matches = selectedCategories.map(cat => eventCategories.includes(cat) || eventCategories.includes("All ages"))
+        // only allow events that match ALL the selected filters.
+        // use .some() to keep the events that match ANY of the selected filters.
+        return matches.some(m => m)
       })
     }
 
@@ -188,7 +189,7 @@ const EventsFeed = ({ events }) => {
 
         // only allow events that match ALL the selected filters.
         // use .some() to keep the events that match ANY of the selected filters.
-        return matches.every(m => m)
+        return matches.some(m => m)
       })
     }
 
@@ -260,6 +261,7 @@ const EventsFeed = ({ events }) => {
   }
 
   const allOut = filteredEvents?.length === 0;
+  const filters = selectedCategories.concat(selectedTags).join(', ')
 
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
@@ -270,6 +272,9 @@ const EventsFeed = ({ events }) => {
           </div>
           ) : (
           <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
+            <h1 className="text-4xl md:text-5xl font-body font-bold">{`Events (${filteredEvents.length})`}</h1>
+            {filters.length > 0 && <p>{`Filtered by: ${filters}`}</p>}
+            {filters.length > 0 && <button className="btn btn-transparent" onClick={reset}>{`Clear filters`}</button>}
             {
               filteredEvents.map(event => {
                 if (event.fields.Featured) {
@@ -286,6 +291,8 @@ const EventsFeed = ({ events }) => {
         <Link href="/events/calendar" className="btn btn-white rounded-full text-sm whitespace-nowrap ">Calendar</Link>
         <div className="">
           <TagFilter
+            categories={categories}
+            tags={tags}
             toggleFilter={toggleFilter}
             selectedTags={selectedTags}
             toggleCategory={toggleCategory}

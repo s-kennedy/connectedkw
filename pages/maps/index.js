@@ -6,8 +6,10 @@ import Image from 'next/image'
 export default function Maps() {
   return (
     <Layout title="Maps" color="yellow">
-      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto">
-        <div className="p-3 space-y-2">
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto p-3">
+        <h1 className="text-4xl md:text-5xl font-body font-bold">{`Places to Go`}</h1>
+        <div className="space-y-2">
+
           <Link href="/maps/splashpads" className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
             <div className="flex flex-col space-y-6">
               <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
