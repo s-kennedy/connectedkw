@@ -49,10 +49,8 @@ const ActivityCard = ({ activity, setSelectedActivity }) => {
     <Link href={`/activities/${slug}`} className={`${styles.eventCard} btn relative snap-start transition-all p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black ${styles.result}`}>
       <div className="info p-3 text-left">
         {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
-        <div className="my-4">
-          <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><time>{categoriesString}</time></p>
-          <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>#</span><time>{tagsString}</time></p>
-        </div>
+        <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>#️⃣</span><span>{tagsString}</span></p>
+        <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categoriesString}</span></p>
       </div>
     </Link>
   )
