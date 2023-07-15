@@ -6,6 +6,7 @@ export default function ArticleLayout({ meta, color, children }) {
     <Layout 
       title={meta.title} 
       description={meta.description} 
+      image={meta.image}
       color={color}
     >
       <div className="container p-3 sm:py-8 lg:p-8 max-w-screen-lg mx-auto">
