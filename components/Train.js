@@ -26,9 +26,11 @@ const DroppableNav = ({ stop }) => {
   const anchor = stop.name === "Home" ? <Image alt={stop.name} src="/home-icon.svg" height={20} width={20} /> : stop.name
 
   return (
-    <nav ref={setNodeRef} className={`${styles.nav} ${isOver ? styles.isOver : ''} inline-flex flex-col justify-center items-center`}>
-      <Link href={`/${slug}`} className="text-black no-underline uppercase text-sm font-medium">{anchor}</Link>
-      <div className={`${styles.stopDot}`} />
+    <nav ref={setNodeRef} className={`${styles.nav} ${isOver ? styles.isOver : ''} inline-flex`}>
+      <Link href={`/${slug}`} className="text-black no-underline uppercase text-sm font-medium flex flex-col justify-center items-center">
+        {anchor}
+        <div className={`${styles.stopDot}`} />
+      </Link>
     </nav>
   )
 }
@@ -39,9 +41,11 @@ const ActiveNav = forwardRef(function ActiveNav(props, ref) {
   const anchor = stop.name === "Home" ? <Image alt={stop.name} src="/home-icon.svg" height={20} width={20} /> : stop.name
 
   return (
-    <nav className={`${styles.nav} ${styles.active} inline-flex flex-col justify-center items-center`}>
-      <Link href={`/${slug}`} className="text-black no-underline uppercase text-sm font-medium">{anchor}</Link>
-      <div className={`${styles.stopDot}`} ref={ref} />
+    <nav className={`${styles.nav} ${styles.active} inline-flex`}>
+      <Link href={`/${slug}`} className="text-black no-underline uppercase text-sm font-medium flex flex-col justify-center items-center">
+        {anchor}
+        <div className={`${styles.stopDot}`} ref={ref} />
+      </Link>
     </nav>
   )
 })
@@ -83,7 +87,7 @@ export default function Train({stops, current, imagePath}) {
   return(
     <div className="fixed w-full z-50 top-0 left-0 right-0">
       <DndContext modifiers={[restrictToHorizontalAxis, restrictToWindowEdges]} onDragEnd={handleDragEnd}>
-        <header className="w-full border-b-3 border-black inline-flex p-2 md:px-5 justify-around relative">
+        <header className="w-full border-b-3 border-black inline-flex p-2 md:px-5 justify-around relative pb-0">
           { stops.map(stop => {
             const active = current === stop
             if (active) {

@@ -20,11 +20,12 @@
 }
 
 .stopDot {
-	height: 9px;
-	width: 9px;
-	border-radius: 9px;
+	height: 11px;
+	width: 11px;
+	border-radius: 11px;
 	background-color: var(--theme-black);
-  transform: translateY(15px);
+  transform: translateY(12px);
+  margin: 5px;
 }
 
 .navButton {
