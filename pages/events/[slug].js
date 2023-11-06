@@ -1,6 +1,6 @@
 import Layout from 'components/Layout'
 import EventDisplay from "components/EventDisplay"
-import { getEvent } from 'integrations/airtable'
+import { getEvent } from 'integrations/supabase'
 
 export async function getServerSideProps({ params }) {
 	const id = params.slug.split('__')[1]
@@ -13,7 +13,7 @@ export async function getServerSideProps({ params }) {
 
 export default function EventPage({ event }) {
   return (
-    <Layout color="white" title={event.fields.Title} description={event.fields.Description}>
+    <Layout color="blue" title={event.title} description={event.description}>
     	<EventDisplay event={event} />
     </Layout>
   )

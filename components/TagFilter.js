@@ -92,7 +92,7 @@ const TagFilter = ({
                 {categories.map(cat => {
                   const isSelected = selectedCategories.includes(cat)
                   return (
-                    <CategoryButton name={cat} key={cat} isSelected={isSelected} toggleFilter={toggleCategory} />
+                    <CategoryButton name={cat.name} key={cat.id} isSelected={isSelected} toggleFilter={toggleCategory} />
                   )
                 })}
               </div>
@@ -111,7 +111,7 @@ const TagFilter = ({
                 {tags.map(tag => {
                   const isSelected = selectedTags.includes(tag)
                   return (
-                    <TagButton name={tag} key={tag} isSelected={isSelected} toggleFilter={toggleFilter} />
+                    <TagButton name={tag.name} key={tag.id} isSelected={isSelected} toggleFilter={toggleFilter} />
                   )
                 })}
               </div>

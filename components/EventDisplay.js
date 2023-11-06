@@ -4,6 +4,10 @@ import ReactMarkdown from 'react-markdown'
 import { AddToCalendarButton } from 'add-to-calendar-button-react';
 import Link from 'next/link'
 
+const DEFAULT_LOCALE = 'en-CA'
+const DATE_FORMAT = { weekday: 'short', month: 'short', day: 'numeric' }
+const TIME_FORMAT = { hour: 'numeric', minute: '2-digit' }
+
 const Tag = ({ name }) => {
   return (
     <div className="text-sm px-2 py-1 m-1 ml-0 border-2 border-black rounded-md flex flex-nowrap">
@@ -22,32 +26,18 @@ function EventDisplay({ event, isLoading, closeModal }) {
     return event?.fields?.Image?.[0]
   }
 
-  const title = getField("Title")
-  const description = getField("Description")
-  const startDate = getField("Start date")
-  const endDate = getField("End date")
-  const locationName = getField("Location name")
-  const locationAddress = getField("Location address")
-  const category = getField("Category") || []
-  const image = getImageObj()
-  const imageDescription = getField("Image description")
-  const imageCredit = getField("Image credit")
-  const imageUrl = getField("Image url")
-  const link = getField("External link")
-  const linkText = getField("Link text") || "Event page"
-  const tags = getField("Tags") || []
-  const price = getField("Price")
+  const { title, description, start_date, end_date, external_link, link_text, price, tags, categories, image, location } = event;
 
-  const startDateObj = new Date(startDate)
-  const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
-  const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+  const startDateObj = new Date(start_date)
+  const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+  const startTime = startDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
 
   let dateTimeString = `${startDateString}, ${startTime}`
 
-  if (endDate) {
-    const endDateObj = new Date(endDate)
-    const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
-    const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit', hour12: false })
+  if (end_date) {
+    const endDateObj = new Date(end_date)
+    const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+    const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
     
     if (startDateString !== endDateString) {
       dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
@@ -56,13 +46,13 @@ function EventDisplay({ event, isLoading, closeModal }) {
     }
   }
   
-  const calendarStartDate = `${startDateObj.toLocaleString("default", { year: "numeric" })}-${startDateObj.toLocaleString("default", { month: "2-digit" })}-${startDateObj.toLocaleString("default", { day: "2-digit" })}`
-  const calendarStartTime = `${startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit', hour12: false })}`
+  const calendarStartDate = `${startDateObj.toLocaleString(DEFAULT_LOCALE, { year: "numeric" })}-${startDateObj.toLocaleString(DEFAULT_LOCALE, { month: "2-digit" })}-${startDateObj.toLocaleString(DEFAULT_LOCALE, { day: "2-digit" })}`
+  const calendarStartTime = `${startDateObj.toLocaleTimeString(DEFAULT_LOCALE, { hour: 'numeric', minute: '2-digit', hour12: false })}`
   
   let endDateObj;
 
-  if (endDate) {
-    endDateObj = new Date(endDate)
+  if (end_date) {
+    endDateObj = new Date(end_date)
   } else {
     // the add to calendar button requires an end time
     // if end time is not provided, make it one hour after start time
@@ -71,24 +61,23 @@ function EventDisplay({ event, isLoading, closeModal }) {
     endDateObj = new Date(endTimeMs)
   }
 
-  const calendarEndDate = `${endDateObj.toLocaleString("default", { year: "numeric" })}-${endDateObj.toLocaleString("default", { month: "2-digit" })}-${endDateObj.toLocaleString("default", { day: "2-digit" })}`
-  const calendarEndTime = `${endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit', hour12: false })}`
+  const calendarEndDate = `${endDateObj.toLocaleString(DEFAULT_LOCALE, { year: "numeric" })}-${endDateObj.toLocaleString(DEFAULT_LOCALE, { month: "2-digit" })}-${endDateObj.toLocaleString(DEFAULT_LOCALE, { day: "2-digit" })}`
+  const calendarEndTime = `${endDateObj.toLocaleTimeString(DEFAULT_LOCALE, { hour: 'numeric', minute: '2-digit', hour12: false })}`
 
-  const calendarLocation = (locationName && locationAddress) ? `${locationName}, ${locationAddress}` : (locationName) ? `${locationName}` : "TBD"
+  const calendarLocation = (location.name && location.street_address) ? `${location.name}, ${location.street_address}` : (location.name) ? `${location.name}` : "TBD"
   const calendarTitle = title ? `${title}` : "Untitled event"
 
-  const imgSrc = image ? image.thumbnails.large.url : imageUrl
 
   return (
     <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
       <div className="h-full w-full bg-white sm:mt-10 relative sm:border-black sm:border-3 sm:rounded-xl">
         <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 sm:pt-5`}>
           <div className={isLoading ? '' : styles.appear}>
-            {imgSrc &&
+            {image &&
             <div className="mb-4">
               <div className="relative">
-                <img className={`object-cover w-full aspect-square sm:aspect-video ${styles.appear}`} src={imgSrc} alt={imageDescription || title} width={image ? image.thumbnails.large.width : undefined } height={image ? image.thumbnails.large.height : undefined} />
-                { (imageCredit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
+                <img className={`object-cover w-full aspect-square sm:aspect-video ${styles.appear}`} src={image.url} alt={image.alt_text} width={image.width } height={image.height} />
+                { (image.credit) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{`Image credit: ${image.credit}`}</ReactMarkdown></small> }
               </div>
             </div>
             }
@@ -98,9 +87,9 @@ function EventDisplay({ event, isLoading, closeModal }) {
               <span>{dateTimeString}</span>
             </p>
             { price && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🎟</span><span>{price}</span></p>}
-            { locationName && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}<br />{locationAddress}</span></p>}
-            { link && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🔗</span><a href={link} target="_blank" rel="noopener noreferrer">{`${linkText}`}</a></p>}
-            {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
+            { location && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}<br />{location.street_address}</span></p>}
+            { external_link && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🔗</span><a href={external_link} target="_blank" rel="noopener noreferrer">{`${link_text}`}</a></p>}
+            { description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
             <div className="flex items-center">
             {
@@ -127,7 +116,7 @@ function EventDisplay({ event, isLoading, closeModal }) {
               <div className="my-4">
                 <h4 className="text-lg font-body font-medium">Tags</h4>
                 <div className="flex flex-wrap">
-                  {tags.map(tag => <Tag name={tag} key={tag} />)}
+                  {tags.map(tag => <Tag name={tag.name} key={tag.id} />)}
                 </div>
               </div>
             }

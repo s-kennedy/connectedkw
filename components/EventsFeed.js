@@ -8,7 +8,7 @@ import EventDisplay from "components/EventDisplay"
 import OutsideClickHandler from 'react-outside-click-handler';
 import Blob from 'components/Blob'
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
-import { eventCategories } from 'utils/constants'
+import { eventCategories, DEFAULT_LOCALE, DATE_FORMAT, TIME_FORMAT } from 'utils/constants'
 import { useRouter } from 'next/router'
 import slugify from 'slugify'
 
@@ -23,26 +23,18 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
     return event?.fields?.Image?.[0]
   }
 
-  const title = getField("Title")
-  const description = getField("Description")
-  const startDate = getField("Start date")
-  const endDate = getField("End date")
-  const locationName = getField("Location name")
-  const categories = getField("Category") || []
-  const image = getImageObj()
-  const imageDescription = getField("Image description")
-  const imageUrl = getField("Image url")
+  const { title, description, start_date, end_date, categories, tags, image, location } = event;
 
-  const startDateObj = new Date(startDate)
-  const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
-  const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+  const startDateObj = new Date(start_date)
+  const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+  const startTime = startDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
   
   let dateTimeString = `${startDateString}, ${startTime}`
 
-  if (endDate) {
-    const endDateObj = new Date(endDate)
-    const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
-    const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+  if (end_date) {
+    const endDateObj = new Date(end_date)
+    const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+    const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
     
     if (startDateString !== endDateString) {
       dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
@@ -51,9 +43,7 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
     }
   }
 
-  const imgSrc = image ? image.thumbnails.large.url : imageUrl
-
-  const slug = `${slugify(title, { lower: true })}__${event.id}`
+  const slug = `${slugify(event.title, { lower: true })}__${event.id}`
 
   if (isLoading) {
     return (
@@ -70,22 +60,22 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
           {`️⭐ FEATURED ️⭐`}
         </div>
         <div className="w-full flex-auto min-h-0 flex flex-col sm:flex-row justify-stretch items-stretch">
-        { imgSrc &&
+        { image &&
           <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
             <img
               className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
-              src={imgSrc}
-              alt={imageDescription}
-              width={image ? image.thumbnails.large.width : undefined}
-              height={image ? image.thumbnails.large.height : undefined}
+              src={image.url}
+              alt={image.alt_text}
+              width={image.width}
+              height={image.height}
             />
           </div>
         }
           <div className={`basis-1/2 flex-auto text-left overflow-auto h-full styled-scrollbar p-3`}>
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
             <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
-            { locationName && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
-            {categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.join(', ')}</span></p>}
+            { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
+            { categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join()}</span></p>}
           </div>
         </div>
       </div>
@@ -110,15 +100,15 @@ const EventCard = ({ event, setSelectedEvent }) => {
   const image = getImageObj()
 
   const startDateObj = new Date(startDate)
-  const startDateString = startDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
-  const startTime = startDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+  const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+  const startTime = startDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
   
   let dateTimeString = `${startDateString}, ${startTime}`
 
   if (endDate) {
     const endDateObj = new Date(endDate)
-    const endDateString = endDateObj.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })
-    const endTime = endDateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' })
+    const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+    const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
     
     if (startDateString !== endDateString) {
       dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
@@ -153,14 +143,6 @@ const EventsFeed = ({ events, categories, tags }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [featuredEventIndex, setFeaturedEventIndex] = useState(0)
 
-
-  // useEffect(() => {
-  //   if (!allEvents.length) {
-  //     fetchEvents()
-  //   }
-  // })
-
-
   useEffect(() => {
     filterEvents()
   }, [selectedTags, selectedCategories])
@@ -174,8 +156,9 @@ const EventsFeed = ({ events, categories, tags }) => {
 
     if (selectedCategories.length > 0) {
       filteredEvents = filteredEvents.filter(event => {
-        const eventCategories = event.fields.Category || []
-        const matches = selectedCategories.map(cat => eventCategories.includes(cat) || eventCategories.includes("All ages"))
+        const eventCategoriesIds = event.categories.map(c => c.id)
+        const selectedCategoriesIds = selectedCategories.map(c => c.id)
+        const matches = selectedCategoriesIds.map(id => eventCategoriesIds.includes(id) || eventCategoriesIds.includes(6)) // 6 is all ages
         // only allow events that match ALL the selected filters.
         // use .some() to keep the events that match ANY of the selected filters.
         return matches.some(m => m)
@@ -184,8 +167,9 @@ const EventsFeed = ({ events, categories, tags }) => {
 
     if (selectedTags.length > 0) {
       filteredEvents = filteredEvents.filter(event => {
-        const eventTags = event.fields.Tags || []
-        const matches = selectedTags.map(tag => eventTags.includes(tag))
+        const eventTagsIds = event.tags.map(t => t.id)
+        const selectedTagsIds = selectedTags.map(t => t.id)
+        const matches = selectedTagsIds.map(id => eventTagsIds.includes(id))
 
         // only allow events that match ALL the selected filters.
         // use .some() to keep the events that match ANY of the selected filters.
@@ -212,26 +196,28 @@ const EventsFeed = ({ events, categories, tags }) => {
     setSelectedCategories([])
   }
 
-  const toggleFilter = (tagName) => {
-    const alreadySelected = selectedTags.includes(tagName)
+  const toggleFilter = (tag) => {
+    const alreadySelected = selectedTags.filter(st => st.id === tag.id)
 
-    if (alreadySelected) {
-      const filteredTags = selectedTags.filter(item => item != tagName)
+    if (alreadySelected.length > 0) {
+      // unselect tag
+      const filteredTags = selectedTags.filter(st => st.id != tag.id)
       setSelectedTags(filteredTags)
     } else {
-      const newTags = [...selectedTags, tagName]
+      const newTags = [...selectedTags, tag]
       setSelectedTags(newTags)
     }
   }
 
-  const toggleCategory = (categoryName) => {
-    const alreadySelected = selectedCategories.includes(categoryName)
+  const toggleCategory = (category) => {
+    const alreadySelected = selectedCategories.filter(sc => sc.id === category.id)
 
-    if (alreadySelected) {
-      const filteredCategories = selectedCategories.filter(item => item != categoryName)
+    if (alreadySelected.length > 0) {
+      // unselect category
+      const filteredCategories = selectedCategories.filter(sc => sc.id != category.id)
       setSelectedCategories(filteredCategories)
     } else {
-      const newCategories = [...selectedCategories, categoryName]
+      const newCategories = [...selectedCategories, category]
       setSelectedCategories(newCategories)
     }
   }
@@ -242,26 +228,7 @@ const EventsFeed = ({ events, categories, tags }) => {
     setMenuOpen(!menuOpen)
   }
 
-  const nextFeaturedEvent = () => {
-    const maxIndex = featuredEvents.length - 1
-    if (featuredEventIndex < maxIndex) {
-      setFeaturedEventIndex(featuredEventIndex + 1)
-    } else {
-      setFeaturedEventIndex(0)
-    }
-  }
-
-  const prevFeaturedEvent = () => {
-    const maxIndex = featuredEvents.length - 1
-    if (featuredEventIndex === 0) {
-      setFeaturedEventIndex(maxIndex)
-    } else {
-      setFeaturedEventIndex(featuredEventIndex - 1)
-    }
-  }
-
-  const allOut = filteredEvents?.length === 0;
-  const filters = selectedCategories.concat(selectedTags).join(', ')
+  const filters = selectedCategories.concat(selectedTags)
 
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
@@ -272,12 +239,12 @@ const EventsFeed = ({ events, categories, tags }) => {
           </div>
           ) : (
           <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
-            <h1 className="text-4xl md:text-5xl font-body font-bold">{`Events (${filteredEvents.length})`}</h1>
-            {filters.length > 0 && <p>{`Filtered by: ${filters}`}</p>}
+            <h1 className="text-4xl md:text-5xl font-body font-bold">{`Events`}</h1>
+            {filters.length > 0 && <p>{`Filtered by: ${filters.map(f => f.name).join()}`}</p>}
             {filters.length > 0 && <button className="btn btn-transparent" onClick={reset}>{`Clear filters`}</button>}
             {
               filteredEvents.map(event => {
-                if (event.fields.Featured) {
+                if (event.featured) {
                   return <FeaturedEventCard setSelectedEvent={setSelectedEvent} event={event} isLoading={isLoading} key={event.id} />
                 }
                 return <EventCard setSelectedEvent={setSelectedEvent} event={event} key={event.id} />
