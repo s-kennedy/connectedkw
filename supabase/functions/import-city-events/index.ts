@@ -4,13 +4,18 @@
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import slugify from 'https://esm.sh/slugify@1.6.6'
+import { DEFAULT_CATEGORY_ID, DEFAULT_EVENT_LINK_TEXT } from '../_utils/constants.js'
 
 const supabase = createClient(Deno.env.get("SUPABASE_URL"), Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"))
-const endpoint = `https://api.apify.com/v2/actor-tasks/unboringkw~city-of-kitchener-events/runs/last/dataset/items?token=apify_api_HdIllAbdTTtBnGiFp43mp0wXn2ckSU2N1T2E`
 
+const endpoints = {
+  waterloo: 'https://api.apify.com/v2/actor-tasks/unboringkw~city-of-waterloo-events/runs/last/dataset/items',
+  kitchener: 'https://api.apify.com/v2/actor-tasks/unboringkw~city-of-kitchener-events/runs/last/dataset/items',
+}
 
-const scrapeEvents = async () => {
-  const response = await fetch(endpoint)
+const scrapeEvents = async (city) => {
+  const endpoint = `${endpoints[city]}?token=${Deno.env.get("APIFY_TOKEN")}`
+  const response = await fetch()
 
   if (response.status !== 200) {
     throw Error(`API call failed: ${response.status} ${response.statusText}`)
@@ -70,7 +75,7 @@ const saveToSupabase = async(events) => {
       end_time: event.endTime,
       location: locationId,
       external_link: event.url,
-      link_text: 'Event page',
+      link_text: DEFAULT_EVENT_LINK_TEXT,
       price: event.price,
       slug: slug
     }
@@ -84,6 +89,11 @@ const saveToSupabase = async(events) => {
       console.log("CREATED EVENT")
       console.log(eventResult.data)
       created.push(eventResult.data[0])
+
+      const categoryResult = await supabase
+        .from('events_categories')
+        .insert({ event_id: eventResult.data[0].id, category_id: DEFAULT_CATEGORY_ID })
+
     } else  {
       console.log("ERROR CREATING EVENT")
       console.log(eventResult.error)
@@ -99,13 +109,11 @@ const saveToSupabase = async(events) => {
 
 Deno.serve(async (req) => {
 
-  const { city } = await req.json()
-
-  const result = await scrapeEvents(city)
+  const result = await scrapeEvents()
 
   const data = {
     result,
-    message: `Scraping City of ${city} events: ${result?.created?.length} created, ${result?.failed?.length} failed`,
+    message: `Scraping City of Kitchener events: ${result?.created?.length} created, ${result?.failed?.length} failed`,
   }
 
   return new Response(
