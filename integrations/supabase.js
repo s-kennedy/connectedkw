@@ -56,6 +56,23 @@ const getEvent = async (id) => {
   return event
 }
 
+const getEventBySlug = async (slug) => {
+  let { data: event, error } = await supabase
+    .from('events')
+    .select(`
+      *,
+      image(*),
+      location(*),
+      categories(*),
+      tags(*)
+    `)
+    .eq('slug', slug)
+    .limit(1)
+    .single()
+
+  return event
+}
+
 const getMapFeatures = async (tableName) => {
   const table = base(tableName)
   const records = await table
@@ -74,4 +91,4 @@ const getMapFeatures = async (tableName) => {
 }
 
 
-export { getActivities, getActivity, getEvents, getEvent, getMapFeatures };
+export { getActivities, getActivity, getEvents, getEvent, getEventBySlug, getMapFeatures };

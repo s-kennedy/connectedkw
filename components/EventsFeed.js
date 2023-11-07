@@ -23,27 +23,23 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
     return event?.fields?.Image?.[0]
   }
 
-  const { title, description, start_date, end_date, categories, tags, image, location } = event;
+  const { title, description, start_date, end_date, start_time, end_time, categories, tags, image, location, slug } = event;
 
-  const startDateObj = new Date(start_date)
+  const startDateObj = new Date(`${start_date}T${start_time}`)
   const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
   const startTime = startDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
   
   let dateTimeString = `${startDateString}, ${startTime}`
 
-  if (end_date) {
-    const endDateObj = new Date(end_date)
-    const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
-    const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
-    
-    if (startDateString !== endDateString) {
-      dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
-    } else {
-      dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
-    }
+  const endDateObj = new Date(`${end_date ? end_date : start_date}T${end_time}`)
+  const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+  const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
+  
+  if (startDateString !== endDateString) {
+    dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+  } else {
+    dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
   }
-
-  const slug = `${slugify(event.title, { lower: true })}__${event.id}`
 
   if (isLoading) {
     return (
@@ -92,40 +88,31 @@ const EventCard = ({ event, setSelectedEvent }) => {
     return event?.fields?.Image?.[0]
   }
 
-  const title = getField("Title")
-  const startDate = getField("Start date")
-  const endDate = getField("End date")
-  const locationName = getField("Location name")
-  const categories = getField("Category") || []
-  const image = getImageObj()
+  const { title, description, start_date, end_date, start_time, end_time, categories, tags, image, location, slug } = event;
 
-  const startDateObj = new Date(startDate)
+  const startDateObj = new Date(`${start_date}T${start_time}`)
   const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
   const startTime = startDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
   
   let dateTimeString = `${startDateString}, ${startTime}`
 
-  if (endDate) {
-    const endDateObj = new Date(endDate)
-    const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
-    const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
+  const endDateObj = new Date(`${end_date ? end_date : start_date}T${end_time}`)
+  const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+  const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
     
-    if (startDateString !== endDateString) {
-      dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
-    } else {
-      dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
-    }
+  if (startDateString !== endDateString) {
+    dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+  } else {
+    dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
   }
-
-  const slug = `${slugify(title, { lower: true })}__${event.id}`
 
   return (
     <Link href={`/events/${slug}`} className={`${styles.eventCard} btn relative snap-start transition-all p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black ${styles.result}`}>
       <div className="info p-3 text-left">
         <h3 className="mb-2 font-body font-medium">{title}</h3>
         <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
-        {locationName && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{locationName}</span></p>}
-        {categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.join(', ')}</span></p>}
+        { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
+        { categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join()}</span></p>}
       </div>
     </Link>
   )

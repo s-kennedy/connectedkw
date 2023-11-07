@@ -26,45 +26,31 @@ function EventDisplay({ event, isLoading, closeModal }) {
     return event?.fields?.Image?.[0]
   }
 
-  const { title, description, start_date, end_date, external_link, link_text, price, tags, categories, image, location } = event;
+  const { title, description, start_date, end_date, start_time, end_time, external_link, link_text, price, tags, categories, image, location } = event;
 
-  const startDateObj = new Date(start_date)
+  const startDateObj = new Date(`${start_date}T${start_time}`)
   const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
   const startTime = startDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
 
   let dateTimeString = `${startDateString}, ${startTime}`
 
-  if (end_date) {
-    const endDateObj = new Date(end_date)
-    const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
-    const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
-    
-    if (startDateString !== endDateString) {
-      dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
-    } else {
-      dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
-    }
-  }
+  const endDateObj = new Date(`${end_date ? end_date : start_time}T${end_time}`)
+  const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
+  const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
   
+  if (startDateString !== endDateString) {
+    dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
+  } else {
+    dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
+  }
+
   const calendarStartDate = `${startDateObj.toLocaleString(DEFAULT_LOCALE, { year: "numeric" })}-${startDateObj.toLocaleString(DEFAULT_LOCALE, { month: "2-digit" })}-${startDateObj.toLocaleString(DEFAULT_LOCALE, { day: "2-digit" })}`
   const calendarStartTime = `${startDateObj.toLocaleTimeString(DEFAULT_LOCALE, { hour: 'numeric', minute: '2-digit', hour12: false })}`
-  
-  let endDateObj;
-
-  if (end_date) {
-    endDateObj = new Date(end_date)
-  } else {
-    // the add to calendar button requires an end time
-    // if end time is not provided, make it one hour after start time
-    const startTimeMs = startDateObj.getTime()
-    const endTimeMs = startTimeMs + 60 * 60 * 1000 
-    endDateObj = new Date(endTimeMs)
-  }
 
   const calendarEndDate = `${endDateObj.toLocaleString(DEFAULT_LOCALE, { year: "numeric" })}-${endDateObj.toLocaleString(DEFAULT_LOCALE, { month: "2-digit" })}-${endDateObj.toLocaleString(DEFAULT_LOCALE, { day: "2-digit" })}`
   const calendarEndTime = `${endDateObj.toLocaleTimeString(DEFAULT_LOCALE, { hour: 'numeric', minute: '2-digit', hour12: false })}`
 
-  const calendarLocation = (location.name && location.street_address) ? `${location.name}, ${location.street_address}` : (location.name) ? `${location.name}` : "TBD"
+  const calendarLocation = (location?.name && location?.street_address) ? `${location.name}, ${location.street_address}` : (location?.name) ? `${location.name}` : "TBD"
   const calendarTitle = title ? `${title}` : "Untitled event"
 
 

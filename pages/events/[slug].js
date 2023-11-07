@@ -1,10 +1,9 @@
 import Layout from 'components/Layout'
 import EventDisplay from "components/EventDisplay"
-import { getEvent } from 'integrations/supabase'
+import { getEventBySlug } from 'integrations/supabase'
 
 export async function getServerSideProps({ params }) {
-	const id = params.slug.split('__')[1]
-  const event = await getEvent(id)
+  const event = await getEventBySlug(params.slug)
 
   return {
     props: { event: event },
