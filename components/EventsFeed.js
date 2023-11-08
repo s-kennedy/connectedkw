@@ -71,7 +71,7 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
             <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
             { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
-            { categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join()}</span></p>}
+            { categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join(', ')}</span></p>}
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@ const EventCard = ({ event, setSelectedEvent }) => {
         <h3 className="mb-2 font-body font-medium">{title}</h3>
         <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateTimeString}</time></p>
         { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
-        { categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join()}</span></p>}
+        { categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join(', ')}</span></p>}
       </div>
     </Link>
   )

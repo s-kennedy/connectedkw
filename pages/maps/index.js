@@ -11,7 +11,7 @@ export default function Maps() {
         <div className="space-y-2">
 
           <Link href="/maps/splashpads" className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
-            <div className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-6 w-full">
               <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
                 <div className="image basis-1/3 overflow-hidden rounded-lg">
                   <Image src="/splashpads.gif" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
@@ -28,7 +28,7 @@ export default function Maps() {
           </Link>
 
           <Link href="/maps/playgrounds" className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
-            <div className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-6 w-full">
               <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
                 <div className="image basis-1/3 overflow-hidden rounded-lg">
                   <Image src="/playgrounds-map-thumbnail.webp" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
@@ -45,7 +45,7 @@ export default function Maps() {
           </Link>
 
           <Link href="/maps/public-art" className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
-            <div className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-6 w-full">
               <div className="w-full map flex flex-col sm:flex-row space-y-4 sm:space-x-4">
                 <div className="image basis-1/3 overflow-hidden rounded-lg">
                   <Image src="/map-thumbnail.jpg" width={400} height={265} alt="Screenshot of map" className="object-cover h-full w-full" />
