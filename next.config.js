@@ -19,8 +19,7 @@ const nextConfig = {
         pathname: '/img/wn/**',
       },
     ],
-  },
-  exclude: ["supabase/**"]
+  }
 }
 
 module.exports = withMDX(withPWA(nextConfig))
