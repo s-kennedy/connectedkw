@@ -15,7 +15,9 @@ const endpoints = {
 
 const scrapeEvents = async (city) => {
   const endpoint = `${endpoints[city]}?token=${Deno.env.get("APIFY_TOKEN")}`
-  const response = await fetch()
+  console.log({endpoint})
+  const response = await fetch(endpoint)
+  console.log({response})
 
   if (response.status !== 200) {
     throw Error(`API call failed: ${response.status} ${response.statusText}`)
@@ -23,6 +25,7 @@ const scrapeEvents = async (city) => {
 
   const data = await response.json()
   const events = data.filter(item => !!item.url)
+  console.log({events})
 
   const results = await saveToSupabase(events)
 
@@ -108,8 +111,9 @@ const saveToSupabase = async(events) => {
 }
 
 Deno.serve(async (req) => {
+  const { city } = await req.json()
 
-  const result = await scrapeEvents()
+  const result = await scrapeEvents(city)
 
   const data = {
     result,

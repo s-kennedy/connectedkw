@@ -119,7 +119,7 @@ const EventCard = ({ event, setSelectedEvent }) => {
 }
 
 
-const EventsFeed = ({ events, categories, tags }) => {
+const EventsFeed = ({ events=[], categories, tags }) => {
   const [allEvents, setAllEvents] = useState(events)
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [featuredEvents, setFeaturedEvents] = useState([])
@@ -226,7 +226,7 @@ const EventsFeed = ({ events, categories, tags }) => {
           </div>
           ) : (
           <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
-            <h1 className="text-4xl md:text-5xl font-body font-bold">{`Events`}</h1>
+            <h1 className="text-4xl md:text-5xl font-body font-bold">{`Events (${filteredEvents.length})`}</h1>
             {filters.length > 0 && <p>{`Filtered by: ${filters.map(f => f.name).join()}`}</p>}
             {filters.length > 0 && <button className="btn btn-transparent" onClick={reset}>{`Clear filters`}</button>}
             {

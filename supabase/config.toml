@@ -133,8 +133,5 @@ vector_port = 54328
 # Configure one of the supported backends: `postgres`, `bigquery`.
 backend = "postgres"
 
-[functions.import-city-kitchener-events]
-verify_jwt = false
-
-[functions.import-city-waterloo-events]
+[functions.import-city-events]
 verify_jwt = false

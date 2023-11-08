@@ -33,10 +33,13 @@ const getEvents = async (featured=false) => {
       tags(*)
     `)
     .eq('published', true)
+    .gte('end_date', new Date().toISOString())
+    .order('start_date', { ascending: true })
+    .order('start_time', { ascending: true })
 
     console.log({error})
 
-  return events
+  return events?.length > 0 ? events : []
 }
 
 const getEvent = async (id) => {
