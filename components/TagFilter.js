@@ -3,14 +3,14 @@ import styles from 'styles/ideaGenerator.module.css'
 import { tagEmojiDict, eventCategories } from 'utils/constants'
 import ReactModal from 'react-modal';
 
-const TagButton = ({ name, isSelected, toggleFilter }) => {
+const TagButton = ({ tag, isSelected, toggleFilter }) => {
   const handleClick = () => {
-    toggleFilter(name)
+    toggleFilter(tag)
   }
 
   return (
     <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
-      <span className="whitespace-nowrap">{name}</span>
+      <span className="whitespace-nowrap">{tag.name}</span>
     </button>
   )
 }
@@ -32,10 +32,13 @@ const TagFilter = ({
   selectedTags=[],
   toggleCategory,
   selectedCategories=[],
+  toggleDataSource,
+  selectedDataSources=[],
   reset,
   appElementId,
   categories,
-  tags
+  tags,
+  dataSources
 }) => {
 
   useEffect(() => {
@@ -109,15 +112,35 @@ const TagFilter = ({
               </div>
               <div className={`flex flex-wrap py-4 ${styles.appear}`}>
                 {tags.map(tag => {
-                  const isSelected = selectedTags.includes(tag)
+                  const isSelected = selectedTags.map(tag => tag.id).includes(tag.id)
                   return (
-                    <TagButton name={tag.name} key={tag.id} isSelected={isSelected} toggleFilter={toggleFilter} />
+                    <TagButton tag={tag} key={tag.id} isSelected={isSelected} toggleFilter={toggleFilter} />
                   )
                 })}
               </div>
             </div>
           }
-          { (selectedTags?.length > 0 || selectedCategories?.length > 0) &&
+
+          {
+            toggleDataSource &&
+            <div className="tags">
+              <div className="flex items-baseline">
+                <h2 className="text-lg font-body font-medium flex-1">
+                  Filter by sources
+                </h2>
+              </div>
+              <div className={`flex flex-wrap py-4 ${styles.appear}`}>
+                {dataSources.map(source => {
+                  const isSelected = selectedDataSources.map(src => src.id).includes(source.id)
+                  return (
+                    <TagButton tag={source} key={source.id} isSelected={isSelected} toggleFilter={toggleDataSource} />
+                  )
+                })}
+              </div>
+            </div>
+          }
+
+          { (selectedTags?.length > 0 || selectedCategories?.length > 0 || selectedDataSources?.length > 0) &&
             <div className="flex justify-between absolute w-full bottom-0 left-0 p-3">
               <button onClick={reset} className="btn btn-clear text-red">Clear filters</button>
               <button onClick={closeFilters} className="btn btn-clear text-green">Search</button>

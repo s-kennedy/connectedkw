@@ -22,14 +22,15 @@ const getActivity = async (id) => {
   return activity
 }
 
-const getEvents = async (featured=false) => {
+const getEvents = async ({ limit }) => {
   let { data: events, error } = await supabase
     .from('events')
     .select(`
       *,
       location(*),
       categories(*),
-      tags(*)
+      tags(*),
+      data_source
     `)
     .eq('published', true)
     .gte('end_date', new Date().toISOString())
@@ -71,6 +72,19 @@ const getEventTags = async (events) => {
   }
 
   return tags?.length > 0 ? tags : []
+}
+
+const getDataSources = async () => {
+  let { data: dataSources, error } = await supabase
+    .from('data_sources')
+    .select('*')
+    .eq('published', true)
+ 
+  if (error) {
+    console.log({error})
+  }
+
+  return dataSources?.length > 0 ? dataSources : []
 }
 
 const getEvent = async (id) => {
@@ -140,4 +154,5 @@ export {
   getEventTags,
   getEventBySlug,
   getMapFeatures, 
+  getDataSources,
 };

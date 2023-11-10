@@ -20,6 +20,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'vqgbaydvbxbwpgbjrquo.supabase.co',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
         hostname: 'wpl.libnet.info',
         pathname: '/images/events/wpl/**',
       },

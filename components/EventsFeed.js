@@ -50,11 +50,14 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
         <div className="w-full flex-auto min-h-0 flex flex-col sm:flex-row justify-stretch items-stretch">
         { image_url &&
           <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
-            <img
+            <Image
               className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
               src={image_url}
-              alt={image_alt_text}
+              alt={image_alt_text || title} 
               title={image_caption}
+              loading="lazy"
+              height={300}
+              width={400}
             />
           </div>
         }
@@ -110,7 +113,7 @@ const EventCard = ({ event, setSelectedEvent }) => {
 }
 
 
-const EventsFeed = ({ events=[], categories, tags }) => {
+const EventsFeed = ({ events=[], categories, tags, dataSources }) => {
   const [allEvents, setAllEvents] = useState(events)
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [featuredEvents, setFeaturedEvents] = useState([])
@@ -118,12 +121,13 @@ const EventsFeed = ({ events=[], categories, tags }) => {
   const [isLoading, setLoading] = useState(false)
   const [selectedTags, setSelectedTags] = useState([])
   const [selectedCategories, setSelectedCategories] = useState([])
+  const [selectedDataSources, setSelectedDataSources] = useState([])
   const [menuOpen, setMenuOpen] = useState(false)
   const [featuredEventIndex, setFeaturedEventIndex] = useState(0)
 
   useEffect(() => {
     filterEvents()
-  }, [selectedTags, selectedCategories])
+  }, [selectedTags, selectedCategories, selectedDataSources])
 
   useEffect(() => {
     ReactModal.setAppElement("#event-feed")
@@ -155,6 +159,17 @@ const EventsFeed = ({ events=[], categories, tags }) => {
       })
     }
 
+    if (selectedDataSources.length > 0) {
+      filteredEvents = filteredEvents.filter(event => {
+        console.log({event})
+        const selectedDataSourcesIds = selectedDataSources.map(t => t.id)
+        console.log({selectedDataSourcesIds})
+        const match = selectedDataSourcesIds.includes(event.data_source)
+
+        return match
+      })
+    }
+
     setFilteredEvents(filteredEvents)
   }
 
@@ -172,6 +187,7 @@ const EventsFeed = ({ events=[], categories, tags }) => {
   const reset = () => {
     setSelectedTags([])
     setSelectedCategories([])
+    setSelectedDataSources([])
   }
 
   const toggleFilter = (tag) => {
@@ -200,13 +216,26 @@ const EventsFeed = ({ events=[], categories, tags }) => {
     }
   }
 
+  const toggleDataSource = (source) => {
+    const alreadySelected = selectedDataSources.filter(sc => sc.id === source.id)
+
+    if (alreadySelected.length > 0) {
+      // unselect
+      const filteredDataSources = selectedDataSources.filter(sc => sc.id != source.id)
+      setSelectedDataSources(filteredDataSources)
+    } else {
+      const newSources = [...selectedDataSources, source]
+      setSelectedDataSources(newSources)
+    }
+  }
+
   const openMenu = () => setMenuOpen(true)
   const closeMenu = () => setMenuOpen(false)
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
 
-  const filters = selectedCategories.concat(selectedTags)
+  const filters = selectedCategories.concat(selectedTags).concat(selectedDataSources)
 
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
@@ -238,10 +267,13 @@ const EventsFeed = ({ events=[], categories, tags }) => {
           <TagFilter
             categories={categories}
             tags={tags}
+            dataSources={dataSources}
             toggleFilter={toggleFilter}
             selectedTags={selectedTags}
             toggleCategory={toggleCategory}
             selectedCategories={selectedCategories}
+            toggleDataSource={toggleDataSource}
+            selectedDataSources={selectedDataSources}
             reset={reset}
             appElementId="#event-feed"
           />
