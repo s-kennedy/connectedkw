@@ -15,15 +15,7 @@ import slugify from 'slugify'
 const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
   if (!event) return null
 
-  const getField = (fieldName) => {
-    return event?.fields?.[fieldName]
-  }
-
-  const getImageObj = () => {
-    return event?.fields?.Image?.[0]
-  }
-
-  const { title, description, start_date, end_date, start_time, end_time, categories, tags, image, location, slug } = event;
+  const { title, description, start_date, end_date, start_time, end_time, categories, tags, image_url, image_caption, image_alt_text, location, slug } = event;
 
   const startDateObj = new Date(`${start_date}T${start_time}`)
   const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
@@ -56,14 +48,13 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
           {`️⭐ FEATURED ️⭐`}
         </div>
         <div className="w-full flex-auto min-h-0 flex flex-col sm:flex-row justify-stretch items-stretch">
-        { image &&
+        { image_url &&
           <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
             <img
               className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
-              src={image.url}
-              alt={image.alt_text}
-              width={image.width}
-              height={image.height}
+              src={image_url}
+              alt={image_alt_text}
+              title={image_caption}
             />
           </div>
         }
@@ -145,7 +136,7 @@ const EventsFeed = ({ events=[], categories, tags }) => {
       filteredEvents = filteredEvents.filter(event => {
         const eventCategoriesIds = event.categories.map(c => c.id)
         const selectedCategoriesIds = selectedCategories.map(c => c.id)
-        const matches = selectedCategoriesIds.map(id => eventCategoriesIds.includes(id) || eventCategoriesIds.includes(6)) // 6 is all ages
+        const matches = selectedCategoriesIds.map(id => eventCategoriesIds.includes(id))
         // only allow events that match ALL the selected filters.
         // use .some() to keep the events that match ANY of the selected filters.
         return matches.some(m => m)
@@ -227,7 +218,7 @@ const EventsFeed = ({ events=[], categories, tags }) => {
           ) : (
           <div className={`flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y`}>
             <h1 className="text-4xl md:text-5xl font-body font-bold">{`Events (${filteredEvents.length})`}</h1>
-            {filters.length > 0 && <p>{`Filtered by: ${filters.map(f => f.name).join()}`}</p>}
+            {filters.length > 0 && <p>{`Filtered by: ${filters.map(f => f.name).join(', ')}`}</p>}
             {filters.length > 0 && <button className="btn btn-transparent" onClick={reset}>{`Clear filters`}</button>}
             {
               filteredEvents.map(event => {

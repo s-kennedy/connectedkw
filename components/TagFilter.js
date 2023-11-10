@@ -15,14 +15,14 @@ const TagButton = ({ name, isSelected, toggleFilter }) => {
   )
 }
 
-const CategoryButton = ({ name, isSelected, toggleFilter }) => {
+const CategoryButton = ({ category, isSelected, toggleFilter }) => {
   const handleClick = () => {
-    toggleFilter(name)
+    toggleFilter(category)
   }
 
   return (
     <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
-      <span className="whitespace-nowrap">{name}</span>
+      <span className="whitespace-nowrap">{category.name}</span>
     </button>
   )
 }
@@ -90,9 +90,9 @@ const TagFilter = ({
               </div>
               <div className={`flex flex-wrap py-4 ${styles.appear}`}>
                 {categories.map(cat => {
-                  const isSelected = selectedCategories.includes(cat)
+                  const isSelected = selectedCategories.map(sc => sc.id).includes(cat.id)
                   return (
-                    <CategoryButton name={cat.name} key={cat.id} isSelected={isSelected} toggleFilter={toggleCategory} />
+                    <CategoryButton category={cat} key={cat.id} isSelected={isSelected} toggleFilter={toggleCategory} />
                   )
                 })}
               </div>

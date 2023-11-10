@@ -18,6 +18,16 @@ const nextConfig = {
         hostname: 'openweathermap.org',
         pathname: '/img/wn/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'wpl.libnet.info',
+        pathname: '/images/events/wpl/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'events-calendar-public-us-east-2.s3.us-east-2.amazonaws.com',
+        pathname: '/event-images/**',
+      }
     ],
   }
 }

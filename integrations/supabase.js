@@ -27,7 +27,6 @@ const getEvents = async (featured=false) => {
     .from('events')
     .select(`
       *,
-      image(*),
       location(*),
       categories(*),
       tags(*)
@@ -37,9 +36,41 @@ const getEvents = async (featured=false) => {
     .order('start_date', { ascending: true })
     .order('start_time', { ascending: true })
 
+  if (error) {
     console.log({error})
+  }
 
   return events?.length > 0 ? events : []
+}
+
+const getEventCategories = async (events) => {
+  const eventIds = events.map(e => e.id)
+
+  let { data: categories, error } = await supabase
+    .from('categories')
+    .select('*, events!inner(*)')
+    .in('events.id', eventIds)
+ 
+  if (error) {
+    console.log({error})
+  }
+
+  return categories?.length > 0 ? categories : []
+}
+
+const getEventTags = async (events) => {
+  const eventIds = events.map(e => e.id)
+
+  let { data: tags, error } = await supabase
+    .from('tags')
+    .select('*, events!inner(*)')
+    .in('events.id', eventIds)
+ 
+  if (error) {
+    console.log({error})
+  }
+
+  return tags?.length > 0 ? tags : []
 }
 
 const getEvent = async (id) => {
@@ -47,7 +78,6 @@ const getEvent = async (id) => {
     .from('events')
     .select(`
       *,
-      image(*),
       location(*),
       categories(*),
       tags(*)
@@ -55,6 +85,10 @@ const getEvent = async (id) => {
     .eq('id', id)
     .limit(1)
     .single()
+
+  if (error) {
+    console.log({error})
+  }
 
   return event
 }
@@ -64,7 +98,6 @@ const getEventBySlug = async (slug) => {
     .from('events')
     .select(`
       *,
-      image(*),
       location(*),
       categories(*),
       tags(*)
@@ -72,6 +105,10 @@ const getEventBySlug = async (slug) => {
     .eq('slug', slug)
     .limit(1)
     .single()
+
+  if (error) {
+    console.log({error})
+  }
 
   return event
 }
@@ -94,4 +131,13 @@ const getMapFeatures = async (tableName) => {
 }
 
 
-export { getActivities, getActivity, getEvents, getEvent, getEventBySlug, getMapFeatures };
+export { 
+  getActivities,
+  getActivity,
+  getEvents,
+  getEvent,
+  getEventCategories,
+  getEventTags,
+  getEventBySlug,
+  getMapFeatures, 
+};

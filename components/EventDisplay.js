@@ -18,15 +18,22 @@ const Tag = ({ name }) => {
 
 function EventDisplay({ event, isLoading, closeModal }) {
 
-  const getField = (fieldName) => {
-    return event?.fields?.[fieldName]
-  }
-
-  const getImageObj = () => {
-    return event?.fields?.Image?.[0]
-  }
-
-  const { title, description, start_date, end_date, start_time, end_time, external_link, link_text, price, tags, categories, image, location } = event;
+  const { title,
+    description,
+    start_date,
+    end_date,
+    start_time,
+    end_time,
+    external_link,
+    link_text,
+    price,
+    tags,
+    categories,
+    image_url,
+    image_alt_text,
+    image_caption,
+    location 
+  } = event;
 
   const startDateObj = new Date(`${start_date}T${start_time}`)
   const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
@@ -52,18 +59,18 @@ function EventDisplay({ event, isLoading, closeModal }) {
 
   const calendarLocation = (location?.name && location?.street_address) ? `${location.name}, ${location.street_address}` : (location?.name) ? `${location.name}` : "TBD"
   const calendarTitle = title ? `${title}` : "Untitled event"
-
+console.log({image_caption})
 
   return (
     <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
       <div className="h-full w-full bg-white sm:mt-10 relative sm:border-black sm:border-3 sm:rounded-xl">
         <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 sm:pt-5`}>
           <div className={isLoading ? '' : styles.appear}>
-            {image &&
+            {image_url &&
             <div className="mb-4">
               <div className="relative">
-                <img className={`object-cover w-full aspect-square sm:aspect-video ${styles.appear}`} src={image.url} alt={image.alt_text} width={image.width } height={image.height} />
-                { (image.credit) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{`Image credit: ${image.credit}`}</ReactMarkdown></small> }
+                <img className={`object-cover w-full aspect-square sm:aspect-video ${styles.appear}`} src={image_url} alt={image_alt_text} />
+                { (image_caption) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{image_caption}</ReactMarkdown></small> }
               </div>
             </div>
             }

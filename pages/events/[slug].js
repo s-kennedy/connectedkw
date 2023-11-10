@@ -6,7 +6,7 @@ export async function getServerSideProps({ params }) {
   const event = await getEventBySlug(params.slug)
 
   return {
-    props: { event: event },
+    props: { event },
   }
 }
 

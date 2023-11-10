@@ -1,20 +1,12 @@
 import Layout from 'components/Layout'
 import EventsFeed from 'components/EventsFeed'
-import { getEvents } from 'integrations/supabase';
+import { getEvents, getEventCategories, getEventTags } from 'integrations/supabase';
 
 
 export async function getServerSideProps() {
   const events = await getEvents()
-
-  let eventCategories = []
-  let eventTags = []
-
-  events.forEach(event => {
-    eventCategories = eventCategories.concat(event.categories)
-    eventTags = eventTags.concat(event.tags)
-  })
-  const categories = [...new Set(eventCategories)];
-  const tags = [...new Set(eventTags)];
+  const categories = await getEventCategories(events)
+  const tags = await getEventTags(events)
 
   return {
     props: { events, tags, categories },
