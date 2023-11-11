@@ -50,14 +50,12 @@ const FeaturedEventCard = ({ event, setSelectedEvent, isLoading }) => {
         <div className="w-full flex-auto min-h-0 flex flex-col sm:flex-row justify-stretch items-stretch">
         { image_url &&
           <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
-            <Image
+            <img
               className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
               src={image_url}
               alt={image_alt_text || title} 
               title={image_caption}
               loading="lazy"
-              height={300}
-              width={400}
             />
           </div>
         }
