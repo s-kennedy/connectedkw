@@ -22,7 +22,7 @@ const getActivity = async (id) => {
   return activity
 }
 
-const getEvents = async ({ limit }) => {
+const getEvents = async (props) => {
   let { data: events, error } = await supabase
     .from('events')
     .select(`
