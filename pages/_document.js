@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import Script from 'next/script'
 
 class MyDocument extends Document {
   render() {
@@ -19,7 +18,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#51355a" />
 
           <link rel="shortcut icon" href="/favicon.ico" />
-          <Script src="https://kit.fontawesome.com/231142308d.js" crossOrigin="anonymous"></Script>
+          <script src="https://kit.fontawesome.com/231142308d.js" async crossOrigin="anonymous"></script>
 
         </Head>
         <body>
