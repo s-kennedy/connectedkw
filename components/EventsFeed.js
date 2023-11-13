@@ -14,7 +14,7 @@ const defaultValues = {
 const EventsFeed = ({ events=[], filters=[] }) => {
   // const [allEvents, setAllEvents] = useState(null)
   const [isLoading, setLoading] = useState(false)
-  const [showFilters, setShowFilters] = useState(true)
+  const [showFilters, setShowFilters] = useState(false)
   const emptyFilters = filters.reduce((a, f) => {
     const defaultValue = defaultValues[f.type]
     return { ...a, [f.id]: defaultValue}
@@ -74,8 +74,6 @@ const EventsFeed = ({ events=[], filters=[] }) => {
   }
 
   const toggleFn = (filter, value) => {
-    console.log({filter})
-    console.log({value})
     switch (filter.type) {
       case "select-multiple":
         const alreadySelected = selectedFilters[filter.id].includes(value)
