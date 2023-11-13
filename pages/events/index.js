@@ -2,7 +2,6 @@ import Layout from 'components/Layout'
 import EventsFeed from 'components/EventsFeed'
 import { getEvents, getEventCategories, getEventTags, getDataSources } from 'integrations/supabase';
 
-
 export async function getServerSideProps() {
   const events = await getEvents({limit: 20})
   const categories = await getEventCategories(events)
@@ -15,10 +14,33 @@ export async function getServerSideProps() {
 }
 
 export default function Events({ events, categories=[], tags=[], dataSources=[] }) {
+  const filters = [
+    {
+      label: 'Categories',
+      id: 'categories',
+      options: categories,
+      multipleSelect: true,
+      attributeFn: (event) => event.categories.map(c => c.id)
+    },
+    {
+      label: 'Tags',
+      id: 'tags',
+      options: tags,
+      multipleSelect: true,
+      attributeFn: (event) => event.tags.map(t => t.id)
+    },  
+    {
+      label: 'Sources',
+      id: 'sources',
+      options: dataSources,
+      multipleSelect: true,
+      attributeFn: (event) => [event.data_source]
+    },
+  ]
   return (
     <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
       <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto pb-12">
-        <EventsFeed events={events} categories={categories} tags={tags} dataSources={dataSources} />
+        <EventsFeed events={events} categories={categories} tags={tags} dataSources={dataSources} filters={filters} />
       </div>
     </Layout>
   )

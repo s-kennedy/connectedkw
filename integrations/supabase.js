@@ -33,6 +33,7 @@ const getEvents = async ({ limit }) => {
       data_source
     `)
     .eq('published', true)
+    // .limit(limit)
     .gte('end_date', new Date().toISOString())
     .order('start_date', { ascending: true })
     .order('start_time', { ascending: true })
