@@ -12,6 +12,7 @@
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^6.0.1",
+    "@floating-ui/react": "^0.26.2",
     "@googlemaps/markerclusterer": "^2.0.15",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@mdx-js/loader": "^2.2.1",

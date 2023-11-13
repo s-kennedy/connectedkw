@@ -18,6 +18,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#51355a" />
 
           <link rel="shortcut icon" href="/favicon.ico" />
+          <script src="https://kit.fontawesome.com/231142308d.js" crossOrigin="anonymous"></script>
 
         </Head>
         <body>

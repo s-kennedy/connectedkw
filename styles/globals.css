@@ -253,7 +253,7 @@ article h3 {
   }
 
   .btn-clear {
-    @apply border-none hover:text-blue focus:text-purple px-2 py-1;
+    @apply border-none hover:text-purple focus:text-purple px-2 py-1;
   }
 }
 

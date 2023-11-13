@@ -2,8 +2,8 @@ import Layout from 'components/Layout'
 import EventsFeed from 'components/EventsFeed'
 import { getEvents, getEventCategories, getEventTags, getDataSources } from 'integrations/supabase';
 
-export async function getServerSideProps() {
-  const events = await getEvents({limit: 20})
+export async function getStaticProps() {
+  const events = await getEvents()
   const categories = await getEventCategories(events)
   const tags = await getEventTags(events)
   const dataSources = await getDataSources()
@@ -13,11 +13,19 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Events({ events, categories=[], tags=[], dataSources=[] }) {
+export default function Events({ events=[], categories=[], tags=[], dataSources=[] }) {
   const filters = [
+    {
+      label: 'Featured',
+      id: 'featured',
+      type: 'boolean',
+      default: false,
+      attributeFn: (event) => event.featured
+    },
     {
       label: 'Categories',
       id: 'categories',
+      type: 'select-multiple',
       options: categories,
       multipleSelect: true,
       attributeFn: (event) => event.categories.map(c => c.id)
@@ -25,6 +33,7 @@ export default function Events({ events, categories=[], tags=[], dataSources=[] 
     {
       label: 'Tags',
       id: 'tags',
+      type: 'select-multiple',
       options: tags,
       multipleSelect: true,
       attributeFn: (event) => event.tags.map(t => t.id)
@@ -32,6 +41,7 @@ export default function Events({ events, categories=[], tags=[], dataSources=[] 
     {
       label: 'Sources',
       id: 'sources',
+      type: 'select-multiple',
       options: dataSources,
       multipleSelect: true,
       attributeFn: (event) => [event.data_source]
