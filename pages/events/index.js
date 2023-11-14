@@ -16,7 +16,7 @@ export async function getStaticProps() {
 export default function Events({ events=[], categories=[], tags=[], dataSources=[] }) {
   const filters = [
     {
-      label: 'Featured',
+      label: 'Featured ⭐',
       id: 'featured',
       type: 'boolean',
       default: false,
@@ -50,7 +50,7 @@ export default function Events({ events=[], categories=[], tags=[], dataSources=
   return (
     <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
       <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto pb-12">
-        <EventsFeed events={events} categories={categories} tags={tags} dataSources={dataSources} filters={filters} />
+        <EventsFeed events={events} filters={filters} />
       </div>
     </Layout>
   )

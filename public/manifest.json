@@ -2,7 +2,7 @@
     "id": "unboring-kw",
     "theme_color": "#51355a",
     "background_color": "#cbe0ea",
-    "display": "standalone",
+    "display": "minimal-ui",
     "scope": "/",
     "start_url": "/events",
     "name": "Unboring KW",

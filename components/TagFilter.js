@@ -88,10 +88,7 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
     return (
       <button key={filter.id} onClick={handleFlagClick(filter)} className="btn btn-clear whitespace-nowrap relative block pl-1">
         {(selectedOptions) && <span className="h-2 w-2 rounded-full bg-red inline-block absolute -left-1" /> }
-        <div className="flex items-center">
-          <span>{filter.label}</span>
-          <i className="fa-solid fa-star text-xs ml-1"></i>
-        </div>
+        <span>{filter.label}</span>
       </button>
     )
   }

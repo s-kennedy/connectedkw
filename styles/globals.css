@@ -229,31 +229,31 @@ article h3 {
   }
 
   .btn-red {
-    @apply bg-red hover:bg-yellow focus:bg-green hover:text-black focus:text-black;
+    @apply bg-red hover:bg-yellow hover:text-black;
   }
 
   .btn-yellow {
-    @apply bg-yellow hover:bg-green focus:bg-blue hover:text-black focus:text-black;
+    @apply bg-yellow hover:bg-green hover:text-black;
   }
 
   .btn-green {
-    @apply bg-green hover:bg-blue focus:bg-purple hover:text-black focus:text-black;
+    @apply bg-green hover:bg-blue hover:text-black;
   }
 
   .btn-blue {
-    @apply bg-blue hover:purple focus:bg-red hover:text-black focus:text-black;
+    @apply bg-blue hover:purple hover:text-black;
   }
 
   .btn-purple {
-    @apply bg-purple text-white hover:bg-black hover:text-white focus:text-white;
+    @apply bg-purple text-white hover:bg-black hover:text-white;
   }
 
   .btn-white {
-    @apply bg-white hover:bg-lightPurple focus:bg-purple hover:text-black focus:text-white;
+    @apply bg-white hover:bg-lightPurple hover:text-black;
   }
 
   .btn-clear {
-    @apply border-none hover:text-purple focus:text-purple px-2 py-1;
+    @apply border-none hover:text-purple px-2 py-1;
   }
 }
 

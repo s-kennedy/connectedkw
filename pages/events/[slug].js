@@ -12,7 +12,7 @@ export async function getServerSideProps({ params }) {
 
 export default function EventPage({ event }) {
   return (
-    <Layout color="blue" title={event.title} description={event.description}>
+    <Layout color="white" title={event.title} description={event.description}>
     	<EventDisplay event={event} />
     </Layout>
   )
