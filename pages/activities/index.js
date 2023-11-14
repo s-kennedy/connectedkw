@@ -3,7 +3,7 @@ import ActivitiesFeed from 'components/ActivitiesFeed'
 import { getActivities } from 'integrations/airtable';
 import slugify from 'slugify';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const activities = await getActivities()
 
   let activityCategories = []
