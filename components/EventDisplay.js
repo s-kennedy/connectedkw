@@ -3,10 +3,7 @@ import { eventCategories, tagEmojiDict } from "../utils/constants"
 import ReactMarkdown from 'react-markdown'
 import { AddToCalendarButton } from 'add-to-calendar-button-react';
 import Link from 'next/link'
-
-const DEFAULT_LOCALE = 'en-CA'
-const DATE_FORMAT = { weekday: 'short', month: 'short', day: 'numeric' }
-const TIME_FORMAT = { hour: 'numeric', minute: '2-digit' }
+import { buildDateString, getCalendarDates } from 'utils/dates'
 
 const Tag = ({ name }) => {
   return (
@@ -35,31 +32,11 @@ function EventDisplay({ event, isLoading, closeModal }) {
     location 
   } = event;
 
-  const startDateObj = new Date(`${start_date}T${start_time}`)
-  const startDateString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
-  const startTime = startDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
+  const dateString = buildDateString(start_date, end_date, start_time, end_time)
 
-  let dateTimeString = `${startDateString}, ${startTime}`
-
-  const endDateObj = new Date(`${end_date ? end_date : start_time}T${end_time}`)
-  const endDateString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
-  const endTime = endDateObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
-  
-  if (startDateString !== endDateString) {
-    dateTimeString = `${startDateString}, ${startTime} - ${endDateString}, ${endTime}`
-  } else {
-    dateTimeString = `${startDateString}, ${startTime} - ${endTime}`
-  }
-
-  const calendarStartDate = `${startDateObj.toLocaleString(DEFAULT_LOCALE, { year: "numeric" })}-${startDateObj.toLocaleString(DEFAULT_LOCALE, { month: "2-digit" })}-${startDateObj.toLocaleString(DEFAULT_LOCALE, { day: "2-digit" })}`
-  const calendarStartTime = `${startDateObj.toLocaleTimeString(DEFAULT_LOCALE, { hour: 'numeric', minute: '2-digit', hour12: false })}`
-
-  const calendarEndDate = `${endDateObj.toLocaleString(DEFAULT_LOCALE, { year: "numeric" })}-${endDateObj.toLocaleString(DEFAULT_LOCALE, { month: "2-digit" })}-${endDateObj.toLocaleString(DEFAULT_LOCALE, { day: "2-digit" })}`
-  const calendarEndTime = `${endDateObj.toLocaleTimeString(DEFAULT_LOCALE, { hour: 'numeric', minute: '2-digit', hour12: false })}`
-
+  const { calendarStartDate, calendarStartTime, calendarEndDate, calendarEndTime} = getCalendarDates(start_date, end_date, start_time, end_time)
   const calendarLocation = (location?.name && location?.street_address) ? `${location.name}, ${location.street_address}` : (location?.name) ? `${location.name}` : "TBD"
   const calendarTitle = title ? `${title}` : "Untitled event"
-console.log({image_caption})
 
   return (
     <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
@@ -77,7 +54,7 @@ console.log({image_caption})
             {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
             <p className="mb-1 space-x-3 flex flex-nowrap">
               <span>🗓</span>
-              <span>{dateTimeString}</span>
+              <span>{dateString}</span>
             </p>
             { price && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🎟</span><span>{price}</span></p>}
             { location && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}<br />{location.street_address}</span></p>}

@@ -2,7 +2,7 @@ import Layout from 'components/Layout'
 import EventsFeed from 'components/EventsFeed'
 import { getEvents, getEventCategories, getEventTags, getDataSources } from 'integrations/supabase';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const events = await getEvents()
   const categories = await getEventCategories(events)
   const tags = await getEventTags(events)
@@ -14,6 +14,7 @@ export async function getStaticProps() {
 }
 
 export default function Events({ events=[], categories=[], tags=[], dataSources=[] }) {
+
   const filters = [
     {
       label: 'Featured ⭐',
