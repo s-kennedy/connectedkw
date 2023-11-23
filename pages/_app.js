@@ -1,6 +1,8 @@
 import { useEffect } from "react"
 import { useRouter } from 'next/router';
 import AOS from 'aos';
+import { Analytics } from '@vercel/analytics/react';
+
 
 import 'aos/dist/aos.css';
 import '../styles/globals.css'
@@ -15,7 +17,12 @@ function MyApp({ Component, pageProps }) {
     });
   });
 
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Component {...pageProps} />
+      <Analytics />
+    </>
+  );
 }
 
 export default MyApp

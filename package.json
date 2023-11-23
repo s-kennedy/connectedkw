@@ -19,6 +19,7 @@
     "@mdx-js/react": "^2.2.1",
     "@next/mdx": "^13.1.0",
     "@supabase/supabase-js": "^2.38.4",
+    "@vercel/analytics": "^1.1.1",
     "add-to-calendar-button-react": "^2.2.7",
     "airtable": "^0.11.5",
     "animate.css": "^4.1.1",
