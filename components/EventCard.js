@@ -6,12 +6,36 @@ import { buildDateString } from 'utils/dates'
 const EventCard = ({ event }) => {
   if (!event) return null
 
-  const { featured, title, description, start_date, end_date, start_time, end_time, categories, tags, image_url, image_caption, image_alt_text, location, slug } = event;
+  const { 
+    featured,
+    title,
+    description,
+    start_date,
+    end_date,
+    start_time,
+    end_time,
+    categories,
+    tags,
+    image_url,
+    image_caption,
+    image_alt_text,
+    location,
+    slug,
+    classification,
+    location_source_text 
+  } = event;
 
   const dateString = buildDateString(start_date, end_date, start_time, end_time)
 
+  const urlFragments = {
+    'activity': 'activities',
+    'event': 'events',
+    'recurring event': 'events'
+  }
+  const urlFragment = urlFragments[classification]
+
   return (
-    <Link href={`/events/${slug}`} className={`${styles.eventCard} btn snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
+    <Link href={`/${urlFragment}/${slug}`} className={`${styles.eventCard} btn snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
       <div className={`${styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>
         {
           (featured) && 
@@ -33,9 +57,11 @@ const EventCard = ({ event }) => {
         }
           <div className={`basis-1/2 flex-auto text-left overflow-auto h-full styled-scrollbar p-3`}>
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
-            <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateString}</time></p>
+            { classification === "event" && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateString}</time></p> }
             { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
-            { categories && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join(', ')}</span></p>}
+            { !location && location_source_text && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location_source_text}</span></p>}
+            { Boolean(categories?.length) && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join(', ')}</span></p>}
+            { Boolean(tags?.length) && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>#️⃣</span><span>{tags.map(t => t.name).join(', ')}</span></p>}
           </div>
         </div>
       </div>

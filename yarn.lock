@@ -961,6 +961,11 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@directus/sdk@^13.0.2":
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/@directus/sdk/-/sdk-13.0.2.tgz#8657741b1b0c85d1402db98e4864c6cddfa0b075"
+  integrity sha512-KECQM0w8xlgr5EklX+Jb9+dIzXyvJFjRfhiIAI7l/b0WEtVaCfvRMIrJXR3XsLeVW9u2nu+b/TffOyTMSLjm2w==
+
 "@dnd-kit/accessibility@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@dnd-kit/accessibility/-/accessibility-3.1.0.tgz#1054e19be276b5f1154ced7947fc0cb5d99192e0"

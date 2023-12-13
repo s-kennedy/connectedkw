@@ -60,7 +60,7 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
         element: arrowRef,
       }),
       offset({
-        mainAxis: -12,
+        mainAxis: -17,
         crossAxis: -2
       }),
       shift()
@@ -104,7 +104,7 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
       >
         {(selectedOptions.length > 0) && <span className="h-2 w-2 rounded-full bg-red inline-block absolute -left-1" /> }
         <span>{filter.label}</span>
-        <i className={`ml-1 fa-solid ${isOpen ? 'fa-caret-left' : 'fa-caret-right text-sm'}`}></i>
+        <i className={`ml-1 fa-solid ${isOpen ? 'fa-caret-left' : 'fa-list text-sm'}`}></i>
       </button>
       { isOpen &&
       <div 
@@ -114,7 +114,7 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
         {...getFloatingProps()} 
       >
         {/*<FloatingArrow ref={arrowRef} context={context} />*/}
-        <div className={`${styles.appear} border-2 rounded-md bg-white`}>
+        <div className={`${styles.appear} border-2 rounded-md bg-white max-h-60 overflow-auto`}>
           {filter.options.map((option, index) => {
             const isSelected = selectedOptions.includes(option.id)
             return (

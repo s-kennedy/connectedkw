@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Filters from "components/Filters"
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
+import EventCard from "components/EventCard"
 
 const defaultValues = {
   "boolean": false,
@@ -20,33 +21,12 @@ const Tag = ({ name }) => {
   )
 }
 
-const ActivityCard = ({ activity, setSelectedActivity }) => {
-  const getField = (fieldName) => {
-    return activity?.[fieldName]
-  }
-
-  const getImageObj = () => {
-    return activity?.fields?.Image?.[0]
-  }
-
-  const title = getField("Title")
-  const description = getField("Description")
-  const link = getField("External link")
-  const linkText = `🔗 ${getField("Link text") || "More info"}`
-  const image = getImageObj()
-  const tags = getField("Tags") || []
-  const imageCredit = getField("Image credit")
-  const imageDescription = getField("Image description")
-  const categories = getField("Category") || []
-
-  const slug = `${slugify(title, { lower: true })}__${activity.id}`
-  const tagsString = tags.join(', ')
-  const categoriesString = categories.join(', ')
+const ActivityCard = ({ activity }) => {
 
   return (
     <Link href={`/activities/${slug}`} className={`${styles.eventCard} btn relative snap-start transition-all p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black ${styles.result}`}>
       <div className="info p-3 text-left">
-        {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
+        {title && <h3 className="text-xl mb-2 font-body font-medium">{activity.title}</h3>}
         <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>#️⃣</span><span>{tagsString}</span></p>
         <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categoriesString}</span></p>
       </div>
@@ -149,7 +129,7 @@ const ActivitiesFeed = ({ activities=[], filters=[] }) => {
             </button>
           </Filters>
           <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
-          {filteredActivities.map(activity => <ActivityCard activity={activity} key={activity.id} />)}
+          {filteredActivities.map(activity => <EventCard event={activity} key={activity.id} />)}
           </div>
         </div>
       </div>

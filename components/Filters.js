@@ -33,7 +33,7 @@ const Filters = ({ filters, selectedFilters, toggleFn, reset, children }) => {
             <span>Filters</span>
             { anySelected &&  <span>{`(${numSelected})`}</span>}
           </div>
-          <i className={`fa-solid text-sm ${showFilters ? 'fa-angle-up' : 'fa-angle-down'}`}></i>
+          <i className={`fa-solid text-sm ${showFilters ? 'fa-xmark' : 'fa-filter'}`}></i>
         </button>
         {
           anySelected && 
@@ -44,7 +44,7 @@ const Filters = ({ filters, selectedFilters, toggleFn, reset, children }) => {
         }
       </div>
       { showFilters &&
-        <div className="w-full z-10 relative pb-1 pl-2 text-sm">
+        <div className="w-full z-10 relative pb-1 pl-2 space-x-1 md:flex">
           { filters.map(filter => {
             return (
               <TagFilter

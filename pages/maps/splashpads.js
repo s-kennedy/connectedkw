@@ -1,22 +1,26 @@
 import InteractiveMapParks from 'components/InteractiveMapParks'
 import Section from 'components/Section'
 import Layout from 'components/Layout'
-import { getMapFeatures } from 'integrations/airtable';
+import { getFeatures, getFeaturesTags } from 'integrations/directus';
 
 export async function getServerSideProps(context) {
-  const features = await getMapFeatures('Splashpads')
+  const features = await getFeatures('splashpads')
+  const tags = await getFeaturesTags(features)
+
   return {
-    props: { features },
+    props: { features, tags }
   }
 }
 
-export default function ParkMap({ features }) {
+export default function ParkMap({ features, tags }) {
+  console.log({tags})
+
   const categories = {
     "Open for the season 😎": { color: "#06d6a0", label: "Open for the season 😎" }, // green 
     "Closed 🚧": { color: "#d7d1d8", label: "Closed 🚧" }, // purple
   }
 
-  const tags = [
+  const taggs = [
     "Playground",
     "Picnic shelter",
     "Baseball diamond",
@@ -37,7 +41,7 @@ export default function ParkMap({ features }) {
     mapId: "splashpads-map",
     categories: categories,
     categoriesName: "status",
-    tags: tags,
+    tags: tags.map(t => t.name),
     tagsName: "amenities",
     preview: {
       title: 'Title', 

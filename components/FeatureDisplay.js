@@ -6,27 +6,30 @@ function FeatureDisplay({ feature={}, closeModal }) {
     return null
   }
 
-  let imgSrc = undefined
+  console.log({feature})
 
-  if (feature?.Images) {
-    imgSrc = feature.Images[0].url
+  const {
+    id,
+    title,
+    description,
+    external_link,
+    link_text='More info',
+    images,
+    location
+  } = feature;
+
+  let image = images[0]
+  let imageUrl;
+
+  if (image) {
+    imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.directus_files_id.id}` : null
   }
 
-  const title = feature.Title || "Untitled"
-  const artist = feature.Artist
-  const date = feature.Year
-  const locationName = feature["Location description"]
-  const address = feature["Street address"]
-  const city = feature.City
-  const description = feature.Description
-  const link = feature["External link"]
-  const linkText = feature["Link text"] || "More information"
-  const imageCredit = feature["Image credit"]
+  const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&size=120x120&markers=color:red|${location.coordinates.coordinates[1]},${location.coordinates.coordinates[0]}&style=feature:all|saturation:-100`
+  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${location.coordinates.coordinates[1]},${location.coordinates.coordinates[0]}`
 
-  const fullAddress = [address, city].filter(i=>i).join(", ")
-  
-  const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&size=120x120&markers=color:red|${feature.Latitude},${feature.Longitude}&style=feature:all|saturation:-100`
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${feature.Latitude},${feature.Longitude}`
+  console.log(location)
+  console.log(mapUrl)
 
   return (
     <div className="h-full w-full bg-white pt-8 border-3 rounded-xl border-black relative">
@@ -35,17 +38,17 @@ function FeatureDisplay({ feature={}, closeModal }) {
       </div>
       <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-4 pt-0`}>
         
-          {imgSrc &&
+          {image &&
           <div className="mb-4">
             <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-lightPurple">
-              <img className={`w-full h-full object-cover ${styles.appear}`} src={imgSrc} alt={`Photo of artwork titled ${title}`} />
-              { (imageCredit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
+              <img className={`w-full h-full object-cover ${styles.appear}`} src={imageUrl} alt={`Photo of artwork titled ${title}`} />
+              { (image.credit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
             </div>
           </div>
           }
           {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
-          {artist && <p className="mb-1 text-sm">{artist}</p>}
-          {date && <p className="mb-1 text-sm">{date}</p>}
+          {/*{artist && <p className="mb-1 text-sm">{artist}</p>}*/}
+          {/*{date && <p className="mb-1 text-sm">{date}</p>}*/}
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
           <a href={mapUrl} className="flex no-underline text-black" title="Click to open in Google Maps" target="_blank" rel="noreferrer noopener">
@@ -54,12 +57,13 @@ function FeatureDisplay({ feature={}, closeModal }) {
             </div>
             <div className="w-full p-4">
               <h4 className="text mb-1 font-body font-medium">Location</h4>
-              {locationName && <p className="mb-1 text-sm">{locationName}</p>}
-              <p className="mb-1 text-sm">{fullAddress}</p>
+              {location && <p className="mb-1 text-sm">{location.name}</p>}
+              {location && <p className="mb-1 text-sm">{[location.street_address, location.city].join(', ')}</p>}
+              {location.note && <p className="mb-1 text-sm">{location.note}</p>}
             </div>
           </a>
 
-          {link && <a className="btn btn-purple my-4" href={link} target="_blank" rel="noopener noreferrer">{`🔗 ${linkText}`}</a>}
+          {external_link && <a className="btn btn-purple my-4" href={external_link} target="_blank" rel="noopener noreferrer">{`🔗 ${link_text}`}</a>}
 
       </div>
     </div>

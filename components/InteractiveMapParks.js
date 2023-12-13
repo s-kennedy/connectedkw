@@ -182,7 +182,9 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
       setMarkers([])
 
       const gmapMarkers = features.map(feature => {
-        const position = new google.maps.LatLng(feature.Latitude, feature.Longitude)
+        if (!feature?.location?.coordinates?.coordinates) return null
+        const [longitude, latitude] = feature.location.coordinates.coordinates
+        const position = new google.maps.LatLng(latitude, longitude)
         const category = categories[feature.Category] || {}
         const color = category.color || DEFAULT_MARKER_COLOR
         const icon = {
@@ -211,7 +213,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
         marker.addListener("click", () => setSelectedFeature(marker.properties))
 
         return marker
-      })
+      }).filter(i => i)
 
       setMarkers(gmapMarkers)
 
@@ -260,10 +262,12 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
     }
 
     const bounds = new google.maps.LatLngBounds();
-    features.forEach(feat => {
-      if (feat.Latitude && feat.Longitude) {
-        const pos = { lat: feat.Latitude, lng: feat.Longitude }
-        bounds.extend(pos);
+    features.forEach(feature => {
+      if (feature?.location?.coordinates?.coordinates) {
+        const [longitude, latitude] = feature.location.coordinates.coordinates
+        const position = new google.maps.LatLng(latitude, longitude)
+        // const pos = { lat: feat.Latitude, lng: feat.Longitude }
+        bounds.extend(position);
       }
     })
 
@@ -324,7 +328,7 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
 
     if (selectedTags.length > 0) {
       newSetOfFeatures = newSetOfFeatures.filter(feature => {
-        const featureTags = feature.Amenities || []
+        const featureTags = feature.tags.map(t => t.name)
         const matches = selectedTags.map(tag => featureTags.includes(tag))
 
         // only allow events that match ALL the selected filters.

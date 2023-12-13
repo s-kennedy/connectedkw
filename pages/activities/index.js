@@ -1,35 +1,15 @@
 import Layout from 'components/Layout'
 import ActivitiesFeed from 'components/ActivitiesFeed'
-import { getActivities } from 'integrations/airtable';
+import { getActivities, getEventCategories, getEventTags } from 'integrations/directus';
 import slugify from 'slugify';
 
 export async function getStaticProps() {
   const activities = await getActivities()
-
-  let activityCategories = []
-  let activityTags = []
-
-  activities.forEach(activity => {
-    activityCategories = activityCategories.concat(activity.fields.Category).filter(i => i)
-    activityTags = activityTags.concat(activity.fields.Tags).filter(i => i)
-  })
-  const categories = [...new Set(activityCategories)].map(cat => {
-    return { id: cat, name: cat }
-  })
-  const tags = [...new Set(activityTags)].map(tag => {
-    return { id: tag, name: tag }
-  })
-
-  const formattedActivities = activities.map(activity => {
-
-    return {
-      id: activity.id,
-      ...activity.fields
-    }
-  })
+  const categories = await getEventCategories(activities)
+  const tags = await getEventTags(activities)
 
   return {
-    props: { activities: formattedActivities, categories, tags }
+    props: { activities, tags, categories }
   }
 }
 

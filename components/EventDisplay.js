@@ -4,16 +4,9 @@ import ReactMarkdown from 'react-markdown'
 import { AddToCalendarButton } from 'add-to-calendar-button-react';
 import Link from 'next/link'
 import { buildDateString, getCalendarDates } from 'utils/dates'
+import Tag from 'components/Tag'
 
-const Tag = ({ name }) => {
-  return (
-    <div className="text-sm px-2 py-1 m-1 ml-0 border-2 border-black rounded-md flex flex-nowrap">
-      <span className="whitespace-nowrap">{name}</span>
-    </div>
-  )
-}
-
-function EventDisplay({ event, isLoading, closeModal }) {
+function EventDisplay({ event }) {
 
   const { title,
     description,
@@ -40,9 +33,9 @@ function EventDisplay({ event, isLoading, closeModal }) {
 
   return (
     <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
-      <div className="h-full w-full bg-white sm:mt-10 relative sm:border-black sm:border-3 sm:rounded-xl">
+      <div className="h-full w-full bg-white relative sm:border-black sm:border-3 sm:rounded-xl">
         <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 sm:pt-5`}>
-          <div className={isLoading ? '' : styles.appear}>
+          <div className={styles.appear}>
             {image_url &&
             <div className="mb-4">
               <div className="relative">
@@ -86,7 +79,7 @@ function EventDisplay({ event, isLoading, closeModal }) {
               <div className="my-4">
                 <h4 className="text-lg font-body font-medium">Tags</h4>
                 <div className="flex flex-wrap">
-                  {tags.map(tag => <Tag name={tag.name} key={tag.id} />)}
+                  {tags.map(tag => <Tag tag={tag} key={tag.id} />)}
                 </div>
               </div>
             }
