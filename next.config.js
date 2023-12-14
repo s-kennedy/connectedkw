@@ -32,6 +32,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'events-calendar-public-us-east-2.s3.us-east-2.amazonaws.com',
         pathname: '/event-images/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cms.unboringkw.com',
+        pathname: '/assets/**',
       }
     ],
   }

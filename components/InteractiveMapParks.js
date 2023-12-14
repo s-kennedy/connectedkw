@@ -28,18 +28,17 @@ const Legend = ({ map, categories }) => {
     }
   }, [legend])
 
-  const categoryNames = Object.keys(categories)
+  const categoryNames = categories.map(c => c.name)
 
   return (
     <div ref={ref} className="ml-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
-      {categoryNames.map(catName => {
-        const category = categories[catName]
+      {categories.map(category => {
         return (
-          <div className="mb-1 space-x-1 flex flex-nowrap items-center" key={catName}>
-            <div className="h-3 w-3 rounded-full border" style={{ backgroundColor: `${category.color}`}}>
+          <div className="mb-1 space-x-1 flex flex-nowrap items-center" key={categories.id}>
+            <div className="h-3 w-3 rounded-full border" style={{ backgroundColor: `${category.colour}`}}>
             </div>
             <div>
-              {category.label ? category.label : catName}
+              {category.name}
             </div>
           </div>
         )
@@ -67,7 +66,7 @@ const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedFeatur
   useEffect(() => {
     if (marker) {
       const position = new google.maps.LatLng(feature.Latitude, feature.Longitude)
-      const color = category.color || DEFAULT_MARKER_COLOR
+      const color = category.colour || DEFAULT_MARKER_COLOR
       const icon = {
         path: MARKER_SVG,
         fillColor: color,
@@ -96,11 +95,11 @@ const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedFeatur
 };
 
 const generatePreview = (feature, previewConfig={}) => {
-  const title = feature.Title || ""
+  const title = feature.title || ""
 
-  if (feature.Images) {
-    const image = feature.Images[0]
-    const imageSrc = image.thumbnails.large.url
+  if (feature.images) {
+    const image = feature.images[0]
+    const imageSrc = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=thumbnail-100`
     return (`<div class="map-infowindow"><div class="image"><img src="${imageSrc}" alt="Photo of park" /></div><p class="title">${title}</p></div>`)
   }
 
@@ -185,8 +184,8 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
         if (!feature?.location?.coordinates?.coordinates) return null
         const [longitude, latitude] = feature.location.coordinates.coordinates
         const position = new google.maps.LatLng(latitude, longitude)
-        const category = categories[feature.Category] || {}
-        const color = category.color || DEFAULT_MARKER_COLOR
+        const category = feature.categories[0] || {}
+        const color = category.colour || DEFAULT_MARKER_COLOR
         const icon = {
           path: MARKER_SVG,
           fillColor: color,
@@ -321,18 +320,26 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
     let newSetOfFeatures = features
 
     if (selectedCategories.length > 0) {
+      // newSetOfFeatures = newSetOfFeatures.filter(feature => {
+      //   return selectedCategories.includes(feature.categories[0].id)
+      // })
       newSetOfFeatures = newSetOfFeatures.filter(feature => {
-        return selectedCategories.includes(feature.Category)
+        const featureCategories = feature.categories.map(c => c.id)
+        const matches = selectedCategories.map(catId => featureCategories.includes(catId))
+
+        // use .any to keep only the items that match ALL the selected filters.
+        // use .some() to keep the items that match ANY of the selected filters.
+        return matches.some(m => m)
       })
     }
 
     if (selectedTags.length > 0) {
       newSetOfFeatures = newSetOfFeatures.filter(feature => {
-        const featureTags = feature.tags.map(t => t.name)
-        const matches = selectedTags.map(tag => featureTags.includes(tag))
+        const featureTags = feature.tags.map(t => t.id)
+        const matches = selectedTags.map(tagId => featureTags.includes(tagId))
 
-        // only allow events that match ALL the selected filters.
-        // use .some() to keep the events that match ANY of the selected filters.
+        // use .any to keep only the items that match ALL the selected filters.
+        // use .some() to keep the items that match ANY of the selected filters.
         return matches.some(m => m)
       })
     }
@@ -345,26 +352,26 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
     setSelectedCategories([])
   }
 
-  const toggleFilter = (tagName) => {
-    const alreadySelected = selectedTags.includes(tagName)
+  const toggleFilter = (tagId) => {
+    const alreadySelected = selectedTags.includes(tagId)
 
     if (alreadySelected) {
-      const filteredTags = selectedTags.filter(item => item != tagName)
+      const filteredTags = selectedTags.filter(item => item != tagId)
       setSelectedTags(filteredTags)
     } else {
-      const newTags = [...selectedTags, tagName]
+      const newTags = [...selectedTags, tagId]
       setSelectedTags(newTags)
     }
   }
 
-  const toggleCategory = (categoryName) => {
-    const alreadySelected = selectedCategories.includes(categoryName)
+  const toggleCategory = (categoryId) => {
+    const alreadySelected = selectedCategories.includes(categoryId)
 
     if (alreadySelected) {
-      const filteredCategories = selectedCategories.filter(item => item != categoryName)
+      const filteredCategories = selectedCategories.filter(item => item != categoryId)
       setSelectedCategories(filteredCategories)
     } else {
-      const newCategories = [...selectedCategories, categoryName]
+      const newCategories = [...selectedCategories, categoryId]
       setSelectedCategories(newCategories)
     }
   }

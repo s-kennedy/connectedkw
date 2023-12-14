@@ -1,60 +1,38 @@
 import InteractiveMapParks from 'components/InteractiveMapParks'
 import Section from 'components/Section'
 import Layout from 'components/Layout'
-import { getFeatures, getFeaturesTags } from 'integrations/directus';
+import { getFeatures, getFeaturesTags, getCategoriesByGroup } from 'integrations/directus';
 
 export async function getServerSideProps(context) {
   const features = await getFeatures('splashpads')
   const tags = await getFeaturesTags(features)
+  const categories = await getCategoriesByGroup('availability')
 
   return {
-    props: { features, tags }
+    props: { features, tags, categories }
   }
 }
 
-export default function ParkMap({ features, tags }) {
-  console.log({tags})
-
-  const categories = {
-    "Open for the season 😎": { color: "#06d6a0", label: "Open for the season 😎" }, // green 
-    "Closed 🚧": { color: "#d7d1d8", label: "Closed 🚧" }, // purple
-  }
-
-  const taggs = [
-    "Playground",
-    "Picnic shelter",
-    "Baseball diamond",
-    "Basketball court",
-    "Sports field",
-    "Cricket pitch",
-    "Green space",
-    "Trails",
-    "Bicycle parking",
-    "Off-leash dog park",
-    "Bathrooms",
-    "Skate park",
-    "Pool",
-    "Community centre",
-  ]
+export default function ParkMap({ features, tags, categories }) {
 
   const mapConfig = {
     mapId: "splashpads-map",
     categories: categories,
     categoriesName: "status",
-    tags: tags.map(t => t.name),
+    tags: tags,
     tagsName: "amenities",
     preview: {
       title: 'Title', 
       details: []
     },
-    featureDisplayFields: ['Category', 'Description']
+    featureDisplayFields: ['description']
   }
 
   return (
     <Layout 
       title="Splashpads in Waterloo Region" 
       description="Make the most of your summer at the outdoor splashpads in Kitchener, Waterloo and Cambridge!"
-      color="yellow" 
+      colour="yellow" 
       image="https://www.unboringkw.com/map-thumbnail.jpg"
     >
       <Section className="snap-center p-3">

@@ -2,29 +2,28 @@ import { useState, useEffect } from 'react'
 import { tagEmojiDict, eventCategories } from 'utils/constants'
 import ReactModal from 'react-modal';
 
-const TagButton = ({ name, isSelected, toggleFilter }) => {
-  const tagEmoji = tagEmojiDict[name]
+const TagButton = ({ tag, isSelected, toggleFilter }) => {
+  const tagEmoji = tagEmojiDict[tag.name]
   const handleClick = () => {
-    toggleFilter(name)
+    toggleFilter(tag.id)
   }
 
   return (
     <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
-      <span className="whitespace-nowrap">{name}</span>
+      <span className="whitespace-nowrap">{tag.name}</span>
       {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </button>
   )
 }
 
-const CategoryButton = ({ name, category, isSelected, toggleFilter }) => {
-  const label = category.label ? category.label : name
+const CategoryButton = ({ category, isSelected, toggleFilter }) => {
   const handleClick = () => {
-    toggleFilter(name)
+    toggleFilter(category.id)
   }
 
   return (
     <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
-      <span className="whitespace-nowrap">{label}</span>
+      <span className="whitespace-nowrap">{category.name}</span>
     </button>
   )
 }
@@ -47,7 +46,6 @@ const MapFilter = ({
   })
 
   const [isOpen, setOpen] = useState(false)
-  const categoryNames = Object.keys(categories)
 
   const openFilters = () => {
     setOpen(true)
@@ -92,13 +90,12 @@ const MapFilter = ({
                 </h2>
               </div>
               <div className={`flex flex-wrap py-4`}>
-                {categoryNames.map(cat => {
-                  const isSelected = selectedCategories.includes(cat)
-                  const category = categories[cat]
+                {categories.map(category => {
+                  const isSelected = selectedCategories.includes(category.id)
                   return (
                     <CategoryButton 
-                      name={cat} 
-                      key={cat} 
+                      name={category.name} 
+                      key={category.name} 
                       category={category} 
                       isSelected={isSelected} 
                       toggleFilter={toggleCategory} 
@@ -119,9 +116,9 @@ const MapFilter = ({
               </div>
               <div className={`flex flex-wrap py-4`}>
                 {tags.map(tag => {
-                  const isSelected = selectedTags.includes(tag)
+                  const isSelected = selectedTags.includes(tag.id)
                   return (
-                    <TagButton name={tag} key={tag} isSelected={isSelected} toggleFilter={toggleFilter} />
+                    <TagButton key={tag.name} tag={tag} isSelected={isSelected} toggleFilter={toggleFilter} />
                   )
                 })}
               </div>

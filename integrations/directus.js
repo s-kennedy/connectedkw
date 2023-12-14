@@ -300,6 +300,7 @@ const getFeatures = async (props) => {
         ...feature,
         categories: feature.categories.map(cat => ({ ...cat.categories_id })),
         tags: feature.tags.map(tag => ({ ...tag.tags_id })),
+        images: feature.images.map(img => ({ ...img.directus_files_id }))
       }
     })
 
@@ -336,6 +337,55 @@ const getFeaturesTags = async (features) => {
   }
 }
 
+const getFeaturesCategories = async (features) => {
+  const featuresIds = features.map(p => p.id)
+
+  try {
+    const result =  await directus.request(
+      readItems('categories', {
+        fields: 'id,name,description,slug',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          points_of_interest: {
+            points_of_interest_id: {
+              _in: featuresIds
+            }
+          }
+        }
+      })
+    );
+    return result    
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+const getCategoriesByGroup = async (group) => {
+
+  try {
+    const result =  await directus.request(
+      readItems('categories', {
+        fields: 'id,name,description,slug,group,colour',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          group: {
+            _eq: group
+          }
+        }
+      })
+    );
+    return result    
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
 
 export { 
   getEvents,
@@ -346,5 +396,7 @@ export {
   getDataSources,
   getActivities,
   getFeatures,
-  getFeaturesTags
+  getFeaturesTags,
+  getFeaturesCategories,
+  getCategoriesByGroup
 };

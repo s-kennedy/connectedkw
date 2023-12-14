@@ -22,14 +22,11 @@ function FeatureDisplay({ feature={}, closeModal }) {
   let imageUrl;
 
   if (image) {
-    imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.directus_files_id.id}` : null
+    imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640` : null
   }
 
   const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&size=120x120&markers=color:red|${location.coordinates.coordinates[1]},${location.coordinates.coordinates[0]}&style=feature:all|saturation:-100`
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${location.coordinates.coordinates[1]},${location.coordinates.coordinates[0]}`
-
-  console.log(location)
-  console.log(mapUrl)
 
   return (
     <div className="h-full w-full bg-white pt-8 border-3 rounded-xl border-black relative">
@@ -42,7 +39,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
           <div className="mb-4">
             <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-lightPurple">
               <img className={`w-full h-full object-cover ${styles.appear}`} src={imageUrl} alt={`Photo of artwork titled ${title}`} />
-              { (image.credit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{imageCredit}</ReactMarkdown></small> }
+              { (image.credit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{`Image credit: ${image.credit}`}</ReactMarkdown></small> }
             </div>
           </div>
           }

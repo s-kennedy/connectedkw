@@ -1,25 +1,26 @@
 import { eventCategories, tagEmojiDict } from "../utils/constants"
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
+import Image from 'next/image'
 
 const FeatureCard = ({ feature, setSelectedFeature, displayFields }) => {
   if (!feature) return null
 
-  const image = feature.Images ? feature.Images[0] : null
-  const imgSrc = image?.thumbnails?.large?.url
-  const imageDescription = feature["Image description"]
-  const title = feature.Title || "Untitled"
+  const image = feature.images ? feature.images[0] : null
+  const imgSrc = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`
+  const imageDescription = image.description
+  const title = feature.title || "Untitled"
 
   return (
     <button onClick={() => setSelectedFeature(feature)} className={`snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden mb-1`}>
       <div className={`w-full h-full min-h-0`}>
       { imgSrc &&
         <div className={`aspect-square flex-none overflow-hidden bg-lightPurple`}>
-          <img
+          <Image
             className={`object-cover w-full h-full min-[500px]:max-md:aspect-square`}
             src={imgSrc}
-            alt={imageDescription}
-            width={image ? image?.thumbnails?.large?.width : undefined}
-            height={image ? image?.thumbnails?.large?.height : undefined}
+            alt={imageDescription || ''}
+            width={image.width}
+            height={image.height}
           />
         </div>
       }
