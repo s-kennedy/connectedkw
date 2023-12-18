@@ -39,7 +39,26 @@ const nextConfig = {
         pathname: '/assets/**',
       }
     ],
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/maps/playgrounds',
+        destination: '/maps/playgrounds-in-kitchener-waterloo',
+        permanent: true,
+      },
+      {
+        source: '/maps/public-art',
+        destination: '/maps/public-art-in-waterloo-region',
+        permanent: true,
+      },
+      {
+        source: '/maps/splashpads',
+        destination: '/maps/splashpads-in-waterloo-region',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = withMDX(withPWA(nextConfig))

@@ -7,6 +7,8 @@ import Filters from "components/Filters"
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import EventCard from "components/EventCard"
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
+import GridCard from "components/GridCard"
 
 const defaultValues = {
   "boolean": false,
@@ -54,8 +56,7 @@ const ActivitiesFeed = ({ activities=[], filters=[] }) => {
 
   const selectRandom = () => {
     const activity = filteredActivities[Math.floor(Math.random()*filteredActivities.length)];
-    const slug = `${slugify(activity.Title, { lower: true })}__${activity.id}`
-    router.push(`/activities/${slug}`)
+    router.push(`/activities/${activity.slug}`)
   }
 
   const filterActivities = () => {
@@ -128,8 +129,15 @@ const ActivitiesFeed = ({ activities=[], filters=[] }) => {
               </div>
             </button>
           </Filters>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{640: 1, 641: 2, 1024: 3}}
+          >
+            <Masonry gutter="0.5rem" columnsCount={1}>
+              {filteredActivities.map(activity => <GridCard item={activity} showImage key={activity.id} />)}
+            </Masonry>
+          </ResponsiveMasonry>
           <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
-          {filteredActivities.map(activity => <EventCard event={activity} key={activity.id} />)}
+          {/*{filteredActivities.map(activity => <EventCard event={activity} key={activity.id} />)}*/}
           </div>
         </div>
       </div>

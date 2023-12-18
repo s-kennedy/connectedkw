@@ -12,7 +12,7 @@ const getActivities = async (props) => {
   try {
     const events =  await directus.request(
       readItems('events', {
-        fields: '*,location,location.*,categories.categories_id.*,tags.tags_id.*',
+        fields: '*,location,location.*,categories.categories_id.*,tags.tags_id.*,image.*',
         filter: {
           status: {
             _eq: 'published',
@@ -51,7 +51,8 @@ const getActivities = async (props) => {
             },
           ]
         },
-        sort: ['start_date', 'start_time']
+        sort: ['start_date', 'start_time'],
+        limit: -1,
       })
     );
 
@@ -74,7 +75,7 @@ const getEvents = async (props) => {
   try {
     const events =  await directus.request(
       readItems('events', {
-        fields: '*,location,location.*,categories.categories_id.*,tags.tags_id.*',
+        fields: '*,location,location.*,categories.categories_id.*,tags.tags_id.*,image.*',
         filter: {
           status: {
             _eq: 'published',
@@ -127,7 +128,8 @@ const getEvents = async (props) => {
             },
           ]
         },
-        sort: ['start_date', 'start_time']
+        sort: ['start_date', 'start_time'],
+        limit: -1,
       })
     );
 
@@ -275,7 +277,7 @@ const getEventBySlug = async (slug) => {
   }
 }
 
-const getFeatures = async (props) => {
+const getFeaturesByCollection = async (collectionId) => {
   try {
     const features =  await directus.request(
       readItems('points_of_interest', {
@@ -286,12 +288,13 @@ const getFeatures = async (props) => {
           },
           collections: {
             collections_id: {
-              slug: {
-                _eq: 'splashpads'
+              id: {
+                _eq: collectionId
               }
             }
           }
         },
+        limit: -1,
       })
     );
 
@@ -373,13 +376,67 @@ const getCategoriesByGroup = async (group) => {
           status: {
             _eq: 'published',
           },
-          group: {
+          category_group: {
             _eq: group
           }
-        }
+        },
+        sort: ['sort'],
       })
     );
     return result    
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+const getPageData = async (slug) => {
+  try {
+    const result =  await directus.request(
+      readItems('pages', {
+        fields: '*,collection.*,collection.category_group.*,collection.tag_group.*,share_image.*',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          slug: {
+            _eq: slug,
+          },
+        },
+        limit: 1,
+      })
+    );
+
+    if (result[0]) {
+      return result[0]    
+    } else {
+      throw Error(`No results found for ${slug}`)
+    }
+  } catch (error) {
+    console.log({error})
+    return null
+  }
+}
+
+const getPagesByTemplate = async (template) => {
+  try {
+    const result =  await directus.request(
+      readItems('pages', {
+        fields: 'slug,title,description,date_created',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          template: {
+            _eq: template
+          },
+        },
+        sort: ['-date_created'],
+        limit: -1,
+      })
+    );
+
+    return result
   } catch (error) {
     console.log({error})
     return []
@@ -395,8 +452,10 @@ export {
   getEventBySlug, 
   getDataSources,
   getActivities,
-  getFeatures,
+  getFeaturesByCollection,
   getFeaturesTags,
   getFeaturesCategories,
-  getCategoriesByGroup
+  getCategoriesByGroup,
+  getPageData,
+  getPagesByTemplate,
 };

@@ -15,7 +15,7 @@ const getActivities = async (selectedTags) => {
     })
     .all();
 
-  const activities = records.map(r => ({ id: r.id, fields: r.fields }))
+  const activities = records.map(r => ({ id: r.id, ...r.fields }))
 
   return activities
 }

@@ -34,7 +34,7 @@ const Legend = ({ map, categories }) => {
     <div ref={ref} className="ml-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
       {categories.map(category => {
         return (
-          <div className="mb-1 space-x-1 flex flex-nowrap items-center" key={categories.id}>
+          <div className="mb-1 space-x-1 flex flex-nowrap items-center" key={category.id}>
             <div className="h-3 w-3 rounded-full border" style={{ backgroundColor: `${category.colour}`}}>
             </div>
             <div>

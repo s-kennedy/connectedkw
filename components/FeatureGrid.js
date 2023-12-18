@@ -7,7 +7,6 @@ const FeatureCard = ({ feature, setSelectedFeature, displayFields }) => {
 
   const image = feature.images ? feature.images[0] : null
   const imgSrc = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`
-  const imageDescription = image.description
   const title = feature.title || "Untitled"
 
   return (
@@ -18,7 +17,7 @@ const FeatureCard = ({ feature, setSelectedFeature, displayFields }) => {
           <Image
             className={`object-cover w-full h-full min-[500px]:max-md:aspect-square`}
             src={imgSrc}
-            alt={imageDescription || ''}
+            alt={image.description || ''}
             width={image.width}
             height={image.height}
           />

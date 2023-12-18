@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { buildDateString } from 'utils/dates'
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, showImage }) => {
   if (!event) return null
 
   const { 
@@ -16,9 +16,7 @@ const EventCard = ({ event }) => {
     end_time,
     categories,
     tags,
-    image_url,
-    image_caption,
-    image_alt_text,
+    image,
     location,
     slug,
     classification,
@@ -34,6 +32,10 @@ const EventCard = ({ event }) => {
   }
   const urlFragment = urlFragments[classification]
 
+  if (image) {
+    console.log({image})
+  }
+
   return (
     <Link href={`/${urlFragment}/${slug}`} className={`${styles.eventCard} btn snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
       <div className={`${styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>
@@ -44,13 +46,13 @@ const EventCard = ({ event }) => {
           </div>
         }
         <div className="w-full flex-auto min-h-0 flex flex-col sm:flex-row justify-stretch items-stretch">
-        { (featured && image_url) &&
+        { ((featured || showImage) && image) &&
           <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
             <img
               className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
-              src={image_url}
-              alt={image_alt_text || title} 
-              title={image_caption}
+              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`}
+              alt={image.description || image.title} 
+              title={image.title}
               loading="lazy"
             />
           </div>

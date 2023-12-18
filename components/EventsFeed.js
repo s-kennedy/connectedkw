@@ -106,7 +106,7 @@ const EventsFeed = ({ events=[], filters=[] }) => {
             reset={reset}
           />
           <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
-          {filteredEvents.map(event => <EventCard event={event} key={event.id} />)}
+            {filteredEvents.map(event => <EventCard event={event} key={event.id} />)}
           </div>
         </div>
       </div>
