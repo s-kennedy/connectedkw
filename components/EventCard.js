@@ -32,10 +32,6 @@ const EventCard = ({ event, showImage }) => {
   }
   const urlFragment = urlFragments[classification]
 
-  if (image) {
-    console.log({image})
-  }
-
   return (
     <Link href={`/${urlFragment}/${slug}`} className={`${styles.eventCard} btn snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden ${styles.result}`}>
       <div className={`${styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>

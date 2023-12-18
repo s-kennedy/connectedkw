@@ -3,9 +3,12 @@ import { useState, useEffect } from "react"
 import ReactModal from "react-modal";
 import Link from 'next/link'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import TagFilter from "components/TagFilter"
 import EventCard from "components/EventCard"
 import Filters from "components/Filters"
+
+const CalendarView = dynamic(() => import('components/CalendarView'))
 
 const defaultValues = {
   "boolean": false,
@@ -13,7 +16,7 @@ const defaultValues = {
 }
 
 const EventsFeed = ({ events=[], filters=[] }) => {
-  const [isLoading, setLoading] = useState(false)
+  // const [isLoading, setLoading] = useState(false)
   const emptyFilters = filters.reduce((a, f) => {
     const defaultValue = defaultValues[f.type]
     return { ...a, [f.id]: defaultValue}
@@ -21,6 +24,15 @@ const EventsFeed = ({ events=[], filters=[] }) => {
   const [selectedFilters, setSelectedFilters] = useState(emptyFilters)
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [featured, setFeatured] = useState(false)
+  const [view, setView] = useState("list")
+
+  const setCalendarView = () => {
+    setView("calendar")
+  }
+
+  const setListView = () => {
+    setView("list")
+  }
 
   useEffect(() => {
     filterEvents()
@@ -58,16 +70,16 @@ const EventsFeed = ({ events=[], filters=[] }) => {
     setFilteredEvents(filteredEvents)
   }
 
-  const fetchEvents = () => {
-    setLoading(true)
-    fetch("/api/events")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllEvents(data.events)
-        setFilteredEvents(data.events)
-        setLoading(false)
-      })
-  }
+  // const fetchEvents = () => {
+  //   setLoading(true)
+  //   fetch("/api/events")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setAllEvents(data.events)
+  //       setFilteredEvents(data.events)
+  //       setLoading(false)
+  //     })
+  // }
 
   const reset = () => {
     setSelectedFilters(emptyFilters)
@@ -99,15 +111,27 @@ const EventsFeed = ({ events=[], filters=[] }) => {
       <div className="p-3">
         <div className={`flex-auto flex-col space-y-2`}>
           <h1 className="text-4xl md:text-5xl font-body font-bold">{`Events (${filteredEvents.length})`}</h1>
-          <Filters
-            filters={filters}
-            selectedFilters={selectedFilters}
-            toggleFn={toggleFn}
-            reset={reset}
-          />
-          <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
-            {filteredEvents.map(event => <EventCard event={event} key={event.id} />)}
+          <div className="w-full flex justify-between items-end md:items-center">
+            <Filters
+              filters={filters}
+              selectedFilters={selectedFilters}
+              toggleFn={toggleFn}
+              reset={reset}
+            />
+            <div className="border-black border-2 rounded-lg mb-2">
+              <button onClick={setListView} className={`btn text-sm border-0 rounded-r-none ${view === "list" ? 'bg-green' : 'bg-white'}`}>List</button>
+              <button onClick={setCalendarView} className={`btn text-sm border-0 rounded-l-none  ${view === "calendar" ? 'bg-green' : 'bg-white'}`}>Calendar</button>
+            </div>
           </div>
+          {
+            view === "list" ? (
+              <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
+                {filteredEvents.map(event => <EventCard event={event} key={event.id} />)}
+              </div>
+            ) : (
+              <CalendarView events={filteredEvents} /> 
+            )
+           }
         </div>
       </div>
     </div>
