@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { tagEmojiDict, eventCategories } from 'utils/constants'
 import ReactModal from 'react-modal';
 
@@ -39,7 +39,23 @@ const MapFilter = ({
   categoriesName,
   tags,
   tagsName,
+  map
 }) => {
+
+  const ref = useRef(null);
+  const [filter, setFilter] = useState()
+
+  useEffect(() => {
+    if (ref.current && !filter) {
+      setFilter(ref.current)
+    }
+  }, [ref]);
+
+  useEffect(() => {
+    if (filter && map) {
+      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(filter);
+    }
+  }, [filter])
 
   useEffect(() => {
     ReactModal.setAppElement(appElementId)
@@ -61,7 +77,7 @@ const MapFilter = ({
   const filterCount = selectedTags.length + selectedCategories.length
 
   return (
-    <div className={`transition-all`}>
+    <div className={`transition-all`} ref={ref} className="m-2">
       <button onClick={openFilters} className="btn btn-purple rounded-lg border-2 text-sm items-baseline">
         {filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}
       </button>

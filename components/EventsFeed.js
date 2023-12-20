@@ -26,12 +26,8 @@ const EventsFeed = ({ events=[], filters=[] }) => {
   const [featured, setFeatured] = useState(false)
   const [view, setView] = useState("list")
 
-  const setCalendarView = () => {
-    setView("calendar")
-  }
-
-  const setListView = () => {
-    setView("list")
+  const toggleView = () => {
+    setView(view === "list" ? "calendar" : "list")
   }
 
   useEffect(() => {
@@ -118,9 +114,11 @@ const EventsFeed = ({ events=[], filters=[] }) => {
               toggleFn={toggleFn}
               reset={reset}
             />
-            <div className="border-black border-2 rounded-lg mb-2">
-              <button onClick={setListView} className={`btn text-sm border-0 rounded-r-none ${view === "list" ? 'bg-green' : 'bg-white'}`}>List</button>
-              <button onClick={setCalendarView} className={`btn text-sm border-0 rounded-l-none  ${view === "calendar" ? 'bg-green' : 'bg-white'}`}>Calendar</button>
+            <div className="border-black border-2 rounded-lg">
+              <button onClick={toggleView} className={`btn text-sm border-0 btn-white`}>
+                {view === "list" ? 'Calendar view' : 'List view'}
+                <i className={`ml-1 fa-solid ${view === "list" ? 'fa-calendar-days' : 'fa-list text-sm'}`}></i>
+              </button>
             </div>
           </div>
           {

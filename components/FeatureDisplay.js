@@ -13,7 +13,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
     title,
     description,
     external_link,
-    link_text='More info',
+    link_text,
     images,
     location
   } = feature;
@@ -60,7 +60,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
             </div>
           </a>
 
-          {external_link && <a className="btn btn-purple my-4" href={external_link} target="_blank" rel="noopener noreferrer">{`🔗 ${link_text}`}</a>}
+          {external_link && <a className="btn btn-purple my-4" href={external_link} target="_blank" rel="noopener noreferrer">{`🔗 ${link_text || 'More info'}`}</a>}
 
       </div>
     </div>

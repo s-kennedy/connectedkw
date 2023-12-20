@@ -129,16 +129,13 @@ const ActivitiesFeed = ({ activities=[], filters=[] }) => {
               </div>
             </button>
           </Filters>
-          <ResponsiveMasonry
+          {/*<ResponsiveMasonry
             columnsCountBreakPoints={{640: 1, 641: 2, 1024: 3}}
           >
             <Masonry gutter="0.5rem" columnsCount={1}>
               {filteredActivities.map(activity => <GridCard item={activity} showImage key={activity.id} />)}
             </Masonry>
-          </ResponsiveMasonry>
-          <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
-          {/*{filteredActivities.map(activity => <EventCard event={activity} key={activity.id} />)}*/}
-          </div>
+          </ResponsiveMasonry>*/}
         </div>
       </div>
     </div>

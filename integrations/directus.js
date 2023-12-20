@@ -394,7 +394,7 @@ const getPageData = async (slug) => {
   try {
     const result =  await directus.request(
       readItems('pages', {
-        fields: '*,collection.*,collection.category_group.*,collection.tag_group.*,share_image.*',
+        fields: '*,collection.id,collection.preview,collection.category_group.*,collection.tag_group.*,share_image.*',
         filter: {
           status: {
             _eq: 'published',
@@ -422,7 +422,7 @@ const getPagesByTemplate = async (template) => {
   try {
     const result =  await directus.request(
       readItems('pages', {
-        fields: 'slug,title,description,date_created',
+        fields: 'slug,title,description,date_created,main_image.*',
         filter: {
           status: {
             _eq: 'published',

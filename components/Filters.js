@@ -25,7 +25,7 @@ const Filters = ({ filters, selectedFilters, toggleFn, reset, children }) => {
 
   return (
     <div className="block">
-      <div className="w-full z-10 relative md:flex md:space-x-1">
+      <div className="w-full z-10 relative md:flex items-center md:space-x-1">
         { filters.map(filter => {
           return (
             <TagFilter

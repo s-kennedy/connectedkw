@@ -104,7 +104,7 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
       >
         {(selectedOptions.length > 0) && <span className="h-2 w-2 rounded-full bg-red inline-block absolute -left-1" /> }
         <span>{filter.label}</span>
-        <i className={`ml-1 fa-solid ${isOpen ? 'fa-caret-left' : 'fa-list text-sm'}`}></i>
+        <i className={`ml-1 fa-solid ${isOpen ? 'fa-caret-left text-black' : 'fa-filter text-sm'}`}></i>
       </button>
       { isOpen &&
       <div 

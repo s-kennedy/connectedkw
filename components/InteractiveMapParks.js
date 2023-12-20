@@ -31,7 +31,8 @@ const Legend = ({ map, categories }) => {
   const categoryNames = categories.map(c => c.name)
 
   return (
-    <div ref={ref} className="ml-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
+    <div ref={ref} className="m-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
+      <p className="font-semibold">Legend</p>
       {categories.map(category => {
         return (
           <div className="mb-1 space-x-1 flex flex-nowrap items-center" key={category.id}>
@@ -282,7 +283,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
 
   return (
     <>
-      <div className="h-full w-full bg-white rounded-xl border-black border-3 overflow-hidden" ref={ref} />
+      <div className="h-full w-full bg-white overflow-hidden border-t-3 border-b-3 border-black" ref={ref} />
       { 
         Children.map(children, (child) => {
           if (isValidElement(child)) {
@@ -300,7 +301,7 @@ const render = ({ status }) => {
 };
 
 const InteractiveMapParks = ({ features, mapConfig }) => {
-  const { categories, categoriesName, tags, tagsName, mapId, featureDisplayFields } = mapConfig
+  const { categories, categoriesName, tags, tagsName, mapId, preview } = mapConfig
   const [previewMarker, setPreviewMarker] = useState(null)
   const [selectedFeature, setSelectedFeature] = useState(null)
   const [selectedTags, setSelectedTags] = useState([])
@@ -308,12 +309,10 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
   const [view, setView] = useState("map")
   const [filteredFeatures, setFilteredFeatures] = useState(features)
 
-  const setMapView = () => {
-    setView("map")
-  }
+  console.log({preview})
 
-  const setGridView = () => {
-    setView("grid")
+  const toggleView = () => {
+    setView(view === "map" ? "grid" : "map")
   }
 
   const filterFeatures = () => {
@@ -386,23 +385,27 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
 
   return(
     <div id={mapId} className="w-full h-full">
-    <div className="w-full flex justify-end space-x-1">
-      <MapFilter 
-        categories={categories}
-        categoriesName={categoriesName}
-        tags={tags}
-        tagsName={tagsName}
-        toggleFilter={toggleFilter}
-        toggleCategory={toggleCategory}
-        selectedTags={selectedTags}
-        selectedCategories={selectedCategories}
-        reset={reset}
-      />
-      <div className="border-black border-2 rounded-lg mb-2">
-        <button onClick={setMapView} className={`btn text-sm border-0 rounded-r-none ${view === "map" ? 'bg-green' : 'bg-white'}`}>Map</button>
-        <button onClick={setGridView} className={`btn text-sm border-0 rounded-l-none ${view === "grid" ? 'bg-green' : 'bg-white'}`}>Grid</button>
+      <div className="w-full flex justify-end items-center space-x-1 mb-2">
+      { view === "grid" &&  
+        <MapFilter 
+          categories={categories}
+          categoriesName={categoriesName}
+          tags={tags}
+          tagsName={tagsName}
+          toggleFilter={toggleFilter}
+          toggleCategory={toggleCategory}
+          selectedTags={selectedTags}
+          selectedCategories={selectedCategories}
+          reset={reset}
+        />
+      }
+        <div className="border-black border-2 rounded-lg">
+          <button onClick={toggleView} className={`btn text-sm border-0 btn-white`}>
+            {view === "map" ? 'Grid view' : 'Map view'}
+            <i className={`ml-1 fa-solid ${view === "map" ? 'fa-table-cells' : 'fa-location-dot'}`}></i>
+          </button>
+        </div>
       </div>
-    </div>
     { view === "map" &&
       <div className="h-visibleScreen">
         <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY} render={render}>
@@ -415,6 +418,17 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
           >
             <InfoWindow marker={previewMarker} previewConfig={mapConfig.preview} />
             <Legend categories={categories} />
+            <MapFilter 
+              categories={categories}
+              categoriesName={categoriesName}
+              tags={tags}
+              tagsName={tagsName}
+              toggleFilter={toggleFilter}
+              toggleCategory={toggleCategory}
+              selectedTags={selectedTags}
+              selectedCategories={selectedCategories}
+              reset={reset}
+            />
           </MapComponent>
         </Wrapper>
       </div>
@@ -425,24 +439,24 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
         features={filteredFeatures} 
         categories={categories}
         setSelectedFeature={setSelectedFeature}
-        displayFields={featureDisplayFields}
+        preview={preview}
       />
     }
-    <ReactModal
-      isOpen={!!selectedFeature}
-      onRequestClose={() => setSelectedFeature(null)}
-      shouldCloseOnOverlayClick={true}
-      shouldCloseOnEsc={true}
-      className="max-w-md mx-auto h-full"
-      style={{
-        overlay: { padding: "3vw", zIndex: 100 }
-      }}
-    >
-      <FeatureDisplay 
-        feature={selectedFeature} 
-        closeModal={() => setSelectedFeature(null)} 
-      />
-    </ReactModal>
+      <ReactModal
+        isOpen={!!selectedFeature}
+        onRequestClose={() => setSelectedFeature(null)}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+        className="max-w-md mx-auto h-full"
+        style={{
+          overlay: { padding: "3vw", zIndex: 100 }
+        }}
+      >
+        <FeatureDisplay 
+          feature={selectedFeature} 
+          closeModal={() => setSelectedFeature(null)} 
+        />
+      </ReactModal>
     </div>
   )
 }

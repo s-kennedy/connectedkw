@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { buildDateString } from 'utils/dates'
+const ReactMarkdown = dynamic(() => import('react-markdown'))
 
-const GridCard = ({ item, displayFields, showImage }) => {
+const GridCard = ({ item, displayFields, showImage, showDescription }) => {
   if (!item) return null
 
   const { 
@@ -27,7 +29,8 @@ const GridCard = ({ item, displayFields, showImage }) => {
   const urlFragments = {
     'activity': 'activities',
     'event': 'events',
-    'recurring event': 'events'
+    'recurring event': 'events',
+    'map': 'maps'
   }
   const urlFragment = urlFragments[classification]
 
@@ -49,6 +52,7 @@ const GridCard = ({ item, displayFields, showImage }) => {
         <div className={`basis-2/3 flex-auto text-left overflow-auto h-full styled-scrollbar p-3`}>
           <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
             { classification === "event" && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateString}</time></p> }
+            { description && showDescription && <ReactMarkdown>{description}</ReactMarkdown>}
             { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
             { !location && location_source_text && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location_source_text}</span></p>}
             { Boolean(categories?.length) && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join(', ')}</span></p>}
