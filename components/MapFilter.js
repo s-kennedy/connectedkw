@@ -79,7 +79,7 @@ const MapFilter = ({
   const filterCount = selectedTags.length + selectedCategories.length
 
   return (
-    <div className={`transition-all`} ref={ref} className="m-2">
+    <div className={`transition-all m-2`} ref={ref}>
       <div className="space-x-1">
         <button onClick={openFilters} className="btn btn-purple rounded-lg border-2 text-sm items-baseline">
           {filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}
