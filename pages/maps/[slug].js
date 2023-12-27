@@ -60,7 +60,7 @@ export default function MapPage({ page, features, tags, categories }) {
       color={page.background_colour} 
       image={page.share_image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${page.share_image.id}` : null}
     >
-      {/*<section className="container">
+      <section className="container mx-auto pt-8">
         <div className="mb-2">
           <h1 className="text-4xl sm:text-6xl md:text-7xl mb-4">
             {page.title}
@@ -69,13 +69,13 @@ export default function MapPage({ page, features, tags, categories }) {
             {page.body}
           </ReactMarkdown>
         </div>
-      </section>*/}
-{/*      <div className="w-screen">
+      </section>
+      <div className="w-screen">
         <InteractiveMapParks 
           features={features} 
           mapConfig={mapConfig}
         />
-      </div>*/}
+      </div>
     </Layout>
   )
 }

@@ -39,7 +39,9 @@ const MapFilter = ({
   categoriesName,
   tags,
   tagsName,
-  map
+  map,
+  toggleView,
+  view
 }) => {
 
   const ref = useRef(null);
@@ -78,9 +80,15 @@ const MapFilter = ({
 
   return (
     <div className={`transition-all`} ref={ref} className="m-2">
-      <button onClick={openFilters} className="btn btn-purple rounded-lg border-2 text-sm items-baseline">
-        {filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}
-      </button>
+      <div className="space-x-1">
+        <button onClick={openFilters} className="btn btn-purple rounded-lg border-2 text-sm items-baseline">
+          {filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}
+        </button>
+        <button onClick={toggleView} className={`btn btn-white text-sm rounded-lg border-2`}>
+          {view === "map" ? 'Grid view' : 'Map view'}
+          <i className={`ml-1 fa-solid ${view === "map" ? 'fa-table-cells' : 'fa-location-dot'}`}></i>
+        </button>
+      </div>
 
       <ReactModal
         isOpen={isOpen}

@@ -129,13 +129,13 @@ const ActivitiesFeed = ({ activities=[], filters=[] }) => {
               </div>
             </button>
           </Filters>
-          {/*<ResponsiveMasonry
+          <ResponsiveMasonry
             columnsCountBreakPoints={{640: 1, 641: 2, 1024: 3}}
           >
             <Masonry gutter="0.5rem" columnsCount={1}>
               {filteredActivities.map(activity => <GridCard item={activity} showImage key={activity.id} />)}
             </Masonry>
-          </ResponsiveMasonry>*/}
+          </ResponsiveMasonry>
         </div>
       </div>
     </div>

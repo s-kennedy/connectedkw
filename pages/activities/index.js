@@ -36,7 +36,7 @@ export default function Activities({ activities=[], categories=[], tags=[] }) {
 
   return (
     <Layout title="Activity ideas for families and kids in Kitchener-Waterloo" description="A curated, seasonal list of family-friendly activity ideas that you can filter for your interests." color="green">
-      <div className="pb-8">
+      <div className="container mx-auto pb-8">
         <ActivitiesFeed activities={activities} filters={filters} />
       </div>
     </Layout>

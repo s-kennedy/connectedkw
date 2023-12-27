@@ -19,9 +19,7 @@ function EventDisplay({ event }) {
     price,
     tags,
     categories,
-    image_url,
-    image_alt_text,
-    image_caption,
+    image,
     location 
   } = event;
 
@@ -31,16 +29,18 @@ function EventDisplay({ event }) {
   const calendarLocation = (location?.name && location?.street_address) ? `${location.name}, ${location.street_address}` : (location?.name) ? `${location.name}` : "TBD"
   const calendarTitle = title ? `${title}` : "Untitled event"
 
+  const imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}` : null
+
   return (
     <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
       <div className="h-full w-full bg-white relative sm:border-black sm:border-3 sm:rounded-xl">
         <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 sm:pt-5`}>
           <div className={styles.appear}>
-            {image_url &&
+            {image &&
             <div className="mb-4">
               <div className="relative">
-                <img className={`object-cover w-full aspect-square sm:aspect-video ${styles.appear}`} src={image_url} alt={image_alt_text} />
-                { (image_caption) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{image_caption}</ReactMarkdown></small> }
+                <img className="w-full object-cover aspect-square sm:aspect-video" src={imageUrl} alt={image.description} width={image.width} height={image.height} />
+                { (image.credit) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{image.credit}</ReactMarkdown></small> }
               </div>
             </div>
             }

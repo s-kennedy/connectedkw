@@ -397,14 +397,10 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
           selectedTags={selectedTags}
           selectedCategories={selectedCategories}
           reset={reset}
+          toggleView={toggleView}
+          view={view}
         />
       }
-        <div className="border-black border-2 rounded-lg">
-          <button onClick={toggleView} className={`btn text-sm border-0 btn-white`}>
-            {view === "map" ? 'Grid view' : 'Map view'}
-            <i className={`ml-1 fa-solid ${view === "map" ? 'fa-table-cells' : 'fa-location-dot'}`}></i>
-          </button>
-        </div>
       </div>
     { view === "map" &&
       <div className="h-visibleScreen">
@@ -428,6 +424,8 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
               selectedTags={selectedTags}
               selectedCategories={selectedCategories}
               reset={reset}
+              toggleView={toggleView}
+              view={view}
             />
           </MapComponent>
         </Wrapper>
