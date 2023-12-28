@@ -1,19 +1,34 @@
 import Layout from 'components/Layout'
 import EventsFeed from 'components/EventsFeed'
-import { getEvents, getEventCategories, getEventTags, getDataSources } from 'integrations/directus';
+import { getCategories, getTags, getDataSources } from 'integrations/directus';
+import { useState, useEffect } from 'react'
 
 export async function getServerSideProps() {
-  const events = await getEvents()
-  const categories = await getEventCategories(events)
-  const tags = await getEventTags(events)
+  const categories = await getCategories('Age groups')
+  const tags = await getTags('Events and activities')
   const dataSources = await getDataSources()
 
   return {
-    props: { events, tags, categories, dataSources },
+    props: { tags, categories, dataSources },
   }
 }
 
-export default function Events({ events=[], categories=[], tags=[], dataSources=[] }) {
+export default function Events({ categories=[], tags=[], dataSources=[] }) {
+  const [events, setEvents] = useState([])
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const data = await fetch('/api/events');
+      const json = await data.json();
+      setEvents(json);
+    }
+
+    try {
+      fetchEvents()
+    } catch(err) {
+      console.log(err)
+    }
+  }, [])
 
   const filters = [
     {

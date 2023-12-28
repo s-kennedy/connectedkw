@@ -71,11 +71,11 @@ const getActivities = async (props) => {
   }
 }
 
-const getEvents = async (props) => {
+const getEvents = async (limit=-1, offset=0) => {
   try {
     const events =  await directus.request(
       readItems('events', {
-        fields: '*,location,location.*,categories.categories_id.*,tags.tags_id.*,image.*',
+        fields: '*,location,location.name,categories.categories_id.name,categories.categories_id.id,tags.tags_id.id,tags.tags_id.name,image.*',
         filter: {
           status: {
             _eq: 'published',
@@ -129,7 +129,8 @@ const getEvents = async (props) => {
           ]
         },
         sort: ['start_date', 'start_time'],
-        limit: -1,
+        limit: limit,
+        offset: offset
       })
     );
 
@@ -175,6 +176,31 @@ const getEventCategories = async (events) => {
   }
 }
 
+const getCategories = async (category_group) => {
+  try {
+    const result =  await directus.request(
+      readItems('categories', {
+        fields: 'id,name,description,slug',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          category_group: {
+            group: {
+              _eq: category_group
+            }
+          }
+        }
+      })
+    );
+
+    return result    
+  } catch (error) {
+    console.log(JSON.stringify(error))
+    return []
+  }
+}
+
 const getEventTags = async (events) => {
   const eventIds = events.map(e => e.id)
 
@@ -189,6 +215,30 @@ const getEventTags = async (events) => {
           events: {
             events_id: {
               _in: eventIds
+            }
+          }
+        }
+      })
+    );
+    return result    
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+const getTags = async (tag_group) => {
+  try {
+    const result =  await directus.request(
+      readItems('tags', {
+        fields: 'id,name,description,slug',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          tag_group: {
+            group: {
+              _eq: tag_group
             }
           }
         }
@@ -448,6 +498,8 @@ export {
   getEvents,
   getEvent,
   getEventCategories,
+  getCategories,
+  getTags,
   getEventTags,
   getEventBySlug, 
   getDataSources,

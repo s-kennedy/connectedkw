@@ -1,6 +1,5 @@
 import styles from "styles/events.module.css"
 import { useState, useEffect } from "react"
-import ReactModal from "react-modal";
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
@@ -32,11 +31,7 @@ const EventsFeed = ({ events=[], filters=[] }) => {
 
   useEffect(() => {
     filterEvents()
-  }, [selectedFilters])
-
-  useEffect(() => {
-    ReactModal.setAppElement("#event-feed")
-  })
+  }, [selectedFilters, events])
 
   const filterEvents = () => {
     let filteredEvents = events;
