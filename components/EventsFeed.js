@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import TagFilter from "components/TagFilter"
 import EventCard from "components/EventCard"
 import Filters from "components/Filters"
+import Loading from 'components/Loading'
 
 const CalendarView = dynamic(() => import('components/CalendarView'))
 
@@ -14,7 +15,7 @@ const defaultValues = {
   "select-multiple": []
 }
 
-const EventsFeed = ({ events=[], filters=[] }) => {
+const EventsFeed = ({ events=[], filters=[], loading }) => {
   // const [isLoading, setLoading] = useState(false)
   const emptyFilters = filters.reduce((a, f) => {
     const defaultValue = defaultValues[f.type]
@@ -97,34 +98,42 @@ const EventsFeed = ({ events=[], filters=[] }) => {
     }
   }
 
+  const eventTitle =  loading ? 'Events' : `Events (${filteredEvents.length})`
+
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="p-3">
         <div className={`flex-auto flex-col space-y-2`}>
-          <h1 className="text-4xl md:text-5xl font-body font-bold">{`Events (${filteredEvents.length})`}</h1>
-          <div className="w-full flex justify-between items-end md:items-center">
-            <Filters
-              filters={filters}
-              selectedFilters={selectedFilters}
-              toggleFn={toggleFn}
-              reset={reset}
-            />
-            <div className="border-black border-2 rounded-lg">
-              <button onClick={toggleView} className={`btn text-sm border-0 btn-white`}>
-                {view === "list" ? 'Calendar view' : 'List view'}
-                <i className={`ml-1 fa-solid ${view === "list" ? 'fa-calendar-days' : 'fa-list text-sm'}`}></i>
-              </button>
-            </div>
-          </div>
-          {
-            view === "list" ? (
-              <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
-                {filteredEvents.map(event => <EventCard event={event} key={event.id} />)}
-              </div>
+          <h1 className="text-4xl md:text-5xl font-body font-bold">{eventTitle}</h1>
+          {loading ? (
+            <Loading />
             ) : (
-              <CalendarView events={filteredEvents} /> 
-            )
-           }
+            <>
+              <div className="w-full flex justify-between items-end md:items-center">
+                <Filters
+                  filters={filters}
+                  selectedFilters={selectedFilters}
+                  toggleFn={toggleFn}
+                  reset={reset}
+                />
+                <div className="border-black border-2 rounded-lg">
+                  <button onClick={toggleView} className={`btn text-sm border-0 btn-white`}>
+                    {view === "list" ? 'Calendar view' : 'List view'}
+                    <i className={`ml-1 fa-solid ${view === "list" ? 'fa-calendar-days' : 'fa-list text-sm'}`}></i>
+                  </button>
+                </div>
+              </div>
+              {
+                view === "list" ? (
+                  <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
+                    {filteredEvents.map(event => <EventCard event={event} key={event.id} />)}
+                  </div>
+                ) : (
+                  <CalendarView events={filteredEvents} /> 
+                )
+              }
+            </>
+          )}
         </div>
       </div>
     </div>

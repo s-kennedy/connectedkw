@@ -15,17 +15,21 @@ export async function getServerSideProps() {
 
 export default function Events({ categories=[], tags=[], dataSources=[] }) {
   const [events, setEvents] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchEvents = async () => {
       const data = await fetch('/api/events');
       const json = await data.json();
       setEvents(json);
+      setLoading(false)
     }
 
     try {
+      setLoading(true)
       fetchEvents()
     } catch(err) {
+      setLoading(false)
       console.log(err)
     }
   }, [])
@@ -66,7 +70,7 @@ export default function Events({ categories=[], tags=[], dataSources=[] }) {
   return (
     <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
       <div className="container mx-auto pb-12">
-        <EventsFeed events={events} filters={filters} />
+        <EventsFeed events={events} filters={filters} loading={loading} />
       </div>
     </Layout>
   )
