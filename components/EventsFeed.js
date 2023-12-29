@@ -16,7 +16,7 @@ const defaultValues = {
 }
 
 const EventsFeed = ({ events=[], filters=[], loading }) => {
-  // const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(loading)
   const emptyFilters = filters.reduce((a, f) => {
     const defaultValue = defaultValues[f.type]
     return { ...a, [f.id]: defaultValue}
@@ -34,7 +34,12 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
     filterEvents()
   }, [selectedFilters, events])
 
+  useEffect(() => {
+    setLoading(loading)
+  }, [loading])
+
   const filterEvents = () => {
+    setLoading(true)
     let filteredEvents = events;
 
     filters.forEach(filter => {
@@ -60,6 +65,7 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
     })
 
     setFilteredEvents(filteredEvents)
+    setLoading(false)
   }
 
   // const fetchEvents = () => {
@@ -98,14 +104,14 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
     }
   }
 
-  const eventTitle =  loading ? 'Events' : `Events (${filteredEvents.length})`
+  const eventTitle =  isLoading ? 'Events' : `Events (${filteredEvents.length})`
 
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="p-3">
         <div className={`flex-auto flex-col space-y-2`}>
           <h1 className="text-4xl md:text-5xl font-body font-bold">{eventTitle}</h1>
-          {loading ? (
+          {isLoading ? (
             <Loading />
             ) : (
             <>
