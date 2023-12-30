@@ -1,7 +1,8 @@
 import { useEffect } from "react"
 import { useRouter } from 'next/router';
 import AOS from 'aos';
-import { Analytics } from '@vercel/analytics/react';
+// import { Analytics } from '@vercel/analytics/react';
+import PlausibleProvider from 'next-plausible'
 
 
 import 'aos/dist/aos.css';
@@ -19,8 +20,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Component {...pageProps} />
-      <Analytics />
+      <PlausibleProvider domain="unboringkw.com">
+        <Component {...pageProps} />
+      </PlausibleProvider>
     </>
   );
 }
