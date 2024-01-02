@@ -23,7 +23,7 @@ export default function AllArticles({ pages }) {
   return (
     <Layout title="All articles" color="red">
       <div className="container sm:max-w-screen-md md:max-w-screen-lg mx-auto py-5">
-        <h1 className="text-8xl md:text-9xl font-display mb-2">{`Blog`}</h1>
+        <h1 className="text-4 md:text-6xl font-title">{`Blog`}</h1>
 
         <div className="space-y-2">
         {

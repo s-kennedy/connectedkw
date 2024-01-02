@@ -111,8 +111,8 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
       <div className="">
         <div className={`flex-auto flex-col space-y-2`}>
           <h1 className="mb-2 space-x-2">
-            <span className="text-8xl md:text-9xl font-display">Events</span>
-            {length && <span className="font-body font-medium text-2xl bg-black text-white rounded-full px-3 py-1 align-top ">{length}</span>}
+            <span className="text-4 md:text-6xl font-title">Events</span>
+            {length && <span className="font-body text-lg md:text-xl bg-black text-white rounded-full px-3 py-1 align-top ">{length}</span>}
           </h1>
           {isLoading ? (
             <Loading />
