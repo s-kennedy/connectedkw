@@ -104,13 +104,16 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
     }
   }
 
-  const eventTitle =  isLoading ? 'Events' : `Events (${filteredEvents.length})`
+  const length = isLoading ? false : `${filteredEvents.length}`
 
   return (
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
-      <div className="p-3">
+      <div className="">
         <div className={`flex-auto flex-col space-y-2`}>
-          <h1 className="text-4xl md:text-5xl font-body font-bold">{eventTitle}</h1>
+          <h1 className="mb-2 space-x-2">
+            <span className="text-8xl md:text-9xl font-display">Events</span>
+            {length && <span className="font-body font-medium text-2xl bg-black text-white rounded-full px-3 py-1 align-top ">{length}</span>}
+          </h1>
           {isLoading ? (
             <Loading />
             ) : (

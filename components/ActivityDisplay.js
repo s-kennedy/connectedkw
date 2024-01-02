@@ -26,9 +26,9 @@ function ActivityDisplay({ activity }) {
   const imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}` : null
 
   return (
-    <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
-      <div className="min-h-screen sm:min-h-0 h-full w-full bg-white relative sm:border-black sm:border-3 sm:rounded-xl">
-        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 sm:pt-5`}>
+    <div className="container sm:max-w-screen-lg mx-auto py-5">
+      <div className="min-h-screen sm:min-h-0 h-full w-full bg-white relative sm:border-black sm:border-3 sm:rounded-xl overflow-hidden">
+        <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full sm:p-5`}>
           <div className=''>
             {image &&
             <div className="mb-4">

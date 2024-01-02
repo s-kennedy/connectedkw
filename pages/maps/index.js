@@ -27,7 +27,7 @@ export default function Maps({pages}) {
   return (
     <Layout title="Maps" color="yellow">
       <div className="container mx-auto p-3 pb-8">
-        <h1 className="text-4xl md:text-5xl font-body font-bold">{`Places to Go`}</h1>
+        <h1 className="text-8xl md:text-9xl font-display mb-2">{`Places to Go`}</h1>
         <div className="space-y-2">
 
           <ResponsiveMasonry

@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   content: [
     "./pages/**/*.{js,jsx}",
@@ -40,6 +42,10 @@ module.exports = {
     fontFamily: {
       body: ['Fredoka', 'Helvetica Neue', 'sans-serif'],
       title: ['Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
+      display: ['var(--font-jackerton)', 'Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
+    },
+    container: {
+      padding: '1rem',
     },
     extend: {
       borderWidth: {
@@ -60,5 +66,20 @@ module.exports = {
       }
     },
   },
-  plugins: []
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode
+        ".horizontal-writing-tb": { "writing-mode": "horizontal-tb" },
+        ".vertical-writing-rl": { "writing-mode": "vertical-rl" },
+        ".vertical-writing-lr": { "writing-mode": "vertical-lr" },
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/text-orientation
+        ".orientation-mixed": { "text-orientation": "mixed" },
+        ".orientation-upright": { "text-orientation": "upright" },
+        ".orientation-sideways-right": { "text-orientation": "sideways-right" },
+        ".orientation-sideways": { "text-orientation": "sideways" },
+        ".orientation-glyph": { "text-orientation": "use-glyph-orientation" },
+      })
+    }),
+  ],
 }

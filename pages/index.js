@@ -8,69 +8,100 @@ import Section from 'components/Section'
 import MailchimpSubscriptionForm from 'components/MailchimpSubscriptionForm'
 import Blob from 'components/Blob'
 import Marquee from 'components/Marquee'
-import { getArticles } from 'utils/articles';
+import GridCard from "components/GridCard"
 
-export async function getStaticProps() {
-  const articles = await getArticles()
+import { getPagesByTemplate, getActivities, getEvents } from 'integrations/directus';
+
+export async function getStaticProps({ params }) {
+  const places = await getPagesByTemplate('map')
+  const activities = await getActivities()
+  const events = await getEvents(10)
+
+  const randomActivities = [...Array(10)].map((item, i) => {
+    const randomIndex = Math.floor(Math.random()*activities.length);
+    const randomActivity = activities[randomIndex]
+    activities.splice(randomIndex,1)
+    return randomActivity
+  })
+
   return {
-    props: { articles },
+    props: { places, activities: randomActivities, events }
   }
 }
 
-export default function Home({ articles }) {
+export default function Home({ places, activities, events }) {
+
+  const mapPages = places.map(page => {
+    return {
+      ...page,
+      image: page.main_image,
+      classification: 'map'
+    }
+  })
 
   return (
-    <Layout color="blue">
-      <MouseParallaxContainer
-        globalFactorX={0.2}
-        globalFactorY={0.2}
-      >
-        <section className={`w-full relative`} id="landing">
-          <div className="container p-3 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col sm:flex-row h-full">
-            <div className="basis-1/2 flex flex-col justify-center">
-              <MouseParallaxChild factorX={0.3} factorY={0.2} inverted>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-body font-bold mb-8 sm:mb-16 -rotate-6">
-                  Hi KW 👋
-                </h1>
-              </MouseParallaxChild>
-              <p className="text-lg sm:text-xl mb-4">{`Here you'll find things to do for families, children, and your inner child. Let's have some fun!`}</p>
-              <div data-aos="zoom-in-right" data-aos-delay="500">
-                <Link
-                  href="/events"
-                  className="transition-all btn btn-green">
-                  Give me something to do 🙏
-                </Link>
+    <Layout color="rainbow">
+      <section className={`relative`} id="landing">
+        <div className="container py-5 mx-auto flex justify-center items-center">
+          <div className={``}>
+            <h1 className={`text-[38vw] sm:text-[28vw] md:text-[24vw] font-display mt-6 mb-6 sm:text-center sm:whitespace-nowrap`}>
+              <span className="text-black sm:text-red">unboring </span>
+              <span className="text-red sm:text-black">kw</span>
+            </h1>
+            <div className="flex justify-center w-full relative">
+              <p className="text-lg md:text-2xl mb-4 w-5/12 md:w-3/12">
+                {`Family-friendly things to do and places to go in Waterloo Region`}
+              </p>
+              <div data-aos="zoom-in" data-aos-delay="300" className="relative w-5/12 md:w-3/12">
+                <Image src="/goose.png" height="200" width="200" className="-mt-8 object-contain absolute bottom-1/4 left-0 lg:bottom-0 md:left-1/4 scale-[1.75] sm:scale-125 md:scale-[1.7]" />
               </div>
             </div>
-            <div className="basis-1/2 relative max-w-md md:mx-auto flex-auto min-h-0 place-self-start md:place-self-end md:mb-12 mt-20 p-5">
-              <MouseParallaxChild factorX={0.1} factorY={0.1}>
-                <div className={`object-cover`}>
-                  <Image
-                    src="/via-tracks-shape.png"
-                    alt="Via rail train tracks"
-                    width="800"
-                    height="500"
-                  />
-                </div>
-              </MouseParallaxChild>
-              <MouseParallaxChild factorX={0.1} factorY={0.2}>
-                <Image src="/blob-green.svg" width="280" height="280" className="absolute bottom-0 right-0" alt="" />
-              </MouseParallaxChild>
-              <MouseParallaxChild factorX={0.3} factorY={0.4}>
-                <Image src={"/biking-girl.png"} width="320" height="320" className="absolute bottom-8 right-0" alt="" />
-              </MouseParallaxChild>
-            </div>
-          </div>
-        </section>
-      </MouseParallaxContainer>
-      
-      <section className={`w-full relative`} id="subscribe">
-        <div className="container p-3 lg:p-8 max-w-sm sm:max-w-screen-md lg:max-w-screen-lg mx-auto flex flex-col">
-          <div className="flex items-center flex-col md:flex-row md:space-x-8">
-            <MailchimpSubscriptionForm />
           </div>
         </div>
       </section>
+
+      <section className={`w-full relative mb-6`} data-aos="fade-up" data-aos-delay="600">
+        <div className="container p-3 mx-auto">
+          <h2 className="font-title text-3xl md:text-4xl mt-6 mb-6">
+            Upcoming Events 🗓
+          </h2>
+          <div className="flex flex-nowrap space-x-4 overflow-auto styled-scrollbar snap-x snap-mandatory ">
+            {events.map(event => <GridCard item={event} showImage key={event.slug} className="w-10/12 md:w-5/12 lg:w-3/12 flex-none snap-center snap-always md:snap-start" />)}
+          </div>
+          <div className="w-full text-lg mt-4">
+            <Link href="/events">See all the events</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className={`w-full relative mb-6`} data-aos="fade-up">
+        <div className="container p-3 mx-auto">
+          <h2 className="font-title text-3xl md:text-4xl mb-6">
+            Activity Ideas 🏓
+          </h2>
+          <div className="flex flex-nowrap space-x-4 overflow-auto styled-scrollbar snap-x snap-mandatory ">
+            {activities.map(activity => <GridCard item={activity} showImage key={activity.slug} className="w-10/12 md:w-5/12 lg:w-3/12 flex-none snap-center snap-always md:snap-start" />)}
+          </div>
+          <div className="w-full text-lg mt-4">
+            <Link href="/activities">See all the activities</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className={`w-full relative mb-6`} data-aos="fade-up">
+        <div className="container p-3 mx-auto">
+          <h2 className="font-title text-3xl md:text-4xl mb-6">
+            Places to Go 🥾
+          </h2>
+          <div className="flex flex-nowrap space-x-4 overflow-auto styled-scrollbar snap-x snap-mandatory ">
+            {mapPages.map(map => <GridCard item={map} showImage showDescription key={map.slug} className="w-10/12 md:w-5/12 lg:w-3/12 flex-none snap-center snap-always md:snap-start" />)}
+          </div>
+{/*          <div className="w-full text-lg mt-4">
+            <Link href="/places">See all the maps</Link>
+          </div>*/}
+        </div>
+      </section>
+    
     </Layout>
   )
 }

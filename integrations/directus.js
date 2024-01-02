@@ -8,7 +8,8 @@ import {
 
 const directus = createDirectus(process.env.DIRECTUS_URL).with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
 
-const getActivities = async (props) => {
+const getActivities = async (limit=-1, offset=0) => {
+
   try {
     const events =  await directus.request(
       readItems('events', {
@@ -52,7 +53,7 @@ const getActivities = async (props) => {
           ]
         },
         sort: ['start_date', 'start_time'],
-        limit: -1,
+        limit: limit,
       })
     );
 

@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { useRouter } from 'next/router';
+import localFont from 'next/font/local';
 import AOS from 'aos';
-// import { Analytics } from '@vercel/analytics/react';
 import PlausibleProvider from 'next-plausible'
-
+const jackerton = localFont({ src: '../fonts/Jackerton-Regular.otf', variable: "--font-jackerton" })
 
 import 'aos/dist/aos.css';
 import '../styles/globals.css'
@@ -14,16 +14,16 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     AOS.init({
       delay: 200,
-      duration: 200,
+      duration: 300,
     });
   });
 
   return (
-    <>
+    <div className={`${jackerton.variable}`}>
       <PlausibleProvider domain="unboringkw.com">
         <Component {...pageProps} />
       </PlausibleProvider>
-    </>
+    </div>
   );
 }
 

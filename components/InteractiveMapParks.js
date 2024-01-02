@@ -163,7 +163,8 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
       map.setOptions({ 
         zoom: MAP_ZOOM_LEVEL,
         center: DEFAULT_MAP_CENTER,
-        styles: MAP_STYLE 
+        styles: MAP_STYLE ,
+        mapTypeControl: false,
       });
     }
   }, [map]);
@@ -385,23 +386,6 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
 
   return(
     <div id={mapId} className="w-full h-full">
-      <div className="w-full flex justify-end items-center space-x-1 mb-2">
-      { view === "grid" &&  
-        <MapFilter 
-          categories={categories}
-          categoriesName={categoriesName}
-          tags={tags}
-          tagsName={tagsName}
-          toggleFilter={toggleFilter}
-          toggleCategory={toggleCategory}
-          selectedTags={selectedTags}
-          selectedCategories={selectedCategories}
-          reset={reset}
-          toggleView={toggleView}
-          view={view}
-        />
-      }
-      </div>
     { view === "map" &&
       <div className="h-visibleScreen">
         <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY} render={render}>
@@ -433,12 +417,29 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
     }
     {
       view === "grid" && 
-      <FeatureGrid 
-        features={filteredFeatures} 
-        categories={categories}
-        setSelectedFeature={setSelectedFeature}
-        preview={preview}
-      />
+      <div className="container mx-auto">
+        <div className="w-full flex justify-end items-center">
+          <MapFilter 
+            categories={categories}
+            categoriesName={categoriesName}
+            tags={tags}
+            tagsName={tagsName}
+            toggleFilter={toggleFilter}
+            toggleCategory={toggleCategory}
+            selectedTags={selectedTags}
+            selectedCategories={selectedCategories}
+            reset={reset}
+            toggleView={toggleView}
+            view={view}
+          />
+        </div>
+        <FeatureGrid 
+          features={filteredFeatures} 
+          categories={categories}
+          setSelectedFeature={setSelectedFeature}
+          preview={preview}
+        />
+      </div>
     }
       <ReactModal
         isOpen={!!selectedFeature}
