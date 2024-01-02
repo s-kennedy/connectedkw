@@ -4,7 +4,7 @@
     "background_color": "#cbe0ea",
     "display": "browser",
     "scope": "/",
-    "start_url": "/events",
+    "start_url": "/",
     "name": "Unboring KW",
     "short_name": "Unboring KW",
     "description": "The best way to find out about family-friendly events and activities in our community",
