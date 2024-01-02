@@ -40,6 +40,7 @@ module.exports = {
     fontFamily: {
       body: ['Fredoka', 'Helvetica Neue', 'sans-serif'],
       title: ['Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
+      display: ['var(--font-jackerton)', 'Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
     },
     extend: {
       borderWidth: {

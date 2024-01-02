@@ -110,7 +110,7 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="p-3">
         <div className={`flex-auto flex-col space-y-2`}>
-          <h1 className="text-4xl md:text-5xl font-body font-bold">{eventTitle}</h1>
+          <h1 className="text-8xl md:text-8xl font-display">Events</h1>
           {isLoading ? (
             <Loading />
             ) : (
