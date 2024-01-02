@@ -13,8 +13,8 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     AOS.init({
-      delay: 200,
-      duration: 200,
+      offset: 200,
+      duration: 300,
     });
   });
 

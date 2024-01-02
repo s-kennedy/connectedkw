@@ -60,7 +60,7 @@ export default function MapPage({ page, features, tags, categories }) {
       color={page.background_colour} 
       image={page.share_image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${page.share_image.id}` : null}
     >
-      <section className="container mx-auto pt-8">
+      <section className="container mx-auto pt-8 pb-4">
         <div className="mb-2">
           <h1 className="text-4xl sm:text-6xl md:text-7xl mb-4">
             {page.title}

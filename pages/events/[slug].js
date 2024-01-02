@@ -13,9 +13,9 @@ export async function getServerSideProps({ params }) {
 export default function EventPage({ event }) {
 
   return (
-    <Layout color="white md-blue" title={event.title} description={event.description}>
-      <div className="container sm:p-8 sm:max-w-screen-lg mx-auto">
-        <div className="h-full w-full bg-white relative sm:border-black sm:border-3 sm:rounded-xl">
+    <Layout color="white md-blue" className="md:bg-lightBlue" title={event.title} description={event.description}>
+      <div className="container py-5 sm:max-w-screen-lg mx-auto">
+        <div className="h-full w-full bg-white relative sm:border-black sm:border-3 sm:rounded-xl sm:p-5">
         	<EventDisplay event={event} />
         </div>
       </div>

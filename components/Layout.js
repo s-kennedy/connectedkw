@@ -22,6 +22,7 @@ const Layout = ({
   description="Things to do in Kitchener Waterloo for families, children, and your inner child",
   image="https://www.unboringkw.com/share-image.jpg",
   color="rainbow",
+  className="",
   children }) => {
 
   const router = useRouter()
@@ -65,7 +66,7 @@ const Layout = ({
   const currentStop = stops.find(stop => router.pathname.startsWith(`/${stop.slug}`)) || stops[0]
 
   return (
-    <div className={`page-bg-${color} flex flex-auto flex-col justify-stretch items-stretch min-h-screen w-full`}>
+    <div className={`page-bg-${color} flex flex-auto flex-col justify-stretch items-stretch min-h-screen w-full ${className}`}>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -93,7 +94,7 @@ const Layout = ({
 
       </main>
 
-      {/*<Footer />*/}
+      <Footer />
     </div>
   )
 }

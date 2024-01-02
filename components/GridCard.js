@@ -35,7 +35,7 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
   const urlFragment = urlFragments[classification]
 
   return (
-    <Link href={`/${urlFragment}/${slug}`} className={`${className} btn snap-start transition-all relative p-0 items-start flex-col w-full bg-white border-3 rounded-xl border-black overflow-hidden mb-1`}>
+    <Link href={`/${urlFragment}/${slug}`} className={`${className} btn snap-start transition-all relative p-0 items-start flex-col bg-white border-3 rounded-xl border-black overflow-hidden mb-1`}>
       <div className={`w-full h-full min-h-0`}>
       { image && showImage &&
         <div className={`aspect-square flex-none overflow-hidden bg-lightPurple`}>

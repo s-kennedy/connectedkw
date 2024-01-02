@@ -114,29 +114,27 @@ const ActivitiesFeed = ({ activities=[], filters=[] }) => {
 
   return (
     <div id="activity-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
-      <div className="p-3">
-        <div className={`flex-auto flex-col space-y-2`}>
-          <h1 className="text-4xl md:text-5xl font-body font-bold">{`Activities (${filteredActivities.length})`}</h1>
-          <Filters
-            filters={filters}
-            selectedFilters={selectedFilters}
-            toggleFn={toggleFn}
-            reset={reset}
-          >
-            <button onClick={selectRandom} className="btn btn-white relative space-x-1 mb-2">
-              <div className="relative">
-                <span>Pick for me 🎲</span>
-              </div>
-            </button>
-          </Filters>
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{640: 1, 641: 2, 1024: 3}}
-          >
-            <Masonry gutter="0.5rem" columnsCount={1}>
-              {filteredActivities.map(activity => <GridCard item={activity} showImage key={activity.id} />)}
-            </Masonry>
-          </ResponsiveMasonry>
-        </div>
+      <div className={`flex-auto flex-col space-y-2`}>
+        <h1 className="text-4xl md:text-5xl font-body font-bold">{`Activities (${filteredActivities.length})`}</h1>
+        <Filters
+          filters={filters}
+          selectedFilters={selectedFilters}
+          toggleFn={toggleFn}
+          reset={reset}
+        >
+          <button onClick={selectRandom} className="btn btn-white relative space-x-1 mb-2">
+            <div className="relative">
+              <span>Pick for me 🎲</span>
+            </div>
+          </button>
+        </Filters>
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{640: 1, 641: 2, 1024: 3}}
+        >
+          <Masonry gutter="0.5rem" columnsCount={1}>
+            {filteredActivities.map(activity => <GridCard item={activity} showImage key={activity.id} />)}
+          </Masonry>
+        </ResponsiveMasonry>
       </div>
     </div>
   )

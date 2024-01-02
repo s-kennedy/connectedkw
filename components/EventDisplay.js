@@ -34,7 +34,7 @@ function EventDisplay({ event, showImage=true, closeModal }) {
   const imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}` : null
 
   return (
-    <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full p-5 sm:pt-5`}>
+    <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full`}>
     
       <div className={styles.appear}>
         {image && showImage &&
