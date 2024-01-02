@@ -1,12 +1,12 @@
 import Layout from 'components/Layout'
 import ActivitiesFeed from 'components/ActivitiesFeed'
-import { getActivities, getEventCategories, getEventTags } from 'integrations/directus';
+import { getActivities, getCategories, getTags } from 'integrations/directus';
 import slugify from 'slugify';
 
 export async function getStaticProps() {
   const activities = await getActivities()
-  const categories = await getEventCategories(activities)
-  const tags = await getEventTags(activities)
+  const categories = await getCategories('Age groups')
+  const tags = await getTags('Events and activities')
 
   return {
     props: { activities, tags, categories }
@@ -22,7 +22,7 @@ export default function Activities({ activities=[], categories=[], tags=[] }) {
       type: 'select-multiple',
       options: categories,
       multipleSelect: true,
-      attributeFn: (activity) => activity.Category
+      attributeFn: (event) => event.categories.map(c => c.id)
     },
     {
       label: 'Tags',
@@ -30,13 +30,13 @@ export default function Activities({ activities=[], categories=[], tags=[] }) {
       type: 'select-multiple',
       options: tags,
       multipleSelect: true,
-      attributeFn: (activity) => activity.Tags
-    }
+      attributeFn: (event) => event.tags.map(t => t.id)
+    },  
   ]
 
   return (
     <Layout title="Activity ideas for families and kids in Kitchener-Waterloo" description="A curated, seasonal list of family-friendly activity ideas that you can filter for your interests." color="green">
-      <div className="container mx-auto pb-8">
+      <div className="container py-5 mx-auto">
         <ActivitiesFeed activities={activities} filters={filters} />
       </div>
     </Layout>

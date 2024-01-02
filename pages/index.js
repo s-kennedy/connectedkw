@@ -42,25 +42,25 @@ export default function Home({ places, activities, events }) {
   return (
     <Layout color="rainbow">
       <section className={`relative`} id="landing">
-        <div className="container p-3 mx-auto flex justify-center items-center">
+        <div className="container py-5 mx-auto flex justify-center items-center">
           <div className={``}>
-            <h1 className={`text-[27vw] md:text-[24vw] font-display mt-6 mb-6 text-center whitespace-nowrap`}>
-              <span className="text-red">unboring </span>
-              <span className="text-black">kw</span>
+            <h1 className={`text-[38vw] sm:text-[28vw] md:text-[24vw] font-display mt-6 mb-6 sm:text-center sm:whitespace-nowrap`}>
+              <span className="text-black sm:text-red">unboring </span>
+              <span className="text-red sm:text-black">kw</span>
             </h1>
             <div className="flex justify-center w-full relative">
-              <p data-aos="zoom-in" data-aos-delay="400" className="text-lg md:text-2xl mb-4 w-5/12 md:w-3/12">
+              <p className="text-lg md:text-2xl mb-4 w-5/12 md:w-3/12">
                 {`Family-friendly things to do and places to go in Waterloo Region`}
               </p>
-              <div data-aos="zoom-in" data-aos-delay="900" className="relative w-5/12 md:w-3/12">
-                <Image src="/goose.png" height="200" width="200" className="-mt-8 object-contain absolute bottom-1/4 left-0 lg:bottom-0 md:left-1/4 scale-150 sm:scale-125 md:scale-[1.7]" />
+              <div data-aos="zoom-in" data-aos-delay="300" className="relative w-5/12 md:w-3/12">
+                <Image src="/goose.png" height="200" width="200" className="-mt-8 object-contain absolute bottom-1/4 left-0 lg:bottom-0 md:left-1/4 scale-[1.75] sm:scale-125 md:scale-[1.7]" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className={`w-full relative mb-6`} data-aos="fade-up">
+      <section className={`w-full relative mb-6`} data-aos="fade-up" data-aos-delay="600">
         <div className="container p-3 mx-auto">
           <h2 className="font-title text-3xl md:text-4xl mt-6 mb-6">
             Upcoming Events 🗓

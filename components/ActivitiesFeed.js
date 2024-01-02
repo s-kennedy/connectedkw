@@ -66,17 +66,17 @@ const ActivitiesFeed = ({ activities=[], filters=[] }) => {
       switch (filter.type) {
       case "boolean":
         if (selectedFilters[filter.id] === true) {
-          filteredActivities = filteredActivities.filter(activity => filter.attributeFn(activity) === true) 
+          filteredActivities = filteredActivities.filter(event => filter.attributeFn(event) === true) 
         }
         break;
       case "select-multiple":
         if (Boolean(selectedFilters[filter.id]?.length)) {
-          filteredActivities = filteredActivities.filter(activity => {
-            const attributeIds = filter.attributeFn(activity) || []
+          filteredActivities = filteredActivities.filter(event => {
+            const attributeIds = filter.attributeFn(event)
             const selectedFilterIds = selectedFilters[filter.id]
             const matches = selectedFilterIds.map(id => attributeIds.includes(id))
-            // only allow activities that match ALL the selected filters.
-            // use .some() to keep the activities that match ANY of the selected filters.
+            // only allow events that match ALL the selected filters.
+            // use .some() to keep the events that match ANY of the selected filters.
             return matches.some(m => m)
           })
         }
@@ -115,7 +115,10 @@ const ActivitiesFeed = ({ activities=[], filters=[] }) => {
   return (
     <div id="activity-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className={`flex-auto flex-col space-y-2`}>
-        <h1 className="text-4xl md:text-5xl font-body font-bold">{`Activities (${filteredActivities.length})`}</h1>
+        <h1 className="mb-2 space-x-2">
+          <span className="text-8xl md:text-9xl font-display">Activities</span>
+          <span className="font-body font-medium text-2xl bg-black text-white rounded-full px-3 py-1 align-top ">{`${filteredActivities.length}`}</span>
+        </h1>
         <Filters
           filters={filters}
           selectedFilters={selectedFilters}

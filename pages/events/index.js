@@ -69,7 +69,7 @@ export default function Events({ categories=[], tags=[], dataSources=[] }) {
   ]
   return (
     <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
-      <div className="container py-5 mx-auto pb-12">
+      <div className="container py-5 mx-auto">
         <EventsFeed events={events} filters={filters} loading={loading} />
       </div>
     </Layout>
