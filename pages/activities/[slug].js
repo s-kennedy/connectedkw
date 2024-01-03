@@ -12,8 +12,15 @@ export async function getServerSideProps({ params }) {
 }
 
 export default function EventPage({ event }) {
+  const imageUrl = event.image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.image.id}` : null
   return (
-    <Layout color="white" className="md:bg-lightGreen" title={event.title} description={event.description}>
+    <Layout 
+      color="white" 
+      className="md:bg-lightGreen" 
+      title={event.title} 
+      description={event.description}
+      image={imageUrl}
+    >
       <ActivityDisplay activity={event} />
     </Layout>
   )

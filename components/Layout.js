@@ -20,7 +20,7 @@ const stops = [
 const Layout = ({
   title="Unboring KW",
   description="Things to do in Kitchener Waterloo for families, children, and your inner child",
-  image="https://www.unboringkw.com/share-image.jpg",
+  image,
   color="rainbow",
   className="",
   children }) => {
@@ -28,7 +28,8 @@ const Layout = ({
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
   const [menuHidden, setMenuHidden] = useState(true)
-  const url = `https://www.unboringkw.com${router.pathname}`
+  const url = `https://www.unboringkw.com${router.asPath}`
+  const shareImageUrl = image ? image : "https://www.unboringkw.com/share-image.jpg"
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
@@ -70,17 +71,17 @@ const Layout = ({
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
-        <meta name="image" content={image} />
+        <meta name="image" content={shareImageUrl} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:url" content={url} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={image} />
+        <meta name="twitter:image" content={shareImageUrl} />
         <meta name="twitter:creator" content="@unboringkw" />
         <meta property="og:title" content={title} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
-        <meta property="og:image" content={image} />
+        <meta property="og:image" content={shareImageUrl} />
         <meta property="og:description" content={description} />
       </Head>
 
