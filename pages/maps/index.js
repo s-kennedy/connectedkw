@@ -26,7 +26,7 @@ export default function Maps({pages}) {
 
   return (
     <Layout title="Maps" color="yellow">
-      <div className="container mx-auto p-3 pb-8">
+      <div className="container mx-auto py-5">
         <h1 className="text-4 md:text-6xl font-title">{`Places to Go`}</h1>
         <div className="space-y-2">
 

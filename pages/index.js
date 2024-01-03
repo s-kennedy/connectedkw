@@ -12,7 +12,7 @@ import GridCard from "components/GridCard"
 
 import { getPagesByTemplate, getActivities, getEvents } from 'integrations/directus';
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const places = await getPagesByTemplate('map')
   const activities = await getActivities()
   const events = await getEvents(10)

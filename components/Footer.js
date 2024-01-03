@@ -11,12 +11,12 @@ const Footer = () => {
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg text-white">We are looking for founding partners and sponsors</p>
               <p className="text-white">Unboring KW is a new volunteer-run project with the goal of creating an inclusive and comprehensive resource for families in KW.</p>
-              <p className="text-white">If your organization might be interested in a partnership or sponsorship please <a href="mailto:hi@unboringkw.com">reach out</a>!</p>
+              <p className="text-white">If your organization might be interested in a partnership or sponsorship please <a href="mailto:hi@unboringkw.com">reach out!</a></p>
             </div>
 
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg text-white">Interested in contributing?</p>
-              <p className="text-white">Whether you want to add an event, write a blog post, or create an interactive map, we appreciate your contribution! Feel free to email Sharon at <a href="mailto:hi@unboringkw.com">hi@unboringkw.com</a> or DM me on <a href="https://instagram.com/unboringkw">Instagram</a>.</p>
+              <p className="text-white">Whether you want to add an event, write a blog post, or create an interactive map, we appreciate your contribution! Feel free to email Sharon at <a href="mailto:hi@unboringkw.com">hi@unboringkw.com</a> or DM me on <a href="https://instagram.com/unboringkw">Instagram.</a></p>
             </div>
           </div>
 
