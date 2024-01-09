@@ -57,6 +57,11 @@ const nextConfig = {
         destination: '/maps/splashpads-in-waterloo-region',
         permanent: true,
       },
+      {
+        source: '/camps',
+        destination: '/articles/summer-camps-2024',
+        permanent: false,
+      },
     ]
   },
 }
