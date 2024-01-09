@@ -1,6 +1,8 @@
 import styles from "../styles/ideaGenerator.module.css"
 import { eventCategories, tagEmojiDict } from "../utils/constants"
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
+import remarkGfm from 'remark-gfm'
 import { AddToCalendarButton } from 'add-to-calendar-button-react';
 import Link from 'next/link'
 import { buildDateString, getCalendarDates } from 'utils/dates'
@@ -45,7 +47,7 @@ function EventDisplay({ event, showImage=true, closeModal }) {
           </div>
         </div>
         }
-        {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
+        {title && <h1 className="text-4xl mb-3 font-body font-bold">{title}</h1>}
         <p className="mb-1 space-x-3 flex flex-nowrap">
           <span>🗓</span>
           <span>{dateString}</span>
@@ -53,7 +55,16 @@ function EventDisplay({ event, showImage=true, closeModal }) {
         { price && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🎟</span><span>{price}</span></p>}
         { location && <p className="mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}<br />{location.street_address}</span></p>}
         { external_link && <p className="mb-1 space-x-3 flex flex-nowrap"><span>🔗</span><a href={external_link} target="_blank" rel="noopener noreferrer">{`${link_text}`}</a></p>}
-        { description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
+        { description && 
+          <div className="my-4 markdown">
+            <ReactMarkdown 
+              rehypePlugins={[rehypeRaw]} 
+              remarkPlugins={[remarkGfm]}
+            >
+              {description}
+            </ReactMarkdown>
+          </div>
+        }
 
         <div className="flex items-center">
         {

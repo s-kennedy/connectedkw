@@ -14,16 +14,28 @@ const CalendarView = ({ events }) => {
   })
 
 	const calendarEvents = events.map(event => {
+		const { start_date, start_time, end_date, end_time } = event
+		let endDateObj;
+		if (end_date && end_time) {
+	    endDateObj = new Date(`${end_date}T${end_time}`)
+	  } else {
+	    const luxonDate = DateTime.fromISO(`${start_date}T${start_time}`)
+	    const oneHourLater = luxonDate.plus({ hours: 1 }).toISO()
+	    endDateObj = new Date(oneHourLater)
+	  }
+
 		return {
 			...event,
 			start: new Date(`${event.start_date}T${event.start_time}`),
-			end: new Date(`${event.end_date}T${event.end_time}`)
+			end: endDateObj,
 		}
 	})
 
 	const onSelectEvent = useCallback((calEvent) => {
     setSelectedEvent(calEvent)
   }, [])
+
+  console.log({calendarEvents})
 
 	return (
 		<div id="calendar-view">
@@ -33,6 +45,7 @@ const CalendarView = ({ events }) => {
 		      events={calendarEvents}
 		      startAccessor="start"
 		      endAccessor="end"
+		      allDayAccessor="all_day"
 		      onSelectEvent={onSelectEvent}
 		    />
 		  </div>
@@ -50,7 +63,9 @@ const CalendarView = ({ events }) => {
       		<div className="w-full flex justify-end absolute top-0 left-0 pr-2">
 		        <button onClick={() => setSelectedEvent(null)} className={`text-lg font-medium btn-clear`}>✕</button>
 		      </div>
-	        <EventDisplay event={selectedEvent} closeModal={() => setSelectedEvent(null)} showImage={false} />
+		      <div className="p-4">
+		        <EventDisplay event={selectedEvent} closeModal={() => setSelectedEvent(null)} showImage={false} />
+		      </div>
 	      </div>
       </ReactModal>
 	  </div>

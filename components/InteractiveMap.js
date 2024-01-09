@@ -6,10 +6,11 @@ import Section from 'components/Section'
 import FeatureDisplay from 'components/FeatureDisplay'
 import FeatureList from 'components/FeatureList'
 import FeatureGrid from 'components/FeatureGrid'
-import MapFilter from 'components/MapFilter'
 import ReactModal from "react-modal";
+import MapFilter from 'components/MapFilter'
 
-import { DEFAULT_MAP_CENTER, MAP_ZOOM_LEVEL, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_MARKER_COLOR } from "utils/constants";
+import { DEFAULT_MAP_CENTER, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_MARKER_COLOR } from "utils/constants";
+const MAP_ZOOM_LEVEL = 14
 
 const Legend = ({ map, categories }) => {
   const ref = useRef(null);
@@ -27,17 +28,18 @@ const Legend = ({ map, categories }) => {
     }
   }, [legend])
 
-  const categoryNames = Object.keys(categories)
+  const categoryNames = categories.map(c => c.name)
 
   return (
-    <div ref={ref} className="ml-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
-      {categoryNames.map(category => {
+    <div ref={ref} className="m-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
+      <p className="font-semibold">Legend</p>
+      {categories.map(category => {
         return (
-          <div className="mb-1 space-x-1 flex flex-nowrap items-center" key={category}>
-            <div className="h-3 w-3 rounded-full border" style={{ backgroundColor: `${categories[category]["color"]}`}}>
+          <div className="mb-1 space-x-1 flex flex-nowrap items-center" key={category.id}>
+            <div className="h-3 w-3 rounded-full border" style={{ backgroundColor: `${category.colour}`}}>
             </div>
             <div>
-              {category}
+              {category.name}
             </div>
           </div>
         )
@@ -65,7 +67,7 @@ const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedFeatur
   useEffect(() => {
     if (marker) {
       const position = new google.maps.LatLng(feature.Latitude, feature.Longitude)
-      const color = category.color || DEFAULT_MARKER_COLOR
+      const color = category.colour || DEFAULT_MARKER_COLOR
       const icon = {
         path: MARKER_SVG,
         fillColor: color,
@@ -93,20 +95,19 @@ const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedFeatur
   return null;
 };
 
-const generatePreview = (feature) => {
-  if (feature.Images) {
-    const image = feature.Images[0]
-    const imageSrc = image.thumbnails.large.url
-    return (`<div class="map-infowindow"><div class="image"><img src="${imageSrc}" alt="Photo of artwork" /></div></div>`)
+const generatePreview = (feature, previewConfig={}) => {
+  const title = feature.title || ""
+
+  if (feature.images) {
+    const image = feature.images[0]
+    const imageSrc = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=thumbnail-100`
+    return (`<div class="map-infowindow"><div class="image"><img src="${imageSrc}" alt="Photo of park" /></div><p class="title">${title}</p></div>`)
   }
 
-  const title = feature.Title || "Untitled"
-  const artist = feature.Artist || "Artist unknown"
-  const date = feature.Year || "ND"
-  return (`<div class="map-infowindow"><p class="title">${title}</p><p class="artist">${artist}, ${date}</p></div>`)
+  return (`<div class="map-infowindow"><p class="title">${title}</p></div>`)
 }
 
-const InfoWindow = ({ map, marker }) => {
+const InfoWindow = ({ map, marker, previewConfig }) => {
   const [infoWindow, setInfoWindow] = useState();
 
   useEffect(() => { 
@@ -125,7 +126,7 @@ const InfoWindow = ({ map, marker }) => {
   useEffect(() => {
     if (infoWindow && marker) {
       const feature = marker.properties
-      const content = generatePreview(feature)
+      const content = generatePreview(feature, previewConfig)
 
       infoWindow.setContent(content)
       infoWindow.open({
@@ -162,7 +163,8 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
       map.setOptions({ 
         zoom: MAP_ZOOM_LEVEL,
         center: DEFAULT_MAP_CENTER,
-        styles: MAP_STYLE 
+        styles: MAP_STYLE ,
+        mapTypeControl: false,
       });
     }
   }, [map]);
@@ -181,9 +183,12 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
       setMarkers([])
 
       const gmapMarkers = features.map(feature => {
-        const position = new google.maps.LatLng(feature.Latitude, feature.Longitude)
-        const category = categories[feature.Category] || {}
-        const color = category.color || DEFAULT_MARKER_COLOR
+        console.log({feature})
+        if (!feature?.location?.coordinates?.coordinates) return null
+        const [longitude, latitude] = feature.location.coordinates.coordinates
+        const position = new google.maps.LatLng(latitude, longitude)
+        const category = feature.categories[0] || {}
+        const color = category.colour || DEFAULT_MARKER_COLOR
         const icon = {
           path: MARKER_SVG,
           fillColor: color,
@@ -210,7 +215,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
         marker.addListener("click", () => setSelectedFeature(marker.properties))
 
         return marker
-      })
+      }).filter(i => i)
 
       setMarkers(gmapMarkers)
 
@@ -259,10 +264,12 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
     }
 
     const bounds = new google.maps.LatLngBounds();
-    features.forEach(feat => {
-      if (feat.Latitude && feat.Longitude) {
-        const pos = { lat: feat.Latitude, lng: feat.Longitude }
-        bounds.extend(pos);
+    features.forEach(feature => {
+      if (feature?.location?.coordinates?.coordinates) {
+        const [longitude, latitude] = feature.location.coordinates.coordinates
+        const position = new google.maps.LatLng(latitude, longitude)
+        // const pos = { lat: feat.Latitude, lng: feat.Longitude }
+        bounds.extend(position);
       }
     })
 
@@ -278,7 +285,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
 
   return (
     <>
-      <div className="h-full w-full bg-white rounded-xl border-black border-3 overflow-hidden" ref={ref} />
+      <div className="h-full w-full bg-white overflow-hidden border-3 rounded-xl border-black" ref={ref} />
       { 
         Children.map(children, (child) => {
           if (isValidElement(child)) {
@@ -295,109 +302,46 @@ const render = ({ status }) => {
   return <Loading />;
 };
 
-const InteractiveMap = ({ features, categories }) => {
+const InteractiveMap = ({ features, mapConfig }) => {
+  const { mapId, preview } = mapConfig
   const [previewMarker, setPreviewMarker] = useState(null)
   const [selectedFeature, setSelectedFeature] = useState(null)
-  const [selectedCategories, setSelectedCategories] = useState([])
-  const [filteredFeatures, setFilteredFeatures] = useState(features)
-  const [view, setView] = useState("map")
-
-  const setMapView = () => {
-    setView("map")
-  }
-
-  const setGridView = () => {
-    setView("grid")
-  }
-
-  const reset = () => {
-    setSelectedCategories([])
-  }
-
-  const filterFeatures = () => {
-    let newSetOfFeatures = features
-
-    if (selectedCategories.length > 0) {
-      newSetOfFeatures = newSetOfFeatures.filter(feature => {
-        return selectedCategories.includes(feature.Category)
-      })
-    }
-
-    setFilteredFeatures(newSetOfFeatures)
-  }
-
-  const toggleCategory = (categoryName) => {
-    const alreadySelected = selectedCategories.includes(categoryName)
-
-    if (alreadySelected) {
-      const filteredCategories = selectedCategories.filter(item => item != categoryName)
-      setSelectedCategories(filteredCategories)
-    } else {
-      const newCategories = [...selectedCategories, categoryName]
-      setSelectedCategories(newCategories)
-    }
-  }
 
   useEffect(() => {
-    ReactModal.setAppElement("#interactive-map")
+    ReactModal.setAppElement(`#${mapId}`)
   })
 
-  useEffect(() => {
-    filterFeatures()
-  }, [selectedCategories])
-
   return(
-    <div id="interactive-map" className="w-full h-full">
-    <div className="w-full flex justify-end space-x-1">
-      <MapFilter 
-        categories={categories}
-        categoriesName="category"
-        toggleCategory={toggleCategory}
-        selectedCategories={selectedCategories}
-        reset={reset}
-      />
-      <div className="border-black border-2 rounded-lg mb-2">
-        <button onClick={setMapView} className={`btn text-sm border-0 rounded-r-none ${view === "map" ? 'bg-green' : 'bg-white'}`}>Map</button>
-        <button onClick={setGridView} className={`btn text-sm border-0 rounded-l-none ${view === "grid" ? 'bg-green' : 'bg-white'}`}>Grid</button>
-      </div>
-    </div>
-    { view === "map" &&
+    <div id={mapId} className="w-full h-full">
       <div className="h-visibleScreen">
         <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY} render={render}>
           <MapComponent 
-            features={filteredFeatures} 
-            categories={categories}
+            features={features} 
             setPreviewMarker={setPreviewMarker} 
             setSelectedFeature={setSelectedFeature}
             previewMarker={previewMarker}
           >
-            <InfoWindow marker={previewMarker} />
-            <Legend categories={categories} />
+            <InfoWindow marker={previewMarker} previewConfig={mapConfig.preview} />
+            {/*<Legend categories={categories} />*/}
           </MapComponent>
         </Wrapper>
       </div>
-    }
-    {
-      view === "grid" && 
-      <FeatureGrid 
-        features={filteredFeatures} 
-        categories={categories}
-        setSelectedFeature={setSelectedFeature}
-        displayFields={['Artist', 'Location description', 'Street address']}
-      />
-    }
-    <ReactModal
-      isOpen={!!selectedFeature}
-      onRequestClose={() => setSelectedFeature(null)}
-      shouldCloseOnOverlayClick={true}
-      shouldCloseOnEsc={true}
-      className="max-w-md mx-auto h-full"
-      style={{
-        overlay: { padding: "3vw", zIndex: 100 }
-      }}
-    >
-      <FeatureDisplay feature={selectedFeature} closeModal={() => setSelectedFeature(null)} />
-    </ReactModal>
+    
+      <ReactModal
+        isOpen={!!selectedFeature}
+        onRequestClose={() => setSelectedFeature(null)}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+        className="max-w-md mx-auto h-full"
+        style={{
+          overlay: { padding: "3vw", zIndex: 100 }
+        }}
+      >
+        <FeatureDisplay 
+          feature={selectedFeature} 
+          closeModal={() => setSelectedFeature(null)} 
+        />
+      </ReactModal>
     </div>
   )
 }

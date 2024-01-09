@@ -1,4 +1,5 @@
 import { DEFAULT_LOCALE, DATE_FORMAT, TIME_FORMAT } from 'utils/constants'
+import { DateTime } from 'luxon'
 
 const buildDateString = (start_date, end_date, start_time, end_time) => {
   let startDateTimeString, endDateTimeString, fullDateTimeString
@@ -50,7 +51,14 @@ const buildDateString = (start_date, end_date, start_time, end_time) => {
 
 const getCalendarDates = (start_date, end_date, start_time, end_time) => {
   const startDateObj = new Date(`${start_date}T${start_time}`)
-  const endDateObj = new Date(`${end_date ? end_date : start_time}T${end_time}`)
+  let endDateObj;
+  if (end_date && end_time) {
+    endDateObj = new Date(`${end_date}T${end_time}`)
+  } else {
+    const luxonDate = DateTime.fromISO(`${start_date}T${start_time}`)
+    const oneHourLater = luxonDate.plus({ hours: 1 }).toISO()
+    endDateObj = new Date(oneHourLater)
+  }
   
   const calendarStartDate = `${startDateObj.toLocaleString(DEFAULT_LOCALE, { year: "numeric" })}-${startDateObj.toLocaleString(DEFAULT_LOCALE, { month: "2-digit" })}-${startDateObj.toLocaleString(DEFAULT_LOCALE, { day: "2-digit" })}`
   const calendarStartTime = `${startDateObj.toLocaleTimeString(DEFAULT_LOCALE, { hour: 'numeric', minute: '2-digit', hour12: false })}`

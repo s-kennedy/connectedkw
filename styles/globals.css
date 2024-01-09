@@ -315,3 +315,24 @@ article ul {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;  
 }
+
+.markdown blockquote {
+  border-left: 4px solid var(--theme-light-purple);
+  padding-left: 12px;
+}
+
+.markdown blockquote * {
+  color: #6c757d;
+}
+
+.markdown ul {
+  list-style: inside;
+  margin-bottom: 1rem;
+}
+
+.markdown ul li {
+  margin-left: 1rem;
+}
+
+
+

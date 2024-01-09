@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { buildDateString } from 'utils/dates'
 
-const EventCard = ({ event, showImage }) => {
+const EventCard = ({ event, showImage, labels }) => {
   if (!event) return null
 
   const { 
@@ -20,7 +20,8 @@ const EventCard = ({ event, showImage }) => {
     location,
     slug,
     classification,
-    location_source_text 
+    location_source_text,
+    price
   } = event;
 
   const dateString = buildDateString(start_date, end_date, start_time, end_time)
@@ -28,7 +29,8 @@ const EventCard = ({ event, showImage }) => {
   const urlFragments = {
     'activity': 'activities',
     'event': 'events',
-    'recurring event': 'events'
+    'recurring event': 'events',
+    'camp': 'events'
   }
   const urlFragment = urlFragments[classification]
 
@@ -55,11 +57,60 @@ const EventCard = ({ event, showImage }) => {
         }
           <div className={`basis-1/2 flex-auto text-left overflow-auto h-full styled-scrollbar p-3`}>
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
-            { classification === "event" && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateString}</time></p> }
-            { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
-            { !location && location_source_text && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location_source_text}</span></p>}
-            { Boolean(categories?.length) && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join(', ')}</span></p>}
-            { Boolean(tags?.length) && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>#️⃣</span><span>{tags.map(t => t.name).join(', ')}</span></p>}
+            { (classification === "event" || classification === "camp") && 
+              <p className="text-sm mb-1 space-x-3 flex flex-nowrap">
+                <span>🗓</span>
+                <span className="space-x-2">
+                  <span className="font-medium">{labels.date}</span>
+                  <time>{dateString}</time>
+                </span>
+              </p> 
+            }
+            { location && 
+              <p className="text-sm mb-1 space-x-3 flex flex-nowrap">
+                <span>📍</span>
+                <span className="space-x-2">
+                  <span className="font-medium">{labels.location}</span>
+                  <span>{location.name}</span>
+                </span>
+              </p>
+            }
+            { !location && location_source_text && 
+              <p className="text-sm mb-1 space-x-3 flex flex-nowrap">
+                <span>📍</span>
+                <span className="space-x-2">
+                  <span className="font-medium">{labels.location}</span>
+                  <span>{location_source_text}</span>
+                </span>
+              </p>
+            }
+            { price &&  
+              <p className="text-sm mb-1 space-x-3 flex flex-nowrap">
+                <span>🎟</span>
+                <span className="space-x-2">
+                  <span className="font-medium">{labels.price}</span>
+                  <span>{price}</span>
+                </span>
+              </p>
+            }
+            { Boolean(categories?.length) && 
+              <p className="text-sm mb-1 space-x-3 flex flex-nowrap">
+                <span>🏷</span>
+                <span className="space-x-2">
+                  <span className="font-medium">{labels.categories}</span>
+                  <span>{categories.map(c => c.name).join(', ')}</span>
+                </span>
+              </p>
+            }
+            { Boolean(tags?.length) && 
+              <p className="text-sm mb-1 space-x-3 flex flex-nowrap">
+                <span>#️⃣</span>
+                <span className="space-x-2">
+                  <span className="font-medium">{labels.tags}</span>
+                  <span>{tags.map(t => t.name).join(', ')}</span>
+                </span>
+              </p>
+            }
           </div>
         </div>
       </div>

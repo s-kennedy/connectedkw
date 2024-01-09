@@ -9,13 +9,26 @@ import Filters from "components/Filters"
 import Loading from 'components/Loading'
 
 const CalendarView = dynamic(() => import('components/CalendarView'))
+const InteractiveMap = dynamic(() => import('components/InteractiveMap'))
 
 const defaultValues = {
   "boolean": false,
   "select-multiple": []
 }
 
-const EventsFeed = ({ events=[], filters=[], loading }) => {
+const defaultConfig = {
+  labels: {
+    date: 'Date',
+    location: 'Place',
+    price: 'Price',
+    categories: 'Categories',
+    tags: 'Tags',
+  },
+  views: ['list', 'calendar']
+}
+
+const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={}, children }) => {
+  const fullConfig = { ...defaultConfig, ...config }
   const [isLoading, setLoading] = useState(loading)
   const emptyFilters = filters.reduce((a, f) => {
     const defaultValue = defaultValues[f.type]
@@ -26,8 +39,8 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
   const [featured, setFeatured] = useState(false)
   const [view, setView] = useState("list")
 
-  const toggleView = () => {
-    setView(view === "list" ? "calendar" : "list")
+  const toggleView = (newView) => () => {
+    setView(newView)
   }
 
   useEffect(() => {
@@ -111,9 +124,10 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
       <div className="">
         <div className={`flex-auto flex-col space-y-2`}>
           <h1 className="mb-2 space-x-2">
-            <span className="text-4 md:text-6xl font-title">Events</span>
+            <span className="text-4 md:text-6xl font-title">{title}</span>
             {length && <span className="font-body text-lg md:text-xl bg-black text-white rounded-full px-3 py-1 align-top ">{length}</span>}
           </h1>
+          {children}
           {isLoading ? (
             <Loading />
             ) : (
@@ -125,21 +139,50 @@ const EventsFeed = ({ events=[], filters=[], loading }) => {
                   toggleFn={toggleFn}
                   reset={reset}
                 />
-                <div className="border-black border-2 rounded-lg">
-                  <button onClick={toggleView} className={`btn text-sm border-0 btn-white`}>
-                    {view === "list" ? 'Calendar view' : 'List view'}
-                    <i className={`ml-1 fa-solid ${view === "list" ? 'fa-calendar-days' : 'fa-list text-sm'}`}></i>
-                  </button>
+                <div className="space-x-1">
+                  {fullConfig.views.map(v => {
+                    if (v === 'list') {
+                      return (
+                        <button onClick={toggleView(v)} className={`btn text-sm border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                          <span>List</span>
+                          <i className={`ml-1 fa-solid fa-list text-sm`}></i>
+                        </button>
+                      )
+                    }
+
+                    if (v === 'calendar') {
+                      return (
+                        <button onClick={toggleView(v)} className={`btn text-sm border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                          <span>Calendar</span>
+                          <i className={`ml-1 fa-solid fa-calendar-days`}></i>
+                        </button>
+                      )
+                    } 
+
+                    if (v === 'map') {
+                      return (
+                        <button onClick={toggleView(v)} className={`btn text-sm border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                          <span>Map</span>
+                          <i className={`ml-1 fa-solid fa-location-dot`}></i>
+                        </button>
+                      )
+                    } 
+                  })}
                 </div>
               </div>
               {
-                view === "list" ? (
-                  <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
-                    {filteredEvents.map(event => <EventCard event={event} key={event.id} />)}
-                  </div>
-                ) : (
-                  <CalendarView events={filteredEvents} /> 
-                )
+                view === "list" && 
+                <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
+                  {filteredEvents.map(event => <EventCard labels={fullConfig.labels} event={event} key={event.id} />)}
+                </div>
+              }
+              {
+                view === "calendar" && 
+                <CalendarView events={filteredEvents} /> 
+              }
+              {
+                view === "map" && 
+                <InteractiveMap features={filteredEvents} mapConfig={{ mapId: 'summer-camps-2024' }} /> 
               }
             </>
           )}

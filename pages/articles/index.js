@@ -26,6 +26,20 @@ export default function AllArticles({ pages }) {
         <h1 className="text-4 md:text-6xl font-title">{`Blog`}</h1>
 
         <div className="space-y-2">
+        <Link key={'summer-camps-2024'} href={`/articles/summer-camps-2024`} className={`btn relative snap-start transition-all p-3 items-start flex-col w-full bg-white border-3 rounded-xl border-black`}>
+          <div className="w-full article">
+              <h3>Summer Day Camps in KW (2024)</h3>
+              <p className="uppercase text-sm mb-2 text-grey"><time>{new Date('2024-01-09T06:32:18.577Z').toLocaleDateString(locale, options)}</time></p>
+              <p className="">
+                The Christmas lights are still up, but it's already time to start thinking about summer camps 😑
+              </p>
+              <div className="divider flex justify-center items-center space-x-4 my-6">
+                <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />
+                <Blob fill="var(--theme-yellow)" className="inline-block w-2" />
+                <Blob fill="var(--theme-green)" className="inline-block w-2 -rotate-45" />
+              </div>
+            </div>
+        </Link>
         {
           pages.map(page => {
             const publishedOn = new Date(page.date_created).toLocaleDateString(locale, options);

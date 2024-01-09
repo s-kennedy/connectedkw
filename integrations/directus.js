@@ -494,6 +494,40 @@ const getPagesByTemplate = async (template) => {
   }
 }
 
+const getCamps = async () => {
+  try {
+    const events =  await directus.request(
+      readItems('events', {
+        fields: '*,location,location.*,categories.categories_id.name,categories.categories_id.id,tags.tags_id.id,tags.tags_id.name,image.*',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          classification: {
+            _eq: 'camp'
+          }, 
+        },
+        sort: ['title'],
+        limit: -1,
+        offset: 0
+      })
+    );
+
+    const result = events.map(event => {
+      return {
+        ...event,
+        categories: event.categories.map(cat => ({ ...cat.categories_id })),
+        tags: event.tags.map(tag => ({ ...tag.tags_id })),
+      }
+    })
+
+    return result;
+  } catch (error) {
+    console.log(JSON.stringify(error))
+    return []
+  }
+}
+
 
 export { 
   getEvents,
@@ -511,4 +545,5 @@ export {
   getCategoriesByGroup,
   getPageData,
   getPagesByTemplate,
+  getCamps
 };

@@ -38,7 +38,7 @@ function ActivityDisplay({ activity }) {
               </div>
             </div>
             }
-            {title && <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>}
+            {title && <h1 className="text-4xl mb-3 font-body font-bold">{title}</h1>}
             {description && <div className="mb-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
             {external_link && <a className="text-blue" href={external_link} target="_blank" rel="noopener noreferrer">{link_text}</a>}
             <div className="flex flex-wrap my-4">
