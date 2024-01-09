@@ -31,7 +31,7 @@ export default function AllArticles({ pages }) {
               <h3>Summer Day Camps in KW (2024)</h3>
               <p className="uppercase text-sm mb-2 text-grey"><time>{new Date('2024-01-09T06:32:18.577Z').toLocaleDateString(locale, options)}</time></p>
               <p className="">
-                The Christmas lights are still up, but it's already time to start thinking about summer camps 😑
+                {`The Christmas lights are still up, but it's already time to start thinking about summer camps 😑`}
               </p>
               <div className="divider flex justify-center items-center space-x-4 my-6">
                 <Blob fill="var(--theme-red)" className="inline-block w-2 rotate-45" />

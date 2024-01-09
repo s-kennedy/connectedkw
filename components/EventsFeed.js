@@ -143,7 +143,7 @@ const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={},
                   {fullConfig.views.map(v => {
                     if (v === 'list') {
                       return (
-                        <button onClick={toggleView(v)} className={`btn text-sm border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                        <button id={v.id} onClick={toggleView(v)} className={`btn text-sm border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
                           <span>List</span>
                           <i className={`ml-1 fa-solid fa-list text-sm`}></i>
                         </button>
