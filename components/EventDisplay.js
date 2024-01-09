@@ -34,6 +34,7 @@ function EventDisplay({ event, showImage=true, closeModal }) {
   const calendarTitle = title ? `${title}` : "Untitled event"
 
   const imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}` : null
+  const showCalendarButton = new Date(start_date) > new Date()
 
   return (
     <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full`}>
@@ -68,7 +69,7 @@ function EventDisplay({ event, showImage=true, closeModal }) {
 
         <div className="flex items-center">
         {
-          event &&
+          showCalendarButton && 
           <AddToCalendarButton
             name={calendarTitle}
             startDate={calendarStartDate}

@@ -67,7 +67,12 @@ export default function SummerCamps({tags=[]}) {
   ]
 
   return (
-    <Layout title="Summer camps 2024" description="Discover the summer camp options in KW" color="yellow">
+    <Layout 
+      title="Summer camps 2024" 
+      description="Discover the summer camp options in KW" 
+      color="yellow"
+      image="https://www.unboringkw.com/articles/summer-camps-2024.jpg"
+    >
       <div className="container py-5 mx-auto">
         <EventsFeed 
           title={"Summer Camps"}
