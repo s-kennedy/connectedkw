@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { buildDateString, getCalendarDates } from 'utils/dates'
 import Tag from 'components/Tag'
 
-function EventDisplay({ event, showImage=true, closeModal }) {
+function EventDisplay({ event, showImage=true, closeModal, backLink="/events" }) {
 
   if (!event) return null
 
@@ -97,9 +97,6 @@ function EventDisplay({ event, showImage=true, closeModal }) {
           </div>
         }
 
-      </div>
-      <div className="my-6">
-        <p>👈 <Link href="/events">Back to events</Link></p>
       </div>
     </div>
   )
