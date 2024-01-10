@@ -86,8 +86,8 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
 
   if (filter.type === "boolean") {
     return (
-      <button key={filter.id} onClick={handleFlagClick(filter)} className="btn btn-clear whitespace-nowrap relative block pl-1">
-        {(selectedOptions) && <span className="h-2 w-2 rounded-full bg-red inline-block absolute -left-1" /> }
+      <button key={filter.id} onClick={handleFlagClick(filter)} className={`btn ${(selectedOptions) ? 'btn-purple' : 'btn-white'} border-2 whitespace-nowrap relative block`}>
+        {/*{(selectedOptions) && <span className="h-2 w-2 rounded-full bg-red inline-block absolute -left-1" /> }*/}
         <span>{filter.label}</span>
       </button>
     )
@@ -99,10 +99,10 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
         key={filter.id} 
         type="button" 
         ref={refs.setReference} 
-        className="btn btn-clear whitespace-nowrap relative block pl-1"
+        className={`btn ${(selectedOptions.length > 0) ? 'btn-purple' : 'btn-white'} whitespace-nowrap relative block`}
         {...getReferenceProps()} 
       >
-        {(selectedOptions.length > 0) && <span className="h-2 w-2 rounded-full bg-red inline-block absolute -left-1" /> }
+        {/*{(selectedOptions.length > 0) && <span className="h-2 w-2 rounded-full bg-red inline-block absolute -left-1" /> }*/}
         <span>{filter.label}</span>
         <i className={`ml-1 fa-solid ${isOpen ? 'fa-caret-left text-black' : 'fa-filter text-sm'}`}></i>
       </button>

@@ -82,7 +82,7 @@ export default function SummerCamps({tags=[]}) {
           loading={loading} 
         >
           <div className="py-3">
-            <p>{`The Christmas lights may still be gup, but it's already time to start thinking about summer camps 😑`}</p>
+            <p>{`The Christmas lights may still be up, but it's already time to start thinking about summer camps 😑`}</p>
             <p>{`I'm putting together a big list of summer day camps in Waterloo Region! There are a LOT so I'll be adding them over the next few days.`}</p>
             <p>{`You can filter for the ones that have already opened for registration, browse the calendar view (to see registration dates), or use the map view to see the camp locations.`}</p>
             <p>{`If you have any feedback or suggestions feel free to me at hi@unboringkw.com.`}</p>

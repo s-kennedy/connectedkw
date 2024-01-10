@@ -123,7 +123,7 @@ const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={},
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="">
         <div className={`flex-auto flex-col space-y-2`}>
-          <h1 className="mb-2 space-x-2">
+          <h1 className="space-x-2">
             <span className="text-4 md:text-6xl font-title">{title}</span>
             {length && <span className="font-body text-lg md:text-xl bg-black text-white rounded-full px-3 py-1 align-top ">{length}</span>}
           </h1>
@@ -132,7 +132,7 @@ const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={},
             <Loading />
             ) : (
             <>
-              <div className="w-full flex justify-between items-end md:items-center">
+              <div className="w-full lg:flex justify-between items-end lg:items-center">
                 <Filters
                   filters={filters}
                   selectedFilters={selectedFilters}
@@ -143,7 +143,7 @@ const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={},
                   {fullConfig.views.map(v => {
                     if (v === 'list') {
                       return (
-                        <button key={v.id} onClick={toggleView(v)} className={`btn text-sm border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                        <button key={v.id} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
                           <span>List</span>
                           <i className={`ml-1 fa-solid fa-list text-sm`}></i>
                         </button>
@@ -152,7 +152,7 @@ const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={},
 
                     if (v === 'calendar') {
                       return (
-                        <button key={v.id} onClick={toggleView(v)} className={`btn text-sm border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                        <button key={v.id} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
                           <span>Calendar</span>
                           <i className={`ml-1 fa-solid fa-calendar-days`}></i>
                         </button>
@@ -161,7 +161,7 @@ const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={},
 
                     if (v === 'map') {
                       return (
-                        <button key={v.id} onClick={toggleView(v)} className={`btn text-sm border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                        <button key={v.id} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
                           <span>Map</span>
                           <i className={`ml-1 fa-solid fa-location-dot`}></i>
                         </button>

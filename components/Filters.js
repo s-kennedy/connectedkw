@@ -24,8 +24,8 @@ const Filters = ({ filters, selectedFilters, toggleFn, reset, children }) => {
   const anySelected = numSelected > 0
 
   return (
-    <div className="block">
-      <div className="w-full z-10 relative md:flex items-center md:space-x-1">
+    <div className="block mb-2">
+      <div className="w-full z-10 relative md:flex items-center space-y-1 md:space-x-1">
         { filters.map(filter => {
           return (
             <TagFilter
@@ -39,7 +39,7 @@ const Filters = ({ filters, selectedFilters, toggleFn, reset, children }) => {
         {
           anySelected && 
           <button onClick={reset} className="btn btn-clear border-0 relative space-x-1 text-red pl-1">
-            <span>Clear filters</span>
+            <span>Clear</span>
             <i className="fa-solid fa-xmark"></i>
           </button>
         }
