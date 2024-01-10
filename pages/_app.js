@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import AOS from 'aos';
 import PlausibleProvider from 'next-plausible'
+import { Analytics } from '@vercel/analytics/react';
 const jackerton = localFont({ src: '../fonts/Jackerton-Regular.otf', variable: "--font-jackerton" })
 
 import 'aos/dist/aos.css';
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }) {
       <PlausibleProvider domain="unboringkw.com">
         <Component {...pageProps} />
       </PlausibleProvider>
+      <Analytics />
     </div>
   );
 }
