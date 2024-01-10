@@ -70,7 +70,7 @@ export default function SummerCamps({tags=[]}) {
     <Layout 
       title="Summer camps 2024" 
       description="Discover the summer camp options in KW" 
-      color="yellow"
+      color="blue"
       image="https://www.unboringkw.com/articles/summer-camps-2024.jpg"
     >
       <div className="container py-5 mx-auto">
@@ -84,7 +84,10 @@ export default function SummerCamps({tags=[]}) {
           <div className="py-3">
             <p>{`The Christmas lights may still be up, but it's already time to start thinking about summer camps 😑`}</p>
             <p>{`I'm putting together a big list of summer day camps in Waterloo Region! There are a LOT so I'll be adding them over the next few days.`}</p>
-            <p>{`You can filter for the ones that have already opened for registration, browse the calendar view (to see registration dates), or use the map view to see the camp locations.`}</p>
+            <p>{`There are a few ways to use this directory:`}</p>
+            <p><span className="font-semibold mr-1">👉 List view:</span>{`Browse through the different camps and click on the card to see the full description`}</p>
+            <p><span className="font-semibold mr-1">👉 Calendar view:</span>{`The calendar shows the dates when registration opens, so you can add the ones you're interested in to your personal calendar and get reminders.`}</p>
+            <p><span className="font-semibold mr-1">👉 Map view:</span>{`See which camps are close to you or easy to access.`}</p>
             <p>{`If you have any feedback or suggestions feel free to me at hi@unboringkw.com.`}</p>
           </div>
         </EventsFeed>
