@@ -98,9 +98,9 @@ const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedFeatur
 const generatePreview = (feature, previewConfig={}) => {
   const title = feature.title || ""
 
-  if (feature.images) {
-    const image = feature.images[0]
-    const imageSrc = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=thumbnail-100`
+  if (feature.images && feature.images.length > 0 && feature.images[0]?.id) {
+    const imageId = feature.images[0].id
+    const imageSrc = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${imageId}?key=thumbnail-100`
     return (`<div class="map-infowindow"><div class="image"><img src="${imageSrc}" alt="Photo of park" /></div><p class="title">${title}</p></div>`)
   }
 

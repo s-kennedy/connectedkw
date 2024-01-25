@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { useRouter } from 'next/router';
-import localFont from 'next/font/local';
 import AOS from 'aos';
 import PlausibleProvider from 'next-plausible'
 import { Analytics } from '@vercel/analytics/react';
+import localFont from 'next/font/local';
 const jackerton = localFont({ src: '../fonts/Jackerton-Regular.otf', variable: "--font-jackerton" })
 
 import 'aos/dist/aos.css';
