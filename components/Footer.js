@@ -33,11 +33,11 @@ const Footer = () => {
               </svg>
             </a>
             <a
-              href="https://www.studioshay.ca/"
+              href="https://www.dreamside.digital"
               rel="noopener noreferrer"
               className="text-lightPurple hover:text-red"
             >
-              Made by Studio Shay
+              Made by Dreamside Digital
             </a>
           </div>
         </div>
