@@ -45,7 +45,7 @@
 
 html,
 body {
-  background-color: var(--theme-white);
+/*  background-color: var(--theme-white);*/
   color: var(--theme-black);
   padding: 0;
   margin: 0;
@@ -332,6 +332,13 @@ article ul {
 
 .markdown ul li {
   margin-left: 1rem;
+}
+
+.article iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  overflow: hidden;
 }
 
 

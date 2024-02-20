@@ -47,7 +47,8 @@ export default function ArticlePage({ page }) {
       image={page.share_image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${page.share_image.id}` : null}
     >
       <div className="container p-3 sm:py-8 lg:p-8 max-w-screen-lg mx-auto">
-        <div className="bg-white rounded-xl border-black border-3 p-3 sm:p-5 lg:p-10 article">
+        <div className="article">
+          <h1>{page.title}</h1>
           <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
             {page.body}
           </ReactMarkdown>

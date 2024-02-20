@@ -328,6 +328,41 @@ const getEventBySlug = async (slug) => {
   }
 }
 
+const getCollectionBySlug = async (slug) => {
+  try {
+    const results = await directus.request(
+      readItems('collections', {
+        fields: '*, events.events_id.*, events.events_id.image.*, points_of_interest.points_of_interest_id.*, points_of_interest.points_of_interest_id.image.*',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          slug: {
+            _eq: slug
+          }
+        }
+      })
+    );
+
+    const items = results.map(result => {
+      return {
+        ...result,
+        events: result.events.map(event => ({ ...event.events_id })),
+        points_of_interest: result.points_of_interest.map(poi => ({ ...poi.points_of_interest_id })),
+      }
+    })
+
+    if (items[0]) {
+      return items[0]
+    } else {
+      throw Error("No results returned for query")
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
 const getFeaturesByCollection = async (collectionId) => {
   try {
     const features =  await directus.request(
@@ -536,7 +571,8 @@ export {
   getCategories,
   getTags,
   getEventTags,
-  getEventBySlug, 
+  getEventBySlug,
+  getCollectionBySlug, 
   getDataSources,
   getActivities,
   getFeaturesByCollection,
