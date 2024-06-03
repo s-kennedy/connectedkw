@@ -29,15 +29,15 @@ function runMiddleware(req, res, fn) {
 export default async (req, res) => {
   await runMiddleware(req, res, cors)
 
-  // const { source } = JSON.parse(req.body);
 
   if (req.method === "POST") {
     try {
       
-      console.log(req.body);
-
-      const runDataset = await apify.dataset(req.body.resource.defaultDatasetId);
-      console.log(runDataset)
+      const { DatabaseClient } = JSON.parse(req.body);
+      const datasetId = DatabaseClient.id
+      const dataset = await apify.dataset(datasetId)
+      const datasetItems = await dataset.listItems()
+      console.log({datasetItems})
 
       // Respond to the webhook
       res.status(200).json({ message: 'Webhook received' });

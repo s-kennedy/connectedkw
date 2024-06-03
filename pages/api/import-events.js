@@ -35,7 +35,7 @@ export default async (req, res) => {
     try {
       const today = DateTime.now().setZone("America/Toronto")
       const queryStartDate = `${today.month}/${today.day}/${today.year}`
-      const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ months: 1 })
+      const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
       const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
       
       const input = {
