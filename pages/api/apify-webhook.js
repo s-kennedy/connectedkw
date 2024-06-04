@@ -39,7 +39,7 @@ export default async (req, res) => {
       const dataset = await apify.dataset(datasetId)
       const datasetItems = await dataset.listItems()
       console.log({datasetItems})
-      const result = await saveEventsToDatabase(databaseItems)
+      const result = await saveEventsToDatabase(datasetItems)
 
       // Respond to the webhook
       res.status(200).json({ result });
