@@ -314,8 +314,8 @@ export async function pageFunctionEventbrite(context) {
       location,
       startDateTime,
       endDateTime,
-      all_day: false,
       price,
+      all_day: false,
       linkText: "Eventbrite",
       sourceDatabaseId: 9, // id in supabase
       imageUrl
