@@ -15,7 +15,7 @@ const checkAuthorization = (req, res, done) => {
   const bearerToken = req.headers["authorization"]
 
   if (!bearerToken) {
-    return res.status(401).end("No Bearer Tokengi")
+    return res.status(401).end("No Bearer Token")
   }
 
   const token = bearerToken.split(" ")[1];
