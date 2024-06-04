@@ -2,8 +2,8 @@ name: Import the City of Cambridge events on a CRON Schedule
 
 on:
   schedule:
-    # Runs every Tuesday at 7:20am
-    - cron: '20 7 * * 2'
+    # Runs every Friday at 7:20am
+    - cron: '20 7 * * 5'
   push:
     branches:
       - 'apify_integration_cambridge'
