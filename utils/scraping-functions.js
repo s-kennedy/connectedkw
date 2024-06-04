@@ -8,6 +8,7 @@ import {
   importFile
 } from '@directus/sdk';
 import { NodeHtmlMarkdown } from 'node-html-markdown'
+import { DateTime } from 'luxon'
 
 const directus = createDirectus('https://cms.unboringkw.com').with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
 const markdown = new NodeHtmlMarkdown()
@@ -126,6 +127,7 @@ export const saveEventsToDatabase = async(events) => {
   const failed = []
 
   const promises = events.map(async(event) => {
+    console.log(event)
 
     try {
       const description = markdown.translate(event.description)
@@ -177,6 +179,26 @@ export const saveEventsToDatabase = async(events) => {
   const results = await Promise.all(promises)
   console.log(`Processed ${results.length} events`)
 
-  return { created, failed }
+  return { created: created.length, failed: failed.length }
+}
+
+export const generateActorInput = (source) => {
+  if (source === "kitchener") {
+    const today = DateTime.now().setZone("America/Toronto")
+    const queryStartDate = `${today.month}/${today.day}/${today.year}`
+    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
+    const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
+    
+    return {
+      ...defaultActorInput,
+      "linkSelector": ".calendar-list-container .calendar-list-list .calendar-list-info a",
+      "startUrls": [
+          {
+              "url": `https://calendar.kitchener.ca/default/_List?StartDate=${queryStartDate}&EndDate=${queryEndDate}&Public%20Events=City-Run%20Events&Public%20Events=Arts,%20Culture,%20Film%20and%20Music&Public%20Events=Free%20Community%20Events&Public%20Events=Children%20and%20Youth%20Friendly%20Events&Public%20Events=Downtown%20Events&Public%20Events=The%20Market&Public%20Events=Tech%20Events&limit=150`
+          }
+      ],
+      "pageFunction": pageFunctionCityKitchener
+    }
+  }
 }
 

@@ -1,7 +1,6 @@
 import Cors from 'cors'
+import { generateActorInput } from 'utils/scraping-functions'
 import { ApifyClient } from 'apify-client'
-import { DateTime } from 'luxon'
-import { defaultActorInput, pageFunctionCityKitchener } from 'utils/scraping-functions'
 const apify = new ApifyClient({
     token: process.env.APIFY_TOKEN
 });
@@ -11,6 +10,22 @@ const cors = Cors({
   methods: ['POST', 'HEAD'],
   origin: "*"
 })
+
+const checkAuthorization = (req, res, done) => {
+  const bearerToken = req.headers["authorization"]
+
+  if (!bearerToken) {
+    return res.status(401).end("Unauthorized")
+  }
+
+  const token = bearerToken.split(" ")[1];
+
+  if (token && token === process.env.UNBORING_SECRET_KEY) {
+    return done("Authorized")
+  } else {
+    return res.status(401).end("Unauthorized")
+  }
+}
 
 // Helper method to wait for a middleware to execute before continuing
 // And to throw an error when an error happens in a middleware
@@ -28,28 +43,18 @@ function runMiddleware(req, res, fn) {
 
 export default async (req, res) => {
   await runMiddleware(req, res, cors)
-
-  // const { source } = JSON.parse(req.body);
+  await runMiddleware(req, res, checkAuthorization)
 
   if (req.method === "POST") {
     try {
-      const today = DateTime.now().setZone("America/Toronto")
-      const queryStartDate = `${today.month}/${today.day}/${today.year}`
-      const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
-      const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
-      
-      const input = {
-        ...defaultActorInput,
-        "linkSelector": ".calendar-list-container .calendar-list-list .calendar-list-info a",
-        "startUrls": [
-            {
-                "url": `https://calendar.kitchener.ca/default/_List?StartDate=${queryStartDate}&EndDate=${queryEndDate}&Public%20Events=City-Run%20Events&Public%20Events=Arts,%20Culture,%20Film%20and%20Music&Public%20Events=Free%20Community%20Events&Public%20Events=Children%20and%20Youth%20Friendly%20Events&Public%20Events=Downtown%20Events&Public%20Events=The%20Market&Public%20Events=Tech%20Events&limit=150`
-            }
-        ],
-        "pageFunction": pageFunctionCityKitchener
-      }
+      const { source } = req.body
 
-      const run = await apify.actor("apify/web-scraper").start(input);
+      if (!source) {
+        return res.status(500).json({ message: "Provide a source" })
+      }
+      
+      const actorInput = generateActorInput(source)
+      const run = await apify.actor("apify/web-scraper").start(actorInput);
       console.log({run})
       res.status(200).json({run})
 

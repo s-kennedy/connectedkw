@@ -30,15 +30,12 @@ function runMiddleware(req, res, fn) {
 export default async (req, res) => {
   await runMiddleware(req, res, cors)
 
-
   if (req.method === "POST") {
     try {
-      
       const data = req.body
       const datasetId = data.resource.defaultDatasetId
       const dataset = await apify.dataset(datasetId)
       const datasetItems = await dataset.listItems()
-      console.log({datasetItems})
       const result = await saveEventsToDatabase(datasetItems.items)
 
       // Respond to the webhook

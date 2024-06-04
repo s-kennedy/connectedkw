@@ -1,0 +1,21 @@
+name: Import the City of Kitchener events on a CRON Schedule
+
+on:
+  schedule:
+    # Runs every Friday at 7:00am
+    - cron: '0 7 * * 5'
+  push:
+    branches:
+      - 'apify_integration'
+jobs:
+  build:
+    name: Import City of Kitchener events
+    runs-on: ubuntu-latest
+    steps:
+      - name: cURL request
+        # Hit the API endpoint to trigger an import
+        run: |
+          curl -s -X POST https://www.unboringkw.com/api/import-events \
+            -d '{"source":"kitchener"}' \
+            -H 'Content-Type: application/json' \
+            -H 'Authorization: Bearer ${{ secrets.UNBORING_SECRET_KEY }}' \
