@@ -33,8 +33,9 @@ export default async (req, res) => {
   if (req.method === "POST") {
     try {
       
-      const { DatabaseClient } = JSON.parse(req.body);
-      const datasetId = DatabaseClient.id
+      const data = await req.json();
+      console.log({data})
+      const datasetId = data.DatabaseClient.id
       const dataset = await apify.dataset(datasetId)
       const datasetItems = await dataset.listItems()
       console.log({datasetItems})

@@ -51,11 +51,6 @@ export default async (req, res) => {
 
       const run = await apify.actor("apify/web-scraper").start(input);
       console.log({run})
-
-      console.log('Results from dataset');
-      console.log(`💾 Check your data here: https://console.apify.com/storage/datasets/${run.defaultDatasetId}`);
-      // const { items } = await apify.dataset(run.defaultDatasetId).listItems();
-
       res.status(200).json({run})
 
     } catch (err) {
