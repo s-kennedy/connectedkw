@@ -1,3 +1,31 @@
+import { DEFAULT_CATEGORY_ID } from './constants'
+import { 
+  createDirectus, 
+  staticToken, 
+  rest,
+  createItem,
+  readItems,
+  importFile
+} from '@directus/sdk';
+
+const directus = createDirectus('https://cms.unboringkw.com').with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
+const markdown = new NodeHtmlMarkdown()
+
+const importImage = async (url, title) => {
+  if (!url) return null
+  try {
+    const image = await directus.request(
+      importFile(url, {
+        title: title
+      })
+    );
+    return image
+  } catch (err) {
+    console.log(err)
+    return null
+  }    
+}
+
 export const defaultActorInput = {
   "breakpointLocation": "NONE",
   "browserLog": false,
@@ -63,8 +91,8 @@ export async function pageFunctionCityKitchener(context) {
     const endHour24 = dateParts[8] === "pm" && endHourInt < 12? (endHourInt + 12) : endHourInt
 
     const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
-    const startTime24 = `${startHour24}:${startMinute}`
-    const endTime24 = `${endHour24}:${endMinute}`
+    const startDateTime = `${date}T${startHour24}:${startMinute}`
+    const endDateTime = `${date}T${endHour24}:${endMinute}`
 
     const title = $('h1#pageHeadingH1').first().text().replace(/\t|\n/g, '')
     $('h2:contains(Event Details:)').parent().attr('id', 'description-section');
@@ -82,8 +110,72 @@ export async function pageFunctionCityKitchener(context) {
         description,
         location,
         price,
-        date,
-        startTime: startTime24,
-        endTime: endTime24
+        startDateTime: startTime24,
+        endDateTime: endTime24,
+        all_day: false,
+        linkText: "City of Kitchener event page",
+        sourceDatabaseId: 2
     };
   }
+
+
+export const saveEventsToDatabase = async(events) => {
+
+  const created = []
+  const failed = []
+
+  const promises = events.map(async(event) => {
+
+    try {
+      const description = markdown.translate(event.description)
+      const image = await importImage(event.imageUrl, event.title)
+      const locationText = event.location.trim()
+
+      const eventData = {
+        title: event.title,
+        description: description,
+        starts_at: event.startDateTime,
+        ends_at: event.endDateTime,
+        all_day: event.allDay,
+        location_source_text: locationText,
+        external_link: event.url,
+        link_text: event.linkText,
+        price: event.price,
+        data_source: event.sourceDatabaseId,
+        categories: [{ categories_id: DEFAULT_CATEGORY_ID }],
+        image: image?.id
+      }
+
+      const locations = await directus.request(
+        readItems('locations', {
+          fields: ['id'],
+          search: locationText,
+          limit: 1
+        })
+      );
+
+      if (locations && locations[0]) {
+        eventData.location = locations[0].id
+      }
+
+      const result = await directus.request(
+        createItem('events', eventData)
+      )
+
+      created.push(result)
+      return result
+
+    } catch (error) {
+      console.log({error})
+      failed.push({ ...event, ...error})
+      return error
+    }
+
+  })
+
+  const results = await Promise.all(promises)
+  console.log(`Processed ${results.length} events`)
+
+  return { created, failed }
+}
+

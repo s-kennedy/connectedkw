@@ -176,3 +176,5 @@ export const DEFAULT_LOCALE = 'en-CA'
 export const DATE_FORMAT = { weekday: 'short', month: 'short', day: 'numeric' }
 export const TIME_FORMAT = { hour: 'numeric', minute: '2-digit' }
 
+export const DEFAULT_CATEGORY_ID = 6 // All ages
+

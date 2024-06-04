@@ -1,6 +1,7 @@
 import Cors from 'cors'
 import { ApifyClient, DownloadItemsFormat } from 'apify-client';
 import { DateTime } from 'luxon'
+import { saveEventsToDatabase } from 'utils/scraping-functions'
 
 const apify = new ApifyClient({
     token: process.env.APIFY_TOKEN
@@ -38,9 +39,10 @@ export default async (req, res) => {
       const dataset = await apify.dataset(datasetId)
       const datasetItems = await dataset.listItems()
       console.log({datasetItems})
+      const result = await saveEventsToDatabase(databaseItems)
 
       // Respond to the webhook
-      res.status(200).json({ message: 'Webhook received' });
+      res.status(200).json({ result });
 
     } catch (err) {
       console.log(err);
