@@ -284,14 +284,16 @@ export async function pageFunctionMuseums(context) {
   };
 }
 
-export const saveEventsToDatabase = async(events) => {
+export const saveEventsToDatabase = async(datasetItems) => {
 
   const created = []
   const failed = []
 
+  const events = datasetItems.filter(item => !!item.url && !!item.title)
+
   const promises = events.map(async(event) => {
     try {
-      const description = markdown.translate(event.description)
+      const description = event.description ? markdown.translate(event.description) : ""
       const image = await importImage(event.imageUrl, event.title)
       const locationText = event.location.trim()
 
