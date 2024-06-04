@@ -1,0 +1,21 @@
+name: Import Explore Waterloo events on a CRON Schedule
+
+on:
+  schedule:
+    # Runs every Friday at 7:40am
+    - cron: '40 7 * * 5'
+  push:
+    branches:
+      - 'explore_integration'
+jobs:
+  build:
+    name: Import Explore Waterloo events
+    runs-on: ubuntu-latest
+    steps:
+      - name: cURL request
+        # Hit the API endpoint to trigger an import
+        run: |
+          curl -s -X POST https://gxpbljlkxdbipwgpfchh.supabase.co/functions/v1/import-exlore-waterloo-events \
+            -d '' \
+            -H 'Content-Type: application/json' \
+            -H 'Authorization: Bearer ${{ secrets.SUPABASE_API_KEY }}' \
