@@ -162,12 +162,64 @@ export async function pageFunctionCityWaterloo(context) {
       title,
       description,
       location,
-      date,
       startDateTime,
       endDateTime,
       all_day: false,
       linkText: "City of Waterloo event page",
       sourceDatabaseId: 3 // id in supabase
+  };
+}
+
+export async function pageFunctionCityCambridge(context) {
+  const $ = context.jQuery;
+  const pageTitle = $('title').first().text();
+  
+  // Print some information to actor log
+  context.log.info(`URL: ${context.request.url}, TITLE: ${pageTitle}`);
+
+  if (!context.request.url.startsWith("https://calendar.cambridge.ca/default/Detail/")) {
+      return null
+  }
+
+  var months = ["January","February","March","April","May","June","July",
+          "August","September","October","November","December"];
+
+  const dateText = $('.dateTime p.headerDate').first().text().replace(/\t|\n/g, '')
+  const dateParts = dateText.split(' ')
+  const monthName = dateParts[1]
+  const monthIndex = months.indexOf(monthName)
+  const zeroPaddedMonth = `0${monthIndex + 1}`.slice(-2)
+  const day = dateParts[2].replace(',', '')
+  const zeroPaddedDay = `0${day}`.slice(-2)
+  const year = dateParts[3]
+  const startTime = dateParts[4] + dateParts[5]
+  const endTime = dateParts[7] + dateParts[8]
+  
+  const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
+  const startDateTime = `${date}T${startTime}`
+  const endDateTime = `${date}T${endTime}`
+
+  const title = $('#pageHeading h1').first().text().replace(/\t|\n/g, '')
+  $('h2:contains(Event Details:)').parent().attr('id', 'description-section');
+  $('#description-section').find('h2.sectionHeader').remove()
+  const description = $('#description-section').html().replace(/\t|\n/g, '')
+  const locationWithMaps = $('h2:contains(Address:)').siblings().text().replace(/\t|\n/g, '')
+  const location = locationWithMaps.split('View on Google Maps')[0].replace(/\t|\n/g, '')
+  const price = $('.calendar-details-header:contains(Fee)').next().text().replace(/\t|\n/g, '')
+
+  // Return an object with the data extracted from the page.
+  // It will be stored to the resulting dataset.
+  return {
+      url: context.request.url,
+      title,
+      description,
+      location,
+      price,
+      startDateTime,
+      endDateTime,
+      all_day: false,
+      linkText: "City of Cambridge event page",
+      sourceDatabaseId: 8 // id in supabase
   };
 }
 
@@ -264,6 +316,22 @@ export const generateActorInput = (source) => {
           }
       ],
       "pageFunction": pageFunctionCityWaterloo
+    }
+  } else if (source === "cambridge") {
+    const today = DateTime.now().setZone("America/Toronto")
+    const queryStartDate = `${today.month}/${today.day}/${today.year}`
+    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
+    const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
+    
+    return {
+      ...defaultActorInput,
+      "linkSelector": ".calendar-list-container .calendar-list-list .calendar-list-info a",
+      "startUrls": [
+          {
+              "url": `https://calendar.cambridge.ca/default/_List?StartDate=${queryStartDate}&EndDate=${queryEndDate}&limit=100&Events%20Calendar=Centre+for+the+Arts+Events%7cCambridge+Farmers+Market%7cCommunity+Submitted+Events%7cFestivals+and+Events`
+          }
+      ],
+      "pageFunction": pageFunctionCityCambridge
     }
   }
 }
