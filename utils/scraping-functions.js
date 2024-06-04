@@ -223,14 +223,73 @@ export async function pageFunctionCityCambridge(context) {
   };
 }
 
+export async function pageFunctionMuseums(context) {
+  const $ = context.jQuery;
+  const pageTitle = $('title').first().text();
+  
+  // Print some information to actor log
+  context.log.info(`URL: ${context.request.url}, TITLE: ${pageTitle}`);
+
+  if (!context.request.url.startsWith("https://calendar.waterlooregionmuseum.ca/Default/Detail/")) {
+      return null
+  }
+
+  var months = ["January","February","March","April","May","June","July",
+          "August","September","October","November","December"];
+
+  const dateText = $('.dateTime p').first().text().replace(/\t|\n/g, '')
+  const dateParts = dateText.split(' ')
+  const monthName = dateParts[1]
+  const monthIndex = months.indexOf(monthName)
+  const zeroPaddedMonth = `0${monthIndex + 1}`.slice(-2)
+  const day = dateParts[2].replace(',', '')
+  const zeroPaddedDay = `0${day}`.slice(-2)
+  const year = dateParts[3]
+  const startTime = dateParts[4]
+  const [startHour, startMinute] = startTime.split(':')
+  const startHourInt = parseInt(startHour)
+  const startHour24 = (dateParts[5] === "pm" &&  startHourInt < 12) ? (startHourInt + 12) : startHourInt
+  const endTime = dateParts[7]
+  const [endHour, endMinute] = endTime.split(':')
+  const endHourInt = parseInt(endHour)
+  const endHour24 = dateParts[8] === "pm" && endHourInt < 12? (endHourInt + 12) : endHourInt
+
+  const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
+  const startDateTime = `${date}T${startHour24}:${startMinute}`
+  const endDateTime = `${date}T${endHour24}:${endMinute}`
+
+  const title = $('#pageHeading h1').first().text().replace(/\t|\n/g, '')
+  $('h3:contains(Details:)').parent().attr('id', 'description-section');
+  $('#description-section').find('h3.sectionHeader').remove()
+  const description = $('#description-section').html().replace(/\t|\n/g, '')
+  const locationWithMaps = $('h3:contains(Address:)').siblings().text().replace(/\t|\n/g, '')
+  const location = locationWithMaps.split('View on Google Maps')[0].replace(/\t|\n/g, '')
+
+  const imagePath = $(".contentRight img").first().attr("src")
+  const imageUrl = imagePath ? `https://calendar.waterlooregionmuseum.ca${imagePath}` : null;
+  
+  // Return an object with the data extracted from the page.
+  // It will be stored to the resulting dataset.
+  return {
+      url: context.request.url,
+      title,
+      description,
+      location,
+      startDateTime,
+      endDateTime,
+      all_day: false,
+      linkText: "Region of Waterloo Museums",
+      sourceDatabaseId: 10, // id in supabase
+      imageUrl
+  };
+}
+
 export const saveEventsToDatabase = async(events) => {
 
   const created = []
   const failed = []
 
   const promises = events.map(async(event) => {
-    console.log(event)
-
     try {
       const description = markdown.translate(event.description)
       const image = await importImage(event.imageUrl, event.title)
@@ -332,6 +391,22 @@ export const generateActorInput = (source) => {
           }
       ],
       "pageFunction": pageFunctionCityCambridge
+    }
+  } else if (source === "museums") {
+    const today = DateTime.now().setZone("America/Toronto")
+    const queryStartDate = `${today.month}/${today.day}/${today.year}`
+    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
+    const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
+    
+    return {
+      ...defaultActorInput,
+      "linkSelector": ".calendar-list-container .calendar-list-list .calendar-list-info a",
+      "startUrls": [
+          {
+              "url": `https://calendar.waterlooregionmuseum.ca/Default/_List?limit=100&StartDate=${queryStartDate}&EndDate=${queryEndDate}`
+          }
+      ],
+      "pageFunction": pageFunctionMuseums
     }
   }
 }
