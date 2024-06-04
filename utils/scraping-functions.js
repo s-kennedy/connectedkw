@@ -111,8 +111,8 @@ export async function pageFunctionCityKitchener(context) {
         description,
         location,
         price,
-        startDateTime: startTime24,
-        endDateTime: endTime24,
+        startDateTime: startDateTime,
+        endDateTime: endDateTime,
         all_day: false,
         linkText: "City of Kitchener event page",
         sourceDatabaseId: 2
