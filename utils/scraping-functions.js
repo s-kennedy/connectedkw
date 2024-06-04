@@ -349,7 +349,7 @@ export const generateActorInput = (source) => {
   if (source === "kitchener") {
     const today = DateTime.now().setZone("America/Toronto")
     const queryStartDate = `${today.month}/${today.day}/${today.year}`
-    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
+    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ months: 1 })
     const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
     
     return {
@@ -365,7 +365,7 @@ export const generateActorInput = (source) => {
   } else if (source === "waterloo") {
     const today = DateTime.now().setZone("America/Toronto")
     const queryStartDate = `${today.month}/${today.day}/${today.year}`
-    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
+    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ months: 1 })
     const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
     
     return {
@@ -381,7 +381,7 @@ export const generateActorInput = (source) => {
   } else if (source === "cambridge") {
     const today = DateTime.now().setZone("America/Toronto")
     const queryStartDate = `${today.month}/${today.day}/${today.year}`
-    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
+    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ months: 1 })
     const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
     
     return {
@@ -397,7 +397,7 @@ export const generateActorInput = (source) => {
   } else if (source === "museums") {
     const today = DateTime.now().setZone("America/Toronto")
     const queryStartDate = `${today.month}/${today.day}/${today.year}`
-    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
+    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ months: 1 })
     const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
     
     return {
