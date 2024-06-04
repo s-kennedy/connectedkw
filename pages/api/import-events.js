@@ -15,7 +15,7 @@ const checkAuthorization = (req, res, done) => {
   const bearerToken = req.headers["authorization"]
 
   if (!bearerToken) {
-    return res.status(401).end("Unauthorized")
+    return res.status(401).end("No Bearer Tokengi")
   }
 
   const token = bearerToken.split(" ")[1];
@@ -52,7 +52,7 @@ export default async (req, res) => {
       if (!source) {
         return res.status(500).json({ message: "Provide a source" })
       }
-      
+
       const actorInput = generateActorInput(source)
       const run = await apify.actor("apify/web-scraper").start(actorInput);
       console.log({run})
