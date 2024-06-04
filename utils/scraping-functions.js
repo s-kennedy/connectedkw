@@ -7,6 +7,7 @@ import {
   readItems,
   importFile
 } from '@directus/sdk';
+import { NodeHtmlMarkdown } from 'node-html-markdown'
 
 const directus = createDirectus('https://cms.unboringkw.com').with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
 const markdown = new NodeHtmlMarkdown()
