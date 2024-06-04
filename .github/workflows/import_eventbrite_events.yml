@@ -2,7 +2,7 @@ name: Import Eventbrite events on a CRON Schedule
 
 on:
   schedule:
-    # Runs every Friday at 7:20am
+    # Runs every Friday at 8:00am
     - cron: '0 8 * * 5'
   push:
     branches:
