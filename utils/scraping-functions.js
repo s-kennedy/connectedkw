@@ -59,67 +59,117 @@ export const defaultActorInput = {
 }
 
 export async function pageFunctionCityKitchener(context) {
-    // jQuery is handy for finding DOM elements and extracting data from them.
-    // To use it, make sure to enable the "Inject jQuery" option.
-    const $ = context.jQuery;
+  const $ = context.jQuery;
+  const pageTitle = $('title').first().text();
 
-    const pageTitle = $('title').first().text();
-    
-    // Print some information to actor log
-    context.log.info(`URL: ${context.request.url}, TITLE: ${pageTitle}`);
+  // Print some information to actor log
+  context.log.info(`URL: ${context.request.url}, TITLE: ${pageTitle}`);
 
-    if (!context.request.url.startsWith("https://calendar.kitchener.ca/default/Detail/")) {
-        return null
-    }
-
-    var months = ["January","February","March","April","May","June","July",
-            "August","September","October","November","December"];
-
-    const dateText = $('.dateTime p.headerDate').first().text().replace(/\t|\n/g, '')
-    const dateParts = dateText.split(' ')
-    const monthName = dateParts[1]
-    const monthIndex = months.indexOf(monthName)
-    const zeroPaddedMonth = `0${monthIndex + 1}`.slice(-2)
-    const day = dateParts[2].replace(',', '')
-    const zeroPaddedDay = `0${day}`.slice(-2)
-    const year = dateParts[3]
-    const startTime = dateParts[4]
-    const [startHour, startMinute] = startTime.split(':')
-    const startHourInt = parseInt(startHour)
-    const startHour24 = (dateParts[5] === "pm" &&  startHourInt < 12) ? (startHourInt + 12) : startHourInt
-    const endTime = dateParts[7]
-    const [endHour, endMinute] = endTime.split(':')
-    const endHourInt = parseInt(endHour)
-    const endHour24 = dateParts[8] === "pm" && endHourInt < 12? (endHourInt + 12) : endHourInt
-
-    const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
-    const startDateTime = `${date}T${startHour24}:${startMinute}`
-    const endDateTime = `${date}T${endHour24}:${endMinute}`
-
-    const title = $('h1#pageHeadingH1').first().text().replace(/\t|\n/g, '')
-    $('h2:contains(Event Details:)').parent().attr('id', 'description-section');
-    $('#description-section').find('h2.sectionHeader').remove()
-    const description = $('#description-section').html().replace(/\t|\n/g, '')
-    const locationWithMaps = $('h2:contains(Address:)').siblings().text().replace(/\t|\n/g, '')
-    const location = locationWithMaps.split('View on Google Maps')[0].replace(/\t|\n/g, '')
-    const price = $('.calendar-details-header:contains(Fee)').next().text().replace(/\t|\n/g, '')
-
-    // Return an object with the data extracted from the page.
-    // It will be stored to the resulting dataset.
-    return {
-        url: context.request.url,
-        title,
-        description,
-        location,
-        price,
-        startDateTime: startDateTime,
-        endDateTime: endDateTime,
-        all_day: false,
-        linkText: "City of Kitchener event page",
-        sourceDatabaseId: 2
-    };
+  if (!context.request.url.startsWith("https://calendar.kitchener.ca/default/Detail/")) {
+      return null
   }
 
+  var months = ["January","February","March","April","May","June","July",
+          "August","September","October","November","December"];
+
+  const dateText = $('.dateTime p.headerDate').first().text().replace(/\t|\n/g, '')
+  const dateParts = dateText.split(' ')
+  const monthName = dateParts[1]
+  const monthIndex = months.indexOf(monthName)
+  const zeroPaddedMonth = `0${monthIndex + 1}`.slice(-2)
+  const day = dateParts[2].replace(',', '')
+  const zeroPaddedDay = `0${day}`.slice(-2)
+  const year = dateParts[3]
+  const startTime = dateParts[4]
+  const [startHour, startMinute] = startTime.split(':')
+  const startHourInt = parseInt(startHour)
+  const startHour24 = (dateParts[5] === "pm" &&  startHourInt < 12) ? (startHourInt + 12) : startHourInt
+  const endTime = dateParts[7]
+  const [endHour, endMinute] = endTime.split(':')
+  const endHourInt = parseInt(endHour)
+  const endHour24 = dateParts[8] === "pm" && endHourInt < 12? (endHourInt + 12) : endHourInt
+
+  const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
+  const startDateTime = `${date}T${startHour24}:${startMinute}`
+  const endDateTime = `${date}T${endHour24}:${endMinute}`
+
+  const title = $('h1#pageHeadingH1').first().text().replace(/\t|\n/g, '')
+  $('h2:contains(Event Details:)').parent().attr('id', 'description-section');
+  $('#description-section').find('h2.sectionHeader').remove()
+  const description = $('#description-section').html().replace(/\t|\n/g, '')
+  const locationWithMaps = $('h2:contains(Address:)').siblings().text().replace(/\t|\n/g, '')
+  const location = locationWithMaps.split('View on Google Maps')[0].replace(/\t|\n/g, '')
+  const price = $('.calendar-details-header:contains(Fee)').next().text().replace(/\t|\n/g, '')
+
+  return {
+      url: context.request.url,
+      title,
+      description,
+      location,
+      price,
+      startDateTime,
+      endDateTime,
+      all_day: false,
+      linkText: "City of Kitchener event page",
+      sourceDatabaseId: 2 // id in supabase
+  };
+}
+
+export async function pageFunctionCityWaterloo(context) {
+  const $ = context.jQuery;
+  const pageTitle = $('title').first().text();
+  
+  // Print some information to actor log
+  context.log.info(`URL: ${context.request.url}, TITLE: ${pageTitle}`);
+
+  if (!context.request.url.startsWith("https://events.waterloo.ca/default/Detail")) {
+      return null
+  }
+
+  var months = ["January","February","March","April","May","June","July",
+          "August","September","October","November","December"];
+
+  const dateText = $('.dateTime p.headerDate').first().text().replace(/\t|\n/g, '')
+  const dateParts = dateText.split(' ')
+  const monthName = dateParts[1]
+  const monthIndex = months.indexOf(monthName)
+  const zeroPaddedMonth = `0${monthIndex + 1}`.slice(-2)
+  const day = dateParts[2].replace(',', '')
+  const zeroPaddedDay = `0${day}`.slice(-2)
+  const year = dateParts[3]
+  const startTime = dateParts[4]
+  const [startHour, startMinute] = startTime.split(':')
+  const startHourInt = parseInt(startHour)
+  const startHour24 = (dateParts[5] === "pm" &&  startHourInt < 12) ? (startHourInt + 12) : startHourInt
+  const endTime = dateParts[7]
+  const [endHour, endMinute] = endTime.split(':')
+  const endHourInt = parseInt(endHour)
+  const endHour24 = dateParts[8] === "pm" && endHourInt < 12? (endHourInt + 12) : endHourInt
+
+  const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
+  const startDateTime = `${date}T${startHour24}:${startMinute}`
+  const endDateTime = `${date}T${endHour24}:${endMinute}`
+
+  const title = $('#pageHeading h1').first().text().replace(/\t|\n/g, '')
+  $('h2:contains(Event Details:)').parent().attr('id', 'description-section');
+  $('#description-section').find('h2.sectionHeader').remove()
+  const description = $('#description-section').html().replace(/\t|\n/g, '')
+  const locationWithMaps = $('h2:contains(Address:)').siblings().text().replace(/\t|\n/g, '')
+  const location = locationWithMaps.split('View on Google Maps')[0].replace(/\t|\n/g, '')
+  
+  return {
+      url: context.request.url,
+      title,
+      description,
+      location,
+      date,
+      startDateTime,
+      endDateTime,
+      all_day: false,
+      linkText: "City of Waterloo event page",
+      sourceDatabaseId: 3 // id in supabase
+  };
+}
 
 export const saveEventsToDatabase = async(events) => {
 
@@ -198,6 +248,22 @@ export const generateActorInput = (source) => {
           }
       ],
       "pageFunction": pageFunctionCityKitchener
+    }
+  } else if (source === "waterloo") {
+    const today = DateTime.now().setZone("America/Toronto")
+    const queryStartDate = `${today.month}/${today.day}/${today.year}`
+    const oneMonthFromToday = DateTime.now().setZone("America/Toronto").plus({ days: 1 })
+    const queryEndDate = `${oneMonthFromToday.month}/${oneMonthFromToday.day}/${oneMonthFromToday.year}`
+    
+    return {
+      ...defaultActorInput,
+      "linkSelector": ".calendar-list-container .calendar-list-list .calendar-list-info a",
+      "startUrls": [
+          {
+              "url": `https://events.waterloo.ca/default/_List?limit=100&StartDate=${queryStartDate}&EndDate=${queryEndDate}`
+          }
+      ],
+      "pageFunction": pageFunctionCityWaterloo
     }
   }
 }
