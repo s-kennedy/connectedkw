@@ -284,6 +284,44 @@ export async function pageFunctionMuseums(context) {
   };
 }
 
+export async function pageFunctionEventbrite(context) {
+  const $ = context.jQuery;
+  const title = $('h1.event-title').first().text();
+
+  if (!title) {
+      return null
+  }
+
+  const description = document.querySelector('.event-details__main-inner .eds-text--left')?.innerHTML.replace(/\t|\n/g, '')
+  const startDateTime = document.querySelector('meta[property="event:start_time"]')?.content
+  const endDateTime = document.querySelector('meta[property="event:end_time"]')?.content
+  const locationTitle = document.querySelector('.location-info__address-text')?.textContent
+  const locationAddress = document.querySelector('meta[name="twitter:data1"]')?.getAttribute('value')
+  const location = [locationTitle, locationAddress].join(", ")
+  let price = document.querySelector('.ticket-card-compact-size__price')?.textContent
+  if (!price) {
+      price = document.querySelector('.conversion-bar__panel-info')?.textContent
+  }
+  const imageUrl = document.querySelector('meta[property="og:image"]')?.content
+
+  // Print some information to actor log
+  context.log.info(`URL: ${context.request.url}, TITLE: ${pageTitle}`);
+
+  return {
+      url: context.request.url,
+      title,
+      description,
+      location,
+      startDateTime,
+      endDateTime,
+      all_day: false,
+      price,
+      linkText: "Eventbrite",
+      sourceDatabaseId: 9, // id in supabase
+      imageUrl
+  };
+}
+
 export const saveEventsToDatabase = async(datasetItems) => {
 
   const created = []
@@ -409,6 +447,49 @@ export const generateActorInput = (source) => {
           }
       ],
       "pageFunction": pageFunctionMuseums
+    }
+  } else if (source === "eventbrite") {
+    return {
+      ...defaultActorInput,
+      "linkSelector": ".discover-search-desktop-card a.event-card-link",
+      "globs": [
+          {
+              "glob": "https://www.eventbrite.com/e/*"
+          },
+          {
+              "glob": "https://www.eventbrite.ca/e/*"
+          }
+      ],
+      "startUrls": [
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/"
+        },
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/"
+        },
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/community/"
+        },
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/?page=2"
+        },
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/?page=3"
+        },
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/?page=2"
+        },
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/?page=3"
+        },
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/community/?page=2"
+        },
+        {
+            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/community/?page=3"
+        },
+      ],
+      "pageFunction": pageFunctionEventbrite
     }
   }
 }
