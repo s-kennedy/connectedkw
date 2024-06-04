@@ -34,8 +34,7 @@ export default async (req, res) => {
     try {
       
       const data = req.body
-      console.log({data})
-      const datasetId = data.DatabaseClient.id
+      const datasetId = data.resource.defaultDatasetId
       const dataset = await apify.dataset(datasetId)
       const datasetItems = await dataset.listItems()
       console.log({datasetItems})
