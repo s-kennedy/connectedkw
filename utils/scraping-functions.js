@@ -109,7 +109,6 @@ export async function pageFunctionCityKitchener(context) {
       price,
       startDateTime,
       endDateTime,
-      all_day: false,
       linkText: "City of Kitchener event page",
       sourceDatabaseId: 2 // id in supabase
   };
@@ -164,7 +163,6 @@ export async function pageFunctionCityWaterloo(context) {
       location,
       startDateTime,
       endDateTime,
-      all_day: false,
       linkText: "City of Waterloo event page",
       sourceDatabaseId: 3 // id in supabase
   };
@@ -217,7 +215,6 @@ export async function pageFunctionCityCambridge(context) {
       price,
       startDateTime,
       endDateTime,
-      all_day: false,
       linkText: "City of Cambridge event page",
       sourceDatabaseId: 8 // id in supabase
   };
@@ -277,7 +274,6 @@ export async function pageFunctionMuseums(context) {
       location,
       startDateTime,
       endDateTime,
-      all_day: false,
       linkText: "Region of Waterloo Museums",
       sourceDatabaseId: 10, // id in supabase
       imageUrl
@@ -315,7 +311,6 @@ export async function pageFunctionEventbrite(context) {
       startDateTime,
       endDateTime,
       price,
-      all_day: false,
       linkText: "Eventbrite",
       sourceDatabaseId: 9, // id in supabase
       imageUrl
@@ -340,7 +335,6 @@ export const saveEventsToDatabase = async(datasetItems) => {
         description: description,
         starts_at: event.startDateTime,
         ends_at: event.endDateTime,
-        all_day: event.allDay,
         location_source_text: locationText,
         external_link: event.url,
         link_text: event.linkText,
