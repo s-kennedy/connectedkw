@@ -224,7 +224,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
             text: String(count), 
             color: "#ffffff", 
             fontSize: "11px",
-            fontFamily: "'Fredoka', sans-serif",
+            fontFamily: "'Outfit', sans-serif",
           },
           position,
           // adjust zIndex to be above other markers

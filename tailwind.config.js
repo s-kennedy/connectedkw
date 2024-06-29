@@ -40,9 +40,9 @@ module.exports = {
       lightGrey: "#DDE3E2"
     },
     fontFamily: {
-      body: ['Fredoka', 'Helvetica Neue', 'sans-serif'],
-      title: ['Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
-      display: ['var(--font-jackerton)', 'Fredoka Bold', 'Helvetica Neue', 'sans-serif'],
+      body: ['Outfit', 'Helvetica Neue', 'sans-serif'],
+      title: ['Outfit Bold', 'Helvetica Neue', 'sans-serif'],
+      display: ['var(--font-jackerton)', 'Outfig Bold', 'Helvetica Neue', 'sans-serif'],
     },
     container: {
       padding: '1rem',

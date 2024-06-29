@@ -79,7 +79,7 @@ function EventDisplay({ event, showImage=true, closeModal, backLink="/events" })
             description={description}
             options="'Apple','Google','iCal','Outlook.com','Microsoft 365','Microsoft Teams','Yahoo'"
             buttonStyle="default"
-            styleLight="--font: Fredoka; --btn-shadow: 0; --btn-background: #ffd166; --btn-border: #170F1A; --btn-background-hover: #ffd166;"
+            styleLight="--font: Outfit; --btn-shadow: 0; --btn-background: #ffd166; --btn-border: #170F1A; --btn-background-hover: #ffd166;"
             hideBranding={true}
             debug={true}
           ></AddToCalendarButton>

@@ -84,10 +84,20 @@ const Layout = ({
       </Head>
 
 
-      <Train stops={stops} current={currentStop} imagePath={'/ion-icon.png'} />
+      <header>
+        <div className="px-5 py-2 mx-auto flex justify-between items-center text-black max-sm:text-sm font-medium">
+          <div className="font-display text-3xl">
+            Unboring <span className="text-red">KW</span>
+          </div>
+          <div className="flex gap-4 md:gap-6">
+            <nav><Link className="text-black no-underline" href="/events">{`Events 🗓️`}</Link></nav>
+            <nav><Link className="text-black no-underline" href="/articles">{`Local info 📍`}</Link></nav>
+          </div>
+        </div>
+      </header>
 
 
-      <main className={`flex-auto snap-y pt-16`}>
+      <main className={`flex-auto snap-y mt-4`}>
 
         {children}
 

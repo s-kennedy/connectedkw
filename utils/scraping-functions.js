@@ -190,12 +190,14 @@ export async function pageFunctionCityCambridge(context) {
   const day = dateParts[2].replace(',', '')
   const zeroPaddedDay = `0${day}`.slice(-2)
   const year = dateParts[3]
-  const startTime = dateParts[4] + dateParts[5]
-  const endTime = dateParts[7] + dateParts[8]
+  const startTime = `${dateParts[4]} ${dateParts[5].toUpperCase()}`
+  const endTime = `${dateParts[7]} ${dateParts[8].toUpperCase()}`
   
   const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
-  const startDateTime = `${date}T${startTime}`
-  const endDateTime = `${date}T${endTime}`
+  const startDateObj = new Date(`${date} ${startTime}`)
+  const endDateObj = new Date(`${date} ${endTime}`)
+  const startDateTime = startDateObj.toISOString()
+  const endDateTime = endDateObj.toISOString()
 
   const title = $('#pageHeading h1').first().text().replace(/\t|\n/g, '')
   $('h2:contains(Event Details:)').parent().attr('id', 'description-section');
@@ -340,8 +342,8 @@ export const saveEventsToDatabase = async(datasetItems) => {
         link_text: event.linkText,
         price: event.price.trim(),
         data_source: event.sourceDatabaseId,
-        categories: [{ categories_id: DEFAULT_CATEGORY_ID }],
-        image: image?.id
+        image: image?.id,
+        image_url: event.imageUrl
       }
 
       const locations = await directus.request(

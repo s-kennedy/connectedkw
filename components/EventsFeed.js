@@ -27,7 +27,7 @@ const defaultConfig = {
   views: ['list', 'calendar']
 }
 
-const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={}, children }) => {
+const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loading, config={}, children }) => {
   const fullConfig = { ...defaultConfig, ...config }
   const [isLoading, setLoading] = useState(loading)
   const emptyFilters = filters.reduce((a, f) => {
@@ -124,7 +124,7 @@ const EventsFeed = ({ title="Events", events=[], filters=[], loading, config={},
       <div className="">
         <div className={`flex-auto flex-col space-y-2`}>
           <h1 className="space-x-2">
-            <span className="text-4 md:text-6xl font-title">{title}</span>
+            <span className="text-4 md:text-5xl font-title">{title}</span>
             {length && <span className="font-body text-lg md:text-xl bg-black text-white rounded-full px-3 py-1 align-top ">{length}</span>}
           </h1>
           {children}
