@@ -76,7 +76,7 @@ const getEvents = async (limit=-1, offset=0) => {
   try {
     const events =  await directus.request(
       readItems('events', {
-        fields: '*,location,location.name,categories.categories_id.name,categories.categories_id.id,tags.tags_id.id,tags.tags_id.name,image.*',
+        fields: 'id,slug,featured,title,starts_at,ends_at,external_link,link_text,price,data_source,classification,location_source_text,location,location.name,location.coordinates,categories.categories_id.name,categories.categories_id.id,tags.tags_id.id,tags.tags_id.name,image.*',
         filter: {
           status: {
             _eq: 'published',

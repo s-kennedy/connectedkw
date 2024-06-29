@@ -85,19 +85,22 @@ const Layout = ({
 
 
       <header>
-        <div className="px-5 py-2 mx-auto flex justify-between items-center text-black max-sm:text-sm font-medium">
+        <div className="px-5 py-2 mx-auto flex justify-between items-center text-black max-sm:text-sm">
           <div className="font-display text-3xl">
             Unboring <span className="text-red">KW</span>
           </div>
+          <p className="hidden md:block mb-0">
+            A community-based resource for families in KW
+          </p>
           <div className="flex gap-4 md:gap-6">
-            <nav><Link className="text-black no-underline" href="/events">{`Events 🗓️`}</Link></nav>
-            <nav><Link className="text-black no-underline" href="/articles">{`Local info 📍`}</Link></nav>
+            <nav><Link className="text-black no-underline font-medium" href="/events">{`Events 🗓️`}</Link></nav>
+            <nav><Link className="text-black no-underline font-medium" href="/articles">{`Local info 🐝`}</Link></nav>
           </div>
         </div>
       </header>
 
 
-      <main className={`flex-auto snap-y mt-4`}>
+      <main className={`flex-auto snap-y mt-4 mb-6`}>
 
         {children}
 

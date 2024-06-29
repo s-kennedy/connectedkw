@@ -41,9 +41,21 @@ const EventCard = ({ event, showImage, labels }) => {
             {`️⭐ FEATURED ️⭐`}
           </div>
         }
-        <div className="w-full flex-auto min-h-0 flex flex-col sm:flex-row justify-stretch items-stretch">
-        { ((featured || showImage) && image) &&
-          <div className={`relative basis-1/2 flex-auto min-h-0 overflow-hidden`}>
+        <div className="w-full gap-4 flex-auto min-h-0 flex flex-col sm:flex-row">
+        { (featured && image) &&
+          <div className={`basis-1/2 relative flex-auto min-h-0 overflow-hidden`}>
+            <img
+              className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
+              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`}
+              alt={image.description || image.title} 
+              title={image.title}
+              loading="lazy"
+            />
+          </div>
+        }
+
+        { (showImage && image) &&
+          <div className={`w-full aspect-video sm:aspect-square sm:w-40 grow-0 relative min-h-0 overflow-hidden`}>
             <img
               className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
               src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`}

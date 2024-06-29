@@ -96,15 +96,37 @@ const Marker = ({ map, feature, category={}, setPreviewMarker, setSelectedFeatur
 };
 
 const generatePreview = (feature, previewConfig={}) => {
-  const title = feature.title || ""
+  let previewHtml = [`<div class="p-2">`]
 
-  if (feature.images) {
+  if (feature.images && feature.images[0]) {
     const image = feature.images[0]
     const imageSrc = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=thumbnail-100`
-    return (`<div class="map-infowindow"><div class="image"><img src="${imageSrc}" alt="Photo of park" /></div><p class="title">${title}</p></div>`)
+    previewHtml = previewHtml.concat(`<div class="image"><img src="${imageSrc}" alt="" /></div></div>`)
   }
 
-  return (`<div class="map-infowindow"><p class="title">${title}</p></div>`)
+  const title = feature[previewConfig.title] || feature.title
+  previewHtml = previewHtml.concat(`<p class="font-medium">${title}</p>`)
+
+  if (previewConfig.details) {
+    previewConfig.details.forEach(detail => {
+      switch(detail.type) {
+      case "date":
+        const dateObj = new Date(feature[detail.field])
+        const dateString = dateObj.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+        previewHtml = previewHtml.concat(`<p class="">${dateString}</p>`)
+        break;
+      default:
+        previewHtml = previewHtml.concat(`<p class="">${feature[detail.field]}</p>`)
+        break;
+      }
+    })
+  }
+
+  previewHtml = previewHtml.concat(`</div>`)
+  const infoWindowMarkup = previewHtml.join("")
+
+
+  return (infoWindowMarkup)
 }
 
 const InfoWindow = ({ map, marker, previewConfig }) => {
@@ -183,7 +205,6 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
       setMarkers([])
 
       const gmapMarkers = features.map(feature => {
-        console.log({feature})
         if (!feature?.location?.coordinates?.coordinates) return null
         const [longitude, latitude] = feature.location.coordinates.coordinates
         const position = new google.maps.LatLng(latitude, longitude)

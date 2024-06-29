@@ -24,7 +24,7 @@ const defaultConfig = {
     categories: 'Categories',
     tags: 'Tags',
   },
-  views: ['list', 'calendar']
+  views: ['list', 'calendar', 'map']
 }
 
 const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loading, config={}, children }) => {
@@ -173,7 +173,7 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
               {
                 view === "list" && 
                 <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
-                  {filteredEvents.map(event => <EventCard labels={fullConfig.labels} event={event} key={event.id} />)}
+                  {filteredEvents.map(event => <EventCard showImage={true} labels={fullConfig.labels} event={event} key={event.id} />)}
                 </div>
               }
               {
@@ -182,7 +182,13 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
               }
               {
                 view === "map" && 
-                <InteractiveMap features={filteredEvents} mapConfig={{ mapId: 'summer-camps-2024' }} /> 
+                <InteractiveMap 
+                  features={filteredEvents} 
+                  mapConfig={{ 
+                    mapId: 'events-map', 
+                    preview: { title: 'title', details: [{ field: 'starts_at', type: 'date' }]}
+                  }} 
+                /> 
               }
             </>
           )}

@@ -71,7 +71,10 @@ export default function Events({ events=[], categories=[], tags=[], dataSources=
   return (
     <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
       <div className="container sm:max-w-screen-md md:max-w-screen-lg py-5 mx-auto">
-        <EventsFeed events={events} filters={filters} loading={loading} />
+        <EventsFeed events={events} filters={filters} loading={loading}>
+          <p>{`Tired of checking multiple events calendars and still missing out? Our feed aggregates events from the City of Kitchener, the City of Waterloo, the City of Cambridge, Explore Waterloo, Region of Waterloo Museums, Waterloo Public Library, Eventbrite, and social media.`}</p>
+          <p>{`You can save events to your calendar app, or bookmark this page so it's easy to access whenever you need to find something to do!`}</p>
+        </EventsFeed>
       </div>
     </Layout>
   )

@@ -18,7 +18,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
     location
   } = feature;
 
-  let image = images[0]
+  let image = images && images[0]
   let imageUrl;
 
   if (image) {
