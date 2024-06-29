@@ -34,9 +34,8 @@ const getEvents = async (props) => {
     `)
     .eq('published', true)
     // .limit(limit)
-    .gte('end_date', new Date().toISOString())
-    .order('start_date', { ascending: true })
-    .order('start_time', { ascending: true })
+    .gte('ends_at', new Date().toISOString())
+    .order('starts_at', { ascending: true })
 
   if (error) {
     console.log({error})

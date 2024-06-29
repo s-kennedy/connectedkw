@@ -289,7 +289,7 @@ export async function pageFunctionEventbrite(context) {
   }
 
   const description = document.querySelector('.event-details__main-inner .eds-text--left')?.innerHTML.replace(/\t|\n/g, '')
-  const startDateTime = document.querySelector('meta[property="event:start_time"]')?.content
+  const startDateTime = document.querySelector('meta[property="event:starts_at"]')?.content
   const endDateTime = document.querySelector('meta[property="event:end_time"]')?.content
   const locationTitle = document.querySelector('.location-info__address-text')?.textContent
   const locationAddress = document.querySelector('meta[name="twitter:data1"]')?.getAttribute('value')
@@ -331,14 +331,14 @@ export const saveEventsToDatabase = async(datasetItems) => {
       const locationText = event.location.trim()
 
       const eventData = {
-        title: event.title,
-        description: description,
+        title: event.title.trim(),
+        description: description.trim(),
         starts_at: event.startDateTime,
         ends_at: event.endDateTime,
         location_source_text: locationText,
         external_link: event.url,
         link_text: event.linkText,
-        price: event.price,
+        price: event.price.trim(),
         data_source: event.sourceDatabaseId,
         categories: [{ categories_id: DEFAULT_CATEGORY_ID }],
         image: image?.id

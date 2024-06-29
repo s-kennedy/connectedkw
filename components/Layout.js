@@ -9,9 +9,7 @@ import Footer from 'components/Footer'
 import styles from 'styles/navbar.module.css'
 
 const stops = [
-  { name: `Home`, slug: `home` },
   { name: `Events`, slug: `events` },
-  { name: `Activities`, slug: `activities` },
   { name: `Places`, slug: `maps` },
   { name: `Blog`, slug: `articles` },
 ]

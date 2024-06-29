@@ -25,12 +25,12 @@ const getActivities = async (limit=-1, offset=0) => {
             { 
               _or: [
                 {
-                  start_date: {
+                  starts_at: {
                     _null: true
                   },
                 },
                 {
-                  start_date: {
+                  starts_at: {
                     _lte: new Date().toISOString()
                   }
                 }
@@ -39,12 +39,12 @@ const getActivities = async (limit=-1, offset=0) => {
             { 
               _or: [
                 {
-                  end_date: {
+                  ends_at: {
                     _null: true
                   },
                 },
                 {
-                  end_date: {
+                  ends_at: {
                     _gte: new Date().toISOString()
                   }
                 }
@@ -52,7 +52,7 @@ const getActivities = async (limit=-1, offset=0) => {
             },
           ]
         },
-        sort: ['start_date', 'start_time'],
+        sort: ['starts_at', 'ends_at'],
         limit: limit,
       })
     );
@@ -68,7 +68,7 @@ const getActivities = async (limit=-1, offset=0) => {
     return result;
   } catch (error) {
     console.log(JSON.stringify(error))
-    return []
+    return null
   }
 }
 
@@ -88,12 +88,12 @@ const getEvents = async (limit=-1, offset=0) => {
             {
               _and: [
                 {
-                  start_date: {
+                  starts_at: {
                     _lte: new Date().toISOString() 
                   },
                 },
                 {
-                  end_date: {
+                  ends_at: {
                     _gte: new Date().toISOString() 
                   },
                 }
@@ -102,12 +102,12 @@ const getEvents = async (limit=-1, offset=0) => {
             {
               _and: [
                 {
-                  start_date: {
+                  starts_at: {
                     _gte: new Date().toISOString() 
                   },
                 },
                 {
-                  end_date: {
+                  ends_at: {
                     _null: true
                   },
                 }
@@ -116,12 +116,12 @@ const getEvents = async (limit=-1, offset=0) => {
             {
               _and: [
                 {
-                  start_date: {
+                  starts_at: {
                     _gte: new Date().toISOString() 
                   },
                 },
                 {
-                  end_date: {
+                  ends_at: {
                     _gte: new Date().toISOString()
                   },
                 }
@@ -129,7 +129,7 @@ const getEvents = async (limit=-1, offset=0) => {
             },
           ]
         },
-        sort: ['start_date', 'start_time'],
+        sort: ['starts_at'],
         limit: limit,
         offset: offset
       })

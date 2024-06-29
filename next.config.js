@@ -62,6 +62,11 @@ const nextConfig = {
         destination: '/articles/summer-camps-2024',
         permanent: false,
       },
+      {
+        source: '/',
+        destination: '/events',
+        permanent: false,
+      },
     ]
   },
 }

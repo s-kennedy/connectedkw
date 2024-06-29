@@ -14,10 +14,8 @@ function EventDisplay({ event, showImage=true, closeModal, backLink="/events" })
 
   const { title,
     description,
-    start_date,
-    end_date,
-    start_time,
-    end_time,
+    starts_at,
+    ends_at,
     external_link,
     link_text,
     price,
@@ -27,14 +25,14 @@ function EventDisplay({ event, showImage=true, closeModal, backLink="/events" })
     location 
   } = event;
 
-  const dateString = buildDateString(start_date, end_date, start_time, end_time)
+  const dateString = buildDateString(starts_at, ends_at)
 
-  const { calendarStartDate, calendarStartTime, calendarEndDate, calendarEndTime} = getCalendarDates(start_date, end_date, start_time, end_time)
+  const { calendarStartDate, calendarStartTime, calendarEndDate, calendarEndTime} = getCalendarDates(starts_at, ends_at)
   const calendarLocation = (location?.name && location?.street_address) ? `${location.name}, ${location.street_address}` : (location?.name) ? `${location.name}` : "TBD"
   const calendarTitle = title ? `${title}` : "Untitled event"
 
   const imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}` : null
-  const showCalendarButton = new Date(start_date) > new Date()
+  const showCalendarButton = new Date(starts_at) > new Date()
 
   return (
     <div className={`overflow-auto styled-scrollbar min-h-0 h-full w-full`}>

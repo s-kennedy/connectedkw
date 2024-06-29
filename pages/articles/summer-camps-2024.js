@@ -59,7 +59,7 @@ export default function SummerCamps({tags=[]}) {
       options: [],
       multipleSelect: false,
       attributeFn: (event) => {
-        const startDateTime = new Date(`${event.start_date}T${event.start_time}`)
+        const startDateTime = new Date(`${event.starts_at}`)
         const now = new Date()
         return startDateTime < now
       }

@@ -10,10 +10,8 @@ const EventCard = ({ event, showImage, labels }) => {
     featured,
     title,
     description,
-    start_date,
-    end_date,
-    start_time,
-    end_time,
+    starts_at,
+    ends_at,
     categories,
     tags,
     image,
@@ -24,7 +22,7 @@ const EventCard = ({ event, showImage, labels }) => {
     price
   } = event;
 
-  const dateString = buildDateString(start_date, end_date, start_time, end_time)
+  const dateString = buildDateString(starts_at, ends_at)
 
   const urlFragments = {
     'activity': 'activities',

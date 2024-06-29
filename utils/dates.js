@@ -1,15 +1,15 @@
 import { DEFAULT_LOCALE, DATE_FORMAT, TIME_FORMAT } from 'utils/constants'
 import { DateTime } from 'luxon'
 
-const buildDateString = (start_date, end_date, start_time, end_time) => {
+const buildDateString = (starts_at, ends_at) => {
   let startDateTimeString, endDateTimeString, fullDateTimeString
 
   // start date and time
-  const startDateObj = new Date(start_date)
+  const startDateObj = new Date(starts_at)
   startDateTimeString = startDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
 
-  if (start_time) {
-    const startDateTimeObj = new Date(`${start_date}T${start_time}`)
+  if (starts_at) {
+    const startDateTimeObj = new Date(`${starts_at}`)
     const startDateStr = startDateTimeObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
     const startTimeSt = startDateTimeObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
     startDateTimeString = `${startDateStr}, ${startTimeSt}`
@@ -19,25 +19,9 @@ const buildDateString = (start_date, end_date, start_time, end_time) => {
 
   // ends on same day and end time specified
   // just show end time
-  if (end_time && (!end_date || end_date === start_date)) {
-    const endTimeObj = new Date(`${start_date}T${end_time}`)
+  if (ends_at && ends_at === starts_at) {
+    const endTimeObj = new Date(`${starts_at}`)
     endDateTimeString = endTimeObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
-  }
-
-  // ends on different day but no end time specified
-  // just show end date
-  if (!end_time && (end_date && end_date != start_date)) {
-    const endDateObj = new Date(end_date)
-    endDateTimeString = endDateObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
-  }
-
-  // ends on different day and with end time specified
-  // show end date and time
-  if (end_time  && (end_date && end_date != start_date)) {
-    const endDateTimeObj = new Date(`${end_date}T${end_time}`)
-    const endDateString = endDateTimeObj.toLocaleDateString(DEFAULT_LOCALE, DATE_FORMAT)
-    const endTimeString = endDateTimeObj.toLocaleTimeString(DEFAULT_LOCALE, TIME_FORMAT)
-    endDateTimeString = `${endDateString}, ${endTimeString}`
   }
 
   fullDateTimeString = startDateTimeString
@@ -49,13 +33,13 @@ const buildDateString = (start_date, end_date, start_time, end_time) => {
   return fullDateTimeString
 }
 
-const getCalendarDates = (start_date, end_date, start_time, end_time) => {
-  const startDateObj = new Date(`${start_date}T${start_time}`)
+const getCalendarDates = (starts_at, ends_at) => {
+  const startDateObj = new Date(starts_at)
   let endDateObj;
-  if (end_date && end_time) {
-    endDateObj = new Date(`${end_date}T${end_time}`)
+  if (ends_at) {
+    endDateObj = new Date(ends_at)
   } else {
-    const luxonDate = DateTime.fromISO(`${start_date}T${start_time}`)
+    const luxonDate = DateTime.fromISO(`${starts_at}`)
     const oneHourLater = luxonDate.plus({ hours: 1 }).toISO()
     endDateObj = new Date(oneHourLater)
   }

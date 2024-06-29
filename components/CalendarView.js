@@ -14,19 +14,19 @@ const CalendarView = ({ events }) => {
   })
 
 	const calendarEvents = events.map(event => {
-		const { start_date, start_time, end_date, end_time } = event
+		const { starts_at, ends_at } = event
 		let endDateObj;
-		if (end_date && end_time) {
-	    endDateObj = new Date(`${end_date}T${end_time}`)
+		if (ends_at) {
+	    endDateObj = new Date(`${ends_at}`)
 	  } else {
-	    const luxonDate = DateTime.fromISO(`${start_date}T${start_time}`)
+	    const luxonDate = DateTime.fromISO(`${starts_at}`)
 	    const oneHourLater = luxonDate.plus({ hours: 1 }).toISO()
 	    endDateObj = new Date(oneHourLater)
 	  }
 
 		return {
 			...event,
-			start: new Date(`${event.start_date}T${event.start_time}`),
+			start: new Date(`${event.starts_at}`),
 			end: endDateObj,
 		}
 	})

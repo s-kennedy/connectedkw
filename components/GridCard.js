@@ -11,10 +11,8 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
     featured,
     title,
     description,
-    start_date,
-    end_date,
-    start_time,
-    end_time,
+    starts_at,
+    ends_at,
     categories,
     tags,
     image,
@@ -24,7 +22,7 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
     location_source_text 
   } = item;
 
-  const dateString = buildDateString(start_date, end_date, start_time, end_time)
+  const dateString = buildDateString(starts_at, ends_at)
 
   const urlFragments = {
     'activity': 'activities',
@@ -55,7 +53,6 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
             { description && showDescription && <ReactMarkdown>{description}</ReactMarkdown>}
             { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
             { !location && location_source_text && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location_source_text}</span></p>}
-            { Boolean(categories?.length) && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>👶</span><span>{categories.map(c => c.name).join(', ')}</span></p>}
             { Boolean(tags?.length) && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>#️⃣</span><span>{tags.map(t => t.name).join(', ')}</span></p>}
         </div>
       </div>

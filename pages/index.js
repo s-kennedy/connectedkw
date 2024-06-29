@@ -1,35 +1,30 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from 'styles/Home.module.css'
-import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse"
 
 import Layout from 'components/Layout'
 import Section from 'components/Section'
-import MailchimpSubscriptionForm from 'components/MailchimpSubscriptionForm'
-import Blob from 'components/Blob'
-import Marquee from 'components/Marquee'
 import GridCard from "components/GridCard"
 
-import { getPagesByTemplate, getActivities, getEvents } from 'integrations/directus';
+import { getPagesByTemplate, getEvents } from 'integrations/directus';
 
 export async function getServerSideProps({ params }) {
   const places = await getPagesByTemplate('map')
-  const activities = await getActivities()
   const events = await getEvents(10)
 
-  const randomActivities = [...Array(10)].map((item, i) => {
-    const randomIndex = Math.floor(Math.random()*activities.length);
-    const randomActivity = activities[randomIndex]
-    activities.splice(randomIndex,1)
-    return randomActivity
-  })
+  // const randomActivities = [...Array(10)].map((item, i) => {
+  //   const randomIndex = Math.floor(Math.random()*activities.length);
+  //   const randomActivity = activities[randomIndex]
+  //   activities.splice(randomIndex,1)
+  //   return randomActivity
+  // })
 
   return {
-    props: { places, activities: randomActivities, events }
+    props: { places, events }
   }
 }
 
-export default function Home({ places, activities, events }) {
+export default function Home({ places, events }) {
 
   const mapPages = places.map(page => {
     return {
@@ -74,7 +69,7 @@ export default function Home({ places, activities, events }) {
         </div>
       </section>
 
-      <section className={`w-full relative mb-6`} data-aos="fade-up">
+      {/*<section className={`w-full relative mb-6`} data-aos="fade-up">
         <div className="container p-3 mx-auto">
           <h2 className="font-title text-3xl md:text-4xl mb-6">
             Activity Ideas 🏓
@@ -87,7 +82,7 @@ export default function Home({ places, activities, events }) {
           </div>
         </div>
       </section>
-
+*/}
       <section className={`w-full relative mb-6`} data-aos="fade-up">
         <div className="container p-3 mx-auto">
           <h2 className="font-title text-3xl md:text-4xl mb-6">

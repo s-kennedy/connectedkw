@@ -1,38 +1,39 @@
 import Layout from 'components/Layout'
 import EventsFeed from 'components/EventsFeed'
-import { getCategories, getTags, getDataSources } from 'integrations/directus';
+import { getEvents, getCategories, getTags, getDataSources } from 'integrations/directus';
 import { useState, useEffect } from 'react'
 
 export async function getServerSideProps() {
   const categories = await getCategories('Age groups')
   const tags = await getTags('Events and activities')
+  const events = await getEvents()
   const dataSources = await getDataSources()
 
   return {
-    props: { tags, categories, dataSources },
+    props: { tags, categories, dataSources, events },
   }
 }
 
-export default function Events({ categories=[], tags=[], dataSources=[] }) {
-  const [events, setEvents] = useState([])
+export default function Events({ events=[], categories=[], tags=[], dataSources=[] }) {
+  // const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const data = await fetch('/api/events');
-      const json = await data.json();
-      setEvents(json);
-      setLoading(false)
-    }
+  // useEffect(() => {
+  //   const fetchEvents = async () => {
+  //     const data = await fetch('/api/events');
+  //     const json = await data.json();
+  //     setEvents(json);
+  //     setLoading(false)
+  //   }
 
-    try {
-      setLoading(true)
-      fetchEvents()
-    } catch(err) {
-      setLoading(false)
-      console.log(err)
-    }
-  }, [])
+  //   try {
+  //     setLoading(true)
+  //     fetchEvents()
+  //   } catch(err) {
+  //     setLoading(false)
+  //     console.log(err)
+  //   }
+  // }, [])
 
   const filters = [
     {
@@ -69,7 +70,7 @@ export default function Events({ categories=[], tags=[], dataSources=[] }) {
   ]
   return (
     <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
-      <div className="container py-5 mx-auto">
+      <div className="container sm:max-w-screen-md md:max-w-screen-lg py-5 mx-auto">
         <EventsFeed events={events} filters={filters} loading={loading} />
       </div>
     </Layout>

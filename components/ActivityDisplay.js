@@ -9,10 +9,8 @@ function ActivityDisplay({ activity }) {
 
   const { title,
     description,
-    start_date,
-    end_date,
-    start_time,
-    end_time,
+    starts_at,
+    ends_at,
     external_link,
     link_text,
     price,
@@ -22,7 +20,7 @@ function ActivityDisplay({ activity }) {
     location 
   } = activity;
 
-  const dateString = buildDateString(start_date, end_date, start_time, end_time)
+  const dateString = buildDateString(starts_at, ends_at)
   const imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}` : null
 
   return (
