@@ -54,7 +54,7 @@ const EventCard = ({ event, showImage, labels }) => {
           </div>
         }
 
-        { (showImage && image) &&
+        { (!featured && showImage && image) &&
           <div className={`w-full aspect-video sm:aspect-square sm:w-40 grow-0 relative min-h-0 overflow-hidden`}>
             <img
               className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}

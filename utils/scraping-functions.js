@@ -1,4 +1,4 @@
-import { DEFAULT_CATEGORY_ID } from './constants'
+
 import { 
   createDirectus, 
   staticToken, 
@@ -41,7 +41,7 @@ export const defaultActorInput = {
   "injectJQuery": true,
   "keepUrlFragments": false,
   "linkSelector": "",
-  "maxPagesPerCrawl": 300,
+  "maxPagesPerCrawl": 150,
   "postNavigationHooks": "// We need to return array of (possibly async) functions here.\n// The functions accept a single argument: the \"crawlingContext\" object.\n[\n    async (crawlingContext) => {\n        // ...\n    },\n]",
   "preNavigationHooks": "// We need to return array of (possibly async) functions here.\n// The functions accept two arguments: the \"crawlingContext\" object\n// and \"gotoOptions\".\n[\n    async (crawlingContext, gotoOptions) => {\n        // ...\n    },\n]\n",
   "proxyConfiguration": {
@@ -283,40 +283,41 @@ export async function pageFunctionMuseums(context) {
 }
 
 export async function pageFunctionEventbrite(context) {
-  const $ = context.jQuery;
-  const title = $('h1.event-title').first().text();
+    const $ = context.jQuery;
+    const pageTitle = $('title').first().text();
+    const title = $('h1.event-title').first().text();
 
-  if (!title) {
-      return null
-  }
+    if (!title) {
+        return null
+    }
 
-  const description = document.querySelector('.event-details__main-inner .eds-text--left')?.innerHTML.replace(/\t|\n/g, '')
-  const startDateTime = document.querySelector('meta[property="event:starts_at"]')?.content
-  const endDateTime = document.querySelector('meta[property="event:end_time"]')?.content
-  const locationTitle = document.querySelector('.location-info__address-text')?.textContent
-  const locationAddress = document.querySelector('meta[name="twitter:data1"]')?.getAttribute('value')
-  const location = [locationTitle, locationAddress].join(", ")
-  let price = document.querySelector('.ticket-card-compact-size__price')?.textContent
-  if (!price) {
-      price = document.querySelector('.conversion-bar__panel-info')?.textContent
-  }
-  const imageUrl = document.querySelector('meta[property="og:image"]')?.content
+    const description = document.querySelector('.event-details__main-inner .eds-text--left')?.innerHTML.replace(/\t|\n/g, '')
+    const startDateTime = document.querySelector('meta[property="event:starts_at"]')?.content
+    const endDateTime = document.querySelector('meta[property="event:end_time"]')?.content
+    const locationTitle = document.querySelector('.location-info__address-text')?.textContent
+    const locationAddress = document.querySelector('meta[name="twitter:data1"]')?.getAttribute('value')
+    const location = [locationTitle, locationAddress].join(", ")
+    let price = document.querySelector('.ticket-card-compact-size__price')?.textContent
+    if (!price) {
+        price = document.querySelector('.conversion-bar__panel-info')?.textContent
+    }
+    const imageUrl = document.querySelector('meta[property="og:image"]')?.content
 
-  // Print some information to actor log
-  context.log.info(`URL: ${context.request.url}, TITLE: ${pageTitle}`);
+    // Print some information to actor log
+    context.log.info(`URL: ${context.request.url}, TITLE: ${pageTitle}`);
 
-  return {
-      url: context.request.url,
-      title,
-      description,
-      location,
-      startDateTime,
-      endDateTime,
-      price,
-      linkText: "Eventbrite",
-      sourceDatabaseId: 9, // id in supabase
-      imageUrl
-  };
+    return {
+        url: context.request.url,
+        title,
+        description,
+        location,
+        startDateTime,
+        endDateTime,
+        price,
+        linkText: "Eventbrite",
+        sourceDatabaseId: 9, // id in supabase
+        imageUrl
+    };
 }
 
 export const saveEventsToDatabase = async(datasetItems) => {
@@ -446,8 +447,12 @@ export const generateActorInput = (source) => {
     }
   } else if (source === "eventbrite") {
     return {
-      ...defaultActorInput,
-      "linkSelector": ".discover-search-desktop-card a.event-card-link",
+      "breakpointLocation": "NONE",
+      "browserLog": false,
+      "closeCookieModals": false,
+      "debugLog": false,
+      "downloadCss": true,
+      "downloadMedia": true,
       "globs": [
           {
               "glob": "https://www.eventbrite.com/e/*"
@@ -456,37 +461,53 @@ export const generateActorInput = (source) => {
               "glob": "https://www.eventbrite.ca/e/*"
           }
       ],
+      "headless": false,
+      "ignoreCorsAndCsp": false,
+      "ignoreSslErrors": false,
+      "injectJQuery": true,
+      "keepUrlFragments": false,
+      "linkSelector": ".discover-search-desktop-card a.event-card-link",
+      "maxPagesPerCrawl": 150,
+      "pageFunction": pageFunctionEventbrite,
+      "postNavigationHooks": "// We need to return array of (possibly async) functions here.\n// The functions accept a single argument: the \"crawlingContext\" object.\n[\n    async (crawlingContext) => {\n        // ...\n    },\n]",
+      "preNavigationHooks": "// We need to return array of (possibly async) functions here.\n// The functions accept two arguments: the \"crawlingContext\" object\n// and \"gotoOptions\".\n[\n    async (crawlingContext, gotoOptions) => {\n        // ...\n    },\n]\n",
+      "proxyConfiguration": {
+          "useApifyProxy": true
+      },
+      "runMode": "PRODUCTION",
       "startUrls": [
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/"
-        },
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/"
-        },
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/community/"
-        },
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/?page=2"
-        },
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/?page=3"
-        },
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/?page=2"
-        },
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/?page=3"
-        },
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/community/?page=2"
-        },
-        {
-            "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/community/?page=3"
-        },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/"
+          },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/"
+          },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/community/"
+          },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/?page=2"
+          },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/?page=3"
+          },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/kids/?page=4"
+          },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/?page=2"
+          },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/?page=3"
+          },
+          {
+              "url": "https://www.eventbrite.ca/d/canada--waterloo--10327/family/?page=4"
+          }
       ],
-      "pageFunction": pageFunctionEventbrite
+      "useChrome": false,
+      "waitUntil": [
+          "networkidle2"
+      ]
     }
   }
 }
-

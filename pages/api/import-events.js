@@ -1,5 +1,6 @@
 import Cors from 'cors'
 import { generateActorInput } from 'utils/scraping-functions'
+import { importExploreWaterlooEvents } from 'utils/import-functions'
 import { ApifyClient } from 'apify-client'
 const apify = new ApifyClient({
     token: process.env.APIFY_TOKEN
@@ -53,10 +54,16 @@ export default async (req, res) => {
         return res.status(500).json({ message: "Provide a source" })
       }
 
+      if (source === "explore-waterloo") {
+        const result = await importExploreWaterlooEvents()
+        console.log({result})
+        return res.status(200).json(result)
+      }
+
       const actorInput = generateActorInput(source)
       const run = await apify.actor("apify/web-scraper").start(actorInput);
       console.log({run})
-      res.status(200).json({run})
+      res.status(200).json(run)
 
     } catch (err) {
       console.log(err);
