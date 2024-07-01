@@ -78,7 +78,7 @@ const saveToDatabase = async(events) => {
   const promises = events.map(async(event) => {
     try {
       const description = markdown.translate(event.description)
-      const location_source_text = event.venue?.venue ? [event.venue.venue,event.venue.address].join(", ") : nul
+      const location_source_text = event.venue?.venue ? [event.venue.venue,event.venue.address].join(", ") : null
       const title = event.title.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d))
       const image = await importImage(event.image?.url, title)
     
@@ -97,19 +97,19 @@ const saveToDatabase = async(events) => {
 
       const locationSearch = event.venue?.address ? event.venue?.address : event.venue?.venue
 
-      // if (locationSearch) {
-      //   const locations = await directus.request(
-      //     readItems('locations', {
-      //       fields: ['id'],
-      //       search: event.venue?.venue,
-      //       limit: 1
-      //     })
-      //   );
+      if (locationSearch) {
+        const locations = await directus.request(
+          readItems('locations', {
+            fields: ['id'],
+            search: event.venue?.venue,
+            limit: 1
+          })
+        );
 
-      //   if (locations && locations[0]) {
-      //     eventData.location = locations[0].id
-      //   }
-      // }
+        if (locations && locations[0]) {
+          eventData.location = locations[0].id
+        }
+      }
 
       const tagIds = event.categories.map(cat => {
         return tag_lookup[cat.slug]
@@ -119,12 +119,12 @@ const saveToDatabase = async(events) => {
         eventData.tags = tagIds.map(t => ({ tags_id: t }))
       }
 
-      // const result = await directus.request(
-      //   createItem('events', eventData)
-      // )
+      const result = await directus.request(
+        createItem('events', eventData)
+      )
 
-      // created.push(result)
-      return eventData
+      created.push(result)
+      return result
 
     } catch (error) {
       console.log(error)
