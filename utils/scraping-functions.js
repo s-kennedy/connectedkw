@@ -452,7 +452,8 @@ export const generateActorInput = (source) => {
       "closeCookieModals": false,
       "debugLog": false,
       "downloadCss": true,
-      "downloadMedia": true,
+      "downloadMedia": false,
+      "linkSelector": ".discover-search-desktop-card a.event-card-link",
       "globs": [
           {
               "glob": "https://www.eventbrite.com/e/*"
@@ -466,7 +467,6 @@ export const generateActorInput = (source) => {
       "ignoreSslErrors": false,
       "injectJQuery": true,
       "keepUrlFragments": false,
-      "linkSelector": ".discover-search-desktop-card a.event-card-link",
       "maxPagesPerCrawl": 150,
       "pageFunction": pageFunctionEventbrite,
       "postNavigationHooks": "// We need to return array of (possibly async) functions here.\n// The functions accept a single argument: the \"crawlingContext\" object.\n[\n    async (crawlingContext) => {\n        // ...\n    },\n]",
