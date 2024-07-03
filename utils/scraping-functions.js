@@ -292,7 +292,7 @@ export async function pageFunctionEventbrite(context) {
     }
 
     const description = document.querySelector('.event-details__main-inner .eds-text--left')?.innerHTML.replace(/\t|\n/g, '')
-    const startDateTime = document.querySelector('meta[property="event:starts_at"]')?.content
+    const startDateTime = document.querySelector('meta[property="event:start_time"]')?.content
     const endDateTime = document.querySelector('meta[property="event:end_time"]')?.content
     const locationTitle = document.querySelector('.location-info__address-text')?.textContent
     const locationAddress = document.querySelector('meta[name="twitter:data1"]')?.getAttribute('value')
