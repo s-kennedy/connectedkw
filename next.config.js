@@ -35,7 +35,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'cms.unboringkw.com',
+        hostname: 'cms.connectedkw.com',
         pathname: '/assets/**',
       }
     ],

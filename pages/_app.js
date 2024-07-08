@@ -4,7 +4,7 @@ import AOS from 'aos';
 import PlausibleProvider from 'next-plausible'
 import { Analytics } from '@vercel/analytics/react';
 import localFont from 'next/font/local';
-const jackerton = localFont({ src: '../fonts/Jackerton-Regular.otf', variable: "--font-jackerton" })
+const slackey = localFont({ src: '../fonts/Slackey/Slackey-Regular.ttf', variable: "--font-slackey" })
 
 import 'aos/dist/aos.css';
 import '../styles/globals.css'
@@ -20,8 +20,8 @@ function MyApp({ Component, pageProps }) {
   });
 
   return (
-    <div className={`${jackerton.variable}`}>
-      <PlausibleProvider domain="unboringkw.com">
+    <div className={`${slackey.variable}`}>
+      <PlausibleProvider domain="connectedkw.com">
         <Component {...pageProps} />
       </PlausibleProvider>
       <Analytics />

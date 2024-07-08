@@ -115,7 +115,6 @@ p {
 }
 
 a {
-  color: var(--theme-blue);
   text-decoration: underline;
 }
 
@@ -225,7 +224,7 @@ article ul {
 
 @layer components {
   .btn {
-    @apply text-black no-underline px-2 py-1 border-2 border-black rounded-lg inline-flex flex-nowrap items-center hover:no-underline focus:no-underline transition-all duration-200;
+    @apply text-black no-underline px-2 py-1 bg-red rounded-lg inline-flex flex-nowrap items-center hover:bg-yellow hover:no-underline focus:no-underline transition-all duration-200;
   }
 
   .btn-red {
@@ -249,7 +248,7 @@ article ul {
   }
 
   .btn-white {
-    @apply bg-white hover:bg-lightPurple hover:text-black;
+    @apply bg-white hover:bg-pink hover:text-black;
   }
 
   .btn-clear {
@@ -340,6 +339,5 @@ article ul {
   border: none;
   overflow: hidden;
 }
-
 
 

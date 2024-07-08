@@ -22,7 +22,7 @@ const FeatureCard = ({ feature, setSelectedFeature, preview }) => {
     <button onClick={() => setSelectedFeature(feature)} className={`snap-start transition-all relative p-0 block w-full bg-white border-3 rounded-xl border-black mb-1 overflow-hidden`}>
       { imgSrc &&
           <Image
-            className={`bg-lightPurple aspect-square w-full object-cover`}
+            className={`bg-pink aspect-square w-full object-cover`}
             src={imgSrc}
             alt={image.description || ''}
             width={image.width}

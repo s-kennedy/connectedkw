@@ -9,7 +9,7 @@ const TagButton = ({ tag, isSelected, toggleFilter }) => {
   }
 
   return (
-    <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
+    <button onClick={handleClick} className={`btn hover:bg-pink text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{tag.name}</span>
       {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </button>
@@ -22,7 +22,7 @@ const CategoryButton = ({ category, isSelected, toggleFilter }) => {
   }
 
   return (
-    <button onClick={handleClick} className={`btn hover:bg-lightPurple text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
+    <button onClick={handleClick} className={`btn hover:bg-pink text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{category.name}</span>
     </button>
   )

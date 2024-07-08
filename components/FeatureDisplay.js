@@ -37,7 +37,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
         
           {image &&
           <div className="mb-4">
-            <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-lightPurple">
+            <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-pink">
               <img className={`w-full h-full object-cover ${styles.appear}`} src={imageUrl} alt={`Photo of artwork titled ${title}`} />
               { (image.credit?.length > 2) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{`Image credit: ${image.credit}`}</ReactMarkdown></small> }
             </div>
@@ -49,7 +49,7 @@ function FeatureDisplay({ feature={}, closeModal }) {
           {description && <div className="my-4"><ReactMarkdown>{description}</ReactMarkdown></div>}
 
           <a href={mapUrl} className="flex no-underline text-black" title="Click to open in Google Maps" target="_blank" rel="noreferrer noopener">
-            <div className="flex-none aspect-square overflow-hidden bg-lightPurple h-[120px] w-[120px] rounded-lg">
+            <div className="flex-none aspect-square overflow-hidden bg-pink h-[120px] w-[120px] rounded-lg">
               <img src={staticMapUrl} alt="location of artwork on map" width="120" height="120" className="aspect-square w-full h-full" />
             </div>
             <div className="w-full p-4">

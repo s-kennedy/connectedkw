@@ -18,7 +18,7 @@ export const tagEmojiDict = {
 
 export const eventCategories = {
   "Arts & culture": { bgColor: "bg-lightBlue", textColor: "text-blue", emoji: "🎤" },
-  "Learning & personal growth": { bgColor: "bg-lightPurple", textColor: "text-purple", emoji: "🌱" },
+  "Learning & personal growth": { bgColor: "bg-pink", textColor: "text-purple", emoji: "🌱" },
   "Festival or market": { bgColor: "bg-lightYellow", textColor: "text-yellow", emoji: "🎪" },
   "Food & drink": { bgColor: "bg-lightRed", textColor: "text-red", emoji: "🍩" },
   "Community action": { bgColor: "bg-blue", textColor: "text-white", emoji: "✌" },
@@ -30,7 +30,7 @@ export const eventCategories = {
 
 export const artCategories = {
   "Arts & culture": { bgColor: "bg-lightBlue", textColor: "text-blue", emoji: "🎤" },
-  "Learning & personal growth": { bgColor: "bg-lightPurple", textColor: "text-purple", emoji: "🌱" },
+  "Learning & personal growth": { bgColor: "bg-pink", textColor: "text-purple", emoji: "🌱" },
   "Festival or market": { bgColor: "bg-lightYellow", textColor: "text-yellow", emoji: "🎪" },
   "Food & drink": { bgColor: "bg-lightRed", textColor: "text-red", emoji: "🍩" },
   "Community action": { bgColor: "bg-blue", textColor: "text-white", emoji: "✌" },

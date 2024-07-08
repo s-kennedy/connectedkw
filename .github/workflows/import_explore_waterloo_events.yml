@@ -15,7 +15,7 @@ jobs:
       - name: cURL request
         # Hit the API endpoint to trigger an import
         run: |
-          curl -s -X POST https://gxpbljlkxdbipwgpfchh.supabase.co/functions/v1/import-explore-waterloo-events \
-            -d '' \
+          curl -s -X POST https://www.connectedkw.com/api/import-events \
+            -d '{"source":"explore-waterloo"}' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: Bearer ${{ secrets.SUPABASE_API_KEY }}' \
+            -H 'Authorization: Bearer ${{ secrets.UNBORING_SECRET_KEY }}' \

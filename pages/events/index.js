@@ -2,6 +2,7 @@ import Layout from 'components/Layout'
 import EventsFeed from 'components/EventsFeed'
 import { getEvents, getCategories, getTags, getDataSources } from 'integrations/directus';
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 export async function getServerSideProps() {
   const categories = await getCategories('Age groups')
@@ -37,19 +38,11 @@ export default function Events({ events=[], categories=[], tags=[], dataSources=
 
   const filters = [
     {
-      label: 'Unboring picks ⭐',
+      label: 'Featured',
       id: 'featured',
       type: 'boolean',
       default: false,
       attributeFn: (event) => event.featured
-    },
-    {
-      label: 'Categories',
-      id: 'categories',
-      type: 'select-multiple',
-      options: categories,
-      multipleSelect: true,
-      attributeFn: (event) => event.categories.map(c => c.id)
     },
     {
       label: 'Tags',
@@ -70,12 +63,42 @@ export default function Events({ events=[], categories=[], tags=[], dataSources=
   ]
   return (
     <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
-      <div className="container sm:max-w-screen-md md:max-w-screen-lg py-5 mx-auto">
-        <EventsFeed events={events} filters={filters} loading={loading}>
-          <p>{`Tired of checking multiple events calendars and still missing out? Our feed aggregates events from the City of Kitchener, the City of Waterloo, the City of Cambridge, Explore Waterloo, Region of Waterloo Museums, Waterloo Public Library, Eventbrite, and social media.`}</p>
-          <p>{`You can save events to your calendar app, or bookmark this page so it's easy to access whenever you need to find something to do!`}</p>
-        </EventsFeed>
-      </div>
+      <section className="bg-slate-100 py-6">
+        <div className="container py-5 mx-auto">
+          <div className="lg:grid grid-cols-2 gap-6">
+            <div className="flex justify-center items-center">
+              <div>
+                <h1 className="text-4 mb-6 md:text-6xl font-title">
+                  Family-friendly events in KW
+                </h1>
+                <p className="text-lg">{`Tired of checking multiple event calendars and still missing out?`}</p> 
+                <p className="text-lg">{`Our feed aggregates events from the City of Kitchener, the City of Waterloo, the City of Cambridge, Explore Waterloo, Region of Waterloo Museums, Waterloo Public Library, Eventbrite, and social media.`}</p> 
+                <p className="text-lg">{`You can save events to your calendar app, or bookmark this page so it's easy to access whenever you need to find something to do!`}</p>
+              </div>
+            </div>
+            <div className="hidden lg:flex max-h-[75vh] justify-center items-center relative p-12">
+              <div className="absolute -bottom-12 lg:-bottom-[5%] left-0 lg:left-[15%] bg-[url(/highlights-01.svg)] bg-contain bg-no-repeat h-1/5 w-1/5" />
+              <div className="absolute top-0 lg:-top-[5%] right-0 lg:right-[15%] bg-[url(/highlights-02.svg)] bg-contain bg-no-repeat h-1/5 w-1/5" />
+              <video width="480" height="960" autoPlay loop muted className="object-contain h-full w-auto max-h-[inherit] mx-auto relative">
+                <source src="/events-phone-mockup.webm" type="video/webm" />
+                <source src="/events-phone-mockup.mp4" type="video/mp4" />
+                <Image
+                  className={`object-contain`}
+                  src={`/events-phone-mockup.png`}
+                  alt="event listings on a phone" 
+                  height="480"
+                  width="960"
+                />
+              </video>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="py-6">
+        <div className="container mx-auto">
+          <EventsFeed events={events} filters={filters} loading={loading} />
+        </div>
+      </section>
     </Layout>
   )
 }

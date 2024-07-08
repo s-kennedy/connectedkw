@@ -4,7 +4,7 @@ import Cors from 'cors'
 // Initializing the cors middleware
 const cors = Cors({
   methods: ['GET', 'HEAD'],
-  origin: "https://www.unboringkw.com"
+  origin: "https://www.connectedkw.com"
 })
 
 // Helper method to wait for a middleware to execute before continuing

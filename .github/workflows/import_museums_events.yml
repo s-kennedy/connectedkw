@@ -15,7 +15,7 @@ jobs:
       - name: cURL request
         # Hit the API endpoint to trigger an import
         run: |
-          curl -s -X POST https://www.unboringkw.com/api/import-events \
+          curl -s -X POST https://www.connectedkw.com/api/import-events \
             -d '{"source":"museums"}' \
             -H 'Content-Type: application/json' \
             -H 'Authorization: Bearer ${{ secrets.UNBORING_SECRET_KEY }}' \

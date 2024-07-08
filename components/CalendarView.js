@@ -35,11 +35,9 @@ const CalendarView = ({ events }) => {
     setSelectedEvent(calEvent)
   }, [])
 
-  console.log({calendarEvents})
-
 	return (
 		<div id="calendar-view">
-		  <div className="h-[90vh] bg-white border-3 rounded-xl border-black p-3">
+		  <div className="h-[90vh] w-full">
 		    <Calendar
 		      localizer={localizer}
 		      events={calendarEvents}

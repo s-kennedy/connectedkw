@@ -10,39 +10,17 @@ module.exports = {
     "bg-black",
     "bg-white",
     "bg-grey",
-    "bg-lightGrey",
     "bg-red",
-    "bg-lightRed",
     "bg-blue",
-    "bg-lightBlue",
     "bg-green",
-    "bg-lightGreen",
     "bg-yellow",
-    "bg-lightYellow",
     "bg-purple",
-    "bg-lightPurple"
   ],
   theme: {
-    colors: {
-      red: "#ef476f",
-      lightRed: "#ef476f40",
-      yellow: "#ffd166",
-      lightYellow: "#ffd16640",
-      green: "#06d6a0",
-      lightGreen: "#06d6a040",
-      blue: "#118ab2",
-      lightBlue: "#118ab240",
-      purple: "#51355a",
-      lightPurple: "#d7d1d8",
-      black: "#170F1A",
-      white: "#FFFFFF",
-      grey: "#5C706C",
-      lightGrey: "#DDE3E2"
-    },
     fontFamily: {
       body: ['Outfit', 'Helvetica Neue', 'sans-serif'],
       title: ['Outfit Bold', 'Helvetica Neue', 'sans-serif'],
-      display: ['var(--font-jackerton)', 'Outfig Bold', 'Helvetica Neue', 'sans-serif'],
+      display: ['var(--font-slackey)', 'Outfit Bold', 'Helvetica Neue', 'sans-serif'],
     },
     container: {
       padding: '1rem',
@@ -63,7 +41,20 @@ module.exports = {
       },
       height: {
         visibleScreen: 'calc(100vh - 100px)'
-      }
+      },
+      colors: {
+        red: "#D81E5B",
+        yellow: "#ffd166",
+        orange: "#FA7D4B",
+        green: "#06d6a0",
+        pink: "#FDEDF2",
+        seashell: "#FEF1EB",
+        latte: "#FFF9EB",
+        blue: "#118ab2",
+        purple: "#51355a",
+        white: "#FFFFFF",
+        black: "#030F12"
+      },
     },
   },
   plugins: [

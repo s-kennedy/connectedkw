@@ -36,7 +36,7 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
     <Link href={`/${urlFragment}/${slug}`} className={`${className} btn snap-start transition-all relative p-0 items-start flex-col bg-white border-3 rounded-xl border-black overflow-hidden mb-1`}>
       <div className={`w-full h-full min-h-0`}>
       { image && showImage &&
-        <div className={`aspect-square flex-none overflow-hidden bg-lightPurple`}>
+        <div className={`aspect-square flex-none overflow-hidden bg-pink`}>
           <Image
             className={`object-cover w-full h-full min-[500px]:max-md:aspect-square`}
             src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`}

@@ -26,8 +26,8 @@ const Layout = ({
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
   const [menuHidden, setMenuHidden] = useState(true)
-  const url = `https://www.unboringkw.com${router.asPath}`
-  const shareImageUrl = image ? image : "https://www.unboringkw.com/share-image.jpg"
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`
+  const shareImageUrl = image ? image : `${process.env.NEXT_PUBLIC_BASE_URL}/share-image.jpg`
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
@@ -65,7 +65,7 @@ const Layout = ({
   const currentStop = stops.find(stop => router.pathname.startsWith(`/${stop.slug}`)) || stops[0]
 
   return (
-    <div className={`page-bg-${color} flex flex-auto flex-col justify-stretch items-stretch min-h-screen w-full ${className}`}>
+    <div className={`flex flex-auto flex-col justify-stretch items-stretch min-h-screen w-full ${className}`}>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -86,11 +86,11 @@ const Layout = ({
 
       <header>
         <div className="px-5 py-2 mx-auto flex justify-between items-center text-black max-sm:text-sm">
-          <div className="font-display text-3xl">
-            Unboring <span className="text-red">KW</span>
-          </div>
+          <Link href="/">
+            <Image src="/icon-03.svg" height="80" width="80" alt="Connected KW" />
+          </Link>
           <p className="hidden md:block mb-0">
-            A community-based resource for families in KW
+            A community-based resource for families in Waterloo Region
           </p>
           <div className="flex gap-4 md:gap-6">
             <nav><Link className="text-black no-underline font-medium" href="/events">{`Events 🗓️`}</Link></nav>
@@ -100,7 +100,7 @@ const Layout = ({
       </header>
 
 
-      <main className={`flex-auto snap-y mt-4 mb-6`}>
+      <main className={`flex-auto snap-y`}>
 
         {children}
 

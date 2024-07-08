@@ -71,7 +71,7 @@ export default function SummerCamps({tags=[]}) {
       title="Summer camps 2024" 
       description="Discover the summer camp options in KW" 
       color="blue"
-      image="https://www.unboringkw.com/articles/summer-camps-2024.jpg"
+      image="https://www.connectedkw.com/articles/summer-camps-2024.jpg"
     >
       <div className="container py-5 mx-auto">
         <EventsFeed 
@@ -88,7 +88,7 @@ export default function SummerCamps({tags=[]}) {
             <p><span className="font-semibold mr-1">👉 List view:</span>{`Browse through the different camps and click on the card to see the full description`}</p>
             <p><span className="font-semibold mr-1">👉 Calendar view:</span>{`The calendar shows the dates when registration opens, so you can add the ones you're interested in to your personal calendar and get reminders.`}</p>
             <p><span className="font-semibold mr-1">👉 Map view:</span>{`See which camps are close to you or easy to access.`}</p>
-            <p>{`If you have any feedback or suggestions feel free to me at hi@unboringkw.com.`}</p>
+            <p>{`If you have any feedback or suggestions feel free to me at shay@connectedkw.com.`}</p>
           </div>
         </EventsFeed>
       </div>

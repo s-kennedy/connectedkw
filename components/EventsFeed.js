@@ -1,7 +1,6 @@
 import styles from "styles/events.module.css"
 import { useState, useEffect } from "react"
 import Link from 'next/link'
-import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import TagFilter from "components/TagFilter"
 import EventCard from "components/EventCard"
@@ -123,56 +122,56 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="">
         <div className={`flex-auto flex-col space-y-2`}>
-          <h1 className="space-x-2">
-            <span className="text-4 md:text-5xl font-title">{title}</span>
-            {length && <span className="font-body text-lg md:text-xl bg-black text-white rounded-full px-3 py-1 align-top ">{length}</span>}
-          </h1>
           {children}
           {isLoading ? (
             <Loading />
             ) : (
-            <>
-              <div className="w-full lg:flex justify-between items-end lg:items-center">
+            <div className="md:grid grid-cols-4">
+              <div className="col-span-1 mb-6">
                 <Filters
                   filters={filters}
                   selectedFilters={selectedFilters}
                   toggleFn={toggleFn}
                   reset={reset}
                 />
-                <div className="space-x-1">
-                  {fullConfig.views.map(v => {
-                    if (v === 'list') {
-                      return (
-                        <button key={`list-${v.id}`} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
-                          <span>List</span>
-                          <i className={`ml-1 fa-solid fa-list text-sm`}></i>
-                        </button>
-                      )
-                    }
-
-                    if (v === 'calendar') {
-                      return (
-                        <button key={`cal-${v.id}`} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
-                          <span>Calendar</span>
-                          <i className={`ml-1 fa-solid fa-calendar-days`}></i>
-                        </button>
-                      )
-                    } 
-
-                    if (v === 'map') {
-                      return (
-                        <button key={`map-${v.id}`} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
-                          <span>Map</span>
-                          <i className={`ml-1 fa-solid fa-location-dot`}></i>
-                        </button>
-                      )
-                    } 
-                  })}
-                </div>
               </div>
+              <div className="col-span-3">
+                <div className="sm:flex justify-between items-center mb-3">
+                  <p className="font-title text-xl">
+                    Events 
+                    {length && <span className="">{` (${length})`}</span>}
+                  </p>
+                  <div className="space-x-2">
+                    {fullConfig.views.map(v => {
+                      if (v === 'list') {
+                        return (
+                          <button key={`list-${v.id}`} onClick={toggleView(v)} className={`hover:text-red ${view === v ? "border-b-2 border-red" : ""}`}>
+                            <span>List</span>
+                          </button>
+                        )
+                      }
+
+                      if (v === 'calendar') {
+                        return (
+                          <button key={`cal-${v.id}`} onClick={toggleView(v)} className={`hover:text-red ${view === v ? "border-b-2 border-red" : ""}`}>
+                            <span>Calendar</span>
+                          </button>
+                        )
+                      } 
+
+                      if (v === 'map') {
+                        return (
+                          <button key={`map-${v.id}`} onClick={toggleView(v)} className={`hover:text-red ${view === v ? "border-b-2 border-red" : ""}`}>
+                            <span>Map</span>
+                          </button>
+                        )
+                      } 
+                    })}
+                  </div>
+                </div>
               {
                 view === "list" && 
-                <div className="flex-auto flex-col space-y-2 overflow-auto styled-scrollbar snap-y relative my-2">
+                <div className="flex-auto flex-col overflow-auto styled-scrollbar snap-y relative my-2 divide-y divide-slate-300">
                   {filteredEvents.map(event => <EventCard showImage={true} labels={fullConfig.labels} event={event} key={event.id} />)}
                 </div>
               }
@@ -190,7 +189,8 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
                   }} 
                 /> 
               }
-            </>
+              </div>
+            </div>
           )}
         </div>
       </div>

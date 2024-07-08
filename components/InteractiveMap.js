@@ -306,7 +306,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
 
   return (
     <>
-      <div className="h-full w-full bg-white overflow-hidden border-3 rounded-xl border-black" ref={ref} />
+      <div className="h-full w-full bg-white overflow-hidden" ref={ref} />
       { 
         Children.map(children, (child) => {
           if (isValidElement(child)) {

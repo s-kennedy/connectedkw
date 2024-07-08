@@ -1,37 +1,25 @@
 {
-    "id": "unboring-kw",
-    "theme_color": "#51355a",
-    "background_color": "#cbe0ea",
+    "id": "connected-kw",
+    "theme_color": "#D81E5B",
+    "background_color": "#ffffff",
     "display": "browser",
     "scope": "/",
     "start_url": "/",
-    "name": "Unboring KW",
-    "short_name": "Unboring KW",
-    "description": "The best way to find out about family-friendly events and activities in our community",
+    "name": "Connected KW",
+    "short_name": "Connected KW",
+    "description": "A community-based resource for families in KW",
     "icons": [
         {
-          "src": "/icon-maskable-192x192.png",
+          "src": "/connectedkw-icon-192x192.png",
           "sizes": "192x192",
           "type": "image/png",
-          "purpose": "maskable"
+          "purpose": "maskable any"
         },
         {
-          "src": "/icon-maskable-512x512.png",
+          "src": "/icon-maskable-512.png",
           "sizes": "512x512",
           "type": "image/png",
-          "purpose": "maskable"
-        },
-        {
-          "src": "/icon-round-192x192.png",
-          "sizes": "192x192",
-          "type": "image/png",
-          "purpose": "any"
-        },
-        {
-          "src": "/icon-round-512x512.png",
-          "sizes": "512x512",
-          "type": "image/png",
-          "purpose": "any"
+          "purpose": "maskable any"
         }
     ],
     "shortcuts": [
@@ -41,14 +29,9 @@
           "url": "/events"
         },
         {
-          "name": "Activities",
-          "description": "A curated, seasonal list of family-friendly activity ideas",
-          "url": "/activities"
-        },
-        {
-          "name": "Places",
-          "description": "Interactive themed maps of local points of interest",
-          "url": "/maps"
+          "name": "Local info",
+          "description": "Insider scoop on where to go and what to do in the region",
+          "url": "/articles"
         }
     ],
     "screenshots": [
@@ -60,18 +43,11 @@
           "label": "Events feed for upcoming local events"
         },
         {
-          "src": "/screenshot-activities.png",
-          "type": "image/png",
-          "sizes": "644x1396",
-          "platform": "narrow",
-          "label": "Curated searchable list of activity ideas"
-        },
-        {
           "src": "/screenshot-maps.png",
           "type": "image/png",
           "sizes": "644x1396",
           "platform": "narrow",
-          "label": "Themed interactive maps of local points of interest"
+          "label": "Interactive maps of local points of interest"
         }
     ]
 }

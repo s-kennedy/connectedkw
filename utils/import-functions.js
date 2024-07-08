@@ -10,7 +10,7 @@ import {
 import { NodeHtmlMarkdown } from 'node-html-markdown'
 import { DateTime } from 'luxon'
 
-const directus = createDirectus('https://cms.unboringkw.com').with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
+const directus = createDirectus('https://cms.connectedkw.com').with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
 const markdown = new NodeHtmlMarkdown()
 const EVENTS_ENDPOINT = "https://explorewaterloo.ca/wp-json/tribe/events/v1/events"
 const tag_lookup = {

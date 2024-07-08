@@ -5,18 +5,18 @@ const Footer = () => {
 
   return (
 
-      <footer className={`w-full relative bg-purple`}>
+      <footer className={`w-full relative bg-black`}>
         <div className="container py-5 mx-auto">
           <div className="md:flex justify-between md:space-x-4">
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg text-white">We are looking for founding partners and sponsors</p>
               <p className="text-white">Unboring KW is a new volunteer-run project with the goal of creating an inclusive and comprehensive resource for families in KW.</p>
-              <p className="text-white">If your organization might be interested in a partnership or sponsorship please <a href="mailto:hi@unboringkw.com" className="text-lightPurple hover:text-red">reach out!</a></p>
+              <p className="text-white">If your organization might be interested in a partnership or sponsorship please <a href="mailto:shay@connectedkw.com" className="text-red hover:text-yellow">reach out!</a></p>
             </div>
 
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg text-white">Interested in contributing?</p>
-              <p className="text-white">Whether you want to add an event, write a blog post, or create an interactive map, we appreciate your contribution! Feel free to email Shay at <a href="mailto:hi@unboringkw.com" className="text-lightPurple hover:text-red">hi@unboringkw.com</a> or DM me on <a href="https://instagram.com/unboringkw" className="text-lightPurple hover:text-red">Instagram.</a></p>
+              <p className="text-white">Whether you want to add an event, write a blog post, or create an interactive map, we appreciate your contribution! Feel free to email Shay at <a href="mailto:shay@connectedkw.com" className="text-red hover:text-yellow">shay@connectedkw.com</a> or DM me on <a href="https://instagram.com/unboringkw" className="text-red hover:text-yellow">Instagram.</a></p>
             </div>
           </div>
 
@@ -35,7 +35,7 @@ const Footer = () => {
             <a
               href="https://www.dreamside.digital"
               rel="noopener noreferrer"
-              className="text-lightPurple hover:text-red"
+              className="text-red hover:text-yellow"
             >
               Made by Dreamside Digital
             </a>
