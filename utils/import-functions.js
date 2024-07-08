@@ -78,7 +78,7 @@ const saveToDatabase = async(events) => {
   const promises = events.map(async(event) => {
     try {
       const description = markdown.translate(event.description)
-      const location_source_text = event.venue?.venue ? [event.venue.venue,event.venue.address].join(", ") : null
+      const location_source_text = event.venue?.venue ? [event.venue.venue,event.venue.address].join(", ").replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d)) : null
       const title = event.title.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d))
       const image = await importImage(event.image?.url, title)
     
@@ -92,7 +92,7 @@ const saveToDatabase = async(events) => {
         data_source: data_source_id,
         location_source_text: location_source_text,
         image: image?.id,
-        image_url: event.image?.url,
+        image_url: event.image?.url,g
       }
 
       const locationSearch = event.venue?.address ? event.venue?.address : event.venue?.venue
