@@ -3,6 +3,7 @@ import EventsFeed from 'components/EventsFeed'
 import { getEvents, getCategories, getTags, getDataSources } from 'integrations/directus';
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export async function getStaticProps() {
   const categories = await getCategories('Age groups')
@@ -75,10 +76,10 @@ export default function Events({ events=[], categories=[], tags=[], dataSources=
                 <p className="text-lg">{`Tired of checking multiple event calendars and still missing out?`}</p> 
                 <p className="text-lg">{`Connected KW aggregates events from the City of Kitchener, the City of Waterloo, the City of Cambridge, Explore Waterloo, Region of Waterloo Museums, Waterloo Public Library, Eventbrite, and social media.`}</p> 
                 <p className="text-lg">{`You can add events to your calendar, subscribe to get them all, or bookmark this page so you'll always know what there is to do!`}</p>
-                <a href="/events/calendar.ics" className="btn my-6">
+                <Link href="/events/calendar.ics" className="btn my-6">
                   <i className={`mr-2 fa-solid fa-calendar`}></i>
                   Subscribe to the calendar (ICS)
-                </a>
+                </Link>
               </div>
             </div>
             <div className="hidden lg:flex max-h-[75vh] justify-center items-center relative p-12">

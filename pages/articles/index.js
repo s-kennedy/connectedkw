@@ -67,7 +67,7 @@ export default function AllArticles({ pages }) {
               const urlFragment = urlFragments[page.template]
               const publishedOn = new Date(page.date_created).toLocaleDateString(locale, options);
               return (
-                <div className="w-full article py-4 gap-4 flex-auto flex flex-col sm:flex-row">
+                <div key={page.slug} className="w-full article py-4 gap-4 flex-auto flex flex-col sm:flex-row">
                   { (page.main_image) &&
                     <div className={`w-full aspect-video sm:aspect-square sm:w-40 grow-0 relative min-h-0 overflow-hidden`}>
                       <Link href={`/${urlFragment}/${page.slug}`}>

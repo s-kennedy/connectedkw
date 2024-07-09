@@ -13,7 +13,6 @@ import { DEFAULT_MAP_CENTER, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_
 const MAP_ZOOM_LEVEL = 14
 
 const Legend = ({ map, categories }) => {
-  if (!categories) return null;
   const ref = useRef(null);
   const [legend, setLegend] = useState()
 
@@ -29,6 +28,7 @@ const Legend = ({ map, categories }) => {
     }
   }, [legend])
 
+  if (!categories) return null;
   const categoryNames = categories.map(c => c.name)
 
   return (
