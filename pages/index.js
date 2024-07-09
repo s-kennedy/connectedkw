@@ -46,12 +46,12 @@ export default function Home({ places, events }) {
                 </h1>
                 <p className="text-lg">{`Connected KW is a volunteer-run project with the goal of creating an inclusive and comprehensive resource for families in KW.`}</p> 
                 <p className="text-lg">Stay connected to what&apos;s happening in the community by subscribing to our <Link href="/events">events calendar</Link> and our <a href="https://instagram.com/connectedkw" target="_blank" rel="noreferrer">Instagram account</a>.</p> 
-                <p className="text-lg">{`You can support us by making a donation or get involved by creating an account and helping us to add events and info for other families!`}</p>
+                <p className="text-lg">{`You can get involved by creating an account and helping us to add events and info for other families!`}</p>
                 <div className="flex gap-4">
-                  <a href="https://patreon.com/connectedkw?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="_blank" className="btn my-6" rel="noreferrer">
+                  {/*<a href="https://patreon.com/connectedkw?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="_blank" className="btn my-6" rel="noreferrer">
                     <i className={`mr-2 fa-solid fa-gift`}></i>
                     Make a donation                
-                  </a>
+                  </a>*/}
                   <a href="https://cms.connectedkw.com/admin/register" target="_blank" className="btn my-6" rel="noreferrer">
                     <i className={`mr-2 fa-solid fa-circle-user`}></i>
                     Create an account                

@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg ">Support us</p>
               <p className="">Connected KW is a volunteer-run project with the goal of creating an inclusive and comprehensive resource for families in Waterloo Region.</p>
-              <p className="">You can help us to grow by supporting us on <a href="https://patreon.com/connectedkw?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" className="hover:text-red">Patreon</a>.</p>
+              {/*<p className="">You can help us to grow by supporting us on <a href="https://patreon.com/connectedkw?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" className="hover:text-red">Patreon</a>.</p>*/}
               <p className="">If your organization might be interested in a partnership or sponsorship please <a href="mailto:shay@connectedkw.com" className="hover:text-red">reach out!</a></p>
             </div>
 
