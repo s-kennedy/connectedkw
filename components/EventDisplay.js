@@ -41,7 +41,7 @@ function EventDisplay({ event, showImage=true, closeModal, backLink="/events" })
         {image && showImage &&
         <div className="mb-4">
           <div className="relative">
-            <img className="w-full object-cover aspect-square sm:aspect-video" src={imageUrl} alt={image.description} width={image.width} height={image.height} />
+            <img className="w-full object-cover aspect-video" src={imageUrl} alt={image.description} width={image.width} height={image.height} />
             { (image.credit) && <small className={`absolute bottom-0 left-0 right-0 text-xs p-1 ${styles.bgCaption}`}><ReactMarkdown>{image.credit}</ReactMarkdown></small> }
           </div>
         </div>
@@ -65,6 +65,12 @@ function EventDisplay({ event, showImage=true, closeModal, backLink="/events" })
           </div>
         }
 
+        {tags.length > 0 &&
+          <div className="my-4">
+            <p className="font-body font-medium">{`Tags: ${tags.map(t => t.name).join(", ")}`}</p>
+          </div>
+        }
+
         <div className="flex items-center">
         {
           showCalendarButton && 
@@ -78,22 +84,13 @@ function EventDisplay({ event, showImage=true, closeModal, backLink="/events" })
             location={calendarLocation}
             description={description}
             options="'Apple','Google','iCal','Outlook.com','Microsoft 365','Microsoft Teams','Yahoo'"
-            buttonStyle="default"
-            styleLight="--font: Outfit; --btn-shadow: 0; --btn-background: #ffd166; --btn-border: #170F1A; --btn-background-hover: #ffd166;"
+            buttonStyle="flat"
+            styleLight="--font: Outfit; --btn-background: #D81E5B; --btn-background-hover: #ffd166; --btn-hover-text: #030F12; --btn-text: #FFFFFF; --btn-border: none;"
             hideBranding={true}
             debug={true}
           ></AddToCalendarButton>
         }
         </div>
-
-        {tags.length > 0 &&
-          <div className="my-4">
-            <h4 className="text-lg font-body font-medium">Tags</h4>
-            <div className="flex flex-wrap">
-              {tags.map(tag => <Tag tag={tag} key={tag.id} />)}
-            </div>
-          </div>
-        }
 
       </div>
     </div>

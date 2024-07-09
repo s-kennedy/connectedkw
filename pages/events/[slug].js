@@ -20,10 +20,8 @@ export default function EventPage({ event }) {
       description={event.description}
       image={imageUrl}
     >
-      <div className="container py-5 sm:max-w-screen-lg mx-auto">
-        <div className="h-full w-full bg-white relative sm:border-black sm:border-3 sm:rounded-xl sm:p-5">
-        	<EventDisplay event={event} />
-        </div>
+      <div className="container py-6 lg:max-w-screen-lg mx-auto">
+      	<EventDisplay event={event} />
       </div>
     </Layout>
   )

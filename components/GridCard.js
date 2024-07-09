@@ -33,10 +33,10 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
   const urlFragment = urlFragments[classification]
 
   return (
-    <Link href={`/${urlFragment}/${slug}`} className={`${className} btn snap-start transition-all relative p-0 items-start flex-col bg-white border-3 rounded-xl border-black overflow-hidden mb-1`}>
+    <div className={`${className} snap-start transition-all relative p-0 items-start flex-col bg-white overflow-hidden mb-1`}>
       <div className={`w-full h-full min-h-0`}>
       { image && showImage &&
-        <div className={`aspect-square flex-none overflow-hidden bg-pink`}>
+        <div className={`aspect-square flex-none overflow-hidden bg-latte`}>
           <Image
             className={`object-cover w-full h-full min-[500px]:max-md:aspect-square`}
             src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`}
@@ -47,8 +47,10 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
           />
         </div>
       }
-        <div className={`basis-2/3 flex-auto text-left overflow-auto h-full styled-scrollbar p-3`}>
-          <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
+        <div className={`basis-2/3 flex-auto text-left overflow-auto h-full styled-scrollbar py-3`}>
+          <Link href={`/${urlFragment}/${slug}`}>
+            <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
+          </Link>
             { classification === "event" && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>🗓</span><time>{dateString}</time></p> }
             { description && showDescription && <ReactMarkdown>{description}</ReactMarkdown>}
             { location && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>📍</span><span>{location.name}</span></p>}
@@ -56,7 +58,7 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
             { Boolean(tags?.length) && <p className="text-sm mb-1 space-x-3 flex flex-nowrap"><span>#️⃣</span><span>{tags.map(t => t.name).join(', ')}</span></p>}
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
 

@@ -13,6 +13,7 @@ import { DEFAULT_MAP_CENTER, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_
 const MAP_ZOOM_LEVEL = 14
 
 const Legend = ({ map, categories }) => {
+  if (!categories) return null;
   const ref = useRef(null);
   const [legend, setLegend] = useState()
 
@@ -31,7 +32,7 @@ const Legend = ({ map, categories }) => {
   const categoryNames = categories.map(c => c.name)
 
   return (
-    <div ref={ref} className="m-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
+    <div ref={ref} className="m-2 bg-white p-2 font-body text-xs shadow flex flex-col w-fit">
       <p className="font-semibold">Legend</p>
       {categories.map(category => {
         return (
@@ -191,11 +192,12 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
         const icon = {
           path: MARKER_SVG,
           fillColor: color,
+          strokeColor: "#030F12",
           fillOpacity: 1,
           size: new google.maps.Size(30,30),
           origin: new google.maps.Point(0,0),
           anchor: new google.maps.Point(15,30),
-          strokeWeight: 2,
+          // strokeWeight: 2,
           scale: 1,
         }
         const title = feature.Title
@@ -222,7 +224,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
         renderer: { render: ({ count, position }) => new google.maps.Marker({
           label: { 
             text: String(count), 
-            color: "#ffffff", 
+            color: "#030F12", 
             fontSize: "11px",
             fontFamily: "'Outfit', sans-serif",
           },
@@ -231,14 +233,14 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
           zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
           icon: {
             path: MARKER_CLUSTER_SVG,
-            fillColor: "#51355a",
+            fillColor: "#ffd166",
             fillOpacity: 1,
             size: new google.maps.Size(30,30),
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(15,30),
             labelOrigin: new google.maps.Point(15,15),
-            strokeWeight: 3,
-            strokeColor: "#d7d1d8",
+            strokeWeight: 1,
+            strokeColor: "#030F12",
             scale: 1,
           }
         })}
@@ -284,7 +286,7 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
 
   return (
     <>
-      <div className="h-full w-full bg-white overflow-hidden border-t-3 border-b-3 border-black" ref={ref} />
+      <div className="h-full w-full bg-white overflow-hidden" ref={ref} />
       { 
         Children.map(children, (child) => {
           if (isValidElement(child)) {
@@ -309,8 +311,6 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [view, setView] = useState("map")
   const [filteredFeatures, setFilteredFeatures] = useState(features)
-
-  console.log({preview})
 
   const toggleView = () => {
     setView(view === "map" ? "grid" : "map")
@@ -448,7 +448,7 @@ const InteractiveMapParks = ({ features, mapConfig }) => {
         shouldCloseOnEsc={true}
         className="max-w-md mx-auto h-full"
         style={{
-          overlay: { padding: "3vw", zIndex: 100 }
+          overlay: { padding: "3vw", zIndex: 100, background: "rgba(3,15,18,0.5)" }
         }}
       >
         <FeatureDisplay 

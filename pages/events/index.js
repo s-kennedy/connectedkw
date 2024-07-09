@@ -4,7 +4,7 @@ import { getEvents, getCategories, getTags, getDataSources } from 'integrations/
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const categories = await getCategories('Age groups')
   const tags = await getTags('Events and activities')
   const events = await getEvents()
@@ -12,6 +12,7 @@ export async function getServerSideProps() {
 
   return {
     props: { tags, categories, dataSources, events },
+    revalidate: 3600, // In seconds
   }
 }
 
@@ -72,24 +73,24 @@ export default function Events({ events=[], categories=[], tags=[], dataSources=
                   Family-friendly events in KW
                 </h1>
                 <p className="text-lg">{`Tired of checking multiple event calendars and still missing out?`}</p> 
-                <p className="text-lg">{`Our feed aggregates events from the City of Kitchener, the City of Waterloo, the City of Cambridge, Explore Waterloo, Region of Waterloo Museums, Waterloo Public Library, Eventbrite, and social media.`}</p> 
-                <p className="text-lg">{`You can save events to your calendar app, or bookmark this page so it's easy to access whenever you need to find something to do!`}</p>
+                <p className="text-lg">{`Connected KW aggregates events from the City of Kitchener, the City of Waterloo, the City of Cambridge, Explore Waterloo, Region of Waterloo Museums, Waterloo Public Library, Eventbrite, and social media.`}</p> 
+                <p className="text-lg">{`You can add events to your calendar, subscribe to get them all, or bookmark this page so you'll always know what there is to do!`}</p>
+                <a href="/events/calendar.ics" className="btn my-6">
+                  <i className={`mr-2 fa-solid fa-calendar`}></i>
+                  Subscribe to the calendar (ICS)
+                </a>
               </div>
             </div>
             <div className="hidden lg:flex max-h-[75vh] justify-center items-center relative p-12">
-              <div className="absolute -bottom-12 lg:-bottom-[5%] left-0 lg:left-[15%] bg-[url(/highlights-01.svg)] bg-contain bg-no-repeat h-1/5 w-1/5" />
-              <div className="absolute top-0 lg:-top-[5%] right-0 lg:right-[15%] bg-[url(/highlights-02.svg)] bg-contain bg-no-repeat h-1/5 w-1/5" />
-              <video width="480" height="960" autoPlay loop muted className="object-contain h-full w-auto max-h-[inherit] mx-auto relative">
-                <source src="/events-phone-mockup.webm" type="video/webm" />
-                <source src="/events-phone-mockup.mp4" type="video/mp4" />
-                <Image
+              <div className="absolute bottom-0 left-0 bg-[url(/highlights-01.svg)] bg-contain bg-no-repeat h-1/5 w-1/5" />
+              <div className="absolute top-0 right-0 bg-[url(/highlights-02.svg)] bg-contain bg-no-repeat h-1/5 w-1/5" />
+              <Image
                   className={`object-contain`}
-                  src={`/events-phone-mockup.png`}
-                  alt="event listings on a phone" 
-                  height="480"
-                  width="960"
+                  src={`/calendar-laptop.png`}
+                  alt="event calendar on a laptop" 
+                  height="464"
+                  width="800"
                 />
-              </video>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ const TagButton = ({ tag, isSelected, toggleFilter }) => {
   }
 
   return (
-    <button onClick={handleClick} className={`btn hover:bg-pink text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
+    <button onClick={handleClick} className={`btn hover:bg-latte text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-red !text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{tag.name}</span>
       {tagEmoji && <span className="ml-1">{tagEmoji}</span>}
     </button>
@@ -22,7 +22,7 @@ const CategoryButton = ({ category, isSelected, toggleFilter }) => {
   }
 
   return (
-    <button onClick={handleClick} className={`btn hover:bg-pink text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
+    <button onClick={handleClick} className={`btn hover:bg-latte text-sm px-2 py-1 m-1 ml-0 border-2 ${isSelected ? '!bg-purple !text-white' : 'bg-white text-black'}`}>
       <span className="whitespace-nowrap">{category.name}</span>
     </button>
   )
@@ -77,14 +77,15 @@ const MapFilter = ({
   }
 
   const filterCount = selectedTags.length + selectedCategories.length
+  const allCategories = categories ? categories : []
 
   return (
-    <div className={`transition-all m-2`} ref={ref}>
-      <div className="space-x-1">
-        <button onClick={openFilters} className="btn btn-purple rounded-lg border-2 text-sm items-baseline">
+    <div className={`transition-all m-2 mb-4`} ref={ref}>
+      <div className="space-x-2">
+        <button onClick={openFilters} className="btn btn-red text-sm items-baseline">
           {filterCount ? `Filters (${filterCount})` : 'Filters 🎯'}
         </button>
-        <button onClick={toggleView} className={`btn btn-white text-sm rounded-lg border-2`}>
+        <button onClick={toggleView} className={`btn btn-white text-sm`}>
           {view === "map" ? 'Grid view' : 'Map view'}
           <i className={`ml-1 fa-solid ${view === "map" ? 'fa-table-cells' : 'fa-location-dot'}`}></i>
         </button>
@@ -114,7 +115,7 @@ const MapFilter = ({
                 </h2>
               </div>
               <div className={`flex flex-wrap py-4`}>
-                {categories.map(category => {
+                {allCategories.map(category => {
                   const isSelected = selectedCategories.includes(category.id)
                   return (
                     <CategoryButton 

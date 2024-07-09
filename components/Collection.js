@@ -125,7 +125,7 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
         <div className={`flex-auto flex-col space-y-2`}>
           <h1 className="space-x-2">
             <span className="text-4 md:text-6xl font-title">{title}</span>
-            {length && <span className="font-body text-lg md:text-xl bg-black text-white rounded-full px-3 py-1 align-top ">{length}</span>}
+            {length && <span className="">{` (${length})`}</span>}
           </h1>
           {children}
           {isLoading ? (
@@ -139,31 +139,28 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
                   toggleFn={toggleFn}
                   reset={reset}
                 />
-                <div className="space-x-1">
+                <div className="space-x-2">
                   {fullConfig.views.map(v => {
                     if (v === 'list') {
                       return (
-                        <button key={`list-${v.id}`} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                        <button key={`list-${v.id}`} onClick={toggleView(v)} className={`hover:text-red ${view === v ? "border-b-2 border-red" : ""}`}>
                           <span>List</span>
-                          <i className={`ml-1 fa-solid fa-list text-sm`}></i>
                         </button>
                       )
                     }
 
                     if (v === 'calendar') {
                       return (
-                        <button key={`cal-${v.id}`} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                        <button key={`cal-${v.id}`} onClick={toggleView(v)} className={`hover:text-red ${view === v ? "border-b-2 border-red" : ""}`}>
                           <span>Calendar</span>
-                          <i className={`ml-1 fa-solid fa-calendar-days`}></i>
                         </button>
                       )
                     } 
 
                     if (v === 'map') {
                       return (
-                        <button key={`map-${v.id}`} onClick={toggleView(v)} className={`btn border-black border-2 rounded-lg ${view === v ? "btn-purple" : "btn-white"}`}>
+                        <button key={`map-${v.id}`} onClick={toggleView(v)} className={`hover:text-red ${view === v ? "border-b-2 border-red" : ""}`}>
                           <span>Map</span>
-                          <i className={`ml-1 fa-solid fa-location-dot`}></i>
                         </button>
                       )
                     } 
@@ -182,7 +179,7 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
               }
               {
                 view === "map" && 
-                <InteractiveMap features={filteredEvents} mapConfig={{ mapId: 'summer-camps-2024' }} /> 
+                <InteractiveMap features={filteredEvents} mapConfig={{ mapId: title }} /> 
               }
             </>
           )}

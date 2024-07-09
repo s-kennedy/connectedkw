@@ -75,14 +75,13 @@ const Layout = ({
         <meta name="twitter:url" content={url} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={shareImageUrl} />
-        <meta name="twitter:creator" content="@unboringkw" />
+        <meta name="twitter:creator" content="@connectedkw" />
         <meta property="og:title" content={title} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
         <meta property="og:image" content={shareImageUrl} />
         <meta property="og:description" content={description} />
       </Head>
-
 
       <header>
         <div className="px-5 py-2 mx-auto flex justify-between items-center text-black max-sm:text-sm">

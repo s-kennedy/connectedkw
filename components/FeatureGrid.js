@@ -19,10 +19,10 @@ const FeatureCard = ({ feature, setSelectedFeature, preview }) => {
   const title = feature.title || "Untitled"
 
   return (
-    <button onClick={() => setSelectedFeature(feature)} className={`snap-start transition-all relative p-0 block w-full bg-white border-3 rounded-xl border-black mb-1 overflow-hidden`}>
+    <button onClick={() => setSelectedFeature(feature)} className={`snap-start transition-all relative block w-full overflow-hidden`}>
       { imgSrc &&
           <Image
-            className={`bg-pink aspect-square w-full object-cover`}
+            className={`bg-latte aspect-square w-full object-cover`}
             src={imgSrc}
             alt={image.description || ''}
             width={image.width}
@@ -44,13 +44,9 @@ const FeatureCard = ({ feature, setSelectedFeature, preview }) => {
 
 const FeatureGrid = ({ features, categories, setSelectedFeature, preview=[] }) => {
   return(
-      <ResponsiveMasonry
-        columnsCountBreakPoints={{640: 1, 641: 2, 768: 3}}
-      >
-        <Masonry gutter="0.5rem" columnsCount={1}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           { features.map(feature => <FeatureCard key={feature.id} feature={feature} setSelectedFeature={setSelectedFeature} preview={preview} />) }
-        </Masonry>
-      </ResponsiveMasonry>
+      </div>
   )
 }
 

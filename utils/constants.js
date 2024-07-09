@@ -18,7 +18,7 @@ export const tagEmojiDict = {
 
 export const eventCategories = {
   "Arts & culture": { bgColor: "bg-lightBlue", textColor: "text-blue", emoji: "🎤" },
-  "Learning & personal growth": { bgColor: "bg-pink", textColor: "text-purple", emoji: "🌱" },
+  "Learning & personal growth": { bgColor: "bg-latte", textColor: "text-purple", emoji: "🌱" },
   "Festival or market": { bgColor: "bg-lightYellow", textColor: "text-yellow", emoji: "🎪" },
   "Food & drink": { bgColor: "bg-lightRed", textColor: "text-red", emoji: "🍩" },
   "Community action": { bgColor: "bg-blue", textColor: "text-white", emoji: "✌" },
@@ -30,7 +30,7 @@ export const eventCategories = {
 
 export const artCategories = {
   "Arts & culture": { bgColor: "bg-lightBlue", textColor: "text-blue", emoji: "🎤" },
-  "Learning & personal growth": { bgColor: "bg-pink", textColor: "text-purple", emoji: "🌱" },
+  "Learning & personal growth": { bgColor: "bg-latte", textColor: "text-purple", emoji: "🌱" },
   "Festival or market": { bgColor: "bg-lightYellow", textColor: "text-yellow", emoji: "🎪" },
   "Food & drink": { bgColor: "bg-lightRed", textColor: "text-red", emoji: "🍩" },
   "Community action": { bgColor: "bg-blue", textColor: "text-white", emoji: "✌" },
@@ -170,7 +170,7 @@ export const MAP_STYLE = [
 
 export const MARKER_SVG = "M14.18,27.26c2.8,4.47,5.33-.35,8.89-6.7S26.77,5.77,21.9,2.15C18-.76,5.89,2.17,4.25,7.39,1.56,16,9.48,19.75,14.18,27.26Z"
 export const MARKER_CLUSTER_SVG = "M15,1C7.89,1.05,1.05,8.17,1,16,1,22.91,6.2,27.89,13,29c7.29,1.19,14.26-1.57,16-8C31.3,12.5,23.94.94,15,1Z"
-export const DEFAULT_MARKER_COLOR = "#ffd166"
+export const DEFAULT_MARKER_COLOR = "#ef476f"
 
 export const DEFAULT_LOCALE = 'en-CA'
 export const DATE_FORMAT = { weekday: 'short', month: 'short', day: 'numeric' }

@@ -36,7 +36,10 @@ export async function getStaticProps({ params }) {
 
   const features = await getFeaturesByCollection(page.collection.id)
   const tags = await getFeaturesTags(features)
-  const categories = await getCategoriesByGroup(page.collection.category_group.id)
+  let categories = null
+  if (page.collection.category_group?.id) {
+    categories = await getCategoriesByGroup(page.collection.category_group?.id)
+  }
   return {
     props: { page, features, tags, categories },
   }
@@ -62,7 +65,7 @@ export default function MapPage({ page, features, tags, categories }) {
     >
       <section className="container mx-auto pt-8 pb-4">
         <div className="mb-2">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl mb-4">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl mb-6">
             {page.title}
           </h1>
           <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>

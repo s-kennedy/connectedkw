@@ -13,6 +13,7 @@ import { DEFAULT_MAP_CENTER, MAP_STYLE, MARKER_SVG, MARKER_CLUSTER_SVG, DEFAULT_
 const MAP_ZOOM_LEVEL = 14
 
 const Legend = ({ map, categories }) => {
+  if (!categories) return null;
   const ref = useRef(null);
   const [legend, setLegend] = useState()
 
@@ -27,8 +28,6 @@ const Legend = ({ map, categories }) => {
       map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
     }
   }, [legend])
-
-  const categoryNames = categories.map(c => c.name)
 
   return (
     <div ref={ref} className="m-2 bg-white border-2 border-black p-2 font-body text-xs rounded-lg flex flex-col w-fit">
@@ -205,8 +204,8 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
       setMarkers([])
 
       const gmapMarkers = features.map(feature => {
-        if (!feature?.location?.coordinates?.coordinates) return null
-        const [longitude, latitude] = feature.location.coordinates.coordinates
+        if (!feature?.location?.map_point?.coordinates) return null
+        const [longitude, latitude] = feature.location.map_point.coordinates
         const position = new google.maps.LatLng(latitude, longitude)
         const category = feature.categories[0] || {}
         const color = category.colour || DEFAULT_MARKER_COLOR
@@ -253,14 +252,14 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
           zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
           icon: {
             path: MARKER_CLUSTER_SVG,
-            fillColor: "#51355a",
+            fillColor: "#FA7D4B",
             fillOpacity: 1,
             size: new google.maps.Size(30,30),
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(15,30),
             labelOrigin: new google.maps.Point(15,15),
             strokeWeight: 3,
-            strokeColor: "#d7d1d8",
+            strokeColor: "#FEF1EB",
             scale: 1,
           }
         })}
@@ -286,8 +285,8 @@ const MapComponent = ({ features, categories, setPreviewMarker, setSelectedFeatu
 
     const bounds = new google.maps.LatLngBounds();
     features.forEach(feature => {
-      if (feature?.location?.coordinates?.coordinates) {
-        const [longitude, latitude] = feature.location.coordinates.coordinates
+      if (feature?.location?.map_point?.coordinates) {
+        const [longitude, latitude] = feature.location.map_point.coordinates
         const position = new google.maps.LatLng(latitude, longitude)
         // const pos = { lat: feat.Latitude, lng: feat.Longitude }
         bounds.extend(position);

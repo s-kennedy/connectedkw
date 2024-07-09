@@ -48,7 +48,7 @@ export default function ArticlePage({ page }) {
     >
       <div className="container p-3 sm:py-8 lg:p-8 max-w-screen-lg mx-auto">
         <div className="article">
-          <h1>{page.title}</h1>
+          <h1 className="mb-6">{page.title}</h1>
           <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
             {page.body}
           </ReactMarkdown>

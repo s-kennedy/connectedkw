@@ -18,6 +18,7 @@
 
 :root {
   --theme-red: #ef476f;
+  --theme-orange: #FA7D4B;
   --theme-light-red: #ef476f40;
   --theme-yellow: #ffd166;
   --theme-light-yellow: #ffd16640;
@@ -27,7 +28,7 @@
   --theme-light-blue: #118ab240;
   --theme-purple: #51355a;
   --theme-light-purple: #d7d1d8;
-  --theme-black: #170F1A;
+  --theme-black: #030F12;
   --theme-white: #FFFFFF;
   --theme-font-title: 'Outfit Bold';
   --theme-font-body: 'Outfit';
@@ -129,7 +130,6 @@ a, button {
 
 footer a svg {
   transition: all ease-in 200ms;
-  fill: var(--theme-white);
 }
 
 footer a:hover svg path, footer a:focus svg path {
@@ -224,7 +224,7 @@ article ul {
 
 @layer components {
   .btn {
-    @apply text-black no-underline px-2 py-1 bg-red rounded-lg inline-flex flex-nowrap items-center hover:bg-yellow hover:no-underline focus:no-underline transition-all duration-200;
+    @apply shadow text-black no-underline px-4 py-2 bg-red text-white inline-flex flex-nowrap items-center hover:bg-yellow hover:text-black hover:no-underline focus:no-underline transition-all duration-200;
   }
 
   .btn-red {
@@ -232,7 +232,7 @@ article ul {
   }
 
   .btn-yellow {
-    @apply bg-yellow hover:bg-green hover:text-black;
+    @apply bg-yellow text-black hover:bg-orange hover:text-black;
   }
 
   .btn-green {
@@ -248,7 +248,7 @@ article ul {
   }
 
   .btn-white {
-    @apply bg-white hover:bg-pink hover:text-black;
+    @apply bg-slate-100 text-black hover:bg-slate-200;
   }
 
   .btn-clear {
@@ -339,5 +339,3 @@ article ul {
   border: none;
   overflow: hidden;
 }
-
-
