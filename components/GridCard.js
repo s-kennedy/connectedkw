@@ -31,19 +31,20 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
     'map': 'maps'
   }
   const urlFragment = urlFragments[classification]
+  const imageUrl = image?.id ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640` : "/default-event-image.png"
+
 
   return (
     <div className={`${className} snap-start transition-all relative p-0 items-start flex-col bg-white overflow-hidden mb-1`}>
       <div className={`w-full h-full min-h-0`}>
-      { image && showImage &&
+      { showImage &&
         <div className={`aspect-square flex-none overflow-hidden bg-latte`}>
           <Image
             className={`object-cover w-full h-full min-[500px]:max-md:aspect-square`}
-            src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`}
-            alt={image.description || image.title}
-            title={image.title || item.title}
-            width={image.width}
-            height={image.height}
+            src={imageUrl}
+            alt={"event image"}
+            width={350}
+            height={350}
           />
         </div>
       }

@@ -19,7 +19,7 @@ function generateCalendar(events) {
 
     if (event.ends_at) {
       const endDate = DateTime.fromISO(event.ends_at, { zone: "America/Toronto" })
-      eventObj.end = endDate..toUTC().toFormat('y-M-d-H-m').split("-").map((a) => parseInt(a))
+      eventObj.end = endDate.toUTC().toFormat('y-M-d-H-m').split("-").map((a) => parseInt(a))
     } else {
       eventObj.duration = { hours: 1 }
     }

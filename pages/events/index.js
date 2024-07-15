@@ -77,7 +77,7 @@ export default function Events({ events=[], categories=[], tags=[], dataSources=
                 <p className="text-lg">{`Connected KW aggregates events from the City of Kitchener, the City of Waterloo, the City of Cambridge, Explore Waterloo, Region of Waterloo Museums, Waterloo Public Library, Eventbrite, and social media.`}</p> 
                 <p className="text-lg">{`You can add events to your calendar, subscribe to get them all, or bookmark this page so you'll always know what there is to do!`}</p>
                 <Link href="/events/calendar.ics" className="btn my-6">
-                  <i className={`mr-2 fa-solid fa-calendar`}></i>
+                  <i className={`mr-2 fa-solid fa-calendar-day`}></i>
                   Subscribe to the calendar (ICS)
                 </Link>
               </div>

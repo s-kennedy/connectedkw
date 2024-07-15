@@ -23,7 +23,7 @@ const defaultConfig = {
     categories: 'Categories',
     tags: 'Tags',
   },
-  views: ['list', 'calendar', 'map']
+  views: ['list', 'calendar']
 }
 
 const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loading, config={}, children }) => {

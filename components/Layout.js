@@ -62,7 +62,7 @@ const Layout = ({
     }
   }, [router.events]);
 
-  const currentStop = stops.find(stop => router.pathname.startsWith(`/${stop.slug}`)) || stops[0]
+  // const currentStop = stops.find(stop => router.pathname.startsWith(`/${stop.slug}`)) || stops[0]
 
   return (
     <div className={`flex flex-auto flex-col justify-stretch items-stretch min-h-screen w-full ${className}`}>
@@ -84,16 +84,31 @@ const Layout = ({
       </Head>
 
       <header>
-        <div className="px-5 py-2 mx-auto flex justify-between items-center text-black max-sm:text-sm">
+        <div className="px-5 mx-auto flex justify-between items-center text-black max-sm:text-sm">
           <Link href="/">
             <Image src="/icon-03.svg" height="80" width="80" alt="Connected KW" />
           </Link>
-          <p className="hidden md:block mb-0">
-            A community-based resource for families in Waterloo Region
+          <p className="hidden lg:block mb-0">
+            A community-based resource for families in KW
           </p>
-          <div className="flex gap-4 md:gap-6">
-            <nav><Link className="text-black no-underline font-medium" href="/events">{`Events 🗓️`}</Link></nav>
-            <nav><Link className="text-black no-underline font-medium" href="/articles">{`Local info 🐝`}</Link></nav>
+          <div className="flex gap-4 lg:gap-6 items-center">
+            <nav>
+              <Link href="/events" className={`pb-1 text-black no-underline font-medium ${router.pathname.startsWith(`/events`) ? 'border-b-2 border-red' : ''}`}>
+                <span>{`Events`}</span>
+                <i className={`ml-1 fa-solid fa-calendar-day`}></i>
+              </Link>
+            </nav>
+            <nav>
+              <Link href="/articles" className={`pb-1 text-black no-underline font-medium ${router.pathname.startsWith(`/articles`) ? 'border-b-2 border-red' : ''}`}>
+                <span>{`Local info`}</span>
+                <i className={`ml-1 fa-solid fa-circle-info`}></i>
+              </Link>
+            </nav>
+            <nav>
+              <a href="https://cms.connectedkw.com/admin/register" target="_blank" className="text-black no-underline font-medium">
+                Account                
+                <i className={`ml-1 fa-solid fa-circle-user`}></i>
+              </a></nav>
           </div>
         </div>
       </header>

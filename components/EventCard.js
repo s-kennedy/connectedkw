@@ -31,6 +31,7 @@ const EventCard = ({ event, showImage, labels }) => {
     'camp': 'events'
   }
   const urlFragment = urlFragments[classification]
+  const imageUrl = image?.id ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640` : "/default-event-image.png"
 
   return (
     <div className={`${styles.eventCard} py-4 snap-start transition-all relative items-start flex-col w-full bg-white overflow-hidden ${styles.result}`}>
@@ -58,14 +59,13 @@ const EventCard = ({ event, showImage, labels }) => {
           </div>
         }
 
-        { (!featured && showImage && image) &&
+        { (!featured && showImage) &&
           <div className={`w-full aspect-video sm:aspect-square sm:w-40 grow-0 relative min-h-0 overflow-hidden`}>
             <Link href={`/${urlFragment}/${slug}`}>
             <Image
               className={`object-cover w-full h-full min-[500px]:max-md:aspect-square ${styles.appear}`}
-              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640`}
-              alt={image.description || image.title} 
-              title={image.title}
+              src={imageUrl}
+              alt={"event image"} 
               loading="lazy"
               height="200"
               width="200"

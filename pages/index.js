@@ -38,13 +38,13 @@ export default function Home({ places, events }) {
     <Layout color="rainbow">
       <section className="bg-slate-100 py-12">
         <div className="container mx-auto">
-          <div className="lg:grid grid-cols-2 gap-6">
+          <div className="lg:grid grid-cols-2">
             <div className="flex justify-center items-center">
               <div>
-                <h1 className="text-4 mb-6 md:text-6xl font-title">
+                <h1 className="mb-6 md:text-6xl font-title">
                   Connected KW
                 </h1>
-                <p className="text-lg">{`Connected KW is a volunteer-run project with the goal of creating an inclusive and comprehensive resource for families in KW.`}</p> 
+                <p className="text-lg">{`Connected KW is a volunteer-run project with the goal of creating an inclusive and comprehensive resource for families in Waterloo Region.`}</p> 
                 <p className="text-lg">Stay connected to what&apos;s happening in the community by subscribing to our <Link href="/events">events calendar</Link> and our <a href="https://instagram.com/connectedkw" target="_blank" rel="noreferrer">Instagram account</a>.</p> 
                 <p className="text-lg">{`You can get involved by creating an account and helping us to add events and info for other families!`}</p>
                 <div className="flex gap-4">
@@ -52,7 +52,7 @@ export default function Home({ places, events }) {
                     <i className={`mr-2 fa-solid fa-gift`}></i>
                     Make a donation                
                   </a>*/}
-                  <a href="https://cms.connectedkw.com/admin/register" target="_blank" className="btn my-6" rel="noreferrer">
+                  <a href="https://cms.connectedkw.com/admin/register" target="_blank" className="btn my-6">
                     <i className={`mr-2 fa-solid fa-circle-user`}></i>
                     Create an account                
                   </a>

@@ -7,7 +7,7 @@ const Footer = () => {
 
       <footer className={`w-full relative bg-slate-100 py-6`}>
         <div className="p-5 mx-auto">
-          <div className="md:flex justify-between md:gap-6">
+          <div className="md:grid grid-cols-3 md:gap-6">
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg ">Support us</p>
               <p className="">Connected KW is a volunteer-run project with the goal of creating an inclusive and comprehensive resource for families in Waterloo Region.</p>
@@ -18,6 +18,12 @@ const Footer = () => {
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg ">Get involved</p>
               <p className="">Whether you want to add an event, write a blog post, or create an interactive map, we appreciate your contribution! <a href="https://cms.connectedkw.com/admin/register">Create an account</a> or email Shay at <a href="mailto:shay@connectedkw.com" className="hover:text-red">shay@connectedkw.com</a> for more information.</p>
+            </div>
+
+            <div className="mb-4 basis-1/2">
+              <p className="font-body font-medium text-xl md:text-lg ">Give feedback</p>
+              <p className="">Connected KW is a work in progress! If you have any feedback or suggestions you can contact Shay at <a href="mailto:shay@connectedkw.com" className="hover:text-red">shay@connectedkw.com</a>.</p>
+              <p> If you find a bug, please <a href="https://github.com/s-kennedy/connectedkw/issues" className="hover:text-red" target="_blank">submit an issue</a>.</p>
             </div>
           </div>
 

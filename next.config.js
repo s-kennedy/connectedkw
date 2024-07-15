@@ -61,6 +61,11 @@ const nextConfig = {
         source: '/camps',
         destination: '/articles/summer-camps-2024',
         permanent: false,
+      },
+      {
+        source: '/join',
+        destination: 'https://cms.connectedkw.com/admin/register',
+        permanent: false,
       }
     ]
   },

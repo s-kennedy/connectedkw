@@ -25,8 +25,16 @@ function FeatureDisplay({ feature={}, closeModal }) {
     imageUrl = image ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640` : null
   }
 
-  const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&size=120x120&markers=color:red|${location.coordinates.coordinates[1]},${location.coordinates.coordinates[0]}&style=feature:all|saturation:-100`
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${location.coordinates.coordinates[1]},${location.coordinates.coordinates[0]}`
+  let staticMapUrl, mapUrl;
+
+  if (location.map_point) {
+    staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&size=120x120&markers=color:red|${location.map_point.coordinates[1]},${location.map_point.coordinates[0]}&style=feature:all|saturation:-100`
+    mapUrl = `https://www.google.com/maps/search/?api=1&query=${location.map_point.coordinates[1]},${location.map_point.coordinates[0]}`
+  } else if (location.coordinates) {
+    staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&size=120x120&markers=color:red|${location.coordinates.coordinates[1]},${location.coordinates.coordinates[0]}&style=feature:all|saturation:-100`
+    mapUrl = `https://www.google.com/maps/search/?api=1&query=${location.coordinates.coordinates[1]},${location.coordinates.coordinates[0]}`
+  }
+
 
   return (
     <div className="h-full w-full bg-white relative">

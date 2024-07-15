@@ -17,7 +17,7 @@
 }
 
 :root {
-  --theme-red: #ef476f;
+  --theme-red: #D81E5B;
   --theme-orange: #FA7D4B;
   --theme-light-red: #ef476f40;
   --theme-yellow: #ffd166;
@@ -30,6 +30,7 @@
   --theme-light-purple: #d7d1d8;
   --theme-black: #030F12;
   --theme-white: #FFFFFF;
+  --theme-light-grey: #f1f5f9;
   --theme-font-title: 'Outfit Bold';
   --theme-font-body: 'Outfit';
 }
