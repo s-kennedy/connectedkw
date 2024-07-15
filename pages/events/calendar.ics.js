@@ -5,22 +5,21 @@ import {marked} from 'marked';
 
 function generateCalendar(events) {
   const eventData = events.map(event => {
-    const startDate = DateTime.fromISO(event.starts_at)
+    const startDate = DateTime.fromISO(event.starts_at, { zone: "America/Toronto" })
     const htmlDescription = marked.parse(event.description || "")
     const markdownDescription = event.description ? event.description.trim() : ""
     const eventObj = {
       title: event.title.trim(),
       description: markdownDescription,
-      start: startDate.toFormat('y-M-d-H-m').split("-").map((a) => parseInt(a)),
+      start: startDate.toUTC().toFormat('y-M-d-H-m').split("-").map((a) => parseInt(a)),
       url: event.external_link.trim(),
       calName: 'Connected KW',
       htmlContent: htmlDescription,
-      productId: 'connectedkw'
     }
 
     if (event.ends_at) {
-      const endDate = DateTime.fromISO(event.ends_at)
-      eventObj.end = endDate.toFormat('y-M-d-H-m').split("-").map((a) => parseInt(a))
+      const endDate = DateTime.fromISO(event.ends_at, { zone: "America/Toronto" })
+      eventObj.end = endDate..toUTC().toFormat('y-M-d-H-m').split("-").map((a) => parseInt(a))
     } else {
       eventObj.duration = { hours: 1 }
     }
