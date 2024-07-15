@@ -52,7 +52,7 @@ export default function Home({ places, events }) {
                     <i className={`mr-2 fa-solid fa-gift`}></i>
                     Make a donation                
                   </a>*/}
-                  <a href="https://cms.connectedkw.com/admin/register" target="_blank" className="btn my-6">
+                  <a href="https://cms.connectedkw.com/admin/register" target="_blank" className="btn my-6" rel="noreferrer">
                     <i className={`mr-2 fa-solid fa-circle-user`}></i>
                     Create an account                
                   </a>

@@ -23,7 +23,7 @@ const Footer = () => {
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg ">Give feedback</p>
               <p className="">Connected KW is a work in progress! If you have any feedback or suggestions you can contact Shay at <a href="mailto:shay@connectedkw.com" className="hover:text-red">shay@connectedkw.com</a>.</p>
-              <p> If you find a bug, please <a href="https://github.com/s-kennedy/connectedkw/issues" className="hover:text-red" target="_blank">submit an issue</a>.</p>
+              <p> If you find a bug, please <a href="https://github.com/s-kennedy/connectedkw/issues" className="hover:text-red" target="_blank" rel="noreferrer">submit an issue</a>.</p>
             </div>
           </div>
 
