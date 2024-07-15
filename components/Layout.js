@@ -16,7 +16,7 @@ const stops = [
 
 
 const Layout = ({
-  title="Unboring KW",
+  title="Connected KW",
   description="Things to do in Kitchener Waterloo for families, children, and your inner child",
   image,
   color="rainbow",
