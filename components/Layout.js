@@ -105,7 +105,7 @@ const Layout = ({
               </Link>
             </nav>
             <nav>
-              <a href="https://cms.connectedkw.com/admin/register" target="_blank" className="text-black no-underline font-medium" rel="noreferrer">
+              <a href="https://cms.connectedkw.com/admin/" target="_blank" className="text-black no-underline font-medium" rel="noreferrer">
                 Account                
                 <i className={`ml-1 fa-solid fa-circle-user`}></i>
               </a></nav>
