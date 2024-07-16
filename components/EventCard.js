@@ -34,11 +34,11 @@ const EventCard = ({ event, showImage, labels }) => {
   const imageUrl = image?.id ? `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image.id}?key=small-640` : "/default-event-image.png"
 
   return (
-    <div className={`${styles.eventCard} py-4 snap-start transition-all relative items-start flex-col w-full bg-white overflow-hidden ${styles.result}`}>
-      <div className={`${styles.appear} relative flex flex-col w-full md:h-full min-h-0`}>
+    <div className={`${styles.eventCard} py-4 snap-start transition-all relative items-start flex-col w-full`}>
+      <div className={`${styles.appear} shadow relative flex flex-col w-full md:h-full min-h-0`}>
         {
           (featured) && 
-          <div className={`bg-red text-black flex-none rounded-t-lg w-full text-sm px-3 py-1 flex font-medium`}>
+          <div className={`bg-red text-black flex-none w-full text-sm px-3 py-1 flex font-medium`}>
             {`️⭐ FEATURED ️⭐`}
           </div>
         }

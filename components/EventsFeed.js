@@ -171,7 +171,7 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
                 </div>
               {
                 view === "list" && 
-                <div className="flex-auto flex-col overflow-auto styled-scrollbar snap-y relative my-2 divide-y divide-slate-300">
+                <div className="flex-auto flex-col styled-scrollbar snap-y relative my-2">
                   {filteredEvents.map(event => <EventCard showImage={true} labels={fullConfig.labels} event={event} key={event.id} />)}
                 </div>
               }

@@ -35,7 +35,7 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
 
 
   return (
-    <div className={`${className} snap-start transition-all relative p-0 items-start flex-col bg-white overflow-hidden mb-1`}>
+    <div className={`${className} shadow snap-start transition-all relative p-0 items-start flex-col bg-white overflow-hidden mb-1`}>
       <div className={`w-full h-full min-h-0`}>
       { showImage &&
         <div className={`aspect-square flex-none overflow-hidden bg-latte`}>
@@ -48,7 +48,7 @@ const GridCard = ({ item, displayFields, showImage, showDescription, className="
           />
         </div>
       }
-        <div className={`basis-2/3 flex-auto text-left overflow-auto h-full styled-scrollbar py-3`}>
+        <div className={`basis-2/3 flex-auto text-left overflow-auto h-full styled-scrollbar p-3`}>
           <Link href={`/${urlFragment}/${slug}`}>
             <h3 className="text-xl mb-2 font-body font-medium">{title}</h3>
           </Link>

@@ -83,7 +83,7 @@ export default function Home({ places, events }) {
           <h2 className="font-title text-3xl md:text-4xl mt-6 mb-6">
             Upcoming Events 🗓
           </h2>
-          <div className="flex flex-nowrap space-x-6 overflow-auto styled-scrollbar snap-x snap-mandatory ">
+          <div className="flex flex-nowrap space-x-6 overflow-auto styled-scrollbar snap-x snap-mandatory">
             {events.map(event => <GridCard item={event} showImage key={event.slug} className="w-10/12 md:w-5/12 lg:w-3/12 flex-none snap-center snap-always md:snap-start" />)}
           </div>
           <div className="w-full mt-4">
