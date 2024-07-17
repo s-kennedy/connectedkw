@@ -95,20 +95,21 @@ const Layout = ({
             <nav>
               <Link href="/events" className={`pb-1 text-black no-underline font-medium ${router.pathname.startsWith(`/events`) ? 'border-b-2 border-red' : ''}`}>
                 <span>{`Events`}</span>
-                <i className={`ml-1 fa-solid fa-calendar-day hidden sm:block`}></i>
+                <i className={`ml-1 fa-solid fa-calendar-day hidden sm:inline`}></i>
               </Link>
             </nav>
             <nav>
               <Link href="/articles" className={`pb-1 text-black no-underline font-medium ${router.pathname.startsWith(`/articles`) ? 'border-b-2 border-red' : ''}`}>
                 <span>{`Local info`}</span>
-                <i className={`ml-1 fa-solid fa-circle-info hidden sm:block`}></i>
+                <i className={`ml-1 fa-solid fa-circle-info hidden sm:inline`}></i>
               </Link>
             </nav>
             <nav>
-              <a href="https://cms.connectedkw.com/admin/" target="_blank" className="text-black no-underline font-medium" rel="noreferrer">
-                Account                
-                <i className={`ml-1 fa-solid fa-circle-user hidden sm:block`}></i>
-              </a></nav>
+              <a href="https://buy.stripe.com/cN24hE161goQcZa8wx" target="_blank" className="text-black no-underline font-medium" rel="noreferrer">
+                Support us                
+                <i className={`ml-1 fa-solid fa-circle-dollar-to-slot hidden sm:inline`}></i>
+              </a>
+            </nav>
           </div>
         </div>
       </header>

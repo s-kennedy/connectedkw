@@ -225,23 +225,23 @@ article ul {
 
 @layer components {
   .btn {
-    @apply shadow text-black no-underline px-4 py-2 bg-red text-white inline-flex flex-nowrap items-center hover:bg-yellow hover:text-black hover:no-underline focus:no-underline transition-all duration-200;
+    @apply shadow text-black no-underline px-4 py-2 bg-red text-white inline-flex flex-nowrap items-center hover:bg-black hover:text-white hover:no-underline focus:no-underline transition-all duration-200;
   }
 
   .btn-red {
-    @apply bg-red hover:bg-yellow hover:text-black;
+    @apply bg-red;
   }
 
   .btn-yellow {
-    @apply bg-yellow text-black hover:bg-orange hover:text-black;
+    @apply bg-yellow text-black;
   }
 
   .btn-green {
-    @apply bg-green hover:bg-blue hover:text-black;
+    @apply bg-green;
   }
 
   .btn-blue {
-    @apply bg-blue hover:purple hover:text-black;
+    @apply bg-blue;
   }
 
   .btn-purple {
