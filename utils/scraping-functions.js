@@ -10,6 +10,8 @@ import {
 import { NodeHtmlMarkdown } from 'node-html-markdown'
 import { DateTime } from 'luxon'
 
+const DEFAULT_EVENT_STATUS = "draft"
+
 const directus = createDirectus('https://cms.connectedkw.com').with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
 const markdown = new NodeHtmlMarkdown()
 
@@ -88,10 +90,12 @@ export async function pageFunctionCityKitchener(context) {
   const [endHour, endMinute] = endTime.split(':')
   const endHourInt = parseInt(endHour)
   const endHour24 = dateParts[8] === "pm" && endHourInt < 12? (endHourInt + 12) : endHourInt
+  const zeroPaddedStartHour24 = `0${startHour24 + 1}`.slice(-2)
+  const zeroPaddedEndHour24 = `0${endHour24 + 1}`.slice(-2)
 
   const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
-  const startDateTime = `${date}T${startHour24}:${startMinute}`
-  const endDateTime = `${date}T${endHour24}:${endMinute}`
+  const startDateTime = `${date}T${zeroPaddedStartHour24}:${startMinute}`
+  const endDateTime = `${date}T${zeroPaddedEndHour24}:${endMinute}`
 
   const title = $('h1#pageHeadingH1').first().text().replace(/\t|\n/g, '')
   $('h2:contains(Event Details:)').parent().attr('id', 'description-section');
@@ -144,10 +148,12 @@ export async function pageFunctionCityWaterloo(context) {
   const [endHour, endMinute] = endTime.split(':')
   const endHourInt = parseInt(endHour)
   const endHour24 = dateParts[8] === "pm" && endHourInt < 12? (endHourInt + 12) : endHourInt
+  const zeroPaddedStartHour24 = `0${startHour24 + 1}`.slice(-2)
+  const zeroPaddedEndHour24 = `0${endHour24 + 1}`.slice(-2)
 
   const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
-  const startDateTime = `${date}T${startHour24}:${startMinute}`
-  const endDateTime = `${date}T${endHour24}:${endMinute}`
+  const startDateTime = `${date}T${zeroPaddedStartHour24}:${startMinute}`
+  const endDateTime = `${date}T${zeroPaddedEndHour24}:${endMinute}`
 
   const title = $('#pageHeading h1').first().text().replace(/\t|\n/g, '')
   $('h2:contains(Event Details:)').parent().attr('id', 'description-section');
@@ -252,10 +258,13 @@ export async function pageFunctionMuseums(context) {
   const [endHour, endMinute] = endTime.split(':')
   const endHourInt = parseInt(endHour)
   const endHour24 = dateParts[8] === "pm" && endHourInt < 12? (endHourInt + 12) : endHourInt
+  const zeroPaddedStartHour24 = `0${startHour24 + 1}`.slice(-2)
+  const zeroPaddedEndHour24 = `0${endHour24 + 1}`.slice(-2)
+
 
   const date = `${year}-${zeroPaddedMonth}-${zeroPaddedDay}`
-  const startDateTime = `${date}T${startHour24}:${startMinute}`
-  const endDateTime = `${date}T${endHour24}:${endMinute}`
+  const startDateTime = `${date}T${zeroPaddedStartHour24}:${startMinute}`
+  const endDateTime = `${date}T${zeroPaddedEndHour24}:${endMinute}`
 
   const title = $('#pageHeading h1').first().text().replace(/\t|\n/g, '')
   $('h3:contains(Details:)').parent().attr('id', 'description-section');
@@ -331,20 +340,21 @@ export const saveEventsToDatabase = async(datasetItems) => {
     try {
       const description = event.description ? markdown.translate(event.description) : ""
       const image = await importImage(event.imageUrl, event.title)
-      const locationText = event.location.trim()
+      const locationText = event.location?.trim()
 
       const eventData = {
-        title: event.title.trim(),
-        description: description.trim(),
+        title: event.title?.trim(),
+        description: description?.trim(),
         starts_at: event.startDateTime,
         ends_at: event.endDateTime,
         location_source_text: locationText,
         external_link: event.url,
         link_text: event.linkText,
-        price: event.price.trim(),
+        price: event.price?.trim(),
         data_source: event.sourceDatabaseId,
         image: image?.id,
-        image_url: event.imageUrl
+        image_url: event.imageUrl,
+        status: DEFAULT_EVENT_STATUS
       }
 
       const locations = await directus.request(
@@ -367,7 +377,7 @@ export const saveEventsToDatabase = async(datasetItems) => {
       return result
 
     } catch (error) {
-      console.log({error})
+      console.log(error.errors)
       failed.push({ ...event, ...error})
       return error
     }
