@@ -74,3 +74,9 @@ export default async (req, res) => {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
+
+// This function can run for a maximum of 60 seconds
+export const config = {
+  maxDuration: 60,
+};
+
