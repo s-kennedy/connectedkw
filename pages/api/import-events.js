@@ -2,6 +2,7 @@ import Cors from 'cors'
 import { generateActorInput } from 'utils/scraping-functions'
 import { importExploreWaterlooEvents } from 'utils/import-functions'
 import { ApifyClient } from 'apify-client'
+
 const apify = new ApifyClient({
     token: process.env.APIFY_TOKEN
 });

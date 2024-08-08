@@ -9,10 +9,12 @@ import {
 } from '@directus/sdk';
 import { NodeHtmlMarkdown } from 'node-html-markdown'
 import { DateTime } from 'luxon'
+import cheerio from "cheerio"
 
 const directus = createDirectus('https://cms.connectedkw.com').with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
 const markdown = new NodeHtmlMarkdown()
-const EVENTS_ENDPOINT = "https://explorewaterloo.ca/wp-json/tribe/events/v1/events"
+// const EVENTS_ENDPOINT = "https://explorewaterloo.ca/wp-json/tribe/events/v1/events"
+const EVENTS_ENDPOINT = "https://explorewaterloo.ca/wp-admin/admin-ajax.php?action=tribe_events_views_v2_fallback"
 const tag_lookup = {
   "cycling": 21, 
   "arts-culture-heritage-live-performance": [1,6,9],
@@ -44,7 +46,13 @@ const importImage = async (url, title) => {
 
 export const importExploreWaterlooEvents = async (endpoint=EVENTS_ENDPOINT, eventsArray=[]) => {
   try {
-    const response = await fetch(endpoint)
+    const response = await fetch(endpoint, {
+      method: "POST",
+      body: `url=${encodeURIComponent('https://explorewaterloo.ca/events/month/')}`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+    })
 
     console.log(`API response: ${response.status} ${response.statusText}`)
 
@@ -52,17 +60,25 @@ export const importExploreWaterlooEvents = async (endpoint=EVENTS_ENDPOINT, even
       throw Error(`API call failed: ${response.status} ${response.statusText}`)
     } 
 
-    const data = await response.json()
-    const allEvents = eventsArray.concat(data.events)
+    const body = await response.text()
+    const $ = cheerio.load(body);
+    const data = $('script[type=application/ld+json]').text()
+    const json = JSON.parse(data)
+    console.log(json)
 
-    if (data.next_rest_url && allEvents.length <= 96) {
-      return await importExploreWaterlooEvents(data.next_rest_url, allEvents)
-    } else {
-      const results = await saveToDatabase(allEvents)
-      return results
-    }
-    const results = await saveToDatabase(allEvents)
+    const results = await saveToDatabase(json)
     return results
+
+    // const allEvents = eventsArray.concat(data.events)
+
+    // if (data.next_rest_url && allEvents.length <= 96) {
+    //   return await importExploreWaterlooEvents(data.next_rest_url, allEvents)
+    // } else {
+    //   const results = await saveToDatabase(allEvents)
+    //   return results
+    // }
+    // const results = await saveToDatabase(allEvents)
+    // return results
 
   } catch (error) {
     console.log(error)
@@ -77,31 +93,31 @@ const saveToDatabase = async(events) => {
 
   const promises = events.map(async(event) => {
     try {
-      const description = markdown.translate(event.description)
-      const location_source_text = event.venue?.venue ? [event.venue.venue,event.venue.address].join(", ").replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d)) : null
-      const title = event.title.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d))
-      const image = await importImage(event.image?.url, title)
+      const title = event.name?.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d))
+      const description = event.description?.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d))
+      const location_source_text = event.location?.name ? [event.location.name,event.location.address?.streetAddress].join(", ").replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d)) : null
+      const image = await importImage(event.image, title)
     
       const eventData = {
         title: title,
-        description: description.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d)),
-        starts_at: event.start_date,
-        ends_at: event.end_date,
-        external_link: event.website ? event.website : event.url,
-        link_text: event.website ? "Event page" : defaultLinkText,
+        description: description,
+        starts_at: event.startDate,
+        ends_at: event.endDate,
+        external_link: event.url,
+        link_text: defaultLinkText,
         data_source: data_source_id,
         location_source_text: location_source_text,
         image: image?.id,
-        image_url: event.image?.url,g
+        image_url: event.image,
       }
 
-      const locationSearch = event.venue?.address ? event.venue?.address : event.venue?.venue
+      const locationSearch = event.location?.address ? event.location?.address?.streetAddress : event.location?.name
 
       if (locationSearch) {
         const locations = await directus.request(
           readItems('locations', {
             fields: ['id'],
-            search: event.venue?.venue,
+            search: locationSearch,
             limit: 1
           })
         );
@@ -109,14 +125,6 @@ const saveToDatabase = async(events) => {
         if (locations && locations[0]) {
           eventData.location = locations[0].id
         }
-      }
-
-      const tagIds = event.categories.map(cat => {
-        return tag_lookup[cat.slug]
-      }).filter(i => i).flat()
-
-      if (tagIds.length > 0) {
-        eventData.tags = tagIds.map(t => ({ tags_id: t }))
       }
 
       const result = await directus.request(
