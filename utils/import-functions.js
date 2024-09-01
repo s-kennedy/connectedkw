@@ -10,6 +10,7 @@ import {
 import { NodeHtmlMarkdown } from 'node-html-markdown'
 import { DateTime } from 'luxon'
 import cheerio from "cheerio"
+import {decode} from 'html-entities';
 
 const directus = createDirectus('https://cms.connectedkw.com').with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
 const markdown = new NodeHtmlMarkdown()
@@ -48,7 +49,7 @@ export const importExploreWaterlooEvents = async (endpoint=EVENTS_ENDPOINT, even
   try {
     const response = await fetch(endpoint, {
       method: "POST",
-      body: `url=${encodeURIComponent('https://explorewaterloo.ca/events/month/')}`,
+      body: `url=${encodeURIComponent('https://explorewaterloo.ca/events/month/')}&view_data%5Btribe-bar-date%5D=2024-09`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       },
@@ -94,7 +95,12 @@ const saveToDatabase = async(events) => {
   const promises = events.map(async(event) => {
     try {
       const title = event.name?.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d))
-      const description = event.description?.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d))
+      const originalDescription = event.description
+      const decoded = decode(originalDescription)
+      const cleaned = decoded.replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d))
+      const uriDecoded = decodeURIComponent(cleaned)
+      const trimmed = uriDecoded.replace(/\\n|\\/g, "")
+      const description = markdown.translate(trimmed)
       const location_source_text = event.location?.name ? [event.location.name,event.location.address?.streetAddress].join(", ").replace(/&#(\d+);/g, (m, d) => String.fromCharCode(d)) : null
       const image = await importImage(event.image, title)
     
