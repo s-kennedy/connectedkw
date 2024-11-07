@@ -63,6 +63,15 @@ export default function Events({ events=[], categories=[], tags=[], dataSources=
       multipleSelect: true,
       attributeFn: (event) => [event.data_source]
     },
+    //Farhan ->
+    {
+      label: 'Location',
+      id: 'location',
+      type: 'location-select',
+      value: {},
+      multipleSelect: true
+    }
+    //-- --
   ]
   return (
     <Layout title="Family-friendly events in Kitchener-Waterloo" description="Here you'll find things to do for families, children, and your inner child." color="blue">
