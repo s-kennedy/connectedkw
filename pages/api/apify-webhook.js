@@ -54,4 +54,4 @@ export default async (req, res) => {
 // This function can run for a maximum of 60 seconds
 export const config = {
   maxDuration: 60,
-};g
+};
