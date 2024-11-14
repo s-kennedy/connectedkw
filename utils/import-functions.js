@@ -47,9 +47,12 @@ const importImage = async (url, title) => {
 
 export const importExploreWaterlooEvents = async (endpoint=EVENTS_ENDPOINT, eventsArray=[]) => {
   try {
+    const today = new Date()
+    const thisMonth = today.getMonth() + 1
+    const thisYear = today.getFullYear()
     const response = await fetch(endpoint, {
       method: "POST",
-      body: `url=${encodeURIComponent('https://explorewaterloo.ca/events/month/')}&view_data%5Btribe-bar-date%5D=2024-09`,
+      body: `url=${encodeURIComponent('https://explorewaterloo.ca/events/month/')}&view_data%5Btribe-bar-date%5D=${thisYear}-${thisMonth}`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       },
@@ -65,7 +68,6 @@ export const importExploreWaterlooEvents = async (endpoint=EVENTS_ENDPOINT, even
     const $ = cheerio.load(body);
     const data = $('script[type=application/ld+json]').text()
     const json = JSON.parse(data)
-    console.log(json)
 
     const results = await saveToDatabase(json)
     return results
