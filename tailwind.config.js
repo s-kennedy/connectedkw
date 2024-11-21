@@ -29,6 +29,9 @@ module.exports = {
       borderWidth: {
         '3': '3px'
       },
+      backgroundImage: {
+        'check-mark': "url('/icons/check-mark.svg')"
+      },
       minHeight: {
         'halfscreen': '50vh',
       },
