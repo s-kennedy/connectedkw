@@ -1,5 +1,6 @@
 import styles from "styles/events.module.css"
 import { useState, useEffect } from "react"
+import { Wrapper } from "@googlemaps/react-wrapper";
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import TagFilter from "components/TagFilter"
@@ -12,7 +13,11 @@ const InteractiveMap = dynamic(() => import('components/InteractiveMap'))
 
 const defaultValues = {
   "boolean": false,
-  "select-multiple": []
+  "select-multiple": [],
+  //Farhan ->
+  //Default value for locations
+  "location-select": {locName: '', distance: 10}
+  //-- --
 }
 
 const defaultConfig = {
@@ -23,7 +28,7 @@ const defaultConfig = {
     categories: 'Categories',
     tags: 'Tags',
   },
-  views: ['list', 'calendar']
+  views: ['list', 'calendar', 'map']
 }
 
 const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loading, config={}, children }) => {
@@ -50,11 +55,12 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
     setLoading(loading)
   }, [loading])
 
-  const filterEvents = () => {
+  const filterEvents = async() => {
     setLoading(true)
     let filteredEvents = events;
+    await google.maps.importLibrary("geocoding")
 
-    filters.forEach(filter => {
+    filters.forEach(async filter => {
       switch (filter.type) {
       case "boolean":
         if (selectedFilters[filter.id] === true) {
@@ -73,11 +79,35 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
           })
         }
         break;
-      }
-    })
+      //Farhan - Filter events based on given address and distance ->
+      case "location-select":
+        if(selectedFilters[filter.id].locName.length > 0){
+          
+          let geocoder = await new google.maps.Geocoder();
+          const address = selectedFilters[filter.id].locName;
 
-    setFilteredEvents(filteredEvents)
-    setLoading(false)
+          await geocoder.geocode({'address': address}, function(result, status){
+            if(status == google.maps.GeocoderStatus.OK){
+              const lat = result[0].geometry.location.lat() * Math.PI / 180;
+              const long = result[0].geometry.location.lng() * Math.PI / 180;
+
+              filteredEvents = filteredEvents.filter((event) => {
+                const eventLat = event.location.map_point.coordinates[1] * Math.PI / 180;
+                const eventLong = event.location.map_point.coordinates[0] * Math.PI / 180;
+
+                const Distance = Math.acos(Math.sin(lat)*Math.sin(eventLat) + 
+                                            Math.cos(lat)*Math.cos(eventLat) *
+                                            Math.cos(eventLong - long)) * 6371;
+                return Distance <= selectedFilters[filter.id].distance;
+              })
+            }
+          });
+        }
+      }
+      //-- --
+      setFilteredEvents(filteredEvents)
+      setLoading(false)
+    })
   }
 
   // const fetchEvents = () => {
@@ -113,12 +143,18 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
       case "boolean":
         const newValue = !selectedFilters[filter.id]
         setSelectedFilters({ ...selectedFilters, [filter.id]: newValue })
+        break;
+      //Farhan ->
+      case "location-select":
+        setSelectedFilters({ ...selectedFilters, [filter.id]: value})
+      //-- --
     }
   }
 
   const length = isLoading ? false : `${filteredEvents.length}`
 
   return (
+    <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}>
     <div id="event-feed" className={`relative min-h-0 flex flex-col w-full h-full styled-scrollbar`}>
       <div className="">
         <div className={`flex-auto flex-col space-y-2`}>
@@ -181,9 +217,9 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
               }
               {
                 view === "map" && 
-                <InteractiveMap 
-                  features={filteredEvents} 
-                  mapConfig={{ 
+                <InteractiveMap
+                  features={filteredEvents}
+                  mapConfig={{
                     mapId: 'events-map', 
                     preview: { title: 'title', details: [{ field: 'starts_at', type: 'date' }]}
                   }} 
@@ -195,6 +231,7 @@ const EventsFeed = ({ title="Family-friendly events", events=[], filters=[], loa
         </div>
       </div>
     </div>
+    </Wrapper>
   )
 }
 
