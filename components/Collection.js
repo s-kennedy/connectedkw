@@ -37,7 +37,7 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
   const [selectedFilters, setSelectedFilters] = useState(emptyFilters)
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [featured, setFeatured] = useState(false)
-  const [view, setView] = useState("list")
+  const [view, setView] = useState("calendar")
 
   const toggleView = (newView) => () => {
     setView(newView)
@@ -80,17 +80,6 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
     setFilteredEvents(filteredEvents)
     setLoading(false)
   }
-
-  // const fetchEvents = () => {
-  //   setLoading(true)
-  //   fetch("/api/events")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setAllEvents(data.events)
-  //       setFilteredEvents(data.events)
-  //       setLoading(false)
-  //     })
-  // }
 
   const reset = () => {
     setSelectedFilters(emptyFilters)
