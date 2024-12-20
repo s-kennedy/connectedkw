@@ -24,7 +24,8 @@ const defaultConfig = {
     categories: 'Categories',
     tags: 'Tags',
   },
-  views: ['list', 'calendar']
+  views: ['list', 'calendar'],
+  defaultView: 'calendar'
 }
 
 const Collection = ({ title="Events", events=[], filters=[], loading, config={}, children }) => {
@@ -37,7 +38,7 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
   const [selectedFilters, setSelectedFilters] = useState(emptyFilters)
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [featured, setFeatured] = useState(false)
-  const [view, setView] = useState("calendar")
+  const [view, setView] = useState(fullConfig.defaultView || "calendar")
 
   const toggleView = (newView) => () => {
     setView(newView)
