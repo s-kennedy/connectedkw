@@ -43,6 +43,17 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
     setView(newView)
   }
 
+  // const fetchEvents = () => {
+  //   setLoading(true)
+  //   fetch("/api/events")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setAllEvents(data.events)
+  //       setFilteredEvents(data.events)
+  //       setLoading(false)
+  //     })
+  // }
+
   useEffect(() => {
     filterEvents()
   }, [selectedFilters, events])
