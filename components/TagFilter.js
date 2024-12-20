@@ -19,6 +19,32 @@ const OptionButton = forwardRef(function OptionButton(props, ref) {
   )
 })
 
+//Farhan ->
+const LocationInput = ({filter, toggleFn}) => {
+  const handleChange = (e) => {
+    e.preventDefault()
+    const form = document.forms.locForm
+    const value = {locName: form.locName.value, distance: form.distance.value}
+    toggleFn(filter, value)
+  }
+  return (
+    <>
+      <button
+        type="button"
+        className={`whitespace-nowrap relative block mb-2`}
+      >
+        <span className={`border-none`}>{filter.label}</span>
+      </button>
+      <form name='locForm' onSubmit={handleChange}>
+        <input name='locName' type='text' placeholder='Enter Location' />
+        <input name='distance' type='range' min='1' max='20' />
+        <input type='submit' />
+      </form>
+      </>
+  );
+}
+//-- --
+
 const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
 
   // const {refs, floatingStyles} = useFloating();
@@ -35,7 +61,6 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
     toggleFn(filter)
   }
 
-
   if (filter.type === "boolean") {
     return (
       <button key={filter.id} onClick={handleFlagClick(filter)} className={`whitespace-nowrap relative block mb-2`}>
@@ -45,6 +70,17 @@ const TagFilter = ({ filter, toggleFn, selectedOptions }) => {
       </button>
     )
   }
+
+  //Farhan -->
+  else if(filter.type === "location-select"){
+    return (
+      <LocationInput 
+        filter = {filter}
+        toggleFn = {toggleFn}
+      />
+    )
+  }
+  //-- --
 
   return (
     <>
