@@ -24,7 +24,8 @@ const defaultConfig = {
     categories: 'Categories',
     tags: 'Tags',
   },
-  views: ['list', 'calendar']
+  views: ['list', 'calendar'],
+  defaultView: 'calendar'
 }
 
 const Collection = ({ title="Events", events=[], filters=[], loading, config={}, children }) => {
@@ -37,11 +38,26 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
   const [selectedFilters, setSelectedFilters] = useState(emptyFilters)
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [featured, setFeatured] = useState(false)
+<<<<<<< HEAD
   const [view, setView] = useState(fullConfig.default_display)
+=======
+  const [view, setView] = useState(fullConfig.defaultView || "calendar")
+>>>>>>> main
 
   const toggleView = (newView) => () => {
     setView(newView)
   }
+
+  // const fetchEvents = () => {
+  //   setLoading(true)
+  //   fetch("/api/events")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setAllEvents(data.events)
+  //       setFilteredEvents(data.events)
+  //       setLoading(false)
+  //     })
+  // }
 
   useEffect(() => {
     filterEvents()
@@ -80,17 +96,6 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
     setFilteredEvents(filteredEvents)
     setLoading(false)
   }
-
-  // const fetchEvents = () => {
-  //   setLoading(true)
-  //   fetch("/api/events")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setAllEvents(data.events)
-  //       setFilteredEvents(data.events)
-  //       setLoading(false)
-  //     })
-  // }
 
   const reset = () => {
     setSelectedFilters(emptyFilters)
