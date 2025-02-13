@@ -30,7 +30,7 @@ function runMiddleware(req, res, fn) {
 export default async (req, res) => {
   await runMiddleware(req, res, cors)
 
-  if (req.method === "POST") {
+  if (req.method.toLowerCase() === "post") {
     try {
       const data = req.body
       const datasetId = data.resource.defaultDatasetId
@@ -47,11 +47,11 @@ export default async (req, res) => {
     }
   } else {
     res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 };
 
 // This function can run for a maximum of 60 seconds
 export const config = {
   maxDuration: 60,
-};g
+};
