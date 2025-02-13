@@ -591,22 +591,19 @@ const register = async (firstName, lastName, email, password) => {
     const result = await directus.request(registerUser(email, password, {
       first_name: firstName,
       last_name: lastName,
-      // verification_url: process.env.DIRECTUS_VERIFICATION_URL
+      verification_url: process.env.DIRECTUS_VERIFICATION_URL
     }))
 
     return result
   } catch (error) {
-    console.log(error.errors)
-    return null
+    return error
   }
 }
 
 const verifyEmail = async (token) => {
   try {
-    const result = await directus.request(registerUserVerify(token))
-    return result
+    await directus.request(registerUserVerify(token))
   } catch (error) {
-    console.log(error.errors)
     return error
   }
 }

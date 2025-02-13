@@ -1,25 +1,37 @@
 import Image from "next/image";
 import Layout from "components/Layout";
+import { useRouter } from "next/router";
+import { useState } from "react";	
 
-import { getPagesByTemplate, getEvents } from "integrations/directus";
+export default function LoginPage() {
+	const router = useRouter();
+	const { verification } = router.query;
+	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(false);
 
-export async function getServerSideProps({ params }) {
-	const places = await getPagesByTemplate("map");
-	const events = await getEvents(10);
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+		setError(null);
 
-	return {
-		props: { places, events },
-	};
-}
+		const email = e.target.email.value;
+		const password = e.target.password.value;
 
-export default function LoginPage({ places, events }) {
-	const mapPages = places.map((page) => {
-		return {
-			...page,
-			image: page.main_image,
-			classification: "map",
-		};
-	});
+		// TODO: write this API endpoint 
+		const result = await fetch("/api/login", {
+			method: "POST",
+			body: JSON.stringify({ email, password }),
+		});
+		
+		if (result.ok) {
+			router.push("/")
+		} else {
+			setError("Invalid email or password");
+		}
+		e.target.reset();
+		setLoading(false);
+
+	}
 
 	return (
 		<Layout color="rainbow">
@@ -49,10 +61,25 @@ export default function LoginPage({ places, events }) {
 							</video>
 						</div>
 						<div className="flex justify-center items-center">
-							<form className="w-[90%] md:w-[80%] bg-white shadow-md rounded pt-6 px-8 mb-2 md:mb-8 pb-8">
+							<form className="w-[90%] md:w-[80%] bg-white shadow-md rounded pt-6 px-8 mb-2 md:mb-8 pb-8" onSubmit={handleLogin}>
 								<div className="mb-4">
 									<h2>Login</h2>
 								</div>
+								{	
+									verification === "success" && (
+										<div className="mb-4">
+											<p><i className={`mr-1 fa-solid fa-check-circle text-red`}></i>Thanks for verifying your email!</p>
+											<p><i className={`mr-1 fa-solid fa-user-circle text-red`}></i>Please log in to continue.</p>
+										</div>
+									)
+								}
+								{
+									error && (
+										<div className="mb-4">
+											<p className="text-red">{error}</p>
+										</div>
+									)
+								}
 								<div className="mb-4">
 									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
 										Email
@@ -78,12 +105,18 @@ export default function LoginPage({ places, events }) {
 									{/* <p className="text-red-500 text-xs italic">Enter your password here</p> */}
 								</div>
 								<div className="md:flex md:items-center md:justify-between justify-items-center">
-									<button
-										className="bg-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto md:mx-0"
-										type="button"
-									>
-										Sign In
-									</button>
+								{
+										loading ? (
+											<Image src="/loading.svg" width={40} height={40} alt="loading" />
+										) : (
+											<button
+												className="bg-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto md:mx-0"
+										type="submit"
+											>
+												Sign In
+											</button>
+										)
+									}
 									<div className="md:flex md:items-center md:justify-between md:gap-3 mt-4">
 										<div className="text-center">
 											<a

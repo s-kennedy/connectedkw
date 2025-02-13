@@ -6,16 +6,16 @@ export default async (req, res) => {
     try {
         const { token } = req.query
         const result = await verifyEmail(token)
-        console.log({result})
         
-        if (result.errors) {
-            return res.redirect(307, '/register?verification=failed')
+        if (result?.errors) {
+            console.log(result.errors)
+            res.redirect(307, '/auth/register?verification=failed')
         }
       
-        return res.redirect(307, '/login?verification=success')
+        res.redirect(307, '/auth/login?verification=success')
     } catch (err) {
       console.log(err);
-      return res.redirect(307, '/register?verification=failed')
+      res.redirect(307, '/auth/register?verification=failed')
     }
   } else {
     res.setHeader("Allow", ["GET"]);

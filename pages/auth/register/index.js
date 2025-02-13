@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Layout from "components/Layout";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function LoginPage({}) {
 	const [firstName, setFirstName] = useState("");
@@ -8,16 +9,57 @@ export default function LoginPage({}) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
+	const [success, setSuccess] = useState(null);
+	const router = useRouter();
+	const { verification } = router.query;
+
+	const resetForm = () => {
+		setFirstName("");
+		setLastName("");
+		setEmail("");
+		setPassword("");
+		setConfirmPassword("");
+	}
 
 	const handleRegister = async (e) => {
+		setError(null);
+		setSuccess(null);
+		setLoading(true);
 		e.preventDefault();
-		console.log(firstName, lastName, email, password, confirmPassword);
-		const response = await fetch("/api/register", {
+		
+		if (firstName === "") {
+			setLoading(false);
+			setError("First name is required");
+			return;
+		}
+		if (lastName === "") {
+			setLoading(false);
+			setError("Last name is required");
+			return;
+		}
+		if (email === "") {
+			setLoading(false);
+			setError("Email is required");
+			return;
+		}
+		if (password !== confirmPassword) {
+			setLoading(false);
+			setError("Passwords do not match");
+			return;
+		}
+
+		const result = await fetch("/api/register", {
 			method: "POST",
 			body: JSON.stringify({ first_name: firstName, last_name: lastName, email, password }),
 		});
-		const data = await response.json();
-		console.log(data);	
+
+		// TODO: check result for errors and display them
+
+		setLoading(false);
+		setSuccess(true);
+		resetForm();
 	}
 
 	return (
@@ -52,9 +94,30 @@ export default function LoginPage({}) {
 								<div className="mb-4">
 									<h2>Register</h2>
 								</div>
+								{
+									verification === "failed" && (
+										<div className="mb-4">
+											<p className="text-red">Something went wrong when verifying your email. Please try again.</p>
+										</div>
+									)
+								}
+								{
+									error && (
+										<div className="mb-4">
+											<p className="text-red">{error}</p>
+										</div>
+									)
+								}
+								{
+									success && (
+										<div className="mb-4">
+											<p className="text-green">Thanks for signing up! Please check your email for verification instructions.</p>
+										</div>
+									)
+								}
                                 <div className="mb-4">
 									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
-										First Name
+										First Name*
 									</label>
 									<input
 										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -63,11 +126,12 @@ export default function LoginPage({}) {
 										placeholder="Jane"
 										value={firstName}
 										onChange={(e) => setFirstName(e.target.value)}
+										required
 									/>
 								</div>
 								<div className="mb-4">
 									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
-										Last Name
+										Last Name*
 									</label>
 									<input
 										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -76,11 +140,12 @@ export default function LoginPage({}) {
 										placeholder="Doe"
 										value={lastName}
 										onChange={(e) => setLastName(e.target.value)}
+										required
 									/>
 								</div>
 								<div className="mb-4">
 									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-										Email
+										Email*
 									</label>
 									<input
 										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -89,11 +154,12 @@ export default function LoginPage({}) {
 										placeholder="janedoe@gmail.com"
 										value={email}
 										onChange={(e) => setEmail(e.target.value)}
+										required
 									/>
 								</div>
 								<div>
 									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-										Password
+										Password*
 									</label>
 									<input
 										className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -102,32 +168,40 @@ export default function LoginPage({}) {
 										placeholder="******************"
 										value={password}
 										onChange={(e) => setPassword(e.target.value)}
+										required
 									/>
 									{/* The following is the error side. */}
 									{/* <p className="text-red-500 text-xs italic">Enter your password here</p> */}
 								</div>
                                 <div className="mb-4 md:mb-6">
 									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirm-password">
-										Confirm Password
+										Confirm Password*
 									</label>
 									<input
 										className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
 										id="confirm-password"
-										type="confirm-password"
+										type="password"
 										placeholder="******************"
 										value={confirmPassword}
-										onChange={(e) => setConfirmPassword(e.target.value)}
+										onChange={(e) => setConfirmPassword(e.target.value)}	
+										required
 									/>
 									{/* The following is the error side. */}
 									{/* <p className="text-red-500 text-xs italic">Enter your password here</p> */}
 								</div>
 								<div className="md:flex md:items-center md:justify-between justify-items-center">
-									<button
-										className="bg-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto md:mx-0"
+									{
+										loading ? (
+											<Image src="/loading.svg" width={40} height={40} alt="loading" />
+										) : (
+											<button
+												className="bg-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto md:mx-0"
 										type="submit"
-									>
-										Sign Up
-									</button>
+											>
+												Sign Up
+											</button>
+										)
+									}
 									<div className="md:flex md:items-center md:justify-between md:gap-3 mt-4">
 										<div className="text-center">
 											<a
