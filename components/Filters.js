@@ -32,7 +32,7 @@ const Filters = ({ filters, selectedFilters, toggleFn, reset, children }) => {
           <>
           <span>{` (${numSelected})`}</span>
           <button onClick={reset} className="mx-1 text-red">
-            <i className="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-check"></i>
           </button>
           </>
         }
