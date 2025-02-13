@@ -1,25 +1,24 @@
 import Image from "next/image";
 import Layout from "components/Layout";
+import { useState } from "react";
 
-import { getPagesByTemplate, getEvents } from "integrations/directus";
+export default function LoginPage({}) {
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 
-export async function getServerSideProps({ params }) {
-	const places = await getPagesByTemplate("map");
-	const events = await getEvents(10);
-
-	return {
-		props: { places, events },
-	};
-}
-
-export default function LoginPage({ places, events }) {
-	const mapPages = places.map((page) => {
-		return {
-			...page,
-			image: page.main_image,
-			classification: "map",
-		};
-	});
+	const handleRegister = async (e) => {
+		e.preventDefault();
+		console.log(firstName, lastName, email, password, confirmPassword);
+		const response = await fetch("/api/register", {
+			method: "POST",
+			body: JSON.stringify({ first_name: firstName, last_name: lastName, email, password }),
+		});
+		const data = await response.json();
+		console.log(data);	
+	}
 
 	return (
 		<Layout color="rainbow">
@@ -49,19 +48,34 @@ export default function LoginPage({ places, events }) {
 							</video>
 						</div>
 						<div className="flex justify-center items-center">
-							<form className="w-[90%] md:w-[80%] bg-white shadow-md rounded pt-6 px-8 mb-2 md:mb-8 pb-8">
+							<form className="w-[90%] md:w-[80%] bg-white shadow-md rounded pt-6 px-8 mb-2 md:mb-8 pb-8" onSubmit={handleRegister}>
 								<div className="mb-4">
 									<h2>Register</h2>
 								</div>
                                 <div className="mb-4">
-									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-										Name
+									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+										First Name
 									</label>
 									<input
 										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-										id="name"
+										id="firstName"
 										type="text"
-										placeholder="Jane Doe"
+										placeholder="Jane"
+										value={firstName}
+										onChange={(e) => setFirstName(e.target.value)}
+									/>
+								</div>
+								<div className="mb-4">
+									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
+										Last Name
+									</label>
+									<input
+										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+										id="lastName"
+										type="text"
+										placeholder="Doe"
+										value={lastName}
+										onChange={(e) => setLastName(e.target.value)}
 									/>
 								</div>
 								<div className="mb-4">
@@ -73,6 +87,8 @@ export default function LoginPage({ places, events }) {
 										id="email"
 										type="text"
 										placeholder="janedoe@gmail.com"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
 									/>
 								</div>
 								<div>
@@ -84,6 +100,8 @@ export default function LoginPage({ places, events }) {
 										id="password"
 										type="password"
 										placeholder="******************"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
 									/>
 									{/* The following is the error side. */}
 									{/* <p className="text-red-500 text-xs italic">Enter your password here</p> */}
@@ -97,6 +115,8 @@ export default function LoginPage({ places, events }) {
 										id="confirm-password"
 										type="confirm-password"
 										placeholder="******************"
+										value={confirmPassword}
+										onChange={(e) => setConfirmPassword(e.target.value)}
 									/>
 									{/* The following is the error side. */}
 									{/* <p className="text-red-500 text-xs italic">Enter your password here</p> */}
@@ -104,9 +124,9 @@ export default function LoginPage({ places, events }) {
 								<div className="md:flex md:items-center md:justify-between justify-items-center">
 									<button
 										className="bg-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto md:mx-0"
-										type="button"
+										type="submit"
 									>
-										Sign In
+										Sign Up
 									</button>
 									<div className="md:flex md:items-center md:justify-between md:gap-3 mt-4">
 										<div className="text-center">

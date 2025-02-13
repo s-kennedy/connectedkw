@@ -3,7 +3,8 @@ import {
   staticToken, 
   rest,
   readItems,
-  readSingleton
+  registerUser,
+  registerUserVerify
 } from '@directus/sdk'
 
 const directus = createDirectus(process.env.DIRECTUS_URL).with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
@@ -585,6 +586,30 @@ const getCamps = async () => {
   }
 }
 
+const register = async (firstName, lastName, email, password) => {
+  try {
+    const result = await directus.request(registerUser(email, password, {
+      first_name: firstName,
+      last_name: lastName,
+      // verification_url: process.env.DIRECTUS_VERIFICATION_URL
+    }))
+
+    return result
+  } catch (error) {
+    console.log(error.errors)
+    return null
+  }
+}
+
+const verifyEmail = async (token) => {
+  try {
+    const result = await directus.request(registerUserVerify(token))
+    return result
+  } catch (error) {
+    console.log(error.errors)
+    return error
+  }
+}
 
 export { 
   getEvents,
@@ -604,5 +629,7 @@ export {
   getPageData,
   getPagesByTemplate,
   getPages,
-  getCamps
+  getCamps,
+  register,
+  verifyEmail
 };
