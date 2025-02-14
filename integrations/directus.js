@@ -607,6 +607,101 @@ const verifyEmail = async (token) => {
     return error
   }
 }
+const getProfiles = async (skillID = -1) => {
+  try {
+    const filters = (skillID != -1)
+      ? {
+          skills: {
+            id: { _eq: skillID } 
+          }
+        }
+      : {}; 
+
+    const result = await directus.request(
+      readItems("profiles", {
+        fields: [
+          "id",
+          "city",
+          "is_visible",
+          "is_verified",
+          "name",
+          "headline",
+          "bio",
+          "interests",
+          "experiences",
+          "profile_picture",
+          "preferred_contact_method",
+          "status",
+          "user_created",
+          "skills"
+        ],
+        filter: filters,
+        sort: ["id"],
+        limit: -1,
+      })
+    );
+
+    //console.log(result);
+    return result.data || result;
+
+  } catch (error) {
+    console.error("Error fetching profiles:", error);
+    return [];
+  }
+};
+
+const getProfileSkills = async () => {
+  try {
+    const result =  await directus.request(
+      readItems('skills', {
+        fields: 'id,name',
+        sort: ['id'],
+        limit: -1,
+      })
+    );
+
+    return result
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+// this can probably be merged into getProfile with an optional parameter
+const getProfileById = async (profileID) => {
+  try {
+
+    const result = await directus.request(
+      readItems("profiles", {
+        fields: [
+          "id",
+          "city",
+          "is_visible",
+          "is_verified",
+          "name",
+          "headline",
+          "bio",
+          "interests",
+          "experiences",
+          "profile_picture",
+          "preferred_contact_method",
+          "status",
+          "user_created",
+          "skills"
+        ],
+        filter: {id: {_eq: profileID}},
+        sort: ["id"],
+        limit: -1,
+      })
+    );
+
+    //console.log(result);
+    return result.data || result;
+  } catch (error) {
+    console.error("Error fetching profiles:", error);
+    return [];
+  }
+};
 
 export { 
   getEvents,
@@ -628,5 +723,8 @@ export {
   getPages,
   getCamps,
   register,
-  verifyEmail
+  verifyEmail,
+  getProfiles,
+  getProfileSkills,
+  getProfileById
 };
