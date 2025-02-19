@@ -22,8 +22,11 @@ export default function LoginPage() {
 			method: "POST",
 			body: JSON.stringify({ email, password }),
 		});
+		const data = await result.json();
+		console.log(data);
 
 		if (result.ok) {
+			localStorage.setItem('access_token', data.token);
 			router.push("/")
 		} else {
 			setError("Invalid email or password");
