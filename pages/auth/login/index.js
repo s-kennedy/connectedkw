@@ -22,7 +22,7 @@ export default function LoginPage() {
 			method: "POST",
 			body: JSON.stringify({ email, password }),
 		});
-		
+
 		if (result.ok) {
 			router.push("/")
 		} else {

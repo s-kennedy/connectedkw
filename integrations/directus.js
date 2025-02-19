@@ -4,10 +4,14 @@ import {
   rest,
   readItems,
   registerUser,
-  registerUserVerify
+  registerUserVerify,
+  authentication,
+  login,
 } from '@directus/sdk'
 
 const directus = createDirectus(process.env.DIRECTUS_URL).with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
+const client = createDirectus(process.env.DIRECTUS_URL).with(authentication('json')).with(rest());
+
 
 const getActivities = async (limit=-1, offset=0) => {
 
@@ -600,6 +604,15 @@ const register = async (firstName, lastName, email, password) => {
   }
 }
 
+const loginUser = async (email, password) => {
+  try {
+    const response = await client.login(email, password);
+    return response;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 const verifyEmail = async (token) => {
   try {
     await directus.request(registerUserVerify(token))
@@ -723,6 +736,7 @@ export {
   getPages,
   getCamps,
   register,
+  loginUser,
   verifyEmail,
   getProfiles,
   getProfileSkills,
