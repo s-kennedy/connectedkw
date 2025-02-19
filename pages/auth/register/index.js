@@ -10,25 +10,26 @@ export default function LoginPage({}) {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
 	const [success, setSuccess] = useState(null);
 	const router = useRouter();
 	const { verification } = router.query;
 
+	// Error Messages
+	const [error, setError] = useState("");
 	const resetForm = () => {
 		setFirstName("");
 		setLastName("");
 		setEmail("");
 		setPassword("");
 		setConfirmPassword("");
-	}
+	};
 
 	const handleRegister = async (e) => {
 		setError(null);
 		setSuccess(null);
 		setLoading(true);
 		e.preventDefault();
-		
+
 		if (firstName === "") {
 			setLoading(false);
 			setError("First name is required");
@@ -42,6 +43,16 @@ export default function LoginPage({}) {
 		if (email === "") {
 			setLoading(false);
 			setError("Email is required");
+			return;
+		}
+		if (password === "") {
+			setLoading(false);
+			setError("Password is required");
+			return;
+		}
+		if (password.length < 8) {
+			setLoading(false);
+			setError("Password must be atleast 8 characters long");
 			return;
 		}
 		if (password !== confirmPassword) {
@@ -60,7 +71,7 @@ export default function LoginPage({}) {
 		setLoading(false);
 		setSuccess(true);
 		resetForm();
-	}
+	};
 
 	return (
 		<Layout color="rainbow">
@@ -90,32 +101,34 @@ export default function LoginPage({}) {
 							</video>
 						</div>
 						<div className="flex justify-center items-center">
-							<form className="w-[90%] md:w-[80%] bg-white shadow-md rounded pt-6 px-8 mb-2 md:mb-8 pb-8" onSubmit={handleRegister}>
+							<form
+								className="w-[90%] md:w-[80%] bg-white shadow-md rounded pt-6 px-8 mb-2 md:mb-8 pb-8"
+								onSubmit={handleRegister}
+							>
 								<div className="mb-4">
 									<h2>Register</h2>
 								</div>
-								{
-									verification === "failed" && (
-										<div className="mb-4">
-											<p className="text-red">Something went wrong when verifying your email. Please try again.</p>
-										</div>
-									)
-								}
-								{
-									error && (
-										<div className="mb-4">
-											<p className="text-red">{error}</p>
-										</div>
-									)
-								}
-								{
-									success && (
-										<div className="mb-4">
-											<p className="text-green">Thanks for signing up! Please check your email for verification instructions.</p>
-										</div>
-									)
-								}
-                                <div className="mb-4">
+								{verification === "failed" && (
+									<div className="mb-4">
+										<p className="text-red">
+											Something went wrong when verifying your email. Please try again.
+										</p>
+									</div>
+								)}
+								{error && (
+									<div className="mb-4">
+										<p className="text-red">{error}</p>
+									</div>
+								)}
+								{success && (
+									<div className="mb-4">
+										<p className="text-green">
+											Thanks for signing up! Please check your email for verification
+											instructions.
+										</p>
+									</div>
+								)}
+								<div className="mb-4">
 									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
 										First Name*
 									</label>
@@ -126,7 +139,6 @@ export default function LoginPage({}) {
 										placeholder="Jane"
 										value={firstName}
 										onChange={(e) => setFirstName(e.target.value)}
-										required
 									/>
 								</div>
 								<div className="mb-4">
@@ -140,7 +152,6 @@ export default function LoginPage({}) {
 										placeholder="Doe"
 										value={lastName}
 										onChange={(e) => setLastName(e.target.value)}
-										required
 									/>
 								</div>
 								<div className="mb-4">
@@ -150,11 +161,10 @@ export default function LoginPage({}) {
 									<input
 										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 										id="email"
-										type="text"
+										type="email"
 										placeholder="janedoe@gmail.com"
 										value={email}
 										onChange={(e) => setEmail(e.target.value)}
-										required
 									/>
 								</div>
 								<div>
@@ -168,13 +178,15 @@ export default function LoginPage({}) {
 										placeholder="******************"
 										value={password}
 										onChange={(e) => setPassword(e.target.value)}
-										required
 									/>
 									{/* The following is the error side. */}
 									{/* <p className="text-red-500 text-xs italic">Enter your password here</p> */}
 								</div>
-                                <div className="mb-4 md:mb-6">
-									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirm-password">
+								<div className="mb-4 md:mb-6">
+									<label
+										className="block text-gray-700 text-sm font-bold mb-2"
+										htmlFor="confirm-password"
+									>
 										Confirm Password*
 									</label>
 									<input
@@ -183,25 +195,22 @@ export default function LoginPage({}) {
 										type="password"
 										placeholder="******************"
 										value={confirmPassword}
-										onChange={(e) => setConfirmPassword(e.target.value)}	
-										required
+										onChange={(e) => setConfirmPassword(e.target.value)}
 									/>
 									{/* The following is the error side. */}
 									{/* <p className="text-red-500 text-xs italic">Enter your password here</p> */}
 								</div>
 								<div className="md:flex md:items-center md:justify-between justify-items-center">
-									{
-										loading ? (
-											<Image src="/loading.svg" width={40} height={40} alt="loading" />
-										) : (
-											<button
-												className="bg-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto md:mx-0"
-										type="submit"
-											>
-												Sign Up
-											</button>
-										)
-									}
+									{loading ? (
+										<Image src="/loading.svg" width={40} height={40} alt="loading" />
+									) : (
+										<button
+											className="bg-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto md:mx-0"
+											type="submit"
+										>
+											Sign Up
+										</button>
+									)}
 									<div className="md:flex md:items-center md:justify-between md:gap-3 mt-4">
 										<div className="text-center">
 											<a
@@ -211,7 +220,7 @@ export default function LoginPage({}) {
 												Login
 											</a>
 										</div>
-										<div  className="text-center">
+										<div className="text-center">
 											<a
 												className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
 												href="#"
