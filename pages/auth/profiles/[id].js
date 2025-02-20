@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Layout from "components/Layout";
+import DOMPurify from "isomorphic-dompurify";
 
 // Fetch single profile
 import { getProfileById } from "integrations/directus"; 
@@ -17,7 +18,6 @@ export async function getServerSideProps({ params }) {
   };
 }
 
-
 // TODO: this page could be made better, it is barebones for now. I think we have existing designs that we can put here
 export default function ProfileDetails({ profile }) {
   const router = useRouter();
@@ -29,6 +29,11 @@ export default function ProfileDetails({ profile }) {
 
   const avatarId = profile[0].profile_picture;
   const avatarURL = avatarId ? `${directusURL}/assets/${avatarId}` : null;
+
+  const cleanBio = DOMPurify.sanitize(profile[0].bio, {
+    FORBID_ATTR: ['style'],
+    ALLOWED_TAGS: ['p', 'b', 'i', 'em', 'strong', 'a', 'ul', 'ol', 'li']
+  });
 
   return (
     <Layout color="rainbow">
@@ -51,8 +56,10 @@ export default function ProfileDetails({ profile }) {
           {/* Name */}
           <h1 className="text-2xl font-bold text-center">{profile[0].name}</h1>
           {/* City & Bio */}
-          <p className="text-gray-600 text-center mt-2">{profile[0].city}</p>
-          <p className="text-gray-700 mt-4">{profile[0].bio}</p>
+          <div
+          className="mb-2 text-gray-700"
+          dangerouslySetInnerHTML={{ __html: cleanBio }}
+          />
           {/* Verified Badge */}
           {profile[0].is_verified && (
             <div className="mt-4 flex justify-center">

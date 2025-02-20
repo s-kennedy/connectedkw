@@ -621,17 +621,25 @@ const verifyEmail = async (token) => {
   }
 }
 const getProfiles = async (skillID = -1) => {
+  
   try {
     //Changed this filter to reference the SKILL ID insteadf of the ID in the junction table
     const filters = (skillID != -1)
   ? {
+      status: {
+        _eq: 'public'
+      },
       skills: {
         skills_id: {
           id: { _eq: skillID }
         }
       }
     }
-  : {};
+  : {
+    status: {
+    _eq: 'public'
+    },
+  };
 
     const result = await directus.request(
       readItems("profiles", {
