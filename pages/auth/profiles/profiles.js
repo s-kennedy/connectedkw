@@ -14,6 +14,8 @@ export async function getServerSideProps(context) {
 	const profilesResponse = await getProfiles(skillFilter); // Fetch profiles based on skill ID
 	const profiles = profilesResponse.data || profilesResponse;
 
+	//Keeping this for now, but theoretically we don't need to make this call and could instead pull the skills from the profilesResponse
+	//This would be better long term because then we only show skills that are actually in use on the profiles
 	const skillsResponse = await getProfileSkills();
 	const skills = skillsResponse.data || skillsResponse;
 
@@ -100,14 +102,12 @@ export default function ProfilePage({ profiles, skills }) {
 					ALLOWED_TAGS: ['p', 'b', 'i', 'em', 'strong', 'a', 'ul', 'ol', 'li']
 				});
   
-				// Map skill IDs to their actual names
+				// Skill relations are now taken from the expanded profile object
 				const profileSkillNames = profile.skills
-				  ? profile.skills
-					  .map((skillId) => {
-						const skillObj = skills.find((s) => s.id === skillId);
-						return skillObj ? skillObj.name : null;
-					  })
-					  .filter(Boolean)
+				  ? profile.skills.map(skillRelation => ({
+					  id: skillRelation.skills_id.id,
+					  name: skillRelation.skills_id.name
+					}))
 				  : [];
   
 				return (
@@ -160,7 +160,7 @@ export default function ProfilePage({ profiles, skills }) {
 								style={{ backgroundColor: getRandomColor() }}
 								className="inline-flex items-center text-white px-2 py-1 text-xs font-semibold rounded-full"
 							  >
-								{skillName}
+								{skillName.name}
 							  </span>
 							))
 						  ) : (

@@ -622,13 +622,16 @@ const verifyEmail = async (token) => {
 }
 const getProfiles = async (skillID = -1) => {
   try {
+    //Changed this filter to reference the SKILL ID insteadf of the ID in the junction table
     const filters = (skillID != -1)
-      ? {
-          skills: {
-            id: { _eq: skillID } 
-          }
+  ? {
+      skills: {
+        skills_id: {
+          id: { _eq: skillID }
         }
-      : {}; 
+      }
+    }
+  : {};
 
     const result = await directus.request(
       readItems("profiles", {
@@ -646,7 +649,7 @@ const getProfiles = async (skillID = -1) => {
           "preferred_contact_method",
           "status",
           "user_created",
-          "skills"
+          "skills.*.*"
         ],
         filter: filters,
         sort: ["id"],
