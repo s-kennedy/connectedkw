@@ -95,7 +95,10 @@ export default function ProfilePage({ profiles, skills }) {
 				const avatarURL = avatarId ? `${directusURL}/assets/${avatarId}` : null;
 
 				// the bio returns HTML - this is just a safety so people can't inject scripts with their bio
-				const cleanBio = DOMPurify.sanitize(profile.bio);
+				const cleanBio = DOMPurify.sanitize(profile.bio, {
+					FORBID_ATTR: ['style'],
+					ALLOWED_TAGS: ['p', 'b', 'i', 'em', 'strong', 'a', 'ul', 'ol', 'li']
+				});
   
 				// Map skill IDs to their actual names
 				const profileSkillNames = profile.skills
