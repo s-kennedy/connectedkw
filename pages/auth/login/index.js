@@ -17,7 +17,6 @@ export default function LoginPage() {
 		const email = e.target.email.value;
 		const password = e.target.password.value;
 
-		// TODO: write this API endpoint 
 		const result = await fetch("/api/login", {
 			method: "POST",
 			body: JSON.stringify({ email, password }),

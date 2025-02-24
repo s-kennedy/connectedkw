@@ -38,11 +38,7 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
   const [selectedFilters, setSelectedFilters] = useState(emptyFilters)
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [featured, setFeatured] = useState(false)
-<<<<<<< HEAD
-  const [view, setView] = useState(fullConfig.default_display)
-=======
   const [view, setView] = useState(fullConfig.defaultView || "calendar")
->>>>>>> main
 
   const toggleView = (newView) => () => {
     setView(newView)
