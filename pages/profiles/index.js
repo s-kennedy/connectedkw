@@ -81,7 +81,7 @@ export default function ProfilePage({ profiles, skills }) {
     setSelected(skillId);
     // Update the URL without reloading
     router.push({
-      pathname: "/auth/profiles/profiles",
+      pathname: "/profiles",
       query: { skillId },
     });
   };
@@ -89,7 +89,7 @@ export default function ProfilePage({ profiles, skills }) {
   return (
     <Layout color="rainbow">
       	<section className="bg-slate-100 md:py-12 pt-12 pb-12 w-full">
-			<h1 className="text-3xl font-bold mb-8 text-center">Profiles</h1>
+			<h1 className="text-3xl font-bold mb-8 text-center">Volunteer Directory</h1>
 
 			<div className="mb-4 flex justify-center">
 				<select
@@ -135,7 +135,7 @@ export default function ProfilePage({ profiles, skills }) {
 								return (
 									<Link
 										key={profile.id}
-										href={`/auth/profiles/${profile.id}`} 
+										href={`/profiles/${profile.id}`} 
 										className="block no-underline"
 									>
 									<div className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer">
