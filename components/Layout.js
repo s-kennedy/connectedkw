@@ -105,10 +105,10 @@ const Layout = ({
               </Link>
             </nav>
             <nav>
-              <a href="https://buy.stripe.com/cN24hE161goQcZa8wx" target="_blank" className="text-black no-underline font-medium" rel="noreferrer">
-                Support us                
-                <i className={`ml-1 fa-solid fa-circle-dollar-to-slot hidden sm:inline`}></i>
-              </a>
+              <Link href="/profiles" className={`pb-1 text-black no-underline font-medium ${router.pathname.startsWith(`/auth/login`) ? 'border-b-2 border-red' : ''}`}>
+                <span>{`Directory`}</span>
+                <i className={`ml-1 fa-solid fa-user hidden sm:inline`}></i>
+              </Link>
             </nav>
           </div>
         </div>
