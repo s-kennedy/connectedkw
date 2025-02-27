@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Layout from "components/Layout";
-import { useState } from "react";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import Link from "next/link";
+import Layout from "components/Layout";
 
 export default function LoginPage({}) {
 	const [firstName, setFirstName] = useState("");
@@ -213,20 +214,20 @@ export default function LoginPage({}) {
 									)}
 									<div className="md:flex md:items-center md:justify-between md:gap-3 mt-4">
 										<div className="text-center">
-											<a
+											<Link
 												className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
 												href="/auth/login"
 											>
 												Login
-											</a>
+											</Link>
 										</div>
 										<div className="text-center">
-											<a
+											<Link
 												className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
 												href="#"
 											>
 												Forgot Password?
-											</a>
+											</Link>
 										</div>
 									</div>
 								</div>

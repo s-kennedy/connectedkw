@@ -65,18 +65,18 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
 
   const filterEvents = () => {
     setLoading(true)
-    let filteredEvents = events;
+    let newFilteredEvents = events;
 
     filters.forEach(filter => {
       switch (filter.type) {
       case "boolean":
         if (selectedFilters[filter.id] === true) {
-          filteredEvents = filteredEvents.filter(event => filter.attributeFn(event) === true) 
+          newFilteredEvents = newFilteredEvents.filter(event => filter.attributeFn(event) === true) 
         }
         break;
       case "select-multiple":
         if (Boolean(selectedFilters[filter.id]?.length)) {
-          filteredEvents = filteredEvents.filter(event => {
+          newFilteredEvents = newFilteredEvents.filter(event => {
             const attributeIds = filter.attributeFn(event)
             const selectedFilterIds = selectedFilters[filter.id]
             const matches = selectedFilterIds.map(id => attributeIds.includes(id))
@@ -89,7 +89,7 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
       }
     })
 
-    setFilteredEvents(filteredEvents)
+    setFilteredEvents(newFilteredEvents)
     setLoading(false)
   }
 
@@ -99,12 +99,12 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
 
   const toggleFn = (filter, value) => {
     switch (filter.type) {
-      case "select-multiple":
+      case "select-multiple": {
         const alreadySelected = selectedFilters[filter.id].includes(value)
 
         if (alreadySelected) {
           // unselect tag
-          const optionRemoved = selectedFilters[filter.id].filter(f => f != value)
+          const optionRemoved = selectedFilters[filter.id].filter(f => f !== value)
           setSelectedFilters({ ...selectedFilters, [filter.id]: optionRemoved })
         } else {
           // add tag
@@ -112,9 +112,14 @@ const Collection = ({ title="Events", events=[], filters=[], loading, config={},
           setSelectedFilters({ ...selectedFilters, [filter.id]: optionAdded })
         }
         break;
-      case "boolean":
+      }
+      case "boolean": {
         const newValue = !selectedFilters[filter.id]
         setSelectedFilters({ ...selectedFilters, [filter.id]: newValue })
+        break;
+      }
+      default:
+        break;
     }
   }
 
