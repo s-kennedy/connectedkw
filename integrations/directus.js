@@ -748,5 +748,5 @@ export {
   verifyEmail,
   getProfiles,
   getProfileSkills,
-  getProfileById
+  //getProfileById
 };
