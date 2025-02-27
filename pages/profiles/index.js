@@ -13,7 +13,7 @@ export async function getServerSideProps(context) {
   const { skillId } = context.query;
   const skillFilter = skillId ? parseInt(skillId, 10) : -1; // Default to -1 for all profiles
 
-  const profilesResponse = await getProfiles(skillFilter); // Fetch profiles based on skill ID
+  const profilesResponse = await getProfiles({skillID: skillFilter}); // Fetch profiles based on skill ID
   const profiles = profilesResponse.data || profilesResponse;
 
 	//Keeping this for now, but theoretically we don't need to make this call and could instead pull the skills from the profilesResponse

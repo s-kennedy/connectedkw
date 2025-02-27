@@ -620,26 +620,23 @@ const verifyEmail = async (token) => {
     return error
   }
 }
-const getProfiles = async (skillID = -1) => {
+const getProfiles = async ({skillID = -1, profileID = -1}) => {
   
   try {
     //Changed this filter to reference the SKILL ID insteadf of the ID in the junction table
-    const filters = (skillID != -1)
-  ? {
-      status: {
-        _eq: 'public'
-      },
-      skills: {
-        skills_id: {
-          id: { _eq: skillID }
+    const filters = {
+      status: { _eq: 'public' },
+      ...(skillID != -1 && {
+        skills: {
+          skills_id: {
+            id: { _eq: skillID }
+          }
         }
-      }
-    }
-  : {
-    status: {
-    _eq: 'public'
-    },
-  };
+      }),
+      ...(profileID != -1 && {
+        id: { _eq: profileID }
+      })
+    };
 
     const result = await directus.request(
       readItems("profiles", {
@@ -691,41 +688,41 @@ const getProfileSkills = async () => {
   }
 }
 
-// this can probably be merged into getProfile with an optional parameter
-const getProfileById = async (profileID) => {
-  try {
+// // this can probably be merged into getProfile with an optional parameter
+// const getProfileById = async (profileID) => {
+//   try {
 
-    const result = await directus.request(
-      readItems("profiles", {
-        fields: [
-          "id",
-          "city",
-          "is_visible",
-          "is_verified",
-          "name",
-          "headline",
-          "bio",
-          "interests",
-          "experiences",
-          "profile_picture",
-          "preferred_contact_method",
-          "status",
-          "user_created",
-          "skills"
-        ],
-        filter: {id: {_eq: profileID}},
-        sort: ["id"],
-        limit: -1,
-      })
-    );
+//     const result = await directus.request(
+//       readItems("profiles", {
+//         fields: [
+//           "id",
+//           "city",
+//           "is_visible",
+//           "is_verified",
+//           "name",
+//           "headline",
+//           "bio",
+//           "interests",
+//           "experiences",
+//           "profile_picture",
+//           "preferred_contact_method",
+//           "status",
+//           "user_created",
+//           "skills"
+//         ],
+//         filter: {id: {_eq: profileID}},
+//         sort: ["id"],
+//         limit: -1,
+//       })
+//     );
 
-    //console.log(result);
-    return result.data || result;
-  } catch (error) {
-    console.error("Error fetching profiles:", error);
-    return [];
-  }
-};
+//     //console.log(result);
+//     return result.data || result;
+//   } catch (error) {
+//     console.error("Error fetching profiles:", error);
+//     return [];
+//   }
+// };
 
 export { 
   getEvents,
@@ -751,5 +748,5 @@ export {
   verifyEmail,
   getProfiles,
   getProfileSkills,
-  getProfileById
+  //getProfileById
 };
