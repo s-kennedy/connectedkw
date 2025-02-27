@@ -83,14 +83,17 @@ export default function ProfileDetails({ profile }) {
 
 	return (
 		<Layout color="rainbow">
-			<section className="bg-slate-100 pb-12 w-full flex flex-col items-center">
-				<div className="p-8">
-					<button
-						onClick={() => router.push("/profiles")}
-						className="bg-white p-6 shadow hover:shadow-lg transition-shadow cursor-pointer w-12 h-12 flex items-center justify-center rounded-full"
-					>
-						<i className="fa-solid fa-arrow-left"></i>
-					</button>
+			<section className="bg-slate-100 pb-12 w-full flex flex-col">
+				<div className="grid grid-cols-12 w-full gap-5 px-2 my-5">
+					<div className="col-span-12 md:col-span-5 md:col-start-2 flex">
+						<button
+							onClick={() => router.push("/profiles")}
+							className="bg-white ml-2 p-4 shadow hover:shadow-lg transition-shadow cursor-pointer w-6 h-6 flex items-center justify-center rounded-lg"
+						>
+							<i className="fa-solid fa-arrow-left"></i>
+						</button>
+						<p className="p-1 ml-2">Back to all profiles</p>
+					</div>
 				</div>
 				{/* New one */}
 				<div className="grid grid-cols-12 w-full gap-5 px-4">
@@ -113,7 +116,10 @@ export default function ProfileDetails({ profile }) {
 
 							<p className="text-sm font-regular text-center mt-8">
 								{/* Change here to modify number of characters shown in bio */}
-								{sanitizedBio}
+								{DOMPurify.sanitize(profile[0].bio, {
+									FORBID_ATTR: ["style"],
+									ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
+								})}
 							</p>
 						</div>
 					</div>
@@ -121,13 +127,13 @@ export default function ProfileDetails({ profile }) {
 					<div className="col-span-12 md:col-span-5">
 						{profile[0].skills ? (
 							<div className="rounded-xl overflow-hidden shadow-lg bg-white p-5">
-								<h1 className="text-2xl font-semibold mb-1 text-red">Skills</h1>
+								<h1 className="text-2xl font-semibold mb-3 text-red">Skills</h1>
 								{profileSkillNames.length > 0 ? (
 									profileSkillNames.map((skillName, index) => (
 										<span
 											key={index}
 											style={{ backgroundColor: getRandomColor(skillName.name) }}
-											className="inline-flex items-center text-white px-2 py-1 text-xs font-semibold rounded-full"
+											className="inline-flex items-center text-white px-2 py-1 text-xs font-semibold rounded-full mr-2 mb-1"
 										>
 											{skillName.name}
 										</span>
@@ -141,7 +147,10 @@ export default function ProfileDetails({ profile }) {
 						{profile[0].interests ? (
 							<div className="rounded-xl overflow-hidden shadow-lg bg-white p-5 mt-4">
 								<h1 className="text-2xl font-semibold mb-1 text-red">Interests</h1>
-								<p className="text-sm font-regular text-gray-600">{profile[0].interests}</p>
+								<p className="text-sm font-regular text-gray-600">{DOMPurify.sanitize(profile[0].interests, {
+									FORBID_ATTR: ["style"],
+									ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
+								})}</p>
 							</div>
 						) : null}
 						{profile[0].experiences ? (
@@ -153,8 +162,6 @@ export default function ProfileDetails({ profile }) {
 					</div>
 				</div>
 			</section>
-
-			
 		</Layout>
 	);
 }
