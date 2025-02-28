@@ -657,7 +657,7 @@ const getProfiles = async ({skillID = -1, profileID = -1}) => {
           "skills.*.*"
         ],
         filter: filters,
-        sort: ["id"],
+        sort: ["name"],
         limit: -1,
       })
     );
