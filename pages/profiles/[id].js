@@ -114,13 +114,12 @@ export default function ProfileDetails({ profile }) {
 									: profile[0].headline}
 							</p>
 
-							<p className="text-sm font-regular text-center mt-8">
-								{/* Change here to modify number of characters shown in bio */}
-								{DOMPurify.sanitize(profile[0].bio, {
-									FORBID_ATTR: ["style"],
-									ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
-								})}
-							</p>
+              <div className="text-sm font-regular text-center mt-8" dangerouslySetInnerHTML={{
+									__html: DOMPurify.sanitize(profile[0].bio, {
+										FORBID_ATTR: ["style"],
+										ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
+									})
+							}} />
 						</div>
 					</div>
 
@@ -147,16 +146,23 @@ export default function ProfileDetails({ profile }) {
 						{profile[0].interests ? (
 							<div className="rounded-xl overflow-hidden shadow-lg bg-white p-5 mt-4">
 								<h1 className="text-2xl font-semibold mb-1 text-red">Interests</h1>
-								<p className="text-sm font-regular text-gray-600">{DOMPurify.sanitize(profile[0].interests, {
-									FORBID_ATTR: ["style"],
-									ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
-								})}</p>
+								<div className="text-sm font-regular text-gray-600" dangerouslySetInnerHTML={{
+									__html: DOMPurify.sanitize(profile[0].interests, {
+										FORBID_ATTR: ["style"],
+										ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
+									})
+								}} />
 							</div>
 						) : null}
 						{profile[0].experiences ? (
 							<div className="rounded-xl overflow-hidden shadow-lg bg-white p-5 mt-4">
 								<h1 className="text-2xl font-semibold mb-1 text-red">Experiences</h1>
-								<p className="text-sm font-regular text-gray-600">{profile[0].experiences}</p>
+								<div className="text-sm font-regular text-gray-600 markdown" dangerouslySetInnerHTML={{
+									__html: DOMPurify.sanitize(profile[0].experiences, {
+										FORBID_ATTR: ["style"],
+										ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
+									})
+								}} />
 							</div>
 						) : null}
 					</div>

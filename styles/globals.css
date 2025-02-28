@@ -326,12 +326,13 @@ article ul {
 }
 
 .markdown ul {
-  list-style: inside;
+  list-style: disc;
   margin-bottom: 1rem;
 }
 
 .markdown ul li {
   margin-left: 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .article iframe {

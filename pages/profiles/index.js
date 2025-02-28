@@ -89,8 +89,10 @@ export default function ProfilePage({ profiles, skills }) {
   return (
     <Layout color="rainbow">
       	<section className="bg-slate-100 md:py-12 pt-12 pb-12 w-full">
-			<h1 className="text-3xl font-bold mb-8 text-center">Volunteer Directory</h1>
-
+			<h1 className="text-3xl font-bold mb-2 text-center">Volunteer Directory</h1>
+			<p className="text-center text-gray-600 mb-6">
+				Meet the skilled volunteers of <a href="https://civictechwr.org" target="_blank" rel="noopener noreferrer">Civic Tech WR</a>
+			</p>
 			<div className="mb-4 flex justify-center">
 				<select
 					value={selected}
@@ -158,7 +160,7 @@ export default function ProfilePage({ profiles, skills }) {
 												<span className="text-gray-500 text-xs">
 													{profile.city || "No City Listed"}
 												</span>
-												<span className="text-gray-500 text-xs">•</span>
+												{/* <span className="text-gray-500 text-xs">•</span>
 												{profile.is_verified ? (
 													<span className="text-gray-500 text-xs">
 													Verified
@@ -167,7 +169,7 @@ export default function ProfilePage({ profiles, skills }) {
 													<span className="text-gray-500 text-xs">
 													Not Verified
 													</span>
-												)}
+												)} */}
 												</div>
 											</div>
 										</div>

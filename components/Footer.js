@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="md:grid grid-cols-2 md:gap-24">
             <div className="mb-4 basis-1/2">
               <p className="font-body font-medium text-xl md:text-lg ">About Connected KW</p>
-              <p className="">Connected KW is a volunteer-run project with the goal of creating an inclusive and comprehensive resource for families in Waterloo Region.</p>
+              <p className="">Connected KW is a volunteer-run project with the goal of creating an inclusive and comprehensive resource for residents of KW.</p>
               <p className="">If your organization might be interested in a partnership please <a href="mailto:shay@connectedkw.com" className="hover:text-red">reach out!</a></p>
               <a
                 href="https://instagram.com/connectedkw"

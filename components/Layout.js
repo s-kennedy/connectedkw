@@ -89,7 +89,7 @@ const Layout = ({
             <Image src="/icon-03.svg" height="80" width="80" alt="Connected KW" />
           </Link>
           <p className="hidden lg:block mb-0">
-            A community-based resource for families in KW
+            A community-based resource for all things KW
           </p>
           <div className="flex gap-4 lg:gap-6 items-center">
             <nav>
@@ -105,7 +105,7 @@ const Layout = ({
               </Link>
             </nav>
             <nav>
-              <Link href="/profiles" className={`pb-1 text-black no-underline font-medium ${router.pathname.startsWith(`/auth/login`) ? 'border-b-2 border-red' : ''}`}>
+              <Link href="/profiles" className={`pb-1 text-black no-underline font-medium ${router.pathname.startsWith(`/profiles`) ? 'border-b-2 border-red' : ''}`}>
                 <span>{`Directory`}</span>
                 <i className={`ml-1 fa-solid fa-user hidden sm:inline`}></i>
               </Link>
